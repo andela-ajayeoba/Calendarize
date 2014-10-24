@@ -65,9 +65,6 @@ body {
     color: #000;
     font-size: 4rem;
 }
-.header h1 a:hover {
-text-decoration: none;
-}
 .header ul li a:hover {
     color: #2A6496;
     text-decoration: none;
