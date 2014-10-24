@@ -1,3 +1,5 @@
+/*@import url(http://fonts.googleapis.com/css?family=Oswald:400,300);
+*/
 .content {
 	margin-top: 50px;
 }
@@ -12,4 +14,65 @@
 }
 .ng-valid.ng-dirty{
     border-color:#78FA89;
+}
+.intro{
+	margin-top: 20px;
+}
+.leadingIntro{
+	font-family: 'Oswald', sans-serif !important; 
+	font-size: 40px;
+	line-height: 1.5;
+	font-weight:300;
+	margin-bottom: 15px;
+
+}
+.introStyle{
+	color: #62afd2;
+}
+.questions{
+	margin: 40px 0 40px;
+}
+
+.questionTxt{
+	font-size: 17px;
+}
+.description{
+	background: #f9f9f9;
+	padding: 50px 0 35px;
+	font-size: 17px;
+}
+
+.screenshots {
+	margin: 42px 0 0;
+	font-size: 14px;
+	line-height: 22px;
+	text-align: center;
+	color: #6f6f6f;
+	border-bottom: 1px dotted #e5e5e5;
+}
+.imgxt{
+	line-height: 22px;
+	text-align: center;
+	margin-bottom: 15px;
+}
+.projectpuzzle{
+	width:1000px;
+	margin: 0 auto;
+}
+
+.plan{
+	width:30%;
+	background: #e7f4fa;
+	text-align: center;
+	padding: 30px 0 15px;
+	margin-right: 3%;
+	/*margin-left: 0;*/
+}
+
+.pricing{
+	padding: 30px 0;
+	border-bottom: 1px dotted #e5e5e5;
+}
+.trial{
+	margin: 40px 0 20px;
 }
