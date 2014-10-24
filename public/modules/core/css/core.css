@@ -13,3 +13,121 @@
 .ng-valid.ng-dirty{
     border-color:#78FA89;
 }
+.container_12 .grid_12 {
+    width: 940px;
+    display: inline;
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.header {
+    border-bottom: 1px dotted #D8D8D8;
+    margin-bottom: 44px;
+}
+div{
+margin: 0px;
+padding: 0px;
+border: 0px none;
+outline: 0px none;
+font-size: 100%;
+vertical-align: baseline;
+background: none repeat scroll 0% 0% transparent;
+}
+.header h1 {
+    margin: 18px 0px;
+    float: left;
+}
+h1{
+    margin-bottom: 15px;
+    font-weight: 500;
+	margin: 0px;
+	padding: 0px;
+	border: 0px none;
+	outline: 0px none;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: none repeat scroll 0% 0% transparent;
+}
+.nav-bg{
+	background-color: #fff;
+}
+body {
+    color: #333;
+    font-family: "Helvetica Neue","helvetica",Arial,sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.header h1 a {
+    
+    width: 246px;
+    height: 58px;
+    color: #000;
+    font-size: 4rem;
+}
+.header h1 a:hover {
+text-decoration: none;
+}
+.header ul li a:hover {
+    color: #2A6496;
+    text-decoration: none;
+}
+
+a {
+    color: #FF654C;
+    padding: 0px;
+    border: 0px none;
+    outline: 0px none;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: none repeat scroll 0% 0% transparent;
+    margin: 0px;
+}
+.header ul {
+    margin: 40px 0px 0px;
+    float: right;
+    padding-top: 0px;
+}
+.header ul li {
+    font-weight: 500;
+    display: inline;
+    float: left;
+    margin-left: 40px;
+}
+.header ul li a {
+	color: #FF654C;
+    padding: 0px;
+    border: 0px none;
+    outline: 0px none;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: none repeat scroll 0% 0% transparent;
+    margin: 0px;
+    font-size: 15px;
+	line-height: 30px;
+	text-decoration: none;
+	color: #333;
+	display: block;
+}
+.button, .header li a {
+    transition: all 0.1s ease-in-out 0s;
+}
+.button.free-trial {
+    background: none repeat scroll 0% 0% #FF654C;
+    color: #FFF;
+}
+.button.free-trial:hover {
+    color: #FFF;
+	background: #FF344C;
+}
+.button {
+    border-radius: 2px;
+    text-decoration: none;
+    display: block;
+    border: medium none;
+    cursor: pointer;
+}
+.header ul li.free-trial a {
+    padding: 0px 10px;
+}
+
