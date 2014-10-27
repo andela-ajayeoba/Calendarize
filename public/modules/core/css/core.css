@@ -15,15 +15,15 @@
 .ng-valid.ng-dirty{
     border-color:#78FA89;
 }
-<<<<<<< HEAD
+
 .intro{
-	margin-top: 20px;
+	margin-top: 60px;
 }
 .leadingIntro{
 	font-family: 'Oswald', sans-serif !important; 
 	font-size: 40px;
 	line-height: 1.5;
-	font-weight:300;
+	font-weight: 300;
 	margin-bottom: 15px;
 
 }
@@ -70,14 +70,14 @@
 	/*margin-left: 0;*/
 }
 
-.pricing{
+.pricing  {
 	padding: 30px 0;
 	border-bottom: 1px dotted #e5e5e5;
 }
 .trial{
 	margin: 40px 0 20px;
 }
-=======
+
 .container_12 .grid_12 {
     width: 940px;
     display: inline;
@@ -86,17 +86,20 @@
 	margin-right: 10px;
 }
 .header {
+	width:1000px;
+	margin: 0 auto;
     border-bottom: 1px dotted #D8D8D8;
     margin-bottom: 44px;
 }
-div{
-margin: 0px;
-padding: 0px;
-border: 0px none;
-outline: 0px none;
-font-size: 100%;
-vertical-align: baseline;
-background: none repeat scroll 0% 0% transparent;
+
+div {
+	margin: 0px;
+	padding: 0px;
+	border: 0px none;
+	outline: 0px none;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: none repeat scroll 0% 0% transparent;
 }
 .header h1 {
     margin: 18px 0px;
@@ -193,4 +196,3 @@ a {
     padding: 0px 10px;
 }
 
->>>>>>> a2172ffc501ee4ab18352257909fe091cd6d4ded
