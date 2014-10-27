@@ -17,7 +17,9 @@
 }
 
 .intro{
-	margin-top: 60px;
+	width: 940px;
+	margin-right: auto;
+	margin-left: auto;
 }
 .leadingIntro{
 	font-family: 'Oswald', sans-serif !important; 
@@ -32,19 +34,30 @@
 }
 .questions{
 	margin: 40px 0 40px;
+	width: 980px;
 }
 
 .questionTxt{
 	font-size: 17px;
 }
 .description{
+	width: 980px;
 	background: #f9f9f9;
 	padding: 50px 0 35px;
 	font-size: 17px;
 }
-
+.alpha {
+	padding-left: 0;
+	margin-left: -18px;
+}
+.omega {
+	margin-left: 10px;
+	padding-right: 25px;
+}
 .screenshots {
 	margin: 42px 0 0;
+	padding-left: 0;
+	padding-right: 0;
 	font-size: 14px;
 	line-height: 22px;
 	text-align: center;
@@ -78,17 +91,22 @@
 	margin: 40px 0 20px;
 }
 
-.container_12 .grid_12 {
-    width: 940px;
+.grid_12 {
     display: inline;
 	float: left;
-	margin-left: 10px;
-	margin-right: 10px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .header {
-	width:1000px;
+	width:940px;
 	margin: 0 auto;
-    border-bottom: 1px dotted #D8D8D8;
+    border-bottom: 1px dotted rgb(216, 216, 216);
+}
+.container_12 {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+ 	border-bottom: 1px dotted rgb(216, 216, 216);
     margin-bottom: 44px;
 }
 
@@ -164,7 +182,6 @@ a {
     padding: 0;
     border: 0 none;
     outline: 0 none;
-    font-size: 100%;
     vertical-align: baseline;
     background: none repeat scroll 0% 0% transparent;
     margin: 0;
