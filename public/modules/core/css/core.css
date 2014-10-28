@@ -46,23 +46,36 @@
 	padding: 50px 0 35px;
 	font-size: 17px;
 }
-.alpha {
+.clear {
+clear: both;
+display: block;
+overflow: hidden;
+visibility: hidden;
+width: 0;
+height: 0;
+}
+/*.alpha {
 	padding-left: 0;
-	margin-left: -18px;
+	margin-left: -28px;
 }
 .omega {
 	margin-left: 10px;
 	padding-right: 25px;
-}
+}*/
 .screenshots {
-	margin: 42px 0 0;
+	width: 1020px;
+	margin: 42px -30px 0;
 	padding-left: 0;
 	padding-right: 0;
 	font-size: 14px;
 	line-height: 22px;
 	text-align: center;
 	color: #6f6f6f;
-	border-bottom: 1px dotted #e5e5e5;
+}
+.plan_pricing{
+	border-top: 1px dotted #e5e5e5;
+	width: 940px;
+}
 }
 .imgxt{
 	line-height: 22px;
