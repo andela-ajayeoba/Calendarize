@@ -22,7 +22,7 @@
 	margin-left: auto;
 }
 .leadingIntro{
-	font-family: 'Oswald', sans-serif !important; 
+	font-family: 'Oswald', impact, sans-serif !important; 
 	font-size: 40px;
 	line-height: 1.5;
 	font-weight: 300;
@@ -92,16 +92,17 @@
 }
 
 .grid_12 {
-    display: inline;
 	float: left;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .header {
 	width:940px;
 	margin: 0 auto;
     border-bottom: 1px dotted rgb(216, 216, 216);
 }
+
 .container_12 {
 	margin-left: auto;
 	margin-right: auto;
@@ -114,16 +115,17 @@ div {
 	margin: 0;
 	padding: 0;
 	border: 0 none;
-	outline: 0;
 	font-size: 100%;
 	vertical-align: baseline;
-	background: none repeat scroll 0% 0% transparent;
+	background: none repeat scroll 0 0 transparent;
 }
+
 .header h1 {
     margin: 18px 0;
     float: left;
 }
-h1{
+
+h1 {
     margin-bottom: 15px;
     font-weight: 500;
 	margin: 0;
@@ -132,11 +134,13 @@ h1{
 	outline: 0 none;
 	font-size: 100%;
 	vertical-align: baseline;
-	background: none repeat scroll 0% 0% transparent;
+	background: none repeat scroll 0 0 transparent;
 }
-.nav-bg{
+
+.nav-bg {
 	background-color: #fff;
 }
+
 body {
     color: #333;
     font-family: "Helvetica Neue","helvetica",Arial,sans-serif;
@@ -151,10 +155,12 @@ body {
     color: #000;
     font-size: 4rem;
 }
+
 .header ul li a:hover {
     color: #2A6496;
     text-decoration: none;
 }
+
 
 a {
     color: #FF654C;
@@ -163,27 +169,28 @@ a {
     outline: 0 none;
     font-size: 100%;
     vertical-align: baseline;
-    background: none repeat scroll 0% 0% transparent;
-    margin: 0px;
+    background: none repeat scroll 0 0 transparent;
+    margin: 0;
 }
+
 .header ul {
-    margin: 40px 0px 0px;
+    margin: 40px 0 0;
     float: right;
     padding-top: 0;
 }
+
 .header ul li {
-    font-weight: 500;
-    display: inline;
+    font-weight:500;
+    list-style: none;
     float: left;
     margin-left: 40px;
 }
+
 .header ul li a {
-	color: #FF654C;
     padding: 0;
     border: 0 none;
     outline: 0 none;
-    vertical-align: baseline;
-    background: none repeat scroll 0% 0% transparent;
+    background: none repeat scroll 0 0 transparent;
     margin: 0;
     font-size: 15px;
 	line-height: 30px;
@@ -191,17 +198,21 @@ a {
 	color: #333;
 	display: block;
 }
+
 .button, .header li a {
     transition: all 0.1s ease-in-out 0s;
 }
+
 .button.free-trial {
-    background: none repeat scroll 0% 0% #FF654C;
+    background: none repeat scroll 0 0 #FF654C;
     color: #FFF;
 }
+
 .button.free-trial:hover {
     color: #FFF;
 	background: #FF344C;
 }
+
 .button {
     border-radius: 2px;
     text-decoration: none;
@@ -209,6 +220,7 @@ a {
     border: medium none;
     cursor: pointer;
 }
+
 .header ul li.free-trial a {
     padding: 0 10px;
 }
