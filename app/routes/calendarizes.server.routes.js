@@ -9,6 +9,10 @@ module.exports = function(app) {
 		.get(calendarizes.list)
 		.post(users.requiresLogin, calendarizes.create);
 
+	app.route('/projects')
+		.get(calendarizes.listProject)
+		.post(users.requiresLogin, calendarizes.createProject);
+
 	app.route('/calendarizes/:calendarizeId')
 		.get(calendarizes.read)
 		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.update)

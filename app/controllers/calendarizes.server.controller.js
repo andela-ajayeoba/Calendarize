@@ -6,6 +6,9 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Calendarize = mongoose.model('Calendarize'),
+	Project = mongoose.model('Project'),
+	Workers = mongoose.model('Workers'),
+	Assignment = mongoose.model('Assignment'),
 	_ = require('lodash');
 
 /**
@@ -102,4 +105,33 @@ exports.hasAuthorization = function(req, res, next) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
+};
+
+// Project Backend 
+
+exports.createProject = function(req, res) {
+	var project = new Project(req.body);
+	project.user = req.user;
+
+	project.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(project);
+		}
+	});
+};
+
+
+exports.listProject = function(req, res) { Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(projects);
+		}
+	});
 };
