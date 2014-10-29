@@ -31,9 +31,9 @@ module.exports = function(app) {
 		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateWorker)
 		.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.deleteWorker);
 
-	app.route('/workers/:workerId/assign')
-		.get(calendarizes.getWorkersProjects)
-		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateProjectWorkers);
+	// app.route('/workers/:workerId/assign')
+	// 	.get(calendarizes.getWorkersProjects)
+	// 	.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateProjectWorkers);
 	// app.route('/calendarizes/:calendarizeId')
 	// 	.get(calendarizes.read)
 	// 	.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.update)

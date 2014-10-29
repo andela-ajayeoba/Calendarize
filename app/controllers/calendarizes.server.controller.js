@@ -179,8 +179,13 @@ exports.deleteProject = function(req, res) {
 	});
 };
 
+/* UPDATE PROJECTS ARRAY */
+exports.updateProjectPeople = function(req, res) {
 
+	var people = req.worker;
 
+	console.log(req.project , people);
+};
 
 exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
 		if (err) return next(err);
