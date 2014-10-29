@@ -30,11 +30,11 @@ exports.forgot = function(req, res, next) {
 		function(token, done) {
 			if (req.body.username) {
 				User.findOne({
-					username: req.body.accountName
+					username: req.body.username
 				}, '-salt -password', function(err, user) {
 					if (!user) {
 						return res.status(400).send({
-							message: 'No account with that account name has been found'
+							message: 'No account with that username has been found'
 						});
 					} else if (user.provider !== 'local') {
 						return res.status(400).send({
@@ -51,13 +51,13 @@ exports.forgot = function(req, res, next) {
 				});
 			} else {
 				return res.status(400).send({
-					message: 'Account name field must not be blank'
+					message: 'Username field must not be blank'
 				});
 			}
 		},
 		function(token, user, done) {
 			res.render('templates/reset-password-email', {
-				name: user.accountName,
+				name: user.displayName,
 				appName: config.app.title,
 				url: 'http://' + req.headers.host + '/auth/reset/' + token
 			}, function(err, emailHTML) {
@@ -161,7 +161,7 @@ exports.reset = function(req, res, next) {
 		},
 		function(user, done) {
 			res.render('templates/reset-password-confirm-email', {
-				name: user.accountName,
+				name: user.displayName,
 				appName: config.app.title
 			}, function(err, emailHTML) {
 				done(err, emailHTML, user);

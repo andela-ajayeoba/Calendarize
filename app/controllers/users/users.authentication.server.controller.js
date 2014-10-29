@@ -22,7 +22,7 @@ exports.signup = function(req, res) {
 
 	// Add missing user fields
 	user.provider = 'local';
-	//user.displayName = user.firstName + ' ' + user.lastName;
+	user.displayName = user.firstName + ' ' + user.lastName;
 
 	// Then save the user 
 	user.save(function(err) {
@@ -125,12 +125,14 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 				return done(err);
 			} else {
 				if (!user) {
-					var possibleaccountName = providerUserProfile.accountName || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
 
-					User.findUniqueaccountName(possibleaccountName, null, function(availableaccountName) {
+					User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
 						user = new User({
-							accountName: availableaccountName,
-							name: providerUserProfile.lastName,
+							firstName: providerUserProfile.firstName,
+							lastName: providerUserProfile.lastName,
+							username: availableUsername,
+							displayName: providerUserProfile.displayName,
 							email: providerUserProfile.email,
 							provider: providerUserProfile.provider,
 							providerData: providerUserProfile.providerData
