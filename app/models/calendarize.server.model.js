@@ -35,7 +35,22 @@ var ProjectSchema = new Schema({
 		type: String,
 		required: 'Please fill in a Project Name',
 		trim: true
-	}
+	},
+
+	isactive: {
+		type: Boolean,
+		default: true
+	},
+
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+
+	people: [{
+		type: Schema.ObjectId,
+		ref: 'Workers'
+	}]
 });
 
 /**
@@ -57,9 +72,15 @@ var WorkersSchema = new Schema({
 		type: String,
 		trim: true
 	},
+
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+
+	isactive: {
+		type: Boolean,
+		default: true
 	}
 });
 
@@ -68,17 +89,28 @@ var WorkersSchema = new Schema({
  */
 
  var AssignmentSchema = new Schema ({
- 	Worker : {
+ 	
+ 	workers : {
  		type: Schema.ObjectId,
  		ref: 'Workers'
  	},
- 	projects: [{
- 		type: String, ref: 'Project'
- 	}]
+
+ 	projects:{
+ 		type: Schema.ObjectId,
+ 		ref: 'Project'
+ 	},
+
+	startDate:{
+		type: Date
+	},
+
+	endDate:{
+		type: Date
+	}
  });
 
 
-mongoose.model('Assignment', AssignmentSchema);
+// mongoose.model('Assignment', AssignmentSchema);
 mongoose.model('Workers', WorkersSchema);
 mongoose.model('Calendarize', CalendarizeSchema);
 mongoose.model('Project', ProjectSchema);
