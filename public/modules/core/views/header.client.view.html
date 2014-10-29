@@ -14,6 +14,9 @@
 
 			<a class="button free-trial" href="/#!/signup">Free trial</a>
 		</li>
+		<li ui-route="/auth/signout" ng-class="{active: $uiRoute}" ng-show="authentication.user"> 
+			<a href="/auth/signout">signout</a>
+		</li>
 	</ul>
 
 </div>

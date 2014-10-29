@@ -182,9 +182,27 @@ exports.deleteProject = function(req, res) {
 /* UPDATE PROJECTS ARRAY */
 exports.updateProjectPeople = function(req, res) {
 
-	var people = req.worker;
 
-	console.log(req.project , people);
+	var project = Project.findById(req.body.projectId).exec(function(err, project) {
+		if (err){
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+			else{
+				project.people.push(req.worker);
+				project.save(function(err) {
+					if (err) {
+							return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+				} else {
+						res.jsonp(project);
+					}
+				});
+			}
+		});
+	
 };
 
 exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
@@ -194,6 +212,12 @@ exports.projectByID = function(req, res, next, id) { Project.findById(id).popula
 		next();
 	});
 };
+
+/* GET WORKERS PROJECTS */
+// exports.getWorkerProjects = function(req, res){
+
+	
+// };
 
 /*****************************************
 	WORKERS CONTROLLER
@@ -279,6 +303,7 @@ exports.updateWorker = function(req, res) {
 /*****************************************/
 
 /* ASSIGNMENT */
+
 // exports.assignment = function(req, res){
 
 // 		var assignment = new Assignment(req.body);

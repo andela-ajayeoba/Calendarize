@@ -88,26 +88,26 @@ var WorkersSchema = new Schema({
  * Timeline Schema
  */
 
-//  var AssignmentSchema = new Schema ({
+ var AssignmentSchema = new Schema ({
  	
-//  	workers : {
-//  		type: Schema.ObjectId,
-//  		ref: 'Workers'
-//  	},
+ 	workers : {
+ 		type: Schema.ObjectId,
+ 		ref: 'Workers'
+ 	},
 
-//  	projects:{
-//  		type: Schema.ObjectId,
-//  		ref: 'Project'
-//  	},
+ 	projects:{
+ 		type: Schema.ObjectId,
+ 		ref: 'Project'
+ 	},
 
-// 	startDate:{
-// 		type: Date
-// 	},
+	startDate:{
+		type: Date
+	},
 
-// 	endDate:{
-// 		type: Date
-// 	}
-//  });
+	endDate:{
+		type: Date
+	}
+ });
 
 
 // mongoose.model('Assignment', AssignmentSchema);
