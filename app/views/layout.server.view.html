@@ -51,7 +51,7 @@
 			{% block content %}{% endblock %}
 		</section>
 	</section>
-
+	<footer data-ng-include="'/modules/core/views/footer.client.view.html'" class="navbar nav-bg" ></footer>
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
@@ -66,7 +66,6 @@
 	<script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
 
 	{% endif %}
-	<footer data-ng-include="'/modules/core/views/footer.client.view.html'" class="navbar nav-bg" ></footer>
 </body>
 
 </html>
