@@ -46,23 +46,29 @@
 	padding: 50px 0 35px;
 	font-size: 17px;
 }
-.alpha {
-	padding-left: 0;
-	margin-left: -18px;
-}
-.omega {
-	margin-left: 10px;
-	padding-right: 25px;
+.clear {
+clear: both;
+display: block;
+overflow: hidden;
+visibility: hidden;
+width: 0;
+height: 0;
 }
 .screenshots {
-	margin: 42px 0 0;
+	width: 1020px;
+	margin: 42px -30px 0;
 	padding-left: 0;
 	padding-right: 0;
 	font-size: 14px;
 	line-height: 22px;
 	text-align: center;
 	color: #6f6f6f;
-	border-bottom: 1px dotted #e5e5e5;
+}
+.plan_pricing{
+	border-top: 1px dotted #e5e5e5;
+	width: 960px;
+	font-size: 21px;
+	padding-top: 30px;
 }
 .imgxt{
 	line-height: 22px;
@@ -80,7 +86,6 @@
 	text-align: center;
 	padding: 30px 0 15px;
 	margin-right: 3%;
-	/*margin-left: 0;*/
 }
 
 .pricing  {
@@ -88,11 +93,33 @@
 	border-bottom: 1px dotted #e5e5e5;
 }
 .trial{
-	margin: 40px 0 20px;
+	display: inline;
+	float: left;
+	margin: 40px 330px 20px;
+	width: 300px;
+	font-size: 16px;
+	line-height: 45px;
+	clear: both;
 }
 
-.grid_12 {
+.trial a, .trial_two a{
+	text-decoration: none;
+}
+.trial_two, .trial{
+	line-height: 45px;
+}
+.trial_two{
+	padding-right: 80px;
+	padding-left: 80px;
+	line-height: 45px;
+	width: 472px;
+	margin-top: 13px;
+}
+.grid_12, .grid_12_footer {
+    display: inline;
 	float: left;
+}
+.grid_12 {
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -103,10 +130,12 @@
     border-bottom: 1px dotted rgb(216, 216, 216);
 }
 
-.container_12 {
+.container_12, .container_12_footer {
 	margin-left: auto;
 	margin-right: auto;
 	width: 960px;
+}
+.container_12 {
  	border-bottom: 1px dotted rgb(216, 216, 216);
     margin-bottom: 44px;
 }
@@ -143,7 +172,7 @@ h1 {
 
 body {
     color: #333;
-    font-family: "Helvetica Neue","helvetica",Arial,sans-serif;
+    font-family: "Helvetica Neue", "helvetica", Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
 }
@@ -210,18 +239,47 @@ a {
 
 .button.free-trial:hover {
     color: #FFF;
-	background: #FF344C;
+	background: #e55842
 }
 
 .button {
     border-radius: 2px;
     text-decoration: none;
     display: block;
-    border: medium none;
+    border: none;
     cursor: pointer;
 }
 
 .header ul li.free-trial a {
     padding: 0 10px;
 }
-
+/*FOOTER CSS*/
+.footer {
+	font-size: 12px;
+	text-align: center;
+	position: relative;
+	margin-top: 30px;
+	background: #fafafa;
+}
+.footer, .footer a:link, .footer a:visited {
+	color: #bababa;
+	text-decoration: none;
+}
+p {
+	margin-bottom: 6px;
+}
+    .footer a:link:hover, .footer a:visited:hover {
+      color: #ff654c; 
+}
+.footer a:link .symbol, .footer a:visited .symbol {
+      background: url("/modules/core/img/logo-elabs.png") no-repeat top left;
+      width: 26px;
+      height: 26px;
+      display: inline-block;
+      margin-left: 5px;
+      text-indent: -999999px;
+      opacity: 0.5; 
+}
+.footer a:link:hover .symbol, .footer a:visited:hover .symbol {
+      opacity: 1; 
+}
