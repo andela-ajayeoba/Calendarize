@@ -109,7 +109,7 @@ exports.hasAuthorization = function(req, res, next) {
 
 /*****************************************
 	PROJECT CONTROLLER
-/*****************************************/
+*****************************************/
 
 /* CREATING A PROJECT */
 
@@ -181,8 +181,6 @@ exports.deleteProject = function(req, res) {
 
 /* UPDATE PROJECTS ARRAY */
 exports.updateProjectPeople = function(req, res) {
-
-
 	var project = Project.findById(req.body.projectId).exec(function(err, project) {
 		if (err){
 			return res.status(400).send({
@@ -201,9 +199,27 @@ exports.updateProjectPeople = function(req, res) {
 					}
 				});
 			}
-		});
-	
+		});	
 };
+
+exports.updateProjectCall = function(req, res){
+
+	var worker = req.body.workerId;
+	var project = req.project;
+
+	project.people.push(worker);
+	project.save(function(err) {
+					if (err) {
+							return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+				} else {
+						res.jsonp(project);
+					}
+				});
+
+};
+
 
 exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
 		if (err) return next(err);
@@ -213,11 +229,7 @@ exports.projectByID = function(req, res, next, id) { Project.findById(id).popula
 	});
 };
 
-/* GET WORKERS PROJECTS */
-// exports.getWorkerProjects = function(req, res){
 
-	
-// };
 
 /*****************************************
 	WORKERS CONTROLLER
@@ -296,6 +308,24 @@ exports.updateWorker = function(req, res) {
 			res.jsonp(worker);
 		}
 	});
+};
+
+/* GET WORKERS PROJECTS */
+exports.getWorkerProjects = function(req, res){
+
+	Project.where('people').equals(req.worker._id).exec(
+		function(err, data){
+			if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(data);
+		}
+
+		}
+	);
+
 };
 
 /*****************************************
