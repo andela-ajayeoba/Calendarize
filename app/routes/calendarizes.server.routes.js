@@ -4,11 +4,6 @@ module.exports = function(app) {
 	var users = require('../../app/controllers/users');
 	var calendarizes = require('../../app/controllers/calendarizes');
 
-	// Calendarizes Routes
-	app.route('/calendarizes')
-		.get(calendarizes.list)
-		.post(users.requiresLogin, calendarizes.create);
-
 	// Routes to create and list projects
 	app.route('/projects')
 		.get(calendarizes.listProject)
@@ -42,13 +37,21 @@ module.exports = function(app) {
 		.get(users.requiresLogin, calendarizes.getWorkerProjects)
 	 	.post(users.requiresLogin, calendarizes.updateProjectPeople);
 
-	// app.route('/calendarizes/:calendarizeId')
-	// 	.get(calendarizes.read)
-	// 	.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.update)
-	// 	.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.delete);
 
-	// Finish by using the the respective middleware
-	app.param('calendarizeId', calendarizes.calendarizeByID);
+	// Assignment Routes
+	app.route('/assignments')
+		.get(users.requiresLogin, calendarizes.listAssignments)
+		.post(users.requiresLogin, calendarizes.newAssignment);
+
+	// Routes to update and delete assignment
+	app.route('/assignments/:assignmentId')
+		.get(calendarizes.readAssignment)
+		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateAssignment)
+		.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.deleteAssignment);
+
+// MIDDLEWARE
+
 	app.param('projectId', calendarizes.projectByID);
 	app.param('workerId', calendarizes.workerByID);
+	app.param('assignmentId', calendarizes.workerByID);
 };

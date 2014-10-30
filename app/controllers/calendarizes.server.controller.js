@@ -8,94 +8,8 @@ var mongoose = require('mongoose'),
 	Calendarize = mongoose.model('Calendarize'),
 	Project = mongoose.model('Project'),
 	Workers = mongoose.model('Workers'),
-	// Assignment = mongoose.model('Assignment'),
+	Assignment = mongoose.model('Assignment'),
 	_ = require('lodash');
-
-/**
- * Create a Calendarize
- */
-exports.create = function(req, res) {
-	var calendarize = new Calendarize(req.body);
-	calendarize.user = req.user;
-
-	calendarize.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(calendarize);
-		}
-	});
-};
-
-/**
- * Show the current Calendarize
- */
-exports.read = function(req, res) {
-	res.jsonp(req.calendarize);
-};
-
-/**
- * Update a Calendarize
- */
-exports.update = function(req, res) {
-	var calendarize = req.calendarize ;
-
-	calendarize = _.extend(calendarize , req.body);
-
-	calendarize.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(calendarize);
-		}
-	});
-};
-
-/**
- * Delete an Calendarize
- */
-exports.delete = function(req, res) {
-	var calendarize = req.calendarize ;
-
-	calendarize.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(calendarize);
-		}
-	});
-};
-
-/**
- * List of Calendarizes
- */
-exports.list = function(req, res) { Calendarize.find().sort('-created').populate('user', 'displayName').exec(function(err, calendarizes) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(calendarizes);
-		}
-	});
-};
-
-/**
- * Calendarize middleware
- */
-exports.calendarizeByID = function(req, res, next, id) { Calendarize.findById(id).populate('user', 'displayName').exec(function(err, calendarize) {
-		if (err) return next(err);
-		if (! calendarize) return next(new Error('Failed to load Calendarize ' + id));
-		req.calendarize = calendarize ;
-		next();
-	});
-};
 
 /**
  * Calendarize authorization middleware
@@ -329,34 +243,80 @@ exports.getWorkerProjects = function(req, res){
 };
 
 /*****************************************
-	WORKERS CONTROLLER
+	ASSIGNMENT CONTROLLER
 /*****************************************/
 
-/* ASSIGNMENT */
+/* CREATE ASSIGNMENT */
+exports.newAssignment = function(req, res) {
+	var assignment = new Assignment(req.body);
+	assignment.user = req.user;
 
-// exports.assignment = function(req, res){
+	assignment.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(assignment);
+		}
+	});
+};
 
-// 		var assignment = new Assignment(req.body);
-// 			// assignment.worker = req.worker.name;
-// 			// assignment.project.u(req.body.project);
+/* LIST ASSIGNMENTS */
+exports.listAssignments = function(req, res) { Assignment.find().sort('-created').populate('worker', 'name').populate('project', 'projectname').exec(function(err, assignments) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(assignments);
+		}
+	});
+};
 
-// 		assignment.save(function(err){
-// 			if(err){
-// 				return res.status(400).send({
-// 					message: errorHandler.getErrorMessage(err)
-// 				});
+/* READ THE CURRENT ASSIGNMENT */
+exports.readAssignment = function(req, res) {
+	res.jsonp(req.project);
+};
 
-// 			}else {
-// 				res.jsonp(assignment);
-// 			}
-// 		});
-
-// 	};
-
-exports.calendarizeByID = function(req, res, next, id) { Calendarize.findById(id).populate('user', 'displayName').exec(function(err, calendarize) {
+/* ASSIGNMENT MIDDLEWARE (:assignmentId) */
+exports.assignmentByID = function(req, res, next, id) { Assignment.findById(id).populate('user', 'displayName').exec(function(err, assignment) {
 		if (err) return next(err);
-		if (! calendarize) return next(new Error('Failed to load Calendarize ' + id));
-		req.calendarize = calendarize ;
+		if (! assignment) return next(new Error('Failed to load Assignment' + id));
+		req.assignment = assignment;
 		next();
+	});
+};
+
+
+/* DELETE ASSIGNMENT */
+exports.deleteAssignment = function(req, res) {
+	var assignment = req.assignment ;
+
+	assignment.remove(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(assignment);
+		}
+	});
+};
+
+/* UPDATE ASSIGNMENT */
+exports.updateAssignment = function(req, res) {
+	var assignment = req.assignment ;
+
+	assignment = _.extend(assignment, req.body);
+
+	assignment.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(assignment);
+		}
 	});
 };
