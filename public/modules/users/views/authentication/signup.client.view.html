@@ -7,13 +7,12 @@
       <form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
         <fieldset>
           <div class="form-group">
-            <label for="account-name">Account name *</label>
-            <input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.accountnsame">
+            <input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.username">
             <span class="hint">For example, your own name or the name of your company.</span>
           </div>
           <div class="form-group">
             <label for="user-name">Your name *</label>
-            <input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.username">
+            <input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.name">
           </div>
           <div class="form-group">
             <label for="email">Email address *</label>

@@ -14,10 +14,18 @@
 	right: 10px;
 	position: absolute;
 }
-.container-fluid
+.container-fluid , .container-fluid-resetP,.container-fluid-resetP
 {
   margin-top:15px;
   margin-left: 90px;
+}
+.container-fluid-resetP
+{
+  margin-left: 180px;
+}
+.container-fluid-resettP
+{
+  margin-left: 195px; 
 }
 h2
 {
@@ -64,7 +72,7 @@ label
   width: 200px;
   margin-right:360px;
 }
-.submit-button , .submit-button1
+.submit-button , .submit-button1 , .submit-button2
 {
 color: white;
 background: #62afd2;
@@ -73,13 +81,17 @@ border: none;
 text-align: center;
 
 }
-.submit-button1
+.submit-button1 
 {
   float : left ;
   width: 80px;
   text-align: center;
   height: 35px;
   line-height: 0.9em;
+}
+.submit-button2
+{
+  float: left;
 }
 .content-fluid
 {
