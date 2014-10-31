@@ -272,6 +272,7 @@ a {
 .button.free-trial {
     background: none repeat scroll 0 0 #FF654C;
     color: #FFF;
+    margin-left: -6px;
 }
 
 .button.free-trial:hover {
@@ -321,4 +322,11 @@ p {
 }
 .footer a:link:hover .symbol, .footer a:visited:hover .symbol {
       opacity: 1; 
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+/* Styles */
+
 }
