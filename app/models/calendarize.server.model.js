@@ -90,12 +90,12 @@ var WorkersSchema = new Schema({
 
  var AssignmentSchema = new Schema ({
  	
- 	workers : {
+ 	worker: {
  		type: Schema.ObjectId,
  		ref: 'Workers'
  	},
 
- 	projects:{
+ 	project:{
  		type: Schema.ObjectId,
  		ref: 'Project'
  	},
@@ -110,7 +110,7 @@ var WorkersSchema = new Schema({
  });
 
 
-// mongoose.model('Assignment', AssignmentSchema);
+mongoose.model('Assignment', AssignmentSchema);
 mongoose.model('Workers', WorkersSchema);
 mongoose.model('Calendarize', CalendarizeSchema);
 mongoose.model('Project', ProjectSchema);
