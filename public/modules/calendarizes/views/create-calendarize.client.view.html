@@ -4,15 +4,14 @@
           <input type="text" ng-model="take_me_outside"/>
           Selected: <b>{{ take_me_outside }}</b>
         </div>
-        
         <div class="modal-footer">
           <button class="btn btn-primary" ng-click="ok(take_me_outside)">OK</button>
           <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </script>
+
     <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
     <div ng-show="message">Selection from a modal: {{ message }}</div>
-    </div>
     <div class="page-header">
         <h1>New Calendarize</h1>
     </div>
@@ -35,5 +34,5 @@
         </form>
     </div>  
 </section>  
-<!-- <div ng-controller="CalendarizesController"> -->
+
     
