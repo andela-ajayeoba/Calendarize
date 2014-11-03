@@ -37,6 +37,7 @@ var CalendarizeSchema = new Schema({
 	}
 });
 
+<<<<<<< HEAD
 mongoose.model('Calendarize', CalendarizeSchema);
 
 /**
@@ -47,10 +48,48 @@ var WorkerSchema = new Schema({
 		type: String,
 		default: '',
 		required: 'Please fill Project title',
+=======
+/**
+ * Project Schema
+ */
+
+var ProjectSchema = new Schema({
+	projectname: {
+		type: String,
+		required: 'Please fill in a Project Name',
+		trim: true
+	},
+
+	isactive: {
+		type: Boolean,
+		default: true
+	},
+
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+
+	people: [{
+		type: Schema.ObjectId,
+		ref: 'Workers'
+	}]
+});
+
+/**
+ * Worker Schema
+ */
+
+var WorkersSchema = new Schema({
+	name: {
+		type: String,
+		required: 'Please fill in a Workers Name',
+>>>>>>> 8c4af578c2db411f40de779d49813792ea8042ac
 		trim: true
 	},
 	email: {
 		type: String,
+<<<<<<< HEAD
 		trim: true,
 		default: '',
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
@@ -68,3 +107,54 @@ var WorkerSchema = new Schema({
 });
 
 mongoose.model('Workers', WorkerSchema);
+=======
+		required: 'Please fill in an E-mail',
+		trim: true
+	},
+	group: {
+		type: String,
+		trim: true
+	},
+
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+
+	isactive: {
+		type: Boolean,
+		default: true
+	}
+});
+
+/**
+ * Timeline Schema
+ */
+
+ var AssignmentSchema = new Schema ({
+ 	
+ 	worker: {
+ 		type: Schema.ObjectId,
+ 		ref: 'Workers'
+ 	},
+
+ 	project:{
+ 		type: Schema.ObjectId,
+ 		ref: 'Project'
+ 	},
+
+	startDate:{
+		type: Date
+	},
+
+	endDate:{
+		type: Date
+	}
+ });
+
+
+mongoose.model('Assignment', AssignmentSchema);
+mongoose.model('Workers', WorkersSchema);
+mongoose.model('Calendarize', CalendarizeSchema);
+mongoose.model('Project', ProjectSchema);
+>>>>>>> 8c4af578c2db411f40de779d49813792ea8042ac
