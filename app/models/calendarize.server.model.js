@@ -37,18 +37,9 @@ var CalendarizeSchema = new Schema({
 	}
 });
 
-<<<<<<< HEAD
-mongoose.model('Calendarize', CalendarizeSchema);
 
-/**
- * Workers Schema
- */
-var WorkerSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Project title',
-=======
+
+
 /**
  * Project Schema
  */
@@ -76,6 +67,7 @@ var ProjectSchema = new Schema({
 	}]
 });
 
+
 /**
  * Worker Schema
  */
@@ -84,12 +76,10 @@ var WorkersSchema = new Schema({
 	name: {
 		type: String,
 		required: 'Please fill in a Workers Name',
->>>>>>> 8c4af578c2db411f40de779d49813792ea8042ac
 		trim: true
 	},
 	email: {
 		type: String,
-<<<<<<< HEAD
 		trim: true,
 		default: '',
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
@@ -99,23 +89,6 @@ var WorkersSchema = new Schema({
 		default: '',
 		trim: true
 	},
-	inactive: {
-		type: Boolean,
-		default: false
-	},
-	project: [CalendarizeSchema]
-});
-
-mongoose.model('Workers', WorkerSchema);
-=======
-		required: 'Please fill in an E-mail',
-		trim: true
-	},
-	group: {
-		type: String,
-		trim: true
-	},
-
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
@@ -126,6 +99,7 @@ mongoose.model('Workers', WorkerSchema);
 		default: true
 	}
 });
+
 
 /**
  * Timeline Schema
@@ -149,6 +123,10 @@ mongoose.model('Workers', WorkerSchema);
 
 	endDate:{
 		type: Date
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
  });
 
@@ -157,4 +135,4 @@ mongoose.model('Assignment', AssignmentSchema);
 mongoose.model('Workers', WorkersSchema);
 mongoose.model('Calendarize', CalendarizeSchema);
 mongoose.model('Project', ProjectSchema);
->>>>>>> 8c4af578c2db411f40de779d49813792ea8042ac
+

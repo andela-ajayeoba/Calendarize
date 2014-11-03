@@ -137,7 +137,7 @@ exports.updateProjectCall = function(req, res){
 
 exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
 		if (err) return next(err);
-		if (! project) return next(new Error('Failed to load Worker ' + id));
+		if (! project) return next(new Error('Failed to load Project ' + id));
 		req.project = project ;
 		next();
 	});
@@ -276,7 +276,7 @@ exports.listAssignments = function(req, res) { Assignment.find().sort('-created'
 
 /* READ THE CURRENT ASSIGNMENT */
 exports.readAssignment = function(req, res) {
-	res.jsonp(req.project);
+	res.jsonp(req.assignment);
 };
 
 /* ASSIGNMENT MIDDLEWARE (:assignmentId) */
