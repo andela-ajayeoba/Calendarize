@@ -14,9 +14,30 @@
 		<li class="button free-trial" ui-route="/signup" ng-class="{active: $uiRoute}">
 			<a class="button free-trial" href="/#!/signup">Free trial</a>
 		</li>
-		<li ng-show="authentication.user">
-			<a href="/auth/signout">Signout</a>
-		</li>
+					<ul data-ng-show="authentication.user">
+						<li class="dropdown"> 
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span data-ng-bind="authentication.user.displayName" class="topLink"></span> <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="/#!/settings/profile">Edit Profile</a>
+								</li>
+								<li>
+									<a href="/#!/settings/accounts">Manage Social Accounts</a>
+								</li>
+								<li data-ng-show="authentication.user.provider === 'local'">
+									<a href="/#!/settings/password">Change Password</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/auth/signout">Signout</a>
+								</li>
+							</ul>
+						</li>
+				</ul>
 	</ul>
+
+
 </div>
 </div>
