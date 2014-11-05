@@ -16,11 +16,103 @@
     border-color:#78FA89;
 }
 
-.intro{
+body {
+	font-family: 'Oswald', impact, sans-serif !important; 
+}
+
+.navbar-brand-2 {
+	padding: 0 !important; 
+}
+
+.navbar-text {
+	margin-top: 15px;
+	margin-bottom: 0;
+	font-size: 28px;
+}
+
+.img-responsive.img-center {
+  margin: 0 auto;
+}
+
+.questions {
+	padding-top: 40px;
+	margin: 0 auto;
+}
+
+div .questionTxt-last {
+	border-radius: 4px;
+	font-size: 16px;
+	font-style: normal;
+	background:  #e7f4fa;
+	padding: 14px 2px 14px 12px;
+	display: block;
+}
+
+.description{
+	background: #f9f9f9;
+	padding-top: 50px;
+	margin: 20px auto;
+	margin-bottom: 50px;
+}
+
+.free-trial {
+    background: none repeat scroll 0 0 #FF654C;
+    color: #FFF;
+    /*margin: 20px auto;*/
+}
+
+.free-trial:hover {
+    color: #FFF;
+	background: #e55842;
+}
+
+.button {
+    border-radius: 2px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    cursor: pointer;
+}
+
+.pricing {
+	margin: 0 auto;
+}
+
+.plan{
+	background: #e7f4fa;
+	padding: 5px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+.imgxt {
+	margin-bottom: 30px;
+}
+
+.screenshots, .pricing {
+	border-bottom: 1px dotted #e5e5e5;
+}
+
+.button-last {
+	margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+	.imgxt {
+	margin-bottom: 50px;
+}
+
+.project-description {
+	text-align: center;
+	margin-top: 10px;
+	line-height: 1.5em;
+}
+}
+/*.intro{
 	width: 1010px;
 	/*margin-right: auto;
 	margin-left: auto;*/
-}
+/*}
 .leadingIntro{
 	font-family: 'Oswald', impact, sans-serif !important; 
 	font-size: 40px;
@@ -149,10 +241,10 @@ height: 0;
     display: inline;
 	float: left;
 }
-.grid_12 {
+.grid_12 {*/
 	/*margin-left: auto;*/
 	/*margin-right: auto;*/
-	width: 970px;
+/*	width: 970px;
 }
 .container_12, .container_12_footer {
 	margin-left: auto;
@@ -174,10 +266,10 @@ div {
 	vertical-align: baseline;
 	background: none repeat scroll 0 0 transparent;
 }
-.header {
+.header {*/
 	
 	/*margin: 0 auto;*/
-    border-bottom: 1px dotted rgb(216, 216, 216);
+/*    border-bottom: 1px dotted rgb(216, 216, 216);
 }
 .header h1 {
     margin: 18px -20px;
@@ -323,12 +415,12 @@ p {
       opacity: 1; 
 }
 
-@media (min-width : 320px) and (max-width : 480px) {
+/*@media (min-width : 320px) and (max-width : 480px) {*/
 /* Styles */
 /*********************
 HEADER STYLING
 *********************/
-.grid_12, .container_12 {
+/*.grid_12, .container_12 {
 	width: 100%;
 }
 
@@ -359,12 +451,12 @@ HEADER STYLING
 
 .header li a {
     float: right;
-}
+}*/
 
 /******************
    HOME STYLING
 ******************/
-.leadingIntro {
+/*.leadingIntro {
 	font-size: 15px;
 	margin-left: -10px;
 	margin-top: 10px;
@@ -454,6 +546,7 @@ border-bottom: none;
 .plan_pricing {
 border-top: none;
 }
+}*/
 
 /*.projectpuzzle {
 	margin: -55px 5px;
@@ -552,7 +645,7 @@ div .questionTxt em:before {
 	float: right;
 	margin: -62px 82px 32px;*/
 	/*margin: 34px 82px 30px;*/
-}
+
 
 
 /******************
