@@ -23,7 +23,11 @@ var ProjectSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	}
+	},
+	tasks : [{
+		type: Schema.ObjectId,
+		ref: 'Task'
+	}]
 });
 
 /**
@@ -52,7 +56,11 @@ var PersonSchema = new Schema({
 	isActive: {
 		type: Boolean,
 		default: true
-	}
+	},
+	tasks : [{
+		type: Schema.ObjectId,
+		ref: 'Task'
+	}]
 });
 
 /**

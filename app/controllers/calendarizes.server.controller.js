@@ -85,7 +85,7 @@ exports.createProject = function(req, res) {
 
 exports.listProjects = function(req, res) {
     
-    Project.find().sort('-created').exec(function(err, projects) {
+    Project.find().sort('-created').populate('tasks').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -114,24 +114,25 @@ exports.updateProject = function(req, res) {
 	});
 };
 
-/*
+
 exports.readProject = function(req, res) {
 
-	Task.find({'project':req.project._id}).populate('person').populate('project').exec( function(err, assignments){
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
+	// Task.find({'project':req.project._id}).populate('person').populate('project').exec( function(err, assignments){
+	// 		if (err) {
+	// 			return res.status(400).send({
+	// 				message: errorHandler.getErrorMessage(err)
+	// 			});
+	// 		} else {
 
-				req.project.people = assignments;
+	// 			req.project.people = assignments;
 
-				res.jsonp(req.project);
-			}
-	});
+	// 			res.jsonp(req.project);
+	// 		}
+	// });
+		res.jsonp(req.project);
 	
 };
-*/
+
 
 exports.deleteProject = function(req, res) {
 	
@@ -167,7 +168,7 @@ exports.createPerson = function(req, res) {
 	});
 };
 
-exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').exec(function(err, persons) {
+exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').populate('tasks').exec(function(err, persons) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -228,10 +229,19 @@ exports.updatePerson = function(req, res) {
 exports.createTask = function(req, res) {
 
 	var task = new Task(req.body);
-
 	task.user = req.user;
+	Person.findById(req.body.person).exec(function(err, person){
 
+		person.tasks.push(task);
+		person.save();
 
+	});
+	Project.findById(req.body.project).exec(function(err, project){
+
+		project.tasks.push(task);
+		project.save();
+
+	});
 	task.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -244,7 +254,7 @@ exports.createTask = function(req, res) {
 
 };
 
-exports.listTasks = function(req, res) { Task.find().sort('-created').populate('person', 'name').populate('project', 'projectname').exec(function(err, tasks) {
+exports.listTasks = function(req, res) { Task.find().sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -257,13 +267,37 @@ exports.listTasks = function(req, res) { Task.find().sort('-created').populate('
 
 
 exports.readTask = function(req, res) {
-	res.jsonp(req.task);
+
+	res.jsonp();
 };
 
 exports.deleteTask = function(req, res) {
 	
 	var task = req.task ;
+	Project.findById(req.task.project).exec(function(err, project){
 
+		if (project && project.tasks)
+		{
+			var i = project.tasks.indexOf(task._id);
+
+			project.tasks.splice(i,1);
+
+			project.save();
+		}
+
+	});
+	Person.findById(req.task.person).exec(function(err, person){
+
+		if (person && person.tasks)
+		{
+			var i = person.tasks.indexOf(task._id);
+
+			person.tasks.splice(i,1);
+
+			person.save();
+		}
+
+	});
 	task.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
