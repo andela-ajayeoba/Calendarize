@@ -31,7 +31,9 @@ module.exports = {
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/angular-gantt/assets/angular-gantt.js',
 				'public/lib/angular-strap/dist/angular-strap.min.js',
-				'public/lib/angular-strap/dist/angular-strap.tpl.min.js'
+				'public/lib/angular-strap/dist/angular-strap.tpl.min.js',
+				'public/lib/nsPopover/example/nsPopover.js'
+
 			]
 		},
 		css: [

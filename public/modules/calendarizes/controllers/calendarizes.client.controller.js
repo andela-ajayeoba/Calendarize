@@ -7,23 +7,20 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 
 	
 
+
 		/************************************************
 					WORKERS CRUD
 		************************************************/
-
-		//Response to action message
-		var responseMessage = function(title, action){
-			$scope.msg = title+ ' is successfully '+ action;
-		};
 
 		// Creating a new worker
 		$scope.addWorker = function() {
 			// Create new Calendarize object
 			var worker = new Apicall.Workers ($scope.worker);
-
+				console.log('hello');
+				console.log(worker);
+				console.log($scope.worker);
 			// Redirect after save
 			worker.$save(function(response) {
-				// $location.path('calendarizes/' + response._id);
 					$scope.msg = 'Worker Successfully added';
 				// Clear form fields
 				$scope.worker = '';
