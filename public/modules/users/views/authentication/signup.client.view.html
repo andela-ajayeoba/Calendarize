@@ -1,15 +1,14 @@
 <section class="row" data-ng-controller="AuthenticationController">
-  <div class="container-fluid">
-    <h2>
-    You’re now signing up for a<strong> 30-day free trial </strong><br>of ProjectPuzzle
-  	</h2>
-  	<div class = "container">
+  <h2 class="main-heading" no-pad >
+    You’re now signing up for a<strong> 30-day free trial </strong><br>of Calendarize
+  </h2>
+    <div class="container-fluid">
       <form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
         <fieldset>
           <div class="form-group">
             <label for="account-name">Account name *</label>
             <input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.username">
-            <span class="hint">For example, your own name or the name of your company.</span>
+            <p class="hint">For example, your own name or the name of your company.</p>
           </div>
           <div class="form-group">
             <label for="user-name">Your name *</label>
@@ -18,7 +17,7 @@
           <div class="form-group">
             <label for="email">Email address *</label>
             <input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email">
-            <span class="hint">Will be used for login, and nothing else.</span>
+            <p class="hint">Will be used for login, and nothing else.</p>
           </div>
           <div class="form-group">
             <label for="password">Password *</label>
@@ -32,8 +31,8 @@
           	<label for="tikbox">
           	<input type ="checkbox" data-ng-model="credentials.country">
           	My company is based in Sweden
-          	</label>
-          	<span class="hint">or if you are not a company, but you live in Sweden.</span>
+          	</label><br>
+          	<p class="hint">or if you are not a company, but you live in Sweden.</p>
           </div>
           <div class = "form-group">
           	<button type="submit" class="submit-button">Create account</button>
@@ -44,9 +43,9 @@
         </fieldset>
       </form>
     </div>
-      <br><br>
+      
 	      <h2 class="heading"><strong>No obligation </strong>trial</h2>
-	      <p class="note">You can try out ProjectPuzzle for free for 30 days. At any point during your trial, you can upgrade to one of our paid plans. If you choose not to, just let your trial run out, you will not be billed anything. You never need to worry about payment unless you explicitly provide your payment details.</p>
+	      <p class="note">You can try out Calendarize for free for 30 days. At any point during your trial, you can upgrade to one of our paid plans. If you choose not to, just let your trial run out, you will not be billed anything. You never need to worry about payment unless you explicitly provide your payment details.</p>
 	      <h2 class="heading">What do I do if I want to <strong>upgrade</strong>?</h2>
 	      <p class="note">If you want to upgrade to one of our paid plans, you can do so from the account settings page inside the application. After you have provided your payment details, you will be billed monthly until you choose to terminate your subscription. You will receive a final bill upon termination, whereafter no further billing will occur.</p>
 	      <h2 class="heading">When will I be <strong>billed</strong>?</h2>
@@ -54,7 +53,7 @@
 	      <h2 class="heading">Can I <strong>cancel my account</strong>?</h2>
 	      <p class="note">Yes, you can cancel your account at any time. After you've cancelled, you won't be billed again. If you cancel during your trial, you won't be billed at all.</p>
 	      <h2 class="heading">I have more <strong>questions</strong>  before I sign up!</h2>
-	      <p class="note">You're always welcome to contact us at <a>support@projectpuzzle.com</a> if you have any questions about the service, or about any of our plans or payment processes.</p>
+	      <p class="note">You're always welcome to contact us at <a>support@calendarize.com</a> if you have any questions about the service, or about any of our plans or payment processes.</p>
   </div>
 </section>
 
