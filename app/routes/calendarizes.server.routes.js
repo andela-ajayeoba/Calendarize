@@ -53,5 +53,5 @@ module.exports = function(app) {
 
 	app.param('projectId', calendarizes.projectByID);
 	app.param('workerId', calendarizes.workerByID);
-	app.param('assignmentId', calendarizes.workerByID);
+	app.param('assignmentId', calendarizes.assignmentByID);
 };

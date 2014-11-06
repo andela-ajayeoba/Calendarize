@@ -93,11 +93,14 @@ var WorkersSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-
 	isactive: {
 		type: Boolean,
 		default: true
-	}
+	},
+	tasks: [{
+		type: Schema.ObjectId,
+		ref: 'Assignment'
+	}]
 });
 
 
