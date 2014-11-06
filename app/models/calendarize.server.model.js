@@ -43,9 +43,6 @@ var CalendarizeSchema = new Schema({
 
 /**
  * Project Schema
-=======
- *	Project Schema
->>>>>>> 2de985ba2a1341ae48aee1f31e590ac57190e3ea
  */
 
 var ProjectSchema = new Schema({

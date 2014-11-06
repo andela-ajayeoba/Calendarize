@@ -4,64 +4,64 @@
 angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Apicall', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
 	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
+        
 
-		/************************************************
-					WORKERS CRUD
-		************************************************/
+		/* Create a new person */
 
-		// Creating a new worker
-		$scope.addWorker = function() {
-			// Create new Calendarize object
-			var worker = new Apicall.Workers ($scope.worker);
-				console.log('hello');
-				console.log(worker);
-				console.log($scope.worker);
-			// Redirect after save
-			worker.$save(function(response) {
-					$scope.msg = 'Worker Successfully added';
-				// Clear form fields
-				$scope.worker = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-		// Remove existing Worker
-		$scope.removeWorker = function( worker ) {
-			if ( worker ) { worker.$remove();
+        $scope.addPerson = function() {
+            console.log('fired');
+            var person = new Apicall.Persons($scope.person);
 
-				for (var i in $scope.workers) {
-					if ($scope.workers [i] === worker ) {
-						$scope.workers.splice(i, 1);
+            person.$save(function(response) {
+                $scope.msg = 'Person Successfully added';
+                $scope.person = '';
+                var newData = [
+                    {'id': response._id, 'name': response.name, 'tasks': []}
+                ];
+                $scope.loadData(newData)
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        }
+
+
+		// Remove existing Person
+		$scope.removePerson = function( person ) {
+			if ( person ) { person.$remove();
+
+				for (var i in $scope.persons) {
+					if ($scope.persons [i] === person ) {
+						$scope.persons.splice(i, 1);
 					}
 				}
 			} else {
-				$scope.worker.$remove(function() {
+				$scope.person.$remove(function() {
 					// $location.path('calendarizes');
 				});
 			}
 		};
 
 		// Update existing Calendarize
-		$scope.updateWorker = function() {
-			var worker = $scope.worker ;
+		$scope.updatePerson = function() {
+			var person = $scope.person ;
 
-			worker.$update(function() {
+			person.$update(function() {
 				// $location.path('calendarizes/' + calendarize._id);
-				// Return a "Worker updated" success message
+				// Return a "Person updated" success message
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};			
 
-		// Find a list of Workers
-		$scope.findWorkers = function() {
-			$scope.workers = Apicall.Workers.query();
+		// Find a list of Persons
+		$scope.findPersons = function() {
+			$scope.persons = Apicall.Persons.query();
 		};
 
-		// Find existing Worker
-		$scope.findOneWorker = function() {
-			$scope.worker = Apicall.Workers.get({ 
-				workerId: $stateParams.workerId
+		// Find existing Person
+		$scope.findOnePerson = function() {
+			$scope.person = Apicall.Persons.get({ 
+				personId: $stateParams.personId
 			});
 		};
 
@@ -73,7 +73,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		// Creating a new Project
 		$scope.addProject = function() {
 			// Create new Calendarize object
-			console.log("dick");
 			var project = new Apicall.Projects ($scope.project);
 			console.log($scope.project);
 			console.log(project);
@@ -112,7 +111,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 			});
 		};			
 
-		// Find a list of Workers
+		// Find a list of Persons
 		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
             console.log($scope.projects);
@@ -123,7 +122,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
         //populate select option
         $scope.projectlist = {}
 
-		// Find existing Worker
+		// Find existing Person
 		$scope.findOneProject = function() {
 			$scope.project = Apicall.Projects.get({ 
 				projectId: $stateParams.projectId
@@ -162,7 +161,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 
             assignment.$update(function() {
                 // $location.path('calendarizes/' + calendarize._id);
-                // Return a "Worker updated" success message
+                // Return a "Person updated" success message
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
@@ -252,12 +251,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             $scope.loadData(Sample.getSampleData().data1);
 
         }; 
-        $scope.addPeople = function(personName) {
-            var newData = [
-                {'id': Uuid.randomUuid(), 'name': personName, 'tasks': []}
-            ];
-            $scope.loadData(newData)
-        }
 
         $scope.removeSomeSamples = function() {
             $scope.removeData([
