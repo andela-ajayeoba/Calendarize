@@ -1,66 +1,12 @@
 'use strict';
 
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Apicall',
-	function($scope, $stateParams, $location, Authentication, Apicall ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', 'Authentication','Apicall','$modal', '$log',
+	function($scope, $stateParams, $location, Authentication, gantt, Apicall, $modal, $log ) {
 		$scope.authentication = Authentication;
 
-		// // Create new Calendarize
-		// $scope.create = function() {
-		// 	// Create new Calendarize object
-		// 	var calendarize = new Calendarizes ({
-		// 		name: this.name
-		// 	});
 
-		// 	// Redirect after save
-		// 	calendarize.$save(function(response) {
-		// 		$location.path('calendarizes/' + response._id);
-
-		// 		// Clear form fields
-		// 		$scope.name = '';
-		// 	}, function(errorResponse) {
-		// 		$scope.error = errorResponse.data.message;
-		// 	});
-		// };
-
-		// // Remove existing Calendarize
-		// $scope.remove = function( calendarize ) {
-		// 	if ( calendarize ) { calendarize.$remove();
-
-		// 		for (var i in $scope.calendarizes ) {
-		// 			if ($scope.calendarizes [i] === calendarize ) {
-		// 				$scope.calendarizes.splice(i, 1);
-		// 			}
-		// 		}
-		// 	} else {
-		// 		$scope.calendarize.$remove(function() {
-		// 			$location.path('calendarizes');
-		// 		});
-		// 	}
-		// };
-
-		// // Update existing Calendarize
-		// $scope.update = function() {
-		// 	var calendarize = $scope.calendarize ;
-
-		// 	calendarize.$update(function() {
-		// 		$location.path('calendarizes/' + calendarize._id);
-		// 	}, function(errorResponse) {
-		// 		$scope.error = errorResponse.data.message;
-		// 	});
-		// };
-
-		// // Find a list of Calendarizes
-		// $scope.find = function() {
-		// 	$scope.calendarizes = Calendarizes.query();
-		// };
-
-		// // Find existing Calendarize
-		// $scope.findOne = function() {
-		// 	$scope.calendarize = Calendarizes.get({ 
-		// 		calendarizeId: $stateParams.calendarizeId
-		// 	});
-		// };
+			// End of modals
 
 		/************************************************
 					WORKERS CRUD
@@ -109,13 +55,14 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 			worker.$update(function() {
 				// $location.path('calendarizes/' + calendarize._id);
 				// Return a "Worker updated" success message
+				responseMessage('worker', 'updated');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};			
 
 		// Find a list of Workers
-		$scope.findWorker = function() {
+		$scope.findWorkers = function() {
 			$scope.workers = Apicall.Workers.query();
 		};
 
@@ -176,7 +123,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		};			
 
 		// Find a list of Workers
-		$scope.findProject = function() {
+		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
 		};
 
@@ -188,6 +135,47 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		};
 
 
+		/************************************************
+					ASSIGNMENT CRUD
+		************************************************/
+		// Creating a new Assignment
+		$scope.createAssignment = function() {
+			// Create new Calendarize object
+			var assignment = new Apicall.Assignments ($scope.assignment);
+
+			// Redirect after save
+			assignment.$save(function(response) {
+				// $location.path('calendarizes/' + response._id);
+					// $scope.msg = 'Project Successfully added';
+					console.log(response);
+				// Clear form fields
+				$scope.assignment = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		// Edit existing assignment
+		$scope.findOneAssignment = function() {
+			$scope.assignment = Apicall.Assignments.get({ 
+				assignmentId: $stateParams.assignmentId
+			});
+		};
+
+		// Update existing Assignment
+		$scope.updateAssignment = function() {
+			var assignment = $scope.assignment ;
+
+			assignment.$update(function() {
+				// $location.path('calendarizes/' + calendarize._id);
+				// Return a "Worker updated" success message
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+
+		$scope.findAssignments = function() {
+			$scope.asignments = Apicall.Assignments.query();
+		};
 
 
 	}

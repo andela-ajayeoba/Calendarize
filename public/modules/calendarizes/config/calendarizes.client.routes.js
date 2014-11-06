@@ -53,6 +53,31 @@ angular.module('calendarizes').config(['$stateProvider',
 		state('editProject', {
 			url: '/projects/:projectId/edit',
 			templateUrl: 'modules/calendarizes/views/edit-project.client.view.html'
+		}).
+
+		state('listAssignments', {
+			url: '/assignments',
+			templateUrl: 'modules/calendarizes/views/list-assignments.client.view.html'
+		}).
+		state('createAssignment', {
+			url: '/assignments/create',
+			templateUrl: 'modules/calendarizes/views/create-assignment.client.view.html'
+		}).
+		state('viewAssignment', {
+			url: '/assignments/:assignmentId',
+			templateUrl: 'modules/calendarizes/views/view-assignment.client.view.html'
+		}).
+		state('editAssignment', {
+			url: '/assignments/:assignmentId/edit',
+			templateUrl: 'modules/calendarizes/views/edit-assignment.client.view.html'
+		}).
+		state('projectsTimeline', {
+			url: '/timeline/projects',
+			templateUrl: 'modules/calendarizes/views/projects-view.client.view.html'
+		}).
+		state('workersTimeline', {
+			url: '/timeline/workers',
+			templateUrl: 'modules/calendarizes/views/workers-view.client.view.html'
 		});
 
 	}
