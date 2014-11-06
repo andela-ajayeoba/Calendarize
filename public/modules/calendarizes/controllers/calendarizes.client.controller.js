@@ -73,12 +73,13 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 		// Creating a new Project
 		$scope.addProject = function() {
 			// Create new Calendarize object
+			console.log("dick");
 			var project = new Apicall.Projects ($scope.project);
-
+			console.log($scope.project);
+			console.log(project);
 			// Redirect after save
 			project.$save(function(response) {
-				// $location.path('calendarizes/' + response._id);
-					// $scope.msg = 'Project Successfully added';
+				console.log('Project Successfully added');
 					console.log(response);
 				// Clear form fields
 				$scope.project = '';
@@ -97,7 +98,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 				}
 			} else {
 				$scope.project.$remove(function() {
-					// $location.path('calendarizes');
 				});
 			}
 		};
@@ -107,8 +107,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 			var project = $scope.project ;
 
 			project.$update(function() {
-				// $location.path('calendarizes/' + calendarize._id);
-				// Return a "Worker updated" success message
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

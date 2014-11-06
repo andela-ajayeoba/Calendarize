@@ -31,7 +31,7 @@ var CalendarizeSchema = new Schema({
  */
 
 var ProjectSchema = new Schema({
-	projectname: {
+	name: {
 		type: String,
 		required: 'Please fill in a Project Name',
 		trim: true
