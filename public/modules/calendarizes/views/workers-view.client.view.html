@@ -1,0 +1,23 @@
+<p>This page demonstrates the timeline visualization.</p>
+<ul>
+    <li>Click and drag on the time axis to move the timeline, scroll to zoom the timeline</li>
+    <li>Click and drag an item to change its date, double-click to change its text</li>
+    <li>Click or drag on an empty spot in the timeline to create a new item</li>
+</ul>
+<p>
+    Starttime: <input type="text" id="startDate" value="">
+    Endtime:   <input type="text" id="endDate" value="">
+</p>
+
+
+<!-- Information about where the used icons come from -->
+<p style="color:gray; font-size:10px; font-style:italic;">
+    Icons by <a href="http://dryicons.com" target="_blank" title="Aesthetica 2 Icons by DryIcons" style="color:gray;" >DryIcons</a>
+    and <a href="http://www.tpdkdesign.net" target="_blank" title="Refresh Cl Icons by TpdkDesign.net" style="color:gray;" >TpdkDesign.net</a>
+</p>
+
+<div ng-controller="PersonsViewController">
+    <div id="mytimeline"></div>
+</div>
+<br>
+<div id="info"></div>

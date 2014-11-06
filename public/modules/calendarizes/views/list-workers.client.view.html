@@ -1,19 +1,12 @@
-<section data-ng-controller="CalendarizesController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Calendarizes</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="calendarize in calendarizes" data-ng-href="#!/calendarizes/{{calendarize._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="calendarize.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="calendarize.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="calendarize.name"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!calendarizes.$resolved || calendarizes.length">
-    	No Calendarizes yet, why don't you <a href="/#!/calendarizes/create">create one</a>?
-    </div>
+<section>
+    <script type="text/ng-template" id="popover">
+        <ul class="workerPopOverBox" data-ng-controller="CalendarizesController" data-ng-init="findWorker()">
+           <a ng-click=""><li data-ng-repeat ="worker in workers">
+           <img src="/modules/calendarizes/img/avatar.jpg" style="float:left"/><span data-ng-bind ="worker.name"></span>
+            </li></a>
+        </ul>
+    </script>
+    <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+        Popover
+    </button>
 </section>

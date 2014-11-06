@@ -1,24 +1,24 @@
 'use strict';
 
 /**
- * Module dependencies.
+ *	Module dependencies.
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 /**
- * Calendarize Schema
+ *	Project Schema
  */
-var CalendarizeSchema = new Schema({
+
+var ProjectSchema = new Schema({
 	name: {
 		type: String,
-		default: '',
-		required: 'Please fill Calendarize name',
+		required: 'Please fill in a Project Name',
 		trim: true
 	},
-	created: {
-		type: Date,
-		default: Date.now
+	isActive: {
+		type: Boolean,
+		default: true
 	},
 	user: {
 		type: Schema.ObjectId,
@@ -27,37 +27,10 @@ var CalendarizeSchema = new Schema({
 });
 
 /**
- * Project Schema
+ *	Person Schema
  */
 
-var ProjectSchema = new Schema({
-	projectname: {
-		type: String,
-		required: 'Please fill in a Project Name',
-		trim: true
-	},
-
-	isactive: {
-		type: Boolean,
-		default: true
-	},
-
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	},
-
-	people: [{
-		type: Schema.ObjectId,
-		ref: 'Workers'
-	}]
-});
-
-/**
- * Worker Schema
- */
-
-var WorkersSchema = new Schema({
+var PersonSchema = new Schema({
 	name: {
 		type: String,
 		required: 'Please fill in a Workers Name',
@@ -72,45 +45,45 @@ var WorkersSchema = new Schema({
 		type: String,
 		trim: true
 	},
-
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-
-	isactive: {
+	isActive: {
 		type: Boolean,
 		default: true
 	}
 });
 
 /**
- * Timeline Schema
+ *	Task Schema
  */
 
- var AssignmentSchema = new Schema ({
- 	
- 	worker: {
+ var TaskSchema = new Schema ({
+ 	person:{
  		type: Schema.ObjectId,
- 		ref: 'Workers'
+ 		ref: 'Person'
  	},
-
  	project:{
  		type: Schema.ObjectId,
  		ref: 'Project'
  	},
-
 	startDate:{
 		type: Date
 	},
-
 	endDate:{
+		type: Date
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	created: {
 		type: Date
 	}
  });
 
 
-mongoose.model('Assignment', AssignmentSchema);
-mongoose.model('Workers', WorkersSchema);
-mongoose.model('Calendarize', CalendarizeSchema);
+mongoose.model('Task', TaskSchema);
+mongoose.model('Person', PersonSchema);
 mongoose.model('Project', ProjectSchema);
