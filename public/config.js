@@ -4,11 +4,9 @@
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'calendarize';
-<<<<<<< HEAD
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'gantt', 'mgcrea.ngStrap'];
-=======
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'nsPopover'];
->>>>>>> f0c1eed75ca42a2a16f485c0f92259e883702148
+
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',  'ui.router', 'ui.bootstrap', 'ui.utils', 'gantt', 'mgcrea.ngStrap', 'nsPopover'];
+
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

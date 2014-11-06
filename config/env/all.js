@@ -16,6 +16,8 @@ module.exports = {
 				'public/lib/angular-gantt/assets/gantt.css',
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/angular-gantt/assets/gantt.css'
+
 			],
 			js: [
 				'public/lib/angular/angular.js',

@@ -1,4 +1,4 @@
-<section data-ng-controller="HomeController" ng-hide="authentication.user">
+<section data-ng-controller="HomeController" data-ng-hide="authentication.user">
     <div class="projectpuzzle">
         <div class="row intro">
             <div class="col-md-8">
@@ -217,7 +217,17 @@
                     </div>
                 </div>
             </div>
-            <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="addPeople('Jola')">Add Workers</button>
+            <script type="text/ng-template" id="popover">
+                <ul class="popoverBox" data-ng-controller="CalendarizesController">
+                    <li><label for="project">Name</label><input type="text" id="name" name="name" class="form-control" ng-model="worker.name" required novalidate/></li>
+                    <li><label for="worker">Email</label><input type="text"  id="email" name="email" class="form-control" ng-model="worker.email" required novalidate/></li>
+                    <li><label for="worker">Project</label><input type="text"  id="group" name="group" class="form-control" ng-model="worker.group" required novalidate/></li>
+                    <button class="btn btn-primary" ng-click="addWorker()">Create</button>
+                </ul>
+            </script>
+            <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+                Add People
+            </button>
             <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="findProject()">Add Project</button>
             <div class="form-group text-center">
                 <label class="control-label"><i class="fa fa-scissors"></i> Project </label><br>

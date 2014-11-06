@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Module dependencies.
+ *	Module dependencies.
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 
 
 /**
+<<<<<<< HEAD
  * Calendarize Schema
  */
 var CalendarizeSchema = new Schema({
@@ -42,37 +43,33 @@ var CalendarizeSchema = new Schema({
 
 /**
  * Project Schema
+=======
+ *	Project Schema
+>>>>>>> 2de985ba2a1341ae48aee1f31e590ac57190e3ea
  */
 
 var ProjectSchema = new Schema({
-	projectname: {
+	name: {
 		type: String,
 		required: 'Please fill in a Project Name',
 		trim: true
 	},
-
-	isactive: {
+	isActive: {
 		type: Boolean,
 		default: true
 	},
-
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	},
-
-	people: [{
-		type: Schema.ObjectId,
-		ref: 'Workers'
-	}]
+	}
 });
 
 
 /**
- * Worker Schema
+ *	Person Schema
  */
 
-var WorkersSchema = new Schema({
+var PersonSchema = new Schema({
 	name: {
 		type: String,
 		required: 'Please fill in a Workers Name',
@@ -93,7 +90,7 @@ var WorkersSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	isactive: {
+	isActive: {
 		type: Boolean,
 		default: true
 	},
@@ -105,37 +102,35 @@ var WorkersSchema = new Schema({
 
 
 /**
- * Timeline Schema
+ *	Task Schema
  */
 
- var AssignmentSchema = new Schema ({
- 	
- 	worker: {
+ var TaskSchema = new Schema ({
+ 	person:{
  		type: Schema.ObjectId,
- 		ref: 'Workers'
+ 		ref: 'Person'
  	},
-
  	project:{
  		type: Schema.ObjectId,
  		ref: 'Project'
  	},
-
 	startDate:{
 		type: Date
 	},
-
 	endDate:{
 		type: Date
 	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	created: {
+		type: Date
 	}
  });
 
 
-mongoose.model('Assignment', AssignmentSchema);
-mongoose.model('Workers', WorkersSchema);
-mongoose.model('Calendarize', CalendarizeSchema);
+mongoose.model('Task', TaskSchema);
+mongoose.model('Person', PersonSchema);
 mongoose.model('Project', ProjectSchema);
 

@@ -5,9 +5,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
 
-	
-
-
 		/************************************************
 					WORKERS CRUD
 		************************************************/
@@ -57,7 +54,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		};			
 
 		// Find a list of Workers
-		$scope.findWorker = function() {
+		$scope.findWorkers = function() {
 			$scope.workers = Apicall.Workers.query();
 		};
 
@@ -118,7 +115,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		};			
 
 		// Find a list of Workers
-		$scope.findProject = function() {
+		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
             console.log($scope.projects);
             console.log('clicked');
@@ -134,6 +131,49 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 				projectId: $stateParams.projectId
 			});
 		};
+
+            /************************************************
+                    ASSIGNMENT CRUD
+        ************************************************/
+        // Creating a new Assignment
+        $scope.createAssignment = function() {
+            // Create new Calendarize object
+            var assignment = new Apicall.Assignments ($scope.assignment);
+
+            // Redirect after save
+            assignment.$save(function(response) {
+                // $location.path('calendarizes/' + response._id);
+                    // $scope.msg = 'Project Successfully added';
+                    console.log(response);
+                // Clear form fields
+                $scope.assignment = '';
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
+        // Edit existing assignment
+        $scope.findOneAssignment = function() {
+            $scope.assignment = Apicall.Assignments.get({ 
+                assignmentId: $stateParams.assignmentId
+            });
+        };
+
+        // Update existing Assignment
+        $scope.updateAssignment = function() {
+            var assignment = $scope.assignment ;
+
+            assignment.$update(function() {
+                // $location.path('calendarizes/' + calendarize._id);
+                // Return a "Worker updated" success message
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
+
+        $scope.findAssignments = function() {
+            $scope.asignments = Apicall.Assignments.query();
+        };
+
 
 		/************************************************
 					TIMELIME
@@ -352,7 +392,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             console.log(data);
             console.log('$scope.$on: ' + event.name + ': ' + data.filteredRows.length + '/' +  data.rows.length + ' rows displayed.');
         });
-
         $scope.$on(GANTT_EVENTS.TASKS_FILTERED, function(event, data) {
             console.log('$scope.$on: ' + event.name + ': ' + data.filteredTasks.length + '/' + data.tasks.length + ' tasks displayed.');
         });
