@@ -1,30 +1,22 @@
 'use strict';
 
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', 'Authentication','Apicall','$modal', '$log',
-	function($scope, $stateParams, $location, Authentication, gantt, Apicall, $modal, $log ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$modal','$stateParams', '$location', 'Authentication', 'Apicall',
+	function($scope,$modal,$stateParams,$location, Authentication, Apicall ) {
 		$scope.authentication = Authentication;
-
-
-			// End of modals
-
 		/************************************************
 					WORKERS CRUD
 		************************************************/
-
-		//Response to action message
-		var responseMessage = function(title, action){
-			$scope.msg = title+ ' is successfully '+ action;
-		};
 
 		// Creating a new worker
 		$scope.addWorker = function() {
 			// Create new Calendarize object
 			var worker = new Apicall.Workers ($scope.worker);
-
+				console.log('hello');
+				console.log(worker);
+				console.log($scope.worker);
 			// Redirect after save
 			worker.$save(function(response) {
-				// $location.path('calendarizes/' + response._id);
 					$scope.msg = 'Worker Successfully added';
 				// Clear form fields
 				$scope.worker = '';
@@ -55,7 +47,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 			worker.$update(function() {
 				// $location.path('calendarizes/' + calendarize._id);
 				// Return a "Worker updated" success message
-				responseMessage('worker', 'updated');
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
