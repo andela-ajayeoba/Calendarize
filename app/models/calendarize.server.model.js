@@ -1,22 +1,34 @@
 'use strict';
 
 /**
- * Module dependencies.
+ *	Module dependencies.
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
+
+
+
 /**
+<<<<<<< HEAD
  * Calendarize Schema
  */
 var CalendarizeSchema = new Schema({
 	name: {
 		type: String,
 		default: '',
-		required: 'Please fill Calendarize name',
+		required: 'Please fill Project name',
 		trim: true
 	},
-	created: {
+	start: {
+		type: Date,
+		default: Date.now
+	},
+	worker: {
+		type: Schema.ObjectId,
+		ref: 'Worker'
+	},
+	stop: {
 		type: Date,
 		default: Date.now
 	},
@@ -26,8 +38,14 @@ var CalendarizeSchema = new Schema({
 	}
 });
 
+
+
+
 /**
  * Project Schema
+=======
+ *	Project Schema
+>>>>>>> 2de985ba2a1341ae48aee1f31e590ac57190e3ea
  */
 
 var ProjectSchema = new Schema({
@@ -36,28 +54,22 @@ var ProjectSchema = new Schema({
 		required: 'Please fill in a Project Name',
 		trim: true
 	},
-
-	isactive: {
+	isActive: {
 		type: Boolean,
 		default: true
 	},
-
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	},
-
-	people: [{
-		type: Schema.ObjectId,
-		ref: 'Workers'
-	}]
+	}
 });
 
+
 /**
- * Worker Schema
+ *	Person Schema
  */
 
-var WorkersSchema = new Schema({
+var PersonSchema = new Schema({
 	name: {
 		type: String,
 		required: 'Please fill in a Workers Name',
@@ -65,52 +77,60 @@ var WorkersSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: 'Please fill in an E-mail',
-		trim: true
+		trim: true,
+		default: '',
+		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
 	group: {
 		type: String,
+		default: '',
 		trim: true
 	},
-
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-
-	isactive: {
+	isActive: {
 		type: Boolean,
 		default: true
-	}
+	},
+	tasks: [{
+		type: Schema.ObjectId,
+		ref: 'Assignment'
+	}]
 });
 
+
 /**
- * Timeline Schema
+ *	Task Schema
  */
 
- var AssignmentSchema = new Schema ({
- 	
- 	worker: {
+ var TaskSchema = new Schema ({
+ 	person:{
  		type: Schema.ObjectId,
- 		ref: 'Workers'
+ 		ref: 'Person'
  	},
-
  	project:{
  		type: Schema.ObjectId,
  		ref: 'Project'
  	},
-
 	startDate:{
 		type: Date
 	},
-
 	endDate:{
+		type: Date
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	created: {
 		type: Date
 	}
  });
 
 
-mongoose.model('Assignment', AssignmentSchema);
-mongoose.model('Workers', WorkersSchema);
-mongoose.model('Calendarize', CalendarizeSchema);
+mongoose.model('Task', TaskSchema);
+mongoose.model('Person', PersonSchema);
 mongoose.model('Project', ProjectSchema);
+

@@ -5,53 +5,49 @@ module.exports = function(app) {
 	var calendarizes = require('../../app/controllers/calendarizes');
 
 	// Routes to create and list projects
+	
 	app.route('/projects')
-		.get(calendarizes.listProject)
+		.get(calendarizes.listProjects)
 		.post(users.requiresLogin, calendarizes.createProject);
 
 	// Routes to READ UPDATE and DELETE projects
+	
 	app.route('/projects/:projectId')
-		.get(calendarizes.readProject)
-		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateProject)
-		.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.deleteProject);
-
-	// Updates people project with the current worker
-	app.route('/projects/:projectId/assign')
-		.get(users.requiresLogin, calendarizes.listProject)
-	 	.post(users.requiresLogin, calendarizes.updateProjectCall);	
+		//.get(calendarizes.readProject)
+		.put(users.requiresLogin, calendarizes.hasProjectAuthorization, calendarizes.updateProject)
+		.delete(users.requiresLogin, calendarizes.hasProjectAuthorization, calendarizes.deleteProject);
 
 	// Route to create and list workers
-	app.route('/workers')
-		.get(calendarizes.listWorkers)
-		.post(users.requiresLogin, calendarizes.createWorkers);
+	
+	app.route('/persons')
+		.get(calendarizes.listPersons)
+		.post(users.requiresLogin, calendarizes.createPerson);
 
 	// Routes to update and delete workers
-	app.route('/workers/:workerId')
-		.get(calendarizes.getWorkersDetails)
-		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateWorker)
-		.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.deleteWorker);
-
-
-	// Updates people project with the current worker
-	app.route('/workers/:workerId/assign')
-		.get(users.requiresLogin, calendarizes.getWorkerProjects)
-	 	.post(users.requiresLogin, calendarizes.updateProjectPeople);
+	
+	app.route('/persons/:personId')
+		.get(calendarizes.getPersonDetails)
+		.put(users.requiresLogin, calendarizes.hasPersonAuthorization, calendarizes.updatePerson)
+		.delete(users.requiresLogin, calendarizes.hasPersonAuthorization, calendarizes.deletePerson);
 
 
 	// Assignment Routes
-	app.route('/assignments')
-		.get(users.requiresLogin, calendarizes.listAssignments)
-		.post(users.requiresLogin, calendarizes.newAssignment);
+	
+	app.route('/tasks')
+		.get(users.requiresLogin, calendarizes.listTasks)
+		.post(users.requiresLogin, calendarizes.createTask);
 
 	// Routes to update and delete assignment
-	app.route('/assignments/:assignmentId')
-		.get(calendarizes.readAssignment)
-		.put(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.updateAssignment)
-		.delete(users.requiresLogin, calendarizes.hasAuthorization, calendarizes.deleteAssignment);
+	
+	app.route('/tasks/:taskId')
+		.get(calendarizes.readTask)
+		.put(users.requiresLogin, calendarizes.hasTaskAuthorization, calendarizes.updateTask)
+		.delete(users.requiresLogin, calendarizes.hasTaskAuthorization, calendarizes.deleteTask);
 
-// MIDDLEWARE
+
+	/* Middleware */
 
 	app.param('projectId', calendarizes.projectByID);
-	app.param('workerId', calendarizes.workerByID);
-	app.param('assignmentId', calendarizes.workerByID);
+	app.param('personId', calendarizes.personByID);
+	app.param('taskId', calendarizes.taskByID);
 };

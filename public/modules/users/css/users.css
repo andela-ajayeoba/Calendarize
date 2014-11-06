@@ -87,6 +87,9 @@
   {
     float: left;
   }
+
+  /**************** POPOVERS*************/
+
  a .popoverBox li , .workerPopOverBox li  {
     border-bottom: 2px solid #f3f4f5;
     position:relative;
@@ -109,13 +112,16 @@
     margin-left:25px;
     border-left: 2px solid green;
     border-bottom: 4px solid brown;
-    text-decoration: none;
-    list-style: none;
     margin-bottom: 20px;
+  }
+   .workerPopOverBox a li {
+    text-decoration: none;
   }
   .workerPopOverBox
   {
     width : 150px;
     padding : 10px;
     text-align: center;
+    text-decoration: none;
+    list-style: none;
   }
