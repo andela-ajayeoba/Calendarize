@@ -13,7 +13,7 @@ module.exports = function(app) {
 	// Routes to READ UPDATE and DELETE projects
 	
 	app.route('/projects/:projectId')
-		//.get(calendarizes.readProject)
+		.get(calendarizes.readProject)
 		.put(users.requiresLogin, calendarizes.hasProjectAuthorization, calendarizes.updateProject)
 		.delete(users.requiresLogin, calendarizes.hasProjectAuthorization, calendarizes.deleteProject);
 

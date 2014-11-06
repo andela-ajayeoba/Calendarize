@@ -1,23 +1,11 @@
 <section data-ng-controller="CalendarizesController">
-    <div class="page-header">
-        <h1>New Project</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="addProject()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="projectname"> Project Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="project.projectname" id="projectname" class="form-control" placeholder=" Project Name" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
-    </div>
+    <script type="text/ng-template" id="popover">
+        <ul class="popoverBox" data-ng-controller="CalendarizesController">
+            <li><label for="project">Name*</label><br><input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/></li><br>
+            <button class="btn btn-primary" ng-click="addProject()">Create</button>
+        </ul>
+    </script>
+    <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+        Popover
+    </button>
 </section>
