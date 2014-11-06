@@ -5,30 +5,71 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
-	Calendarize = mongoose.model('Calendarize'),
+
 	Project = mongoose.model('Project'),
-	Workers = mongoose.model('Workers'),
-	Assignment = mongoose.model('Assignment'),
+	Person = mongoose.model('Person'),
+	Task = mongoose.model('Task'),
 	_ = require('lodash');
 
-/**
- * Calendarize authorization middleware
- */
-exports.hasAuthorization = function(req, res, next) {
-	if (req.calendarize.user.id !== req.user.id) {
+
+/* Authentication Middleware */
+
+exports.hasProjectAuthorization = function(req, res, next) {
+	if (req.project.user.id !== req.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
 };
 
-/*****************************************
-	PROJECT CONTROLLER
-*****************************************/
+exports.hasPersonAuthorization = function(req, res, next) {
+	if (req.person.user.id !== req.user.id) {
+		return res.status(403).send('User is not authorized');
+	}
+	next();
+};
 
-/* CREATING A PROJECT */
+exports.hasTaskAuthorization = function(req, res, next) {
+	if (req.task.user.id !== req.user.id) {
+		return res.status(403).send('User is not authorized');
+	}
+	next();
+};
+
+/* Middleware */
+
+exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
+		if (err) return next(err);
+		if (! project) return next(new Error('Failed to load Person ' + id));
+		req.project = project ;
+		next();
+	});
+};
+
+exports.personByID = function(req, res, next, id) { Person.findById(id).populate('user', 'displayName').exec(function(err, person) {
+		if (err) return next(err);
+		if (! person) return next(new Error('Failed to load Person ' + id));
+		req.person = person;
+		next();
+	});
+};
+
+exports.taskByID = function(req, res, next, id) { Task.findById(id).populate('user', 'displayName').exec(function(err, task) {
+		if (err) return next(err);
+		if (! task) return next(new Error('Failed to load Task' + id));
+		req.task = task;
+		next();
+	});
+};
+
+
+/*	==========================
+		Project Controller
+	==========================	*/
 
 exports.createProject = function(req, res) {
+	
 	var project = new Project(req.body);
+	
 	project.user = req.user;
 
 	project.save(function(err) {
@@ -42,21 +83,22 @@ exports.createProject = function(req, res) {
 	});
 };
 
-/* LISTING PROJECTS */
-
-exports.listProject = function(req, res) { Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(projects);
-		}
-	});
+exports.listProjects = function(req, res) {
+    
+    Project.find().sort('-created').exec(function(err, projects) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+        	// TODO: Add tasks
+            res.jsonp(projects);
+        }
+    });
 };
 
-/* UPDATE ROJECTS */
 exports.updateProject = function(req, res) {
+	
 	var project = req.project;
 
 	project = _.extend(project , req.body);
@@ -72,14 +114,27 @@ exports.updateProject = function(req, res) {
 	});
 };
 
-/* READ THE CURRENT PROJECT */
+/*
 exports.readProject = function(req, res) {
-	res.jsonp(req.project);
+
+	Task.find({'project':req.project._id}).populate('person').populate('project').exec( function(err, assignments){
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+
+				req.project.people = assignments;
+
+				res.jsonp(req.project);
+			}
+	});
+	
 };
+*/
 
-
-/* DELETE PROJECTS */
 exports.deleteProject = function(req, res) {
+	
 	var project = req.project ;
 
 	project.remove(function(err) {
@@ -93,230 +148,148 @@ exports.deleteProject = function(req, res) {
 	});
 };
 
-/* UPDATE PROJECTS ARRAY */
-exports.updateProjectPeople = function(req, res) {
-	var project = Project.findById(req.body.projectId).exec(function(err, project) {
-		if (err){
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		}
-			else{
-				project.people.push(req.worker);
-				project.save(function(err) {
-					if (err) {
-							return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-				} else {
-						res.jsonp(project);
-					}
-				});
-			}
-		});	
-};
 
-exports.updateProjectCall = function(req, res){
+/*	==========================
+		Person Controller
+	==========================	*/
 
-	var worker = req.body.workerId;
-	var project = req.project;
+exports.createPerson = function(req, res) {
+	var person = new Person(req.body);
+	person.user = req.user;
 
-	project.people.push(worker);
-	project.save(function(err) {
-					if (err) {
-							return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-				} else {
-						res.jsonp(project);
-					}
-				});
-
-};
-
-
-exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
-		if (err) return next(err);
-		if (! project) return next(new Error('Failed to load Worker ' + id));
-		req.project = project ;
-		next();
-	});
-};
-
-
-
-/*****************************************
-	WORKERS CONTROLLER
-/*****************************************/
-
-/* CREATING A WORKER */
-exports.createWorkers = function(req, res) {
-	var workers = new Workers(req.body);
-	workers.user = req.user;
-
-	workers.save(function(err) {
+	person.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(workers);
+			res.jsonp(person);
 		}
 	});
 };
 
-/* LISTING WORKERS */
-exports.listWorkers = function(req, res) { Workers.find().sort('-created').populate('user', 'displayName').exec(function(err, workers) {
+exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').exec(function(err, persons) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(workers);
+			res.jsonp(persons);
 		}
 	});
 };
 
-/* WORKERS MIDDLEWARE (:workersId) */
-exports.workerByID = function(req, res, next, id) { Workers.findById(id).populate('user', 'displayName').exec(function(err, worker) {
-		if (err) return next(err);
-		if (! worker) return next(new Error('Failed to load Worker ' + id));
-		req.worker = worker ;
-		next();
+exports.getPersonDetails = function(req, res) {
+	Task.find({'person':req.person._id}, function(err, tasks) {
+		req.person.tasks = tasks;
 	});
+	res.jsonp(req.person);
 };
 
-/* GET WORKERS DETAILS */
-exports.getWorkersDetails = function(req, res) {
-	res.jsonp(req.worker);
-};
+exports.deletePerson = function(req, res) {
+	
+	var person = req.person;
 
-
-/* DELETE WORKER */
-exports.deleteWorker = function(req, res) {
-	var worker = req.worker ;
-
-	worker.remove(function(err) {
+	person.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(worker);
+			res.jsonp(person);
 		}
 	});
 };
 
-/* UPDATE WORKER */
-exports.updateWorker = function(req, res) {
-	var worker = req.worker;
+exports.updatePerson = function(req, res) {
+	
+	var person = req.person;
 
-	worker = _.extend(worker , req.body);
+	person = _.extend(person , req.body);
 
-	worker.save(function(err) {
+	person.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(worker);
+			res.jsonp(person);
 		}
 	});
-};
-
-/* GET WORKERS PROJECTS */
-exports.getWorkerProjects = function(req, res){
-
-	Project.where('people').equals(req.worker._id).exec(
-		function(err, data){
-			if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(data);
-		}
-
-		}
-	);
 
 };
 
-/*****************************************
-	ASSIGNMENT CONTROLLER
-/*****************************************/
 
-/* CREATE ASSIGNMENT */
-exports.newAssignment = function(req, res) {
-	var assignment = new Assignment(req.body);
-	assignment.user = req.user;
 
-	assignment.save(function(err) {
+/*	==========================
+		Task Controller
+	==========================	*/
+
+
+exports.createTask = function(req, res) {
+
+	var task = new Task(req.body);
+
+	task.user = req.user;
+
+
+	task.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(assignment);
+			res.jsonp(task);
 		}
 	});
+
 };
 
-/* LIST ASSIGNMENTS */
-exports.listAssignments = function(req, res) { Assignment.find().sort('-created').populate('worker', 'name').populate('project', 'projectname').exec(function(err, assignments) {
+exports.listTasks = function(req, res) { Task.find().sort('-created').populate('person', 'name').populate('project', 'projectname').exec(function(err, tasks) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(assignments);
+			res.jsonp(tasks);
 		}
 	});
 };
 
-/* READ THE CURRENT ASSIGNMENT */
-exports.readAssignment = function(req, res) {
-	res.jsonp(req.project);
+
+
+exports.readTask = function(req, res) {
+	res.jsonp(req.task);
 };
 
-/* ASSIGNMENT MIDDLEWARE (:assignmentId) */
-exports.assignmentByID = function(req, res, next, id) { Assignment.findById(id).populate('user', 'displayName').exec(function(err, assignment) {
-		if (err) return next(err);
-		if (! assignment) return next(new Error('Failed to load Assignment' + id));
-		req.assignment = assignment;
-		next();
-	});
-};
+exports.deleteTask = function(req, res) {
+	
+	var task = req.task ;
 
-
-/* DELETE ASSIGNMENT */
-exports.deleteAssignment = function(req, res) {
-	var assignment = req.assignment ;
-
-	assignment.remove(function(err) {
+	task.remove(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(assignment);
+			res.jsonp(task);
 		}
 	});
 };
 
-/* UPDATE ASSIGNMENT */
-exports.updateAssignment = function(req, res) {
-	var assignment = req.assignment ;
+exports.updateTask = function(req, res) {
+	var task = req.task ;
 
-	assignment = _.extend(assignment, req.body);
+	task = _.extend(task, req.body);
 
-	assignment.save(function(err) {
+	task.save(function(err) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(assignment);
+			res.jsonp(task);
 		}
 	});
 };
+
