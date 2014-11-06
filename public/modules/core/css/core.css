@@ -151,5 +151,325 @@ p {
       opacity: 1; 
 }
 
+/*@media (min-width : 320px) and (max-width : 480px) {*/
+/* Styles */
+/*********************
+HEADER STYLING
+*********************/
+/*.grid_12, .container_12 {
+	width: 100%;
+}
+
+.header h1 {
+    margin: 18px 0;
+    float: left;
+    clear: both;
+}
+
+.header ul {
+	margin-top: 0;
+	margin-right: 13px;
+	margin-left: -50px;
+
+}
+
+.header ul li {
+	margin-left: 30px;
+}
+
+.header ul li.free-trial a {
+    margin-left: 0;
+}
+
+.button.free-trial {
+    margin-left: 12px;
+}
+
+.header li a {
+    float: right;
+}*/
+
+/******************
+   HOME STYLING
+******************/
+/*.leadingIntro {
+	font-size: 15px;
+	margin-left: -10px;
+	margin-top: 10px;
+	width: 15em;
+	word-wrap: break-word;
+}
+
+.intro {
+	width: 90%;
+	
+}
+
+.screenshot_image {
+	width: 15em;
+	margin-top: 80px;
+	margin-left: -350px;
+}
+
+.questionTxt{
+	font-size: 15px;
+}
+
+div .questionTxt em {
+	margin-top: 25px;
+	font-size: 15px;
+	line-height: 1.2;
+	width: 20em;
+}
+
+div .questionTxt em:before {
+    display: none;
+}
+
+.description {
+    width: 100%;
+    padding: 0;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}
+
+.description_p {
+	width: 18em;
+	word-wrap: break-word;
+	margin-bottom: 0;
+	font-size: 15px;
+	margin-top: 10px;
+}
+
+.screenshots {
+	margin: 38px -35px 20px;
+	width: 25em;
+}
+
+.pricing  {
+	width: 64em;
+	padding-right: 10px;
+	padding-right: 55px;
+}
+
+.trial {
+	padding-right: 135px;
+	width: 25em;
+	line-height: 26px;
+	margin-left: 0px;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}
+
+.imgxt {
+	margin-left: -10px;
+}
+
+.all_pricing, .short_border_div h2:after {
+border-bottom: none;
+}
+
+.plan_pricing {
+border-top: none;
+}
+}*/
+
+/*.projectpuzzle {
+	margin: -55px 5px;
+}
+
+.leadingIntro {
+	font-size: 16px;
+	margin-left: 0px;
+	margin-top: 60px;
+	width: 15em;
+	word-wrap: break-word;
+}
+
+.questions {
+	margin-left: -20px;
+	width: 100%;
+}
+
+.questionTxt{
+	font-size: 15px;
+}
+
+div .questionTxt em {
+	margin-top: 20px;
+	border-radius: 0;
+	font-size: 12px;
+	padding: 15px;
+}
+
+div .questionTxt em:before {
+    display: none;
+}
+
+.description {
+    width: 100%;
+    padding: 0;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}
+
+.description_p {
+	width: 25em;
+	word-wrap: break-word;
+	margin-bottom: 0;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.screenshots {
+	margin: 38px -21px 20px;
+	width: 25em;
+}
+
+.pricing  {
+	width: 64em;
+	padding-right: 10px;
+	padding-left: 3px;
+}
+
+.trial {
+	padding-right: 135px;
+	width: 25em;
+	line-height: 26px;
+	margin-left: 0px;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}
+
+}*/
+
+/*@media (max-width : 768px) {*/
+/* Styles */
+/*********************
+    HEADER STYLING
+*********************/
+/*.grid_12, .container_12 {
+	width: 100%;
+}
+
+.header h1 {
+    margin: 20px 0px;
+    float: left;
+}
+
+.header ul {
+	float: right;
+	margin: -62px 82px 32px;*/
+	/*margin: 34px 82px 30px;*/
+
+
+
+/******************
+   HOME STYLING
+******************/
+/*.short_border_div h2:after {
+	margin-top: 62px;
+}
+
+.leadingIntro {
+	width: 392px;
+}
+
+.intro {
+	width: 120%;
+}
+
+.screenshot_image {
+	width: 64%;
+	margin-top: 35px;
+}*/
+/*
+.questions {
+	margin-left: -20px;
+	width: 100%;
+}
+
+.questionTxt{
+	font-size: 15px;
+}
+
+div .questionTxt em {
+	margin-top: 20px;
+	border-radius: 0;
+	font-size: 12px;
+	padding: 15px;
+}
+
+div .questionTxt em:before {
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 0px;  
+}
+
+.description {
+    width: 100%;
+    padding: 0;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}
+
+.description_p {
+	width: 25em;
+	word-wrap: break-word;
+	margin-bottom: 0;
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.screenshots {
+	margin: 38px -21px 20px;
+	width: 25em;
+}
+
+.pricing  {
+	width: 64em;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.trial {
+	padding-right: 135px;
+	width: 25em;
+	line-height: 26px;
+	margin-left: 0px;
+}
+
+.trial_two {
+	padding-right: 143px;
+	padding-left: 0;
+	width: 441px;
+	line-height: 26px;
+}*/
 
 
