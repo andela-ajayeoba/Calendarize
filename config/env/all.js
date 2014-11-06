@@ -13,6 +13,7 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
+				'public/lib/angular-gantt/assets/gantt.css',
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
 				'public/lib/angular-gantt/assets/gantt.css'
@@ -28,7 +29,13 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+				'public/lib/moment/min/moment.min.js',
+				'public/lib/angular-moment/angular-moment.min.js',
+				'public/lib/angular-gantt/assets/angular-gantt.js',
+				'public/lib/angular-strap/dist/angular-strap.min.js',
+				'public/lib/angular-strap/dist/angular-strap.tpl.min.js',
 				'public/lib/nsPopover/example/nsPopover.js'
+
 			]
 		},
 		css: [

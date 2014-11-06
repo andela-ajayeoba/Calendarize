@@ -149,6 +149,7 @@ exports.deleteProject = function(req, res) {
 	});
 };
 
+
 /*	==========================
 		Person Controller
 	==========================	*/
@@ -264,6 +265,7 @@ exports.listTasks = function(req, res) { Task.find().sort('-created').populate('
 		}
 	});
 };
+
 
 
 exports.readTask = function(req, res) {

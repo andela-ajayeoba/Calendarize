@@ -6,8 +6,9 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
+
 /**
- *	Project Schema
+ * Project Schema
  */
 
 var ProjectSchema = new Schema({
@@ -30,6 +31,7 @@ var ProjectSchema = new Schema({
 	}]
 });
 
+
 /**
  *	Person Schema
  */
@@ -42,11 +44,13 @@ var PersonSchema = new Schema({
 	},
 	email: {
 		type: String,
-		required: 'Please fill in an E-mail',
-		trim: true
+		trim: true,
+		default: '',
+		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
 	group: {
 		type: String,
+		default: '',
 		trim: true
 	},
 	user: {
@@ -62,6 +66,7 @@ var PersonSchema = new Schema({
 		ref: 'Task'
 	}]
 });
+
 
 /**
  *	Task Schema
@@ -95,3 +100,4 @@ var PersonSchema = new Schema({
 mongoose.model('Task', TaskSchema);
 mongoose.model('Person', PersonSchema);
 mongoose.model('Project', ProjectSchema);
+

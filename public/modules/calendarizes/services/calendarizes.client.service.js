@@ -16,7 +16,7 @@ angular.module('calendarizes').factory('Apicall', ['$resource',
 	function($resource) {
 
 		return {
-			Workers: $resource('persons/:personId', {
+			Persons: $resource('persons/:personId', {
 						workerId: '@_id'
 			}, 
 			{
