@@ -219,7 +219,10 @@
             </div>
             <script type="text/ng-template" id="popover">
                 <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                    <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
+                    <li>
+                        <label for="people">Name*</label>
+                        <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
+                    </li>
                     <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
                     <li><label for="worker">Group</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li><br>
                     <button class="btn btn-primary" ng-click="addPerson()">Create</button>
@@ -240,8 +243,8 @@
             <!-- <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="findProject()">Add Project</button> -->
             <div class="form-group text-center">
                 <label class="control-label"><i class="fa fa-scissors"></i> Project </label><br>
-                <select data-ng-init="findProject()">
-                    <option ng-repeat="project in projects" value="{{project._id}}">{{project.projectname}}</option>
+                <select data-ng-init="findProjects()">
+                    <option ng-repeat="project in projects" value="{{project._id}}">{{project.name}}</option>
                 </select>
             </div>
             <div class="row top-buffer">
