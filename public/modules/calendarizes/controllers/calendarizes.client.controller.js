@@ -9,7 +9,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		/* Create a new person */
 
         $scope.addPerson = function() {
-            console.log('fired');
             var person = new Apicall.Persons($scope.person);
 
             person.$save(function(response) {
@@ -73,6 +72,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		// Creating a new Project
 		$scope.addProject = function() {
 			// Create new Calendarize object
+			console.log('fired');
 			var project = new Apicall.Projects ($scope.project);
 			console.log($scope.project);
 			console.log(project);
