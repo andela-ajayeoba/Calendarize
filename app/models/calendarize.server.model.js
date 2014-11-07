@@ -6,40 +6,6 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-
-
-
-/**
- * Calendarize Schema
- */
-var CalendarizeSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Project name',
-		trim: true
-	},
-	start: {
-		type: Date,
-		default: Date.now
-	},
-	worker: {
-		type: Schema.ObjectId,
-		ref: 'Worker'
-	},
-	stop: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
-});
-
-
-
-
 /**
  * Project Schema
  */
@@ -57,7 +23,11 @@ var ProjectSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	}
+	},
+	tasks : [{
+		type: Schema.ObjectId,
+		ref: 'Task'
+	}]
 });
 
 
@@ -90,9 +60,9 @@ var PersonSchema = new Schema({
 		type: Boolean,
 		default: true
 	},
-	tasks: [{
+	tasks : [{
 		type: Schema.ObjectId,
-		ref: 'Assignment'
+		ref: 'Task'
 	}]
 });
 
