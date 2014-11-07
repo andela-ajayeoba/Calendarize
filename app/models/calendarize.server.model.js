@@ -6,7 +6,6 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-
 /**
  * Project Schema
  */
@@ -73,18 +72,24 @@ var PersonSchema = new Schema({
  */
 
  var TaskSchema = new Schema ({
- 	person:{
+ 	personId: {
  		type: Schema.ObjectId,
  		ref: 'Person'
  	},
- 	project:{
+ 	personName: {
+ 		type: String
+ 	},
+ 	projectId: {
  		type: Schema.ObjectId,
  		ref: 'Project'
  	},
-	startDate:{
+ 	projectName: {
+ 		type: String
+ 	},
+	startDate: {
 		type: Date
 	},
-	endDate:{
+	endDate: {
 		type: Date
 	},
 	user: {

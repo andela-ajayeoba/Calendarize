@@ -38,20 +38,19 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div>
-                    <p class="questionTxt">
-                        Calendarize will help you answer these questions
+                <div class="row">
+                    <p class="questionTxt-last"> 
+                            Calendarize will help you answer these questions
                     </p>
                 </div>
             </div>
         </div>
         <div class="row description">
             <div class="col-sm-6 text-center trial_two">
-
-                <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+               <a href="#!/signup"><span class="btn free-trial">Start using Calendarize in 12seconds</span></a>
             </div>
-            <div class="col-sm-6 text-left">
-                <p>
+            <div class="col-sm-6">
+                <p class="project-description">
                     Calendarize is a project scheduling tool.
                     <br>By tracking your current projects and who's working on them and when, you'll have a clear picture of what's going on.
                 </p>
@@ -59,19 +58,19 @@
         </div>
         <div class="row screenshots">
             <div class="col-md-4 text-center div_two alpha">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-01.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-01.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
             </div>
             <div class="col-md-4">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-02.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-02.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
             </div>
             <div class="col-md-4 omega">
-                <img class="img-responsive text-right img-center" src="modules/core/img/brand/screenshot-03.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-right img-center" src="modules/core/img/brand/screenshot-03.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
@@ -112,120 +111,25 @@
             </div>
         </div>
         <div class="row text-center trial">
-            <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+            <a href="#!/signup"><span class="btn free-trial button-last">Start using Calendarize in 12seconds</span></a>
         </div>
     </div>
 </section>
 <section ng-controller="CalendarizesController" ng-show="authentication.user">
   <div class="container-content" ng-cloak="true">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel-group" bs-collapse>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a href="" bs-collapse-toggle>Options</a>
-                                </h4>
-                            </div>
-                            <div class="panel-collapse" bs-collapse-target>
-                                <div class="panel-body">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="form-inline">
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-search"></i> Scale</label><br>
-                                                    <button type="button" style="width: 5em; text-align: left" class="btn btn-default" ng-model="options.scale" ng-options="s for s in ['minute', 'hour', 'day', 'week', 'month', 'quarter', 'year']" bs-select></button>
-                                                </div>
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-sort"></i> Sort</label><br>
-                                                    <button type="button" style="width: 6em; text-align: left" class="btn btn-default" ng-model="options.mode" ng-options="m for m in ['name', 'from', 'to', 'custom']" bs-select></button>
-                                                </div>
-                                               <!--  <div class="form-group input-append text-center">
-                                                    <label class="control-label"><i class="fa fa-filter"></i> Filter Tasks</label><br>
-                                                    <input type="text" class="form-control" style="width: 8em; text-align: left" ng-model="options.filterTask">
-                                                </div>
-                                                <div class="form-group input-append text-center">
-                                                    <label class="control-label"><i class="fa fa-filter"></i> Filter Rows</label><br>
-                                                    <input type="text" class="form-control" style="width: 8em; text-align: left" ng-model="options.filterRow">
-                                                </div> -->
-
-                                                <!-- <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-clock-o"></i> Today</label><br>
-                                                    <button type="button" style="width: 6em; text-align: left" class="btn btn-default" ng-model="options.currentDate" ng-options="d for d in ['none', 'line', 'column']" bs-select></button>
-                                                </div>
- -->
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-expand"></i> Expand</label><br>
-                                                    <button type="button" style="width: 6em; text-align: left" class="btn btn-default" ng-model="options.autoExpand" ng-options="e for e in ['none', 'both', 'left', 'right']" bs-select></button>
-                                                </div>
-
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-scissors"></i> Out of range</label><br>
-                                                    <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-model="options.taskOutOfRange" ng-options="e for e in ['expand', 'truncate']" bs-select></button>
-                                                </div>
-
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-pencil-square-o"></i> Edit</label><br>
-                                                    <button type="button" class="btn btn-default" ng-model="options.draw" bs-checkbox>Draw</button>
-                                                    <button type="button" class="btn btn-default" ng-model="options.readOnly" bs-checkbox>Read Only</button>
-                                                </div>
-
-                                               <!--  <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-magnet"></i> Magnet</label><br>
-                                                    <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-model="options.columnMagnet" ng-options="m for m in ['1 second', '1 minute', '5 minutes', '15 minutes', '1 hour', '1 day']" bs-select></button>
-                                                </div>
-
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-crop"></i> Layout</label><br>
-                                                    <div class="btn-group" bs-checkbox-group>
-                                                        <button type="button" class="btn btn-default" ng-model="options.maxHeight" bs-checkbox>Height</button>
-                                                        <button type="button" class="btn btn-default" ng-model="options.width" bs-checkbox>Width</button>
-                                                        <button type="button" class="btn btn-default" ng-model="options.showLabelsColumn" bs-checkbox>Labels</button>
-                                                    </div>
-                                                </div> -->
-
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-calendar"></i> <i class="fa fa-arrows-h"></i> <i class="fa fa-calendar"></i> Date range</label><br>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" ng-model="options.fromDate" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" start-week="1" placeholder="From" bs-datepicker>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" ng-model="options.toDate" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" start-week="1" placeholder="To" bs-datepicker>
-                                                    </div>
-                                                </div>
-
-                                                <!-- <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-sign-out"></i> Non-working</label><br>
-                                                    <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-model="options.timeFramesNonWorkingMode" ng-options="e for e in ['visible', 'hidden', 'cropped']" bs-select></button>
-                                                </div>
-
-                                                <div class="form-group text-center">
-                                                    <label class="control-label"><i class="fa fa-database"></i> Data actions</label><br>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-default" ng-click="addSamples()">Reload</button>
-                                                        <button class="btn btn-default" ng-click="removeSomeSamples()">Remove</button>
-                                                        <button class="btn btn-default" ng-click="removeSamples()">Clear</button>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <script type="text/ng-template" id="popover">
                 <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                    <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
+                    <li>
+                        <label for="people">Name*</label>
+                        <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
+                    </li>
                     <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
                     <li><label for="worker">Group</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li><br>
                     <button class="btn btn-primary" ng-click="addPerson()">Create</button>
                 </ul>
             </script>
-            <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="top|right" ns-popover-hide-on-click="false">
+            <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|right" ns-popover-hide-on-click="false">
                 Add People
             </button>
             <script type="text/ng-template" id="popover1">
@@ -234,16 +138,11 @@
                     <button class="btn btn-primary" ng-click="addProject()">Create</button>
                 </ul>
             </script>
-            <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="top|right" ns-popover-hide-on-click="false">
+            <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|right" ns-popover-hide-on-click="false">
                 Add Project
             </button>
-            <!-- <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="findProject()">Add Project</button> -->
-            <div class="form-group text-center">
-                <label class="control-label"><i class="fa fa-scissors"></i> Project </label><br>
-                <select data-ng-init="findProject()">
-                    <option ng-repeat="project in projects" value="{{project._id}}">{{project.projectname}}</option>
-                </select>
-            </div>
+
+            <br><br><br><br>
             <div class="row top-buffer">
                 <div class="col-md-12">
                     <div class="panel-group" bs-collapse>
@@ -293,5 +192,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div ng-init="findPersons()" ng-model="persons">
+        <li ng-repeat="person in persons" >
+            <span>{{person.name}}</span>
+        </li>
     </div>
 </section>
