@@ -24,13 +24,16 @@ body {
 ***************/
 .navbar-brand-2 {
 	padding: 0 !important; 
-	/*margin-left: 15px;*/
 }
 
 .navbar-text {
 	margin-top: 15px;
 	margin-bottom: 0;
 	font-size: 28px;
+}
+
+.mycustom-nav {
+	padding: 0 30px;
 }
 
 /***************
@@ -56,9 +59,13 @@ div .questionTxt-last {
 
 .description{
 	background: #f9f9f9;
-	padding-top: 50px;
+	padding: 30px;
 	margin: 20px auto;
 	margin-bottom: 50px;
+}
+
+.trial_two {
+	padding-top: 15px;
 }
 
 .free-trial {
