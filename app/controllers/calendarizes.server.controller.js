@@ -85,7 +85,7 @@ exports.createProject = function(req, res) {
 
 exports.listProjects = function(req, res) {
     
-    Project.find().sort('-created').populate('tasks').exec(function(err, projects) {
+    Project.find().sort('-created').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -169,7 +169,7 @@ exports.createPerson = function(req, res) {
 	});
 };
 
-exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').populate('tasks').exec(function(err, persons) {
+exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').populate('tasks','projectName personName startDate endDate').exec(function(err, persons) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -228,30 +228,41 @@ exports.updatePerson = function(req, res) {
 
 
 exports.createTask = function(req, res) {
-
+	var person, project;
 	var task = new Task(req.body);
+	
 	task.user = req.user;
-	Person.findById(req.body.person).exec(function(err, person){
 
-		person.tasks.push(task);
-		person.save();
+	Person.findById(req.body.personId).exec(function(err, person_object){
+		
+		person = person_object;
 
-	});
-	Project.findById(req.body.project).exec(function(err, project){
+		Project.findById(req.body.projectId).exec(function(err, project_object){
+			
+			project = project_object;
 
-		project.tasks.push(task);
-		project.save();
+			task.projectName = project.name;
+			task.personName = person.name;
 
-	});
-	task.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
+			task.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					person.tasks.push(task);
+					person.save();
+					project.tasks.push(task);
+					project.save();
+					res.jsonp(task);
+				}
 			});
-		} else {
-			res.jsonp(task);
-		}
+
+		});
 	});
+
+	
+
 
 };
 

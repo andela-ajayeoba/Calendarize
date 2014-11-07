@@ -3,10 +3,8 @@
 // Calendarizes controller
 angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Apicall', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
 	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
-		$scope.authentication = Authentication;
-        
 
-		/* Create a new person */
+		$scope.authentication = Authentication;
 
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
@@ -22,9 +20,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                 $scope.error = errorResponse.data.message;
             });
         };
-
-
-		// Remove existing Person
 		$scope.removePerson = function( person ) {
 			if ( person ) { person.$remove();
 
@@ -35,18 +30,14 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 				}
 			} else {
 				$scope.person.$remove(function() {
-					// $location.path('calendarizes');
 				});
 			}
 		};
 
-		// Update existing Calendarize
 		$scope.updatePerson = function() {
 			var person = $scope.person ;
 
 			person.$update(function() {
-				// $location.path('calendarizes/' + calendarize._id);
-				// Return a "Person updated" success message
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -55,6 +46,10 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		// Find a list of Persons
 		$scope.findPersons = function() {
 			$scope.persons = Apicall.Persons.query();
+
+            // var dataTest = $scope.persons;
+            console.log($scope.persons);
+
 		};
 
 		// Find existing Person
@@ -114,8 +109,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		// Find a list of Persons
 		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
-            console.log($scope.projects);
-            console.log('clicked');
 		};
 
 
@@ -133,33 +126,24 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                     ASSIGNMENT CRUD
         ************************************************/
         // Creating a new Assignment
-        $scope.createAssignment = function() {
-            // Create new Calendarize object
-            var assignment = new Apicall.Assignments ($scope.assignment);
-
-            // Redirect after save
-            assignment.$save(function(response) {
-                // $location.path('calendarizes/' + response._id);
-                    // $scope.msg = 'Project Successfully added';
-                    console.log(response);
-                // Clear form fields
-                $scope.assignment = '';
+        $scope.createTask = function() {
+            var task = new Apicall.Tasks ($scope.task);
+            task.$save(function(response) {
+                $scope.task = '';
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
         };
-        // Edit existing assignment
-        $scope.findOneAssignment = function() {
-            $scope.assignment = Apicall.Assignments.get({ 
-                assignmentId: $stateParams.assignmentId
+
+        $scope.findOneTask = function() {
+            $scope.task = Apicall.Tasks.get({ 
+                // assignmentId: $stateParams.assignmentId
             });
         };
+        $scope.updateTask = function() {
+            var task = $scope.task ;
 
-        // Update existing Assignment
-        $scope.updateAssignment = function() {
-            var assignment = $scope.assignment ;
-
-            assignment.$update(function() {
+            task.$update(function() {
                 // $location.path('calendarizes/' + calendarize._id);
                 // Return a "Person updated" success message
             }, function(errorResponse) {
@@ -167,8 +151,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             });
         };
 
-        $scope.findAssignments = function() {
-            $scope.asignments = Apicall.Assignments.query();
+        $scope.findTasks = function() {
+            $scope.tasks = Apicall.Tasks.query();
         };
 
 

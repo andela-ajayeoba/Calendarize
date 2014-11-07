@@ -126,7 +126,10 @@
         <div class="container-fluid">
             <script type="text/ng-template" id="popover">
                 <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                    <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
+                    <li>
+                        <label for="people">Name*</label>
+                        <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
+                    </li>
                     <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
                     <li><label for="worker">Group</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li><br>
                     <button class="btn btn-primary" ng-click="addPerson()">Create</button>
@@ -144,6 +147,7 @@
             <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|right" ns-popover-hide-on-click="false">
                 Add Project
             </button>
+
             <br><br><br><br>
             <div class="row top-buffer">
                 <div class="col-md-12">
@@ -194,5 +198,11 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div ng-init="findPersons()" ng-model="persons">
+        <li ng-repeat="person in persons" >
+            <span>{{person.name}}</span>
+        </li>
     </div>
 </section>
