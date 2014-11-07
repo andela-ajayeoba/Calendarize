@@ -9,7 +9,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		/* Create a new person */
 
         $scope.addPerson = function() {
-            console.log('fired');
             var person = new Apicall.Persons($scope.person);
 
             person.$save(function(response) {
@@ -191,7 +190,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             showLabelsColumn: true,
             currentDate: 'line',
             currentDateValue : new Date(2014, 9, 23, 11, 20, 0),
-            draw: true,
+            draw: false,
             readOnly: false,
             filterTask: undefined,
             filterRow: undefined,

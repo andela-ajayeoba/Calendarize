@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
 
 
 /**
-<<<<<<< HEAD
  * Calendarize Schema
  */
 var CalendarizeSchema = new Schema({
