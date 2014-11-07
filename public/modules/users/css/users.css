@@ -108,11 +108,11 @@
     background: #FFF;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
     position: absolute;
-    padding: 5px;
+    padding: 15px;
     margin-left:25px;
-    border-left: 2px solid green;
-    border-bottom: 4px solid brown;
     margin-bottom: 20px;
+    text-decoration: none;
+    list-style: none;
   }
    .workerPopOverBox a li {
     text-decoration: none;
@@ -122,6 +122,5 @@
     width : 150px;
     padding : 10px;
     text-align: center;
-    text-decoration: none;
-    list-style: none;
+    
   }

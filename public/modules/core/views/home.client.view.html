@@ -219,16 +219,25 @@
             </div>
             <script type="text/ng-template" id="popover">
                 <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                    <li><label for="project">Name</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
-                    <li><label for="worker">Email</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
-                    <li><label for="worker">Project</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li>
+                    <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
+                    <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
+                    <li><label for="worker">Group</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li><br>
                     <button class="btn btn-primary" ng-click="addPerson()">Create</button>
                 </ul>
             </script>
-            <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+            <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="top|right" ns-popover-hide-on-click="false">
                 Add People
             </button>
-            <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="findProject()">Add Project</button>
+            <script type="text/ng-template" id="popover1">
+                <ul class="popoverBox" data-ng-controller="CalendarizesController">
+                    <li><label for="project">Name*</label><br><input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/></li><br>
+                    <button class="btn btn-primary" ng-click="addProject()">Create</button>
+                </ul>
+            </script>
+            <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="top|right" ns-popover-hide-on-click="false">
+                Add Project
+            </button>
+            <!-- <button type="button" style="width: 8em; text-align: left" class="btn btn-default" ng-click="findProject()">Add Project</button> -->
             <div class="form-group text-center">
                 <label class="control-label"><i class="fa fa-scissors"></i> Project </label><br>
                 <select data-ng-init="findProject()">
