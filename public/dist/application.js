@@ -11,7 +11,8 @@ var ApplicationConfiguration = function () {
         'ngSanitize',
         'ui.router',
         'ui.bootstrap',
-        'ui.utils'
+        'ui.utils',
+        'nsPopover'
       ];
     // Add a new vertical module
     var registerModule = function (moduleName, dependencies) {
@@ -76,70 +77,209 @@ angular.module('calendarizes').config([
     }).state('editCalendarize', {
       url: '/calendarizes/:calendarizeId/edit',
       templateUrl: 'modules/calendarizes/views/edit-calendarize.client.view.html'
+    }).state('listWorkers', {
+      url: '/workers',
+      templateUrl: 'modules/calendarizes/views/list-workers.client.view.html'
+    }).state('createWorker', {
+      url: '/workers/create',
+      templateUrl: 'modules/calendarizes/views/create-worker.client.view.html'
+    }).state('viewWorker', {
+      url: '/workers/:workerId',
+      templateUrl: 'modules/calendarizes/views/view-worker.client.view.html'
+    }).state('editWorker', {
+      url: '/workers/:workerId/edit',
+      templateUrl: 'modules/calendarizes/views/edit-worker.client.view.html'
+    }).state('listProjects', {
+      url: '/projects',
+      templateUrl: 'modules/calendarizes/views/list-projects.client.view.html'
+    }).state('createProject', {
+      url: '/projects/create',
+      templateUrl: 'modules/calendarizes/views/create-project.client.view.html'
+    }).state('viewProject', {
+      url: '/projects/:projectId',
+      templateUrl: 'modules/calendarizes/views/view-project.client.view.html'
+    }).state('editProject', {
+      url: '/projects/:projectId/edit',
+      templateUrl: 'modules/calendarizes/views/edit-project.client.view.html'
     });
   }
 ]);'use strict';
 // Calendarizes controller
 angular.module('calendarizes').controller('CalendarizesController', [
   '$scope',
+  '$modal',
   '$stateParams',
   '$location',
   'Authentication',
-  'Calendarizes',
-  function ($scope, $stateParams, $location, Authentication, Calendarizes) {
+  'Apicall',
+  function ($scope, $modal, $stateParams, $location, Authentication, Apicall) {
     $scope.authentication = Authentication;
-    // Create new Calendarize
-    $scope.create = function () {
+    //testing main popover
+    $scope.items = [
+      { name: 'Action' },
+      { name: 'Another action' },
+      { name: 'Something else here' }
+    ];
+    //testing modal
+    $scope.open = function (size) {
+      var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: ModalInstanceCtrl,
+          size: size
+        });
+      modalInstance.result.then(function () {
+        $scope.message = 'tryme';
+      });
+    };
+    var ModalInstanceCtrl = function ($modalInstance, $scope) {
+      $scope.ok = function (worker) {
+        console.log($scope.worker);
+        $modalInstance.close(worker);
+      };
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+      s;
+    };
+    /************************************************
+					WORKERS CRUD
+		************************************************/
+    //Response to action message
+    var responseMessage = function (title, action) {
+      $scope.msg = title + ' is successfully ' + action;
+    };
+    // Creating a new worker
+    $scope.addWorker = function () {
       // Create new Calendarize object
-      var calendarize = new Calendarizes({ name: this.name });
+      var worker = new Apicall.Workers($scope.worker);
+      console.log('hello');
+      console.log($scope.worker);
+      console.log(worker);
       // Redirect after save
-      calendarize.$save(function (response) {
-        $location.path('calendarizes/' + response._id);
+      worker.$save(function (response) {
+        // $location.path('calendarizes/' + response._id);
+        $scope.msg = 'Worker Successfully added';
         // Clear form fields
-        $scope.name = '';
+        $scope.worker = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
-    // Remove existing Calendarize
-    $scope.remove = function (calendarize) {
-      if (calendarize) {
-        calendarize.$remove();
-        for (var i in $scope.calendarizes) {
-          if ($scope.calendarizes[i] === calendarize) {
-            $scope.calendarizes.splice(i, 1);
+    // Remove existing Worker
+    $scope.removeWorker = function (worker) {
+      if (worker) {
+        worker.$remove();
+        for (var i in $scope.workers) {
+          if ($scope.workers[i] === worker) {
+            $scope.workers.splice(i, 1);
           }
         }
       } else {
-        $scope.calendarize.$remove(function () {
-          $location.path('calendarizes');
+        $scope.worker.$remove(function () {
         });
       }
     };
     // Update existing Calendarize
-    $scope.update = function () {
-      var calendarize = $scope.calendarize;
-      calendarize.$update(function () {
-        $location.path('calendarizes/' + calendarize._id);
+    $scope.updateWorker = function () {
+      var worker = $scope.worker;
+      worker.$update(function () {
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
-    // Find a list of Calendarizes
-    $scope.find = function () {
-      $scope.calendarizes = Calendarizes.query();
+    // Find a list of Workers
+    $scope.findWorker = function () {
+      $scope.workers = Apicall.Workers.query();
     };
-    // Find existing Calendarize
-    $scope.findOne = function () {
-      $scope.calendarize = Calendarizes.get({ calendarizeId: $stateParams.calendarizeId });
+    // Find existing Worker
+    $scope.findOneWorker = function () {
+      $scope.worker = Apicall.Workers.get({ workerId: $stateParams.workerId });
+    };
+    /************************************************
+					PROJECTS CRUD
+		************************************************/
+    // Creating a new Project
+    $scope.addProject = function () {
+      // Create new Calendarize object
+      var project = new Apicall.Projects($scope.project);
+      // Redirect after save
+      project.$save(function (response) {
+        // $location.path('calendarizes/' + response._id);
+        // $scope.msg = 'Project Successfully added';
+        console.log(response);
+        // Clear form fields
+        $scope.project = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Remove existing Project
+    $scope.removeProject = function (project) {
+      if (project) {
+        project.$remove();
+        for (var i in $scope.projects) {
+          if ($scope.projects[i] === project) {
+            $scope.projects.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.project.$remove(function () {
+        });
+      }
+    };
+    // Update existing Calendarize
+    $scope.updateProject = function () {
+      var project = $scope.project;
+      project.$update(function () {
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find a list of Workers
+    $scope.findProject = function () {
+      $scope.projects = Apicall.Projects.query();
+    };
+    // Find existing Worker
+    $scope.findOneProject = function () {
+      $scope.project = Apicall.Projects.get({ projectId: $stateParams.projectId });
     };
   }
-]);'use strict';
+]);// 'use strict';
+// angular.module('calendarizes').directive('custompopover', [
+// 	return {
+//         restrict: 'A',
+//         template: '<span>{{label}}</span>',
+//         link: function (scope, el, attrs) {
+//             scope.label = attrs.popoverLabel;
+//             $(el).popover({
+//                 trigger: 'click',
+//                 html: true,
+//                 content: attrs.popoverHtml,
+//                 placement: attrs.popoverPlacement
+//             });
+//         }
+//     };
+// ]);
+'use strict';
 //Calendarizes service used to communicate Calendarizes REST endpoints
-angular.module('calendarizes').factory('Calendarizes', [
+// angular.module('calendarizes').factory('Calendarizes', ['$resource',
+// 	function($resource) {
+// 		return $resource('calendarizes/:calendarizeId', { calendarizeId: '@_id'
+// 		}, {
+// 			update: {
+// 				method: 'PUT'
+// 			}
+// 		});
+// 	}
+// ]);
+angular.module('calendarizes').factory('Apicall', [
   '$resource',
   function ($resource) {
-    return $resource('calendarizes/:calendarizeId', { calendarizeId: '@_id' }, { update: { method: 'PUT' } });
+    return {
+      Workers: $resource('workers/:workerId', { workerId: '@_id' }, { update: { method: 'PUT' } }),
+      Projects: $resource('projects/:projectId', { projectId: '@_id' }, { update: { method: 'PUT' } }),
+      Assignments: $resource('assignments/:assignmentId', { projectId: '@_id' }, { update: { method: 'PUT' } })
+    };
   }
 ]);'use strict';
 // Setting up route
