@@ -19,7 +19,9 @@
 body {
 	font-family: 'Oswald', impact, sans-serif !important; 
 }
-
+/***************
+ NAV STYLING
+***************/
 .navbar-brand-2 {
 	padding: 0 !important; 
 }
@@ -30,6 +32,13 @@ body {
 	font-size: 28px;
 }
 
+.mycustom-nav {
+	padding: 0 30px;
+}
+
+/***************
+ HOME STYLING
+***************/
 .img-responsive.img-center {
   margin: 0 auto;
 }
@@ -50,15 +59,18 @@ div .questionTxt-last {
 
 .description{
 	background: #f9f9f9;
-	padding-top: 50px;
+	padding: 30px;
 	margin: 20px auto;
 	margin-bottom: 50px;
+}
+
+.trial_two {
+	padding-top: 15px;
 }
 
 .free-trial {
     background: none repeat scroll 0 0 #FF654C;
     color: #FFF;
-    /*margin: 20px auto;*/
 }
 
 .free-trial:hover {
@@ -97,12 +109,56 @@ div .questionTxt-last {
 	margin-top: 30px;
 }
 
+
+/*FOOTER CSS*/
+.footer {
+	font-size: 12px;
+	text-align: center;
+	position: relative;
+	margin-top: 30px;
+	background: #f9f8f8;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.footer, .footer a:link, .footer a:visited {
+	color: #bababa;
+	text-decoration: none;
+}
+
+p {
+	margin-bottom: 6px;
+}
+
+    .footer a:link:hover, .footer a:visited:hover {
+      color: #ff654c; 
+}
+
+.footer a:link .symbol, .footer a:visited .symbol {
+      background: url("/modules/core/img/logo-elabs.png") no-repeat top left;
+      width: 26px;
+      height: 26px;
+      display: inline-block;
+      margin-left: 5px;
+      text-indent: -999999px;
+      opacity: 0.5; 
+}
+
+.footer a:link:hover .symbol, .footer a:visited:hover .symbol {
+      opacity: 1; 
+}
+
+
+/**********************
+ MOBILE RESPONSIVENESS
+**********************/
 @media (max-width: 768px) {
 	.imgxt {
-	margin-bottom: 50px;
+		margin: 20px auto 50px auto;
+	/*margin-bottom: 50px;
 	margin-top: 20px;
 	margin-left: auto;
-	margin-right: auto;
+	margin-right: auto;*/
 	word-wrap: break-word;
 	width: 25em;
 }
@@ -116,38 +172,6 @@ div .questionTxt-last {
 .mobile-username {
 	margin-left: 30px;
 }
-}
 
-/*FOOTER CSS*/
-.footer {
-	font-size: 12px;
-	text-align: center;
-	position: relative;
-	margin-top: 30px;
-	background: #f9f8f8;
-	padding-top: 20px;
-	padding-bottom: 10px;
-}
-.footer, .footer a:link, .footer a:visited {
-	color: #bababa;
-	text-decoration: none;
-}
-p {
-	margin-bottom: 6px;
-}
-    .footer a:link:hover, .footer a:visited:hover {
-      color: #ff654c; 
-}
-.footer a:link .symbol, .footer a:visited .symbol {
-      background: url("/modules/core/img/logo-elabs.png") no-repeat top left;
-      width: 26px;
-      height: 26px;
-      display: inline-block;
-      margin-left: 5px;
-      text-indent: -999999px;
-      opacity: 0.5; 
-}
-.footer a:link:hover .symbol, .footer a:visited:hover .symbol {
-      opacity: 1; 
 }
 
