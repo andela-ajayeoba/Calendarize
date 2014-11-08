@@ -190,7 +190,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             showLabelsColumn: true,
             currentDate: 'line',
             currentDateValue : new Date(2014, 9, 23, 11, 20, 0),
-            draw: true,
+            draw: false,
             readOnly: false,
             filterTask: undefined,
             filterRow: undefined,
