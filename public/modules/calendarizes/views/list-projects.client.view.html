@@ -1,6 +1,7 @@
 <section data-ng-controller="CalendarizesController" data-ng-init="find()">
     <script type="text/ng-template" id="popover">
         <ul class="workerPopOverBox" data-ng-controller="CalendarizesController" data-ng-init="findProject()">
+            <img src="/modules/calendarizes/img/i.png" style ="float:left"/>
            <a ng-click=""><li data-ng-repeat ="project in projects">
            <img src="/modules/calendarizes/img/bag.png" style="float:left"/><span data-ng-bind ="project.name"></span>
             </li></a>

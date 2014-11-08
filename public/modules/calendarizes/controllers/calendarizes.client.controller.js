@@ -5,7 +5,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
         
-
+		$scope.cancel = function () {
+			console.log("shit");
+		};
 		/* Create a new person */
 
         $scope.addPerson = function() {
