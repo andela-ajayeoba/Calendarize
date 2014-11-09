@@ -48,7 +48,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 			$scope.persons = Apicall.Persons.query();
 
             // var dataTest = $scope.persons;
-            console.log($scope.persons);
+            //console.log($scope.persons);
 
 		};
 
