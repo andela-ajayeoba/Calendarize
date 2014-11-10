@@ -357,7 +357,13 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data) {
+            console.log('event');
+            console.log(event);
+            console.log(data);
+            var id = data.row.id;
+            console.log(id);
+        });
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
 
@@ -422,8 +428,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                 'timespan1': [
                     {
                         id: '1',
-                        from: new Date(2014, 9, 21, 8, 0, 0),
-                        to: new Date(2014, 9, 25, 15, 0, 0),
+                        from: new Date(2014, 4, 21, 8, 0, 0),
+                        to: new Date(2015, 12, 12, 8, 0, 0),
                         name: 'Sprint 1 Timespan'
                         //priority: undefined,
                         //classes: [], //Set custom classes names to apply to the timespan.
