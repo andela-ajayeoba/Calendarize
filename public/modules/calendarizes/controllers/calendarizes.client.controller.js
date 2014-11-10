@@ -46,13 +46,23 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 		// Find a list of Persons
 		$scope.findPersons = function() {
 
+            var data = [];
     		$scope.persons = Apicall.Persons.query({}, function(){
                   $scope.persons.forEach(function(result){
-                        console.log(result);
-                // $scope.loadData(result);                        
+                    var $result = {};
+                        $result.id = result._id;
+                        $result.name = result.name;
+                        data.push($result);                        
                     });
+
+                $scope.loadData(data);
+                console.log(data);
             });
+
+
         };
+
+        $scope.findPersons();
 
 		// Find existing Person
 		$scope.findOnePerson = function() {
