@@ -250,7 +250,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         // function that trigers popover onclick on the gantt chart cells
         $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
         	//popover code 
-        	console.log("test");
+        	console.log('test');
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -343,16 +343,18 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             console.log('$scope.$on: ' + event.name + ': ' + output);
         };
         $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
+            console.log(data);
+        });
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_CHANGED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
-        //$scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
-        //$scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
@@ -365,8 +367,21 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             console.log('event');
             console.log(event);
             console.log(data);
+            var row = data.row;
             var id = data.row.id;
             console.log(id);
+            var startDate = data.date;
+            var task = data.row.addTask({
+                id: '5460a4b825d23a6ba25ebec6',
+                name: 'Design',
+                from: startDate,
+                to: '2014-10-10T23:00:00.000Z'
+            });
+            //  task.isCreating = true;
+            //  $scope.$apply(function() {
+            //     task.updatePosAndSize();
+            //     data.row.updateVisibleTasks();
+            // });
         });
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -432,9 +447,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 'timespan1': [
                     {
                         id: '1',
-                        from: new Date(2014, 4, 21, 8, 0, 0),
-                        to: new Date(2015, 12, 12, 8, 0, 0),
-                        name: 'Sprint 1 Timespan'
+                        from: new Date(2014, 1, 21, 8, 0, 0),
+                        to: new Date(2014, 12, 12, 8, 0, 0),
+                        name: 'Calendarize'
                         //priority: undefined,
                         //classes: [], //Set custom classes names to apply to the timespan.
                         //data: undefined
