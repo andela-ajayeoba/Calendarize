@@ -281,7 +281,7 @@ exports.listTasks = function(req, res) { Task.find().sort('-created').populate('
 
 exports.readTask = function(req, res) {
 
-	res.jsonp();
+	res.jsonp(req.task);
 };
 
 exports.deleteTask = function(req, res) {
