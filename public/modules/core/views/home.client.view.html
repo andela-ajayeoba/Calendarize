@@ -132,7 +132,7 @@
                     </li>
                     <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
                     <li><label for="worker">Group</label><input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/></li><br>
-                    <button class="btn btn-primary" ng-click="addPerson()">Create</button>
+                    <button class="btn btn-primary" ng-click="addPerson()">Add Person</button>
                 </ul>
             </script>
             <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|right" ns-popover-hide-on-click="false">
@@ -141,7 +141,7 @@
             <script type="text/ng-template" id="popover1">
                 <ul class="popoverBox" data-ng-controller="CalendarizesController">
                     <li><label for="project">Name*</label><br><input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/></li><br>
-                    <button class="btn btn-primary" ng-click="addProject()">Create</button>
+                    <button class="btn btn-primary" ng-click="addProject()">Create Project</button>
                 </ul>
             </script>
             <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|right" ns-popover-hide-on-click="false">
