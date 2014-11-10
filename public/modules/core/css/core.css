@@ -41,10 +41,8 @@ body {
     margin-bottom: 0;
     font-size: 28px;
 }
-/*.mycustom-nav {
-	padding: 0 30px;
-}
-*/
+
+
 /***************
  HOME STYLING
 ***************/
@@ -106,8 +104,9 @@ div .questionTxt-last {
 .button-last {
     margin-top: 30px;
 }
-/*FOOTER CSS*/
 
+
+/*FOOTER CSS*/
 .footer {
     font-size: 12px;
     text-align: center;
@@ -139,6 +138,7 @@ p {
 .footer a:link:hover .symbol, .footer a:visited:hover .symbol {
     opacity: 1;
 }
+
 /**********************
  MOBILE RESPONSIVENESS
 **********************/
@@ -150,11 +150,6 @@ p {
     }
     .imgxt {
         margin: 20px auto 50px auto;
-        /*margin-bottom: 50px;
-		margin-top: 20px;
-		margin-left: auto;
-		margin-right: auto;*/
-        
         word-wrap: break-word;
         width: 25em;
     }
