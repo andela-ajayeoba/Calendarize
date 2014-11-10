@@ -50,8 +50,19 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
     		$scope.persons = Apicall.Persons.query({}, function(){
                   $scope.persons.forEach(function(result){
                     var $result = {};
+                        $result.tasks = [];
                         $result.id = result._id;
                         $result.name = result.name;
+
+                        result.tasks.forEach(function(task){
+                            var $task = {};
+                                $task.id = task._id;
+                                $task.name = task.projectName;
+                                $task.from = task.startDate;
+                                $task.to = task.endDate;
+
+                                $result.tasks.push($task);
+                        });
                         data.push($result);                        
                     });
 
