@@ -60,7 +60,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                                 $task.name = task.projectName;
                                 $task.from = task.startDate;
                                 $task.to = task.endDate;
-
+                                $task.color = '#F1C232';
                                 $result.tasks.push($task);
                         });
                         data.push($result);                        
@@ -131,7 +131,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 
 		// Find a list of Persons
 		$scope.findProjects = function() {
-            console.log(5555);
 			$scope.projects = Apicall.Projects.query();
 
 		};
@@ -197,7 +196,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             showLabelsColumn: true,
             currentDate: 'line',
             currentDateValue : new Date(2014, 9, 23, 11, 20, 0),
-            draw: false,
+            draw: true,
             readOnly: false,
             filterTask: undefined,
             filterRow: undefined,
@@ -288,7 +287,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                     //endDate.setDate(endDate.getDate());
                     var infoTask = {
                         id: Uuid.randomUuid(),  // Unique id of the task.
-                        name: 'Drawn task', // Name shown on top of each task.
+                        name: 'Assign Task', // Name shown on top of each task.
                         from: startDate, // Date can be a String, Timestamp or Date object.
                         to: endDate,// Date can be a String, Timestamp or Date object.
                         color: '#AA8833' // Color of the task in HEX format (Optional).
@@ -357,7 +356,16 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
+                console.log(data);
+                var rowId = {};
+                rowId.id = data.row.id;
+                rowId.name = data.row.name;
+                rowId.tasks = data.row.tasks;
+                console.log(rowId);
+
+        });
+
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
 
