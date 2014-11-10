@@ -427,7 +427,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     {
                         id: '1',
                         from: new Date(2014, 9, 21, 8, 0, 0),
-                        to: new Date(2014, 9, 25, 15, 0, 0),
+                        to: new Date(2014, 11, 25, 15, 0, 0),
                         name: 'Sprint 1 Timespan'
                         //priority: undefined,
                         //classes: [], //Set custom classes names to apply to the timespan.
