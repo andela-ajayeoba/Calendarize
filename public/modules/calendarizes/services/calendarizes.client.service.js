@@ -17,7 +17,7 @@ angular.module('calendarizes').factory('Apicall', ['$resource',
 
 		return {
 			Persons: $resource('persons/:personId', {
-						workerId: '@_id'
+						personId: '@_id'
 			}, 
 			{
 				update: {
@@ -34,7 +34,7 @@ angular.module('calendarizes').factory('Apicall', ['$resource',
 				}
 			}),
 
-			Assignments: $resource('tasks/:taskId', {
+			Tasks: $resource('tasks/:taskId', {
 						projectId: '@_id'
 			}, 
 			{
