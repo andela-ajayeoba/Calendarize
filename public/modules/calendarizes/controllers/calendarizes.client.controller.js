@@ -1,15 +1,21 @@
 'use strict';
 
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Apicall', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','$modal', 'Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
+	function($scope,$stateParams, $location, $timeout, $modal, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
-        
-		$scope.cancel = function () {
-			console.log("shit");
-		};
-		/* Create a new person */
-
+		console.log($modal);
+		//testing modal
+	    $scope.open = function () {
+	       var modalInstance = $modal.open({
+	           templateUrl: 'modules/calendarizes/views/create-project.client.view.html',
+	           controller: 'HomeController'
+	        });
+	        modalInstance.result.then(function (){
+	          $scope.message = 'tryme';
+	        });
+	    };
+        /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
 
@@ -24,7 +30,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                 $scope.error = errorResponse.data.message;
             });
         };
-
 
 		// Remove existing Person
 		$scope.removePerson = function( person ) {
@@ -241,6 +246,12 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             }
         });
 
+        // function that trigers popover onclick on the gantt chart cells
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
+        	//popover code 
+        	console.log("test");
+       	});
+        
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
             $timeout(function() {
@@ -330,7 +341,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
             }
             console.log('$scope.$on: ' + event.name + ': ' + output);
         };
-
         $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
