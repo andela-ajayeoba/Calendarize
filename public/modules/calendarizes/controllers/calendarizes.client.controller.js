@@ -268,15 +268,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.removeSomeSamples = function() {
             $scope.removeData([
-                {'id': 'c65c2672-445d-4297-a7f2-30de241b3145'}, // Remove all Kickoff meetings
-                {'id': '2f85dbeb-0845-404e-934e-218bf39750c0', 'tasks': [
-                    {'id': 'f55549b5-e449-4b0c-9f4b-8b33381f7d76'},
-                    {'id': '5e997eb3-4311-46b1-a1b4-7e8663ea8b0b'},
-                    {'id': '6fdfd775-7b22-42ec-a12c-21a64c9e7a9e'}
-                ]}, // Remove some Milestones
-                {'id': 'cfb29cd5-1737-4027-9778-bb3058fbed9c', 'tasks': [
-                    {'id': '57638ba3-dfff-476d-ab9a-30fda1e44b50'}
-                ]} // Remove order basket from Sprint 2
+                
             ]);
         };
 
@@ -370,6 +362,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             var row = data.row;
             var id = data.row.id;
             console.log(id);
+            //create the task
             var startDate = data.date;
             var task = data.row.addTask({
                 id: '5460a4b825d23a6ba25ebec6',
@@ -377,11 +370,20 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 from: startDate,
                 to: '2014-10-10T23:00:00.000Z'
             });
-            //  task.isCreating = true;
-            //  $scope.$apply(function() {
-            //     task.updatePosAndSize();
-            //     data.row.updateVisibleTasks();
-            // });
+             task.isCreating = true;
+             $scope.$apply(function() {
+                task.updatePosAndSize();
+                data.row.updateVisibleTasks();
+            });
+             //save to the database
+             //create a new instance of task
+             var tasks = new Apicall.Tasks(task);
+             tasks.$save(function(response) {
+                //do something
+             }, function(errorResponse) {
+                $scope.error =errorResponse.data.message;
+             });
+         
         });
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
