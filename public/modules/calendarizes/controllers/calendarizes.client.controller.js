@@ -6,24 +6,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 	function($scope,$stateParams, $location, $timeout, $modal, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
 		console.log($modal);
-		//testing modal
-	    $scope.open = function () {
-	       var modalInstance = $modal.open({
-	           templateUrl: 'modules/calendarizes/views/create-project.client.view.html',
-	           controller: 'HomeController'
-	        });
-	        modalInstance.result.then(function (){
-	          $scope.message = 'tryme';
-	        });
-	    };
         /* Create a new person */
-=======
-angular.module('calendarizes').controller('CalendarizesController', ['$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Apicall', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
-
-		$scope.authentication = Authentication;
-
->>>>>>> f3a1140c28b4279a007dfac112a9b29fb58e1f1b
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
 
@@ -38,11 +21,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope', '
                 $scope.error = errorResponse.data.message;
             });
         };
-<<<<<<< HEAD
-
 		// Remove existing Person
-=======
->>>>>>> f3a1140c28b4279a007dfac112a9b29fb58e1f1b
 		$scope.removePerson = function( person ) {
 			if ( person ) { person.$remove();
 
