@@ -1,11 +1,8 @@
 'use strict';
-
 // Calendarizes controller
-<<<<<<< HEAD
-angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','$modal', 'Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope,$stateParams, $location, $timeout, $modal, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
+	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
 		$scope.authentication = Authentication;
-		console.log($modal);
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
