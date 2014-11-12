@@ -101,7 +101,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 		$scope.addProject = function() {
 			// Create new Calendarize object
 			console.log('fired');
-			var project = new Apicall.Projects ($scope.project);
+			var project = new Apicall.Projects($scope.project);
 			console.log($scope.project);
 			console.log(project);
 			// Redirect after save
