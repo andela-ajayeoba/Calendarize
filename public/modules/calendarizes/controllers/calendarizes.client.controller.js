@@ -1,54 +1,26 @@
 'use strict';
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 
+	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal ) {
 		$scope.authentication = Authentication;
-	    $scope.showModal = false;
-	    $scope.toggleModal = function(){
-	    	console.log("yeoman");
-	    $scope.showModal = !$scope.showModal;
-	    };
-calendarizes.directive('modal', function () {
-    return {
-      template: '<div class="modal fade">' + 
-          '<div class="modal-dialog">' + 
-            '<div class="modal-content">' + 
-              '<div class="modal-header">' + 
-                '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
-                '<h4 class="modal-title">{{ title }}</h4>' + 
-              '</div>' + 
-              '<div class="modal-body" ng-transclude></div>' + 
-            '</div>' + 
-          '</div>' + 
-        '</div>',
-      restrict: 'E',
-      transclude: true,
-      replace:true,
-      scope:true,
-      link: function postLink(scope, element, attrs) {
-        scope.title = attrs.title;
-
-        scope.$watch(attrs.visible, function(value){
-          if(value == true)
-            $(element).modal('show');
-          else
-            $(element).modal('hide');
+        // modal test
+      $scope.items = ['item1', 'item2', 'item3'];
+      // function to open modal 
+      $scope.open = function (size) {
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
         });
-
-        $(element).on('shown.bs.modal', function(){
-          scope.$apply(function(){
-            scope.$parent[attrs.visible] = true;
-          });
-        });
-
-        $(element).on('hidden.bs.modal', function(){
-          scope.$apply(function(){
-            scope.$parent[attrs.visible] = false;
-          });
-        });
-      }
     };
-  });
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.   
 		// Modal Test Ends 
         /* Create a new person */
         $scope.addPerson = function() {
@@ -112,8 +84,9 @@ calendarizes.directive('modal', function () {
                         data.push($result);                        
                     });
 
-                $scope.loadData(data);
-                console.log(data);
+                // 
+
+                // console.log(data);
             });
 
 
@@ -297,7 +270,8 @@ calendarizes.directive('modal', function () {
         // function that trigers popover onclick on the gantt chart cells
        $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
         	//show popover code 
-        	console.log("test");
+        	console.log('test');
+             $scope.open();
 
        	});
         
@@ -450,39 +424,53 @@ calendarizes.directive('modal', function () {
 
 	}
 ])
-.service('Uuid', function Uuid() {
-    return {
-        s4: function() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        },
-        randomUuid: function() {
-            return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
-                this.s4() + '-' + this.s4() + this.s4() + this.s4();
-        }
-    };
-})
-.service('Sample', function Sample() {
-    return {
-        getSampleData: function() {
-            return {
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+      $scope.items = items;
+      $scope.selected = {
+        item: $scope.items[0]
+      };
+
+      $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    })
+    .service('Uuid', function Uuid() {
+        return {
+            s4: function() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            },
+            randomUuid: function() {
+                return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+                    this.s4() + '-' + this.s4() + this.s4() + this.s4();
+            }
+        };
+    })
+    .service('Sample', function Sample() {
+        return {
+            getSampleData: function() {
+                return {
+                    };
+            },
+            getSampleTimespans: function() {
+                return {
+                    'timespan1': [
+                        {
+                            id: '1',
+                            from: new Date(2014, 9, 21, 8, 0, 0),
+                            to: new Date(2014, 11, 25, 15, 0, 0),
+                            name: 'Sprint 1 Timespan'
+                            //priority: undefined,
+                            //classes: [], //Set custom classes names to apply to the timespan.
+                            //data: undefined
+                        }
+                    ]
                 };
-        },
-        getSampleTimespans: function() {
-            return {
-                'timespan1': [
-                    {
-                        id: '1',
-                        from: new Date(2014, 9, 21, 8, 0, 0),
-                        to: new Date(2014, 11, 25, 15, 0, 0),
-                        name: 'Sprint 1 Timespan'
-                        //priority: undefined,
-                        //classes: [], //Set custom classes names to apply to the timespan.
-                        //data: undefined
-                    }
-                ]
-            };
-        }
-    };
+            }
+        };
 });
