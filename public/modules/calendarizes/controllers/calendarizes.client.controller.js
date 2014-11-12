@@ -290,15 +290,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.removeSomeSamples = function() {
             $scope.removeData([
-                {'id': 'c65c2672-445d-4297-a7f2-30de241b3145'}, // Remove all Kickoff meetings
-                {'id': '2f85dbeb-0845-404e-934e-218bf39750c0', 'tasks': [
-                    {'id': 'f55549b5-e449-4b0c-9f4b-8b33381f7d76'},
-                    {'id': '5e997eb3-4311-46b1-a1b4-7e8663ea8b0b'},
-                    {'id': '6fdfd775-7b22-42ec-a12c-21a64c9e7a9e'}
-                ]}, // Remove some Milestones
-                {'id': 'cfb29cd5-1737-4027-9778-bb3058fbed9c', 'tasks': [
-                    {'id': '57638ba3-dfff-476d-ab9a-30fda1e44b50'}
-                ]} // Remove order basket from Sprint 2
+                
             ]);
         };
 
@@ -365,16 +357,18 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             console.log('$scope.$on: ' + event.name + ': ' + output);
         };
         $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
+            console.log(data);
+        });
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_CHANGED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
-        //$scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
-        //$scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
@@ -383,7 +377,36 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data) {
+            console.log('event');
+            console.log(event);
+            console.log(data);
+            var row = data.row;
+            var id = data.row.id;
+            console.log(id);
+            //create the task
+            var startDate = data.date;
+            var task = data.row.addTask({
+                id: '5460a4b825d23a6ba25ebec6',
+                name: 'Design',
+                from: startDate,
+                to: '2014-10-10T23:00:00.000Z'
+            });
+             task.isCreating = true;
+             $scope.$apply(function() {
+                task.updatePosAndSize();
+                data.row.updateVisibleTasks();
+            });
+             //save to the database
+             //create a new instance of task
+             var tasks = new Apicall.Tasks(task);
+             tasks.$save(function(response) {
+                //do something
+             }, function(errorResponse) {
+                $scope.error =errorResponse.data.message;
+             });
+         
+        });
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
 
@@ -471,6 +494,26 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                         }
                     ]
                 };
+<<<<<<< HEAD
             }
         };
+=======
+        },
+        getSampleTimespans: function() {
+            return {
+                'timespan1': [
+                    {
+                        id: '1',
+                        from: new Date(2014, 1, 21, 8, 0, 0),
+                        to: new Date(2014, 12, 12, 8, 0, 0),
+                        name: 'Calendarize'
+                        //priority: undefined,
+                        //classes: [], //Set custom classes names to apply to the timespan.
+                        //data: undefined
+                    }
+                ]
+            };
+        }
+    };
+>>>>>>> 3f6c734fb02a4488651ae41d296106ff368dfe16
 });
