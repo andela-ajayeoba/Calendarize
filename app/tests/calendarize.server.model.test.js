@@ -6,7 +6,11 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Calendarize = mongoose.model('Calendarize');
+	Calendarize = mongoose.model('Calendarize'),
+	Project = mongoose.model('Project'),
+	Person = mongoose.model('Person'),
+	Task = mongoose.model('Task');
+
 
 /**
  * Globals
