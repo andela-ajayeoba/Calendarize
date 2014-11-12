@@ -35,7 +35,7 @@ angular.module('calendarizes').factory('Apicall', ['$resource',
 			}),
 
 			Tasks: $resource('tasks/:taskId', {
-						projectId: '@_id'
+						taskId: '@_id'
 			}, 
 			{
 				update: {

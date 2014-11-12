@@ -1,12 +1,15 @@
 <section data-ng-controller="CalendarizesController" data-ng-init="find()">
-    <script type="text/ng-template" id="popover">
-        <ul class="workerPopOverBox" data-ng-controller="CalendarizesController" data-ng-init="findProject()">
-           <a ng-click=""><li data-ng-repeat ="project in projects">
-           <img src="/modules/calendarizes/img/bag.png" style="float:left"/><span data-ng-bind ="project.name"></span>
-            </li></a>
-        </ul>
-    </script>
-    <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+    <div style="background-color:brown" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+        <script type="text/ng-template" id="popover">
+            <ul class="workerPopOverBox" data-ng-controller="CalendarizesController" data-ng-init="findProject()">
+                <img src="/modules/calendarizes/img/i.png" style ="float:left"/>
+               <a ng-click=""><li data-ng-repeat ="project in projects">
+               <img src="/modules/calendarizes/img/bag.png" style="float:left"/><span data-ng-bind ="project.name"></span>
+                </li></a>
+            </ul>
+        </script>
+    </div>
+    <!-- <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
         Popover
-    </button>
+    </button> -->
 </section>
