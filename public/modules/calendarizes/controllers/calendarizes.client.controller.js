@@ -168,7 +168,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 newTask.startDate = data.date;
                 newTask.endDate = moment(data.date).add( 7 , 'd');
 
-            var task = new Apicall.Tasks (newTask);
+            var task = new Apicall.Tasks(newTask);
                 task.$save(function(response) {
                     alert('Tasks successfully assigned');
                         var taskParam = {};
@@ -212,18 +212,18 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     $task.startDate = data.task.getFromLabel();
                     $task.endDate = data.task.getToLabel();
                     console.log($task, $task.startDate, $task.endDate);
-                    $task.$update(function(response) {
+                    $task.$update(function() {
                         alert('Updated Successfully taskId');
-                        var taskParam = {};
-                            taskParam.id = response.projectId;
-                            taskParam.name = response.projectName;
-                            taskParam.from = response.startDate;
-                            taskParam.to = response.endDate;
-                        var drawTask = data.row.addTask(taskParam);
-                            $scope.$apply(function() {
-                                drawTask.updatePosAndSize();
-                                drawTask.row.updateVisibleTasks();
-                            });
+                        // var taskParam = {};
+                        //     taskParam.id = response.projectId;
+                        //     taskParam.name = response.projectName;
+                        //     taskParam.from = response.startDate;
+                        //     taskParam.to = response.endDate;
+                        // var drawTask = data.row.addTask(taskParam);
+                        //     $scope.$apply(function() {
+                        //         drawTask.updatePosAndSize();
+                        //         drawTask.row.updateVisibleTasks();
+                            // });
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
                });
@@ -240,7 +240,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 		$scope.options = {
             mode: 'custom',
-            scale: 'day',
+            scale: 'week',
             maxHeight: false,
             width: false,
             autoExpand: 'both',
@@ -326,15 +326,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.removeSomeSamples = function() {
             $scope.removeData([
-                {'id': 'c65c2672-445d-4297-a7f2-30de241b3145'}, // Remove all Kickoff meetings
-                {'id': '2f85dbeb-0845-404e-934e-218bf39750c0', 'tasks': [
-                    {'id': 'f55549b5-e449-4b0c-9f4b-8b33381f7d76'},
-                    {'id': '5e997eb3-4311-46b1-a1b4-7e8663ea8b0b'},
-                    {'id': '6fdfd775-7b22-42ec-a12c-21a64c9e7a9e'}
-                ]}, // Remove some Milestones
-                {'id': 'cfb29cd5-1737-4027-9778-bb3058fbed9c', 'tasks': [
-                    {'id': '57638ba3-dfff-476d-ab9a-30fda1e44b50'}
-                ]} // Remove order basket from Sprint 2
+                
             ]);
         };
 
@@ -422,7 +414,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
+            $scope.createTask(data);
+        });
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
