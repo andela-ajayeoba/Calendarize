@@ -1,8 +1,27 @@
 'use strict';
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 
+	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal ) {
 		$scope.authentication = Authentication;
+        // modal test
+      $scope.items = ['item1', 'item2', 'item3'];
+      // function to open modal 
+      $scope.open = function (size) {
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: size,
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
+        });
+    };
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.   
+		// Modal Test Ends 
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
@@ -60,7 +79,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                         });
                         data.push($result);                        
                     });
-
                 $scope.loadData(data);
             });
         };
@@ -284,9 +302,12 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         });
 
         // function that trigers popover onclick on the gantt chart cells
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
-        	//popover code 
+
+       $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
+        	//show popover code 
         	console.log('test');
+             $scope.open();
+
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -443,39 +464,55 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 	}
 ])
-.service('Uuid', function Uuid() {
-    return {
-        s4: function() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        },
-        randomUuid: function() {
-            return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
-                this.s4() + '-' + this.s4() + this.s4() + this.s4();
-        }
-    };
-})
-.service('Sample', function Sample() {
-    return {
-        getSampleData: function() {
-            return {
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+      $scope.items = items;
+      $scope.selected = {
+        item: $scope.items[0]
+      };
+
+      $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    })
+    .service('Uuid', function Uuid() {
+        return {
+            s4: function() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            },
+            randomUuid: function() {
+                return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' +
+                    this.s4() + '-' + this.s4() + this.s4() + this.s4();
+            }
+        };
+    })
+    .service('Sample', function Sample() {
+        return {
+            getSampleData: function() {
+                return {
+                    };
+            },
+            getSampleTimespans: function() {
+                return {
+                    'timespan1': [
+                        {
+                            id: '1',
+                            from: new Date(2014, 9, 21, 8, 0, 0),
+                            to: new Date(2014, 11, 25, 15, 0, 0),
+                            name: 'Sprint 1 Timespan'
+                            //priority: undefined,
+                            //classes: [], //Set custom classes names to apply to the timespan.
+                            //data: undefined
+                        }
+                    ]
                 };
-        },
-        getSampleTimespans: function() {
-            return {
-                'timespan1': [
-                    {
-                        id: '1',
-                        from: new Date(2014, 1, 21, 8, 0, 0),
-                        to: new Date(2014, 12, 12, 8, 0, 0),
-                        name: 'Calendarize'
-                        //priority: undefined,
-                        //classes: [], //Set custom classes names to apply to the timespan.
-                        //data: undefined
-                    }
-                ]
-            };
-        }
-    };
+
+
+            }
+        };
 });
