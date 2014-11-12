@@ -1,55 +1,23 @@
 'use strict';
 // Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS',
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS ) {
+angular.module('calendarizes').controller('CalendarizesController', ['$scope','$modal','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$log',
+	function($scope, $modal, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS, $log) {
 		$scope.authentication = Authentication;
-	    $scope.showModal = false;
-	    $scope.toggleModal = function(){
-	    	console.log("yeoman");
-	    $scope.showModal = !$scope.showModal;
-	    };
-calendarizes.directive('modal', function () {
-    return {
-      template: '<div class="modal fade">' + 
-          '<div class="modal-dialog">' + 
-            '<div class="modal-content">' + 
-              '<div class="modal-header">' + 
-                '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' + 
-                '<h4 class="modal-title">{{ title }}</h4>' + 
-              '</div>' + 
-              '<div class="modal-body" ng-transclude></div>' + 
-            '</div>' + 
-          '</div>' + 
-        '</div>',
-      restrict: 'E',
-      transclude: true,
-      replace:true,
-      scope:true,
-      link: function postLink(scope, element, attrs) {
-        scope.title = attrs.title;
+		// Modal Test code
+        $scope.items = ['item1', 'item2', 'item3'];
 
-        scope.$watch(attrs.visible, function(value){
-          if(value == true)
-            $(element).modal('show');
-          else
-            $(element).modal('hide');
-        });
-
-        $(element).on('shown.bs.modal', function(){
-          scope.$apply(function(){
-            scope.$parent[attrs.visible] = true;
-          });
-        });
-
-        $(element).on('hidden.bs.modal', function(){
-          scope.$apply(function(){
-            scope.$parent[attrs.visible] = false;
-          });
-        });
-      }
-    };
-  });
-		// Modal Test Ends 
+        $scope.open = function () {
+            var modalInstance = $modal.open({
+              templateUrl: 'myModalContent.html',
+              controller: 'ModalInstanceCtrl',
+              resolve: {
+                items: function () {
+                  return $scope.items;
+                }
+              }
+            });
+        };
+        //modal test ends 
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
@@ -112,7 +80,7 @@ calendarizes.directive('modal', function () {
                         data.push($result);                        
                     });
 
-                $scope.loadData(data);
+                // $scope.loadData(data);
                 console.log(data);
             });
 
@@ -136,10 +104,7 @@ calendarizes.directive('modal', function () {
 		// Creating a new Project
 		$scope.addProject = function() {
 			// Create new Calendarize object
-			console.log('fired');
 			var project = new Apicall.Projects ($scope.project);
-			console.log($scope.project);
-			console.log(project);
 			// Redirect after save
 			project.$save(function(response) {
 				console.log('Project Successfully added');
@@ -297,7 +262,21 @@ calendarizes.directive('modal', function () {
         // function that trigers popover onclick on the gantt chart cells
        $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
         	//show popover code 
-        	console.log("test");
+        	console.log('test');
+            $scope.open();
+        //     $scope.items = ['item1', 'item2', 'item3'];
+
+        // $scope.open = function () {
+        //     var modalInstance = $modal.open({
+        //       templateUrl: 'myModalContent.html',
+        //       controller: 'ModalInstanceCtrl',
+        //       resolve: {
+        //         items: function () {
+        //           return $scope.items;
+        //         }
+        //       }
+        //     });
+        // };
 
        	});
         
@@ -485,4 +464,19 @@ calendarizes.directive('modal', function () {
             };
         }
     };
+})
+.controller('ModalInstanceCtrl', function ($scope,$modalInstance, items) {
+
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
 });
