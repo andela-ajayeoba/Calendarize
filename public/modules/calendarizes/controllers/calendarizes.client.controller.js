@@ -83,25 +83,16 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                         });
                         data.push($result);                        
                     });
-
-                // 
-
-                // console.log(data);
+                $scope.loadData(data);
             });
-
-
         };
-
         $scope.findPersons();
-
 		// Find existing Person
 		$scope.findOnePerson = function() {
 			$scope.person = Apicall.Persons.get({ 
 				personId: $stateParams.personId
 			});
 		};
-
-
 		/************************************************
 					PROJECTS CRUD
 		************************************************/
@@ -491,29 +482,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
                             //data: undefined
-                        }
-                    ]
-                };
-<<<<<<< HEAD
-            }
+                    ]   }
+                };    
+            }   
         };
-=======
-        },
-        getSampleTimespans: function() {
-            return {
-                'timespan1': [
-                    {
-                        id: '1',
-                        from: new Date(2014, 1, 21, 8, 0, 0),
-                        to: new Date(2014, 12, 12, 8, 0, 0),
-                        name: 'Calendarize'
-                        //priority: undefined,
-                        //classes: [], //Set custom classes names to apply to the timespan.
-                        //data: undefined
-                    }
-                ]
-            };
-        }
-    };
->>>>>>> 3f6c734fb02a4488651ae41d296106ff368dfe16
 });
