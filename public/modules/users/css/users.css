@@ -2,7 +2,7 @@
 .container-fluid , .container-fluid-resetP,.container-fluid-resettP
   {
     margin-top:15px;
-    margin-left:190px;
+    margin-left:10px;
   }
   strong
   {
@@ -95,7 +95,7 @@
     position:relative;
     text-decoration: none ;
     list-style: none;
-    padding-bottom : 10px;
+    padding-bottom : 5px;
     margin-bottom: 5px ;
     font-family: 'oswald' sans-serif;
     font-size: 1em;
@@ -109,18 +109,33 @@
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
     position: absolute;
     padding: 15px;
-    margin-left:25px;
-    margin-bottom: 20px;
     text-decoration: none;
     list-style: none;
   }
-   .workerPopOverBox a li {
+  .workerPopOverBox a li {
     text-decoration: none;
   }
   .workerPopOverBox
   {
-    width : 150px;
+    width : 100px;
     padding : 10px;
-    text-align: center;
-    
+    text-align: center;  
   }
+  label
+  {
+    padding : 10px;
+  }
+  .test
+  {
+    background-color: grey;
+    width : 200px;
+  }
+  .icon
+  {
+    top:0;
+    bottom:0;
+    padding-bottom:10px;
+    float : right;
+    width: 20px;
+  }
+  

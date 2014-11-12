@@ -5,10 +5,10 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
-
 	Project = mongoose.model('Project'),
 	Person = mongoose.model('Person'),
 	Task = mongoose.model('Task'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 
@@ -85,7 +85,7 @@ exports.createProject = function(req, res) {
 
 exports.listProjects = function(req, res) {
     
-    Project.find().sort('-created').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
+    Project.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -169,15 +169,16 @@ exports.createPerson = function(req, res) {
 	});
 };
 
-exports.listPersons = function(req, res) { Person.find().sort('-created').populate('user', 'displayName').populate('tasks','projectName personName startDate endDate').exec(function(err, persons) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(persons);
-		}
-	});
+exports.listPersons = function(req, res) { 
+		Person.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, persons) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {			
+				res.jsonp(persons);
+			}
+		});
 };
 
 exports.getPersonDetails = function(req, res) {
