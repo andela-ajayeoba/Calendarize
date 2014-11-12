@@ -48,11 +48,11 @@ angular.module('calendarizes').config(['$stateProvider',
 			templateUrl: 'modules/calendarizes/views/create-assignment.client.view.html'
 		}).
 		state('viewAssignment', {
-			url: '/assignments/:assignmentId',
+			url: '/tasks/:taskId',
 			templateUrl: 'modules/calendarizes/views/view-assignment.client.view.html'
 		}).
 		state('editAssignment', {
-			url: '/assignments/:assignmentId/edit',
+			url: '/tasks/:taskId/edit',
 			templateUrl: 'modules/calendarizes/views/edit-assignment.client.view.html'
 		}).
 		state('projectsTimeline', {

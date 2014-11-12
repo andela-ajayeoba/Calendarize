@@ -130,7 +130,7 @@
             </ul>
         </script>
 
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-right:10px">
+        <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-right:15px ; margin-bottom:50px">
             Add People
         </button>
         <script type="text/ng-template" id="popover1">
@@ -142,31 +142,30 @@
                 <button class="btn btn-primary" ng-click="addProject()">Create</button>
             </ul>
         </script>
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+        <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-bottom:50px">
             Add Project
         </button>
-
-        <!-- Modal Test-->
-       <!-- <section data-ng-controller ="CalendarizesController"> 
-            <script type="text/ng-template" id="myModalContent.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">Testing</h3>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li ng-repeat ="item in items"></li>
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </ul>
-                    Selected: <b>{{ selected.item }}</b>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="ok()">OK</button>
-                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                </div>
-            </script>
-            <button class ="btn btn-primary" ng-click = "open()">Push</button>
-        </section>-->
-        <!-- modal code end -->
+        <!-- Modal Test code -->
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Testing</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat ="item in items"></li>
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    <!-- <section data-ng-controller ="CalendarizesController"> 
+    <button class ="btn btn-primary" ng-click = "open()">Push</button>
+    </section> --> 
+       <!--  Modal Test Ends  -->
         <div class="row top-buffer">
             <div class="col-md-12">
                 <div class="panel-group" bs-collapse>

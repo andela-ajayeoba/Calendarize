@@ -19,7 +19,6 @@ exports.signup = function(req, res) {
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
-	console.log(user);
 
 	// Add missing user fields
 	user.provider = 'local';
@@ -40,7 +39,6 @@ exports.signup = function(req, res) {
 				if (err) {
 					res.status(400).send(err);
 				} else {
-					console.log(res.jsonp(user));
 					res.jsonp(user);
 				}
 			});
