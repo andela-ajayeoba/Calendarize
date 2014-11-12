@@ -482,8 +482,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
                             //data: undefined
-                    ]   }
+                       }
+                    ]
                 };    
-            }   
+            },   
         };
 });
