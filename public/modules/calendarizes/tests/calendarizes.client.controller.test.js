@@ -91,7 +91,7 @@
 			expect(scope.project).toEqualData(sampleProject);
 		}));
 
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Apicall) {
+		it('$scope.addProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Apicall) {
 			// Create a sample Calendarize object
 			var sampleProjectPostData = new Apicall.Projects({
 				name: 'New Project'
@@ -161,5 +161,48 @@
 		expect(scope.projects.length).toBe(0);
 		}));
 
+		 it('$scope.addPerson() with valid form data should send a POST request with the form input values and then create an load the person details from the response on the chart', inject(function(Apicall) {
+			// Create a sample Calendarize object
+			var samplePersonPostData = new Apicall.Persons({
+				name: 'New Person',
+				email:'test@test.com',
+				group:''
+			});
+
+			// Create a sample Project response
+			var samplePersonResponse = new Apicall.Persons({
+				_id: '525cf20451979dea2c000001',
+				name: 'New Person',
+				email: 'test@test.com',
+				group: ''
+			});
+
+			// var newPerson = [{
+			// 	'id':samplePersonResponse._id,
+			// 	'name': samplePersonResponse.name,
+			// 	'tasks':[]
+			// }];
+
+			// scope.loadData(newPerson);
+			// Fixture mock form input values
+			scope.person = {
+						name: 'New Person',
+						email:'test@test.com',
+						group: ''
+						};
+
+			// Set POST response
+			$httpBackend.expectPOST('persons', samplePersonPostData).respond(samplePersonResponse);
+
+			// Run controller functionality
+			scope.addPerson();
+			$httpBackend.flush();
+
+			// Test form inputs are reset
+			expect(scope.person).toEqual('');
+
+		}));
+
 	});
+		
 }());
