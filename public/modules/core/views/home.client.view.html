@@ -152,7 +152,7 @@
             </div>
             <div class="modal-body" data-ng-init="findProjects()">
                 <ul data-ng-repeat ="project in projects">
-                    <li  data-ng-bind ="project.name" style="text-decoration:none ; list-style:none ;font-weight:bold ;font-size:1.3em"></li>
+                    <li  data-ng-bind ="project.name"></li>
                 </ul>
             </div>
             <div class="modal-footer" ng-controller ="ModalInstanceCtrl">
@@ -160,9 +160,6 @@
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
         </script>
-    <!-- <section data-ng-controller ="CalendarizesController"> 
-    <button class ="btn btn-primary" ng-click = "open()">Push</button>
-    </section> --> 
        <!--  Modal Test Ends  -->
         <div class="row top-buffer">
             <div class="col-md-12">

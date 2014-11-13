@@ -133,7 +133,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 		// Find a list of Persons
 		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
-
 		};
 
 
@@ -185,14 +184,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
             console.log($scope.task);
         };
-        // $scope.updateTask = function() {
-        //     var task = $scope.task ;
-        //         task.$update(function() {
 
-        //         }, function(errorResponse) {
-        //             $scope.error = errorResponse.data.message;
-        //         });
-        // };
         $scope.updateTask = function(event, data) {
             var upTask = event.targetScope.task;
             var $task = Apicall.Tasks.get({ taskId: data.task.id});
@@ -292,14 +284,11 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             }
         });
 
-        // function that trigers popover onclick on the gantt chart cells
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
+        // function that trigers modal onclick on the gantt chart cells
+       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event,data){
         	//show modal view 
             $scope.open();
-        	console.log('test');
-            //show projects in modal view 
-             console.log($scope.projects);
-              
+        	console.log('test');  
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -406,9 +395,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
-            $scope.createTask(data);
-        });
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -451,18 +438,12 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 	}
 ])
     .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-          // $scope.projects = items;
-          // $scope.projects = {
-          //   item: $scope.projects[0]
-          // };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
         $scope.ok = function () {
-            $modalInstance.close($scope.project.name);
-        };
-
-          
+            $modalInstance.close();
+        };      
     })
     .service('Uuid', function Uuid() {
         return {
