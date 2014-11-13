@@ -148,23 +148,18 @@
         <!-- Modal Test code -->
         <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
-                <h3 class="modal-title">Testing</h3>
+                <h3 class="modal-title">List of Projetcs</h3>
             </div>
-            <div class="modal-body">
-                <ul>
-                    <li ng-repeat ="item in items"></li>
-                    <a ng-click="selected.item = item">{{ item }}</a>
+            <div class="modal-body" data-ng-init="findProjects()">
+                <ul data-ng-repeat ="project in projects">
+                    <li  data-ng-bind ="project.name"></li>
                 </ul>
-                Selected: <b>{{ selected.item }}</b>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" ng-controller ="ModalInstanceCtrl">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
         </script>
-    <!-- <section data-ng-controller ="CalendarizesController"> 
-    <button class ="btn btn-primary" ng-click = "open()">Push</button>
-    </section> --> 
        <!--  Modal Test Ends  -->
         <div class="row top-buffer">
             <div class="col-md-12">

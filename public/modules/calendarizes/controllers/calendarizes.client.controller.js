@@ -1,27 +1,23 @@
 'use strict';
 // Calendarizes controller
 angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal ) {
+	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal) {
 		$scope.authentication = Authentication;
-        // modal test
-      $scope.items = ['item1', 'item2', 'item3'];
-      // function to open modal 
-      $scope.open = function (size) {
-        var modalInstance = $modal.open({
-          templateUrl: 'myModalContent.html',
-          controller: 'ModalInstanceCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return $scope.items;
-            }
-          }
-        });
-    };
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.   
-		// Modal Test Ends 
+        // modal code begins
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: 'CalendarizesController',
+                    size:'sm',
+                resolve: {
+                    items: function () {
+                     return $scope.projects;
+                }
+              }
+            });
+        }; 
+        
+		// Modal code ends 
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
@@ -82,32 +78,25 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 $scope.loadData(data);
             });
         };
-
-        // $scope.findPersons();
-
+        $scope.findPersons();
 		// Find existing Person
 		$scope.findOnePerson = function() {
 			$scope.person = Apicall.Persons.get({ 
 				personId: $stateParams.personId
 			});
 		};
-
-
 		/************************************************
 					PROJECTS CRUD
 		************************************************/
 
 		// Creating a new Project
 		$scope.addProject = function() {
-			// Create new Calendarize object
-			console.log('fired');
+			// Create new Calendarize Project Object
 			var project = new Apicall.Projects($scope.project);
-			console.log($scope.project);
-			console.log(project);
 			// Redirect after save
 			project.$save(function(response) {
 				console.log('Project Successfully added');
-					console.log(response);
+				console.log(response);
 				// Clear form fields
 				$scope.project = '';
 			}, function(errorResponse) {
@@ -142,7 +131,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 		// Find a list of Persons
 		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
-
 		};
 
 
@@ -194,14 +182,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
             console.log($scope.task);
         };
-        // $scope.updateTask = function() {
-        //     var task = $scope.task ;
-        //         task.$update(function() {
 
-        //         }, function(errorResponse) {
-        //             $scope.error = errorResponse.data.message;
-        //         });
-        // };
         $scope.updateTask = function(event, data) {
             var upTask = event.targetScope.task;
             var $task = Apicall.Tasks.get({ taskId: data.task.id});
@@ -302,13 +283,10 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             }
         });
 
-        // function that trigers popover onclick on the gantt chart cells
-
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
-        	//show popover code 
-        	console.log('test');
-             $scope.open();
-
+        // function that trigers modal onclick on the gantt chart cells 
+       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(){
+        	//show modal view 
+            console.log('test');	  
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -336,6 +314,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         };
 
         var rowEvent = function(event, data) {
+            $scope.open();
             if ($scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
@@ -415,9 +394,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
-            $scope.createTask(data);
-        });
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -460,18 +437,12 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 	}
 ])
     .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-      $scope.items = items;
-      $scope.selected = {
-        item: $scope.items[0]
-      };
-
-      $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-      };
-
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+        $scope.ok = function () {
+            $modalInstance.close();
+        };      
     })
     .service('Uuid', function Uuid() {
         return {
@@ -503,11 +474,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
                             //data: undefined
-                        }
+                       }
                     ]
-                };
-
-
-            }
+                };    
+            },  
         };
-});
+    });
