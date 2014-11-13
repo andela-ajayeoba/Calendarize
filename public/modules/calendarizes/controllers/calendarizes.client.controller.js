@@ -284,11 +284,10 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             }
         });
 
-        // function that trigers modal onclick on the gantt chart cells
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event,data){
+        // function that trigers modal onclick on the gantt chart cells 
+       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(){
         	//show modal view 
-            $scope.open();
-        	console.log('test');  
+            console.log('test');	  
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -316,6 +315,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         };
 
         var rowEvent = function(event, data) {
+            $scope.open();
             if ($scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
