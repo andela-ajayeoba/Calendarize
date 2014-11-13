@@ -60,7 +60,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 		// Find a list of Persons
 		$scope.findPersons = function() {
-
             var data = [];
     		$scope.persons = Apicall.Persons.query({}, function(){
                   $scope.persons.forEach(function(result){
@@ -83,8 +82,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             });
         };
 
-        // $scope.findPersons();
-
 		// Find existing Person
 		$scope.findOnePerson = function() {
 			$scope.person = Apicall.Persons.get({ 
@@ -99,25 +96,17 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 		// Creating a new Project
 		$scope.addProject = function() {
-			// Create new Calendarize object
-			console.log('fired');
 			var project = new Apicall.Projects($scope.project);
-			console.log($scope.project);
-			console.log(project);
-			// Redirect after save
-			project.$save(function(response) {
-				console.log('Project Successfully added');
-					console.log(response);
-				// Clear form fields
-				$scope.project = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+    			project.$save(function(response) {
+    				alert('Project Successfully added');
+    				$scope.project = '';
+    			}, function(errorResponse) {
+    				$scope.error = errorResponse.data.message;
+    			});
 		};
 		// Remove existing Project
 		$scope.removeProject = function(project) {
 			if (project) { project.$remove();
-
 				for (var i in $scope.projects) {
 					if ($scope.projects [i] === project ) {
 						$scope.projects.splice(i, 1);
@@ -128,15 +117,14 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 				});
 			}
 		};
-
+        
 		// Update existing Calendarize
 		$scope.updateProject = function() {
 			var project = $scope.project ;
-
-			project.$update(function() {
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+    			project.$update(function() {
+    			}, function(errorResponse) {
+    				$scope.error = errorResponse.data.message;
+    			});
 		};			
 
 		// Find a list of Persons
@@ -144,11 +132,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 			$scope.projects = Apicall.Projects.query();
 
 		};
-
-
-        //populate select option
-        $scope.projectlist = {};
-
 		// Find existing Person
 		$scope.findOneProject = function() {
 			$scope.project = Apicall.Projects.get({ 
