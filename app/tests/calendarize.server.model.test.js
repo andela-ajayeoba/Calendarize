@@ -28,6 +28,15 @@ describe('Calendarize Model Unit Tests:', function() {
 			password: 'password'
 		});
 
+		this.anotherUser = new User({
+			name: 'Another Joe',
+			displayName: 'Another',
+			email: 'joe@another.com',
+			username: 'anotherjoe',
+			password: 'password'
+		});
+		this.anotherUser.save(function(){});
+
 		user.save(function() {
 			done();
 		});
@@ -47,21 +56,6 @@ describe('Calendarize Model Unit Tests:', function() {
 				should.not.exist(err);
 				done();
 			});
-		});
-
-		it('should not get deleted if user is not authorized', function(done){
-			if (project.user === user._id)
-			{
-				return project.remove(function(err){
-					should.not.exist(err);
-					done();
-				});
-			}
-			return project.remove(function(err){
-				should.exist(err);
-				done();
-			});
-			
 		});
 
 		it('should be able to update without problems', function(done) {
