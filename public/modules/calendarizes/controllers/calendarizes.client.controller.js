@@ -101,7 +101,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 		$scope.addProject = function() {
 			// Create new Calendarize object
 			console.log('fired');
-			var project = new Apicall.Projects ($scope.project);
+			var project = new Apicall.Projects($scope.project);
 			console.log($scope.project);
 			console.log(project);
 			// Redirect after save
@@ -205,6 +205,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         $scope.updateTask = function(event, data) {
             var upTask = event.targetScope.task;
             var $task = Apicall.Tasks.get({ taskId: data.task.id});
+            
                     $stateParams.taskId = data.task.id;
                     $task._id = data.task.id;
                     $task.projectId = '545b92e8b979bf90bef18397';

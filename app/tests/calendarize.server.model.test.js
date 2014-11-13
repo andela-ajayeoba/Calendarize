@@ -9,7 +9,6 @@ var should = require('should'),
 	Project = mongoose.model('Project'),
 	Person = mongoose.model('Person'),
 	Task = mongoose.model('Task');
-
 /**
  * Globals
  */
