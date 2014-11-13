@@ -1,27 +1,25 @@
 'use strict';
 // Calendarizes controller
 angular.module('calendarizes').controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal ) {
+	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal) {
 		$scope.authentication = Authentication;
-        // modal test
-      $scope.items = ['item1', 'item2', 'item3'];
-      // function to open modal 
-      $scope.open = function (size) {
-        var modalInstance = $modal.open({
-          templateUrl: 'myModalContent.html',
-          controller: 'ModalInstanceCtrl',
-          size: size,
-          resolve: {
-            items: function () {
-              return $scope.items;
-            }
-          }
-        });
-    };
-
-// Please note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.   
-		// Modal Test Ends 
+        // modal code begins
+        $scope.open = function (size) {
+            var modalInstance = $modal.open({
+                    templateUrl: 'myModalContent.html',
+                    controller: 'CalendarizesController',
+                    size:'sm',
+                resolve: {
+                    items: function () {
+                     return $scope.projects;
+                }
+              }
+            });
+        }; 
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+		// Modal code ends 
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
@@ -102,7 +100,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 			// Create new Calendarize object
 			console.log('fired');
 			var project = new Apicall.Projects ($scope.project);
-			console.log($scope.project);
 			console.log(project);
 			// Redirect after save
 			project.$save(function(response) {
@@ -260,10 +257,11 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         // function that trigers popover onclick on the gantt chart cells
        $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
-        	//show popover code 
+        	//show modal view 
         	console.log('test');
-             $scope.open();
-
+            //show projects in modal view 
+             $scope.open($scope.projects);
+             console.log($scope.projects);
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -439,18 +437,16 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 	}
 ])
     .controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-      $scope.items = items;
-      $scope.selected = {
-        item: $scope.items[0]
-      };
+          // $scope.projects = items;
+          // $scope.projects = {
+          //   item: $scope.projects[0]
+          // };
 
-      $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
-      };
+          $scope.ok = function () {
+            $modalInstance.close($scope.project.name);
+          };
 
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
+          
     })
     .service('Uuid', function Uuid() {
         return {
