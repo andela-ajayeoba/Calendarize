@@ -164,7 +164,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
             var newTask = {};
                 newTask.personId = data.row.id;
-                newTask.projectId = '545b92e8b979bf90bef18397';
+                newTask.projectId = '54634004f5c87b8ca1fba38d';
                 newTask.startDate = data.date;
                 newTask.endDate = moment(data.date).add( 7 , 'd');
 
@@ -214,16 +214,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     console.log($task, $task.startDate, $task.endDate);
                     $task.$update(function() {
                         alert('Updated Successfully taskId');
-                        // var taskParam = {};
-                        //     taskParam.id = response.projectId;
-                        //     taskParam.name = response.projectName;
-                        //     taskParam.from = response.startDate;
-                        //     taskParam.to = response.endDate;
-                        // var drawTask = data.row.addTask(taskParam);
-                        //     $scope.$apply(function() {
-                        //         drawTask.updatePosAndSize();
-                        //         drawTask.row.updateVisibleTasks();
-                            // });
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
                });
@@ -341,19 +331,19 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     var startDate = data.date;
                     var endDate = moment(startDate).add( 7, 'd');
                     //endDate.setDate(endDate.getDate());
-                    var infoTask = {
-                        id: Uuid.randomUuid(),  // Unique id of the task.
-                        name: 'Assign Task', // Name shown on top of each task.
-                        from: startDate, // Date can be a String, Timestamp or Date object.
-                        to: endDate,// Date can be a String, Timestamp or Date object.
-                        color: '#AA8833' // Color of the task in HEX format (Optional).
-                    };
-                    var task = data.row.addTask(infoTask);
-                    task.isCreating = true;
-                    $scope.$apply(function() {
-                        task.updatePosAndSize();
-                        data.row.updateVisibleTasks();
-                    });
+                    // var infoTask = {
+                    //     id: Uuid.randomUuid(),  // Unique id of the task.
+                    //     name: 'Assign Task', // Name shown on top of each task.
+                    //     from: startDate, // Date can be a String, Timestamp or Date object.
+                    //     to: endDate,// Date can be a String, Timestamp or Date object.
+                    //     color: '#AA8833' // Color of the task in HEX format (Optional).
+                    // };
+                    // var task = data.row.addTask(infoTask);
+                    // task.isCreating = true;
+                    // $scope.$apply(function() {
+                    //     task.updatePosAndSize();
+                    //     data.row.updateVisibleTasks();
+                    //});
                 }
             }
         };
@@ -402,7 +392,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data){
+        });
             // update tasks
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);

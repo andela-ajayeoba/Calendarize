@@ -116,21 +116,7 @@ exports.updateProject = function(req, res) {
 
 
 exports.readProject = function(req, res) {
-
-	// Task.find({'project':req.project._id}).populate('person').populate('project').exec( function(err, assignments){
-	// 		if (err) {
-	// 			return res.status(400).send({
-	// 				message: errorHandler.getErrorMessage(err)
-	// 			});
-	// 		} else {
-
-	// 			req.project.people = assignments;
-
-	// 			res.jsonp(req.project);
-	// 		}
-	// });
-		res.jsonp(req.project);
-	
+	res.jsonp(req.project);
 };
 
 
@@ -258,13 +244,8 @@ exports.createTask = function(req, res) {
 					res.jsonp(task);
 				}
 			});
-
 		});
 	});
-
-	
-
-
 };
 
 exports.listTasks = function(req, res) { Task.find().sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
