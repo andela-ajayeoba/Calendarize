@@ -21,16 +21,16 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         /* Create a new person */
         $scope.addPerson = function() {
             var person = new Apicall.Persons($scope.person);
-            person.$save(function(response) {
-                 alert('Person Successfully added');
-                $scope.person = '';
-                var newPerson = [
-                    {'id': response._id, 'name': response.name, 'tasks': []}
-                ];
-                $scope.loadData(newPerson);
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
+                person.$save(function(response) {
+                     alert('Person Successfully added');
+                    $scope.person = '';
+                    var newPerson = [
+                        {'id': response._id, 'name': response.name, 'tasks': []}
+                    ];
+                    $scope.loadData(newPerson);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
         };
 		// Remove existing Person
 		$scope.removePerson = function( person ) {
@@ -56,7 +56,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 		// Find a list of Persons
 		$scope.findPersons = function() {
-
             var data = [];
     		$scope.persons = Apicall.Persons.query({}, function(){
                   $scope.persons.forEach(function(result){
@@ -78,7 +77,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 $scope.loadData(data);
             });
         };
-        $scope.findPersons();
+
 		// Find existing Person
 		$scope.findOnePerson = function() {
 			$scope.person = Apicall.Persons.get({ 
@@ -91,24 +90,17 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
 		// Creating a new Project
 		$scope.addProject = function() {
-			// Create new Calendarize object
-			console.log('fired');
-			var project = new Apicall.Projects ($scope.project);
-			console.log(project);
-			// Redirect after save
-			project.$save(function(response) {
-				console.log('Project Successfully added');
-					console.log(response);
-				// Clear form fields
-				$scope.project = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+			var project = new Apicall.Projects($scope.project);
+    			project.$save(function(response) {
+    				alert('Project Successfully added');
+    				$scope.project = '';
+    			}, function(errorResponse) {
+    				$scope.error = errorResponse.data.message;
+    			});
 		};
 		// Remove existing Project
 		$scope.removeProject = function(project) {
 			if (project) { project.$remove();
-
 				for (var i in $scope.projects) {
 					if ($scope.projects [i] === project ) {
 						$scope.projects.splice(i, 1);
@@ -119,26 +111,20 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 				});
 			}
 		};
-
+        
 		// Update existing Calendarize
 		$scope.updateProject = function() {
 			var project = $scope.project ;
-
-			project.$update(function() {
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+    			project.$update(function() {
+    			}, function(errorResponse) {
+    				$scope.error = errorResponse.data.message;
+    			});
 		};			
 
 		// Find a list of Persons
 		$scope.findProjects = function() {
 			$scope.projects = Apicall.Projects.query();
 		};
-
-
-        //populate select option
-        $scope.projectlist = {};
-
 		// Find existing Person
 		$scope.findOneProject = function() {
 			$scope.project = Apicall.Projects.get({ 
@@ -151,7 +137,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         ************************************************/
         // Creating a new Assignment/Task
         $scope.createTask = function(data) {
-
             var newTask = {};
                 newTask.personId = data.row.id;
                 newTask.projectId = '545b92e8b979bf90bef18397';
@@ -288,7 +273,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         // function that trigers modal onclick on the gantt chart cells 
        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(){
         	//show modal view 
-            console.log('test');	  
+            console.log('test');
+            $scope.open();	  
        	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
@@ -316,7 +302,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         };
 
         var rowEvent = function(event, data) {
-            $scope.open();
+
             if ($scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
@@ -396,7 +382,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -406,7 +392,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, rowEvent);
+        $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
@@ -461,10 +447,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
     })
     .service('Sample', function Sample() {
         return {
-            getSampleData: function() {
-                return {
-                    };
-            },
             getSampleTimespans: function() {
                 return {
                     'timespan1': [
