@@ -164,7 +164,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
             var newTask = {};
                 newTask.personId = data.row.id;
-                newTask.projectId = '54634004f5c87b8ca1fba38d';
+                newTask.projectId = '54650a593dca71be1a89ee38';
                 newTask.startDate = data.date;
                 newTask.endDate = moment(data.date).add( 7 , 'd');
 
