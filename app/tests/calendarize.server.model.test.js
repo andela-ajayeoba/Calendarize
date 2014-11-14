@@ -118,7 +118,7 @@ describe('Calendarize Model Unit Tests:', function() {
 			return Person.find(function(err){
 				should.not.exist(err);
 				done();
-			})
+			});
 		});
 
 		it('should update a person without any problem', function(done) {
@@ -136,9 +136,9 @@ describe('Calendarize Model Unit Tests:', function() {
 			});
 		});
 
+
 		it('should be able to show an error when trying to save without a person name', function(done) {
 			person.name = '';
-
 			return person.save(function(err){
 				should.exist(err);
 				done();
@@ -186,13 +186,13 @@ describe('Calendarize Model Unit Tests:', function() {
 			});
 		});
 
+
 		it('should update task', function(done){
 			return task.update(function(err){
 				should.not.exist(err);
 				done();
 			});
 		});
-
 		it('should delete task', function(done){
 			return task.remove(function(err){
 				should.not.exist(err);

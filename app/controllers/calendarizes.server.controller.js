@@ -68,30 +68,27 @@ exports.taskByID = function(req, res, next, id) { Task.findById(id).populate('us
 
 exports.createProject = function(req, res) {
 	
-	var project = new Project(req.body);
-	
-	project.user = req.user;
-
-	project.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(project);
-		}
+	var project = new Project(req.body);	
+		project.user = req.user;
+		project.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(project);
+			}
 	});
 };
 
 exports.listProjects = function(req, res) {
     
-    Project.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
+    Project.find().sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-        	// TODO: Add tasks
             res.jsonp(projects);
         }
     });
