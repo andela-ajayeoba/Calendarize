@@ -188,8 +188,8 @@ angular.module('calendarizes')
                     task._id = data.task.id;
                     // $task.projectId = '545b92e8b979bf90bef18397';
                     // $task.personId = data.task.row.id;
-                    task.startDate = data.task.getFromLabel();
-                    task.endDate = data.task.getToLabel();
+                    task.startDate = data.task.from;
+                    task.endDate = data.task.to;
                     console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
                         alert('Updated Successfully taskId');

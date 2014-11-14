@@ -162,6 +162,32 @@
 		}));
 
 		// TODO PERSONS TEST
+		it('$scope.addPerson() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Persons) {
+			// Create a sample Person object
+			var samplePersonPostData = new Persons({
+				name: 'New Project'
+			});
+
+			// Create a sample Person response
+			var samplePersonResponse = new Persons({
+				_id: '525cf20451979dea2c000001',
+				name: 'New Project'
+			});
+
+			// Fixture mock form input values
+			scope.person = { name:'New Project'};
+
+			// Set POST response
+			$httpBackend.expectPOST('persons', samplePersonPostData).respond(samplePersonResponse);
+
+			// Run controller functionality
+			scope.addPerson();
+			$httpBackend.flush();
+
+			// Test form inputs are reset
+			expect(scope.person).toEqual('');
+
+		}));
 
 	});
 }());
