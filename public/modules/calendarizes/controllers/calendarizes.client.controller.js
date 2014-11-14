@@ -150,7 +150,6 @@ angular.module('calendarizes')
 ************************************************/
         // Creating a new Assignment/Task
         $scope.createTask = function(data) {
-
             var newTask = {
                 personId : data.personId,
                 projectId :data.projectId,
@@ -189,8 +188,8 @@ angular.module('calendarizes')
                     task._id = data.task.id;
                     // $task.projectId = '545b92e8b979bf90bef18397';
                     // $task.personId = data.task.row.id;
-                    task.startDate = data.task.getFromLabel();
-                    task.endDate = data.task.getToLabel();
+                    task.startDate = data.task.from;
+                    task.endDate = data.task.to;
                     console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
                         alert('Updated Successfully taskId');
@@ -211,7 +210,7 @@ angular.module('calendarizes')
             mode: 'custom',
             scale: 'week',
             maxHeight: false,
-            width: false,
+            width: true,
             autoExpand: 'both',
             taskOutOfRange: 'expand',
             fromDate: undefined,
@@ -306,6 +305,7 @@ angular.module('calendarizes')
             if ($scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
+
                     assignment.startDate = data.date;
                     assignment.endDate = moment(data.date).add(5, 'd');
 
