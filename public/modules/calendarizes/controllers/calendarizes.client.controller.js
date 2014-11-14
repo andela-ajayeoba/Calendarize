@@ -80,14 +80,13 @@ angular.module('calendarizes')
                         $task.color = '#F1C232';
                         $user.tasks.push($task);
                     });
+
                     data.push($user);                        
                 });
                 $scope.loadData(data);
             });
         };
 
-        //TODO!!!!!!!!!!!!
-        //$scope.findPersons();
 
 		// Find existing Person
 		$scope.findOnePerson = function() {
@@ -132,8 +131,6 @@ angular.module('calendarizes')
     				$scope.error = errorResponse.data.message;
     			});
 		};
-        
-		// Find existing Projects
 		$scope.findOneProject = function() {
 			$scope.project = Projects.get({ 
 				projectId: $stateParams.projectId
@@ -146,6 +143,7 @@ angular.module('calendarizes')
         };
 
 /************************************************
+
                     TASK CRUD
 ************************************************/
         // Creating a new Assignment/Task
@@ -174,11 +172,13 @@ angular.module('calendarizes')
             });
         };
 
+
         $scope.findOneTask = function() {
             $scope.task = Tasks.get({ 
                  taskId: $stateParams.taskId
             });
         };
+
 
         $scope.updateTask = function(event, data) {
             // var upTask = event.targetScope.task;
@@ -269,10 +269,12 @@ angular.module('calendarizes')
             }
         });
 
+
         // function that trigers modal onclick on the gantt chart cells 
        $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
             console.log('test');
        });
+
         
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
@@ -297,6 +299,7 @@ angular.module('calendarizes')
         $scope.removeSamples = function() {
             $scope.clearData();
         };
+
 
         var handleClickEvent = function(event, data) {
             console.log(data);
@@ -324,7 +327,7 @@ angular.module('calendarizes')
             }
         };
 
-        var logTaskEvent = function(event, data) {
+        var logTaskEvent = function(event,data) {
             // A task event has occured.
             var output = '';
             for (var property in data) {
@@ -371,7 +374,9 @@ angular.module('calendarizes')
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
+
         $scope.$on(GANTT_EVENTS.ROW_CLICKED,  handleClickEvent);
+
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -451,16 +456,16 @@ angular.module('calendarizes')
     })
 .controller('ModalInstanceCtrl', function ($scope, $modalInstance, projects, Projects ) {
 
-    // Find a list of Persons
-        $scope.findProjects = function() {
-            $scope.projects = Projects.query();
+// Find a list of Persons
+    $scope.findProjects = function() {
+        $scope.projects = Projects.query();
 
-        };
-        $scope.selectedProject = function (data) {
-            $modalInstance.close(data);
-        };
+    };
+    $scope.selectedProject = function (data) {
+        $modalInstance.close(data);
+    };
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
- });
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
