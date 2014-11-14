@@ -245,7 +245,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             readOnly: false,
             filterTask: undefined,
             filterRow: undefined,
-            allowLabelsResizing: true,
+            allowLabelsResizing: false,
             timeFrames:
                  {'day': {
                     start: moment('8:00', 'HH:mm'),
@@ -303,15 +303,15 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
-            $timeout(function() {
+            /*$timeout(function() {
                 $scope.scrollToDate($scope.options.currentDateValue);
-            }, 0, true);
+            }, 0, true);*/
         });
 
         $scope.addSamples = function() {
-            $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
+            $scope.loadTimespans(Sample.getSampleTimespans().timespan);
             // $scope.loadData(Sample.getSampleData().data1);
-            $scope.loadData($scope.findPersons());
+            $scope.findPersons();
 
         }; 
 
@@ -485,12 +485,12 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             },
             getSampleTimespans: function() {
                 return {
-                    'timespan1': [
+                    'timespan': [
                         {
                             id: '1',
-                            from: new Date(2014, 9, 21, 8, 0, 0),
-                            to: new Date(2014, 11, 25, 15, 0, 0),
-                            name: 'Sprint 1 Timespan'
+                            from: new Date(2014, 11, 1, 0, 0, 0),
+                            to: new Date(2014, 11, 30, 0, 0, 0),
+                            name: 'Calendarize'
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
                             //data: undefined
