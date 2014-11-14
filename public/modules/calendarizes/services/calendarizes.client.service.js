@@ -1,49 +1,36 @@
 'use strict';
 
 //Calendarizes service used to communicate Calendarizes REST endpoints
-// angular.module('calendarizes').factory('Calendarizes', ['$resource',
-// 	function($resource) {
-// 		return $resource('calendarizes/:calendarizeId', { calendarizeId: '@_id'
-// 		}, {
-// 			update: {
-// 				method: 'PUT'
-// 			}
-// 		});
-// 	}
-// ]);
 
-angular.module('calendarizes').factory('Apicall', ['$resource',
+angular.module('calendarizes').factory('Persons', ['$resource',
 	function($resource) {
-
-		return {
-			Persons: $resource('persons/:personId', {
-						personId: '@_id'
-			}, 
-			{
-				update: {
-					method: 'PUT'
-				}
-			}),
-
-			Projects: $resource('projects/:projectId', {
-						projectId: '@_id'
-			}, 
-			{
-				update: {
-					method: 'PUT'
-				}
-			}),
-
-			Tasks: $resource('tasks/:taskId', {
-						taskId: '@_id'
-			}, 
-			{
-				update: {
-					method: 'PUT'
-				}
-			}),
-
-		};
+		return $resource('persons/:personId', { personId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
 	}
+]);
 
+angular.module('calendarizes').factory('Projects', ['$resource',
+	function($resource) {
+		return $resource('projects/:projectId', { projectId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);
+
+angular.module('calendarizes').factory('Tasks', ['$resource',
+	function($resource) {
+		return $resource('tasks/:taskId', { taskId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
 ]);

@@ -45,6 +45,7 @@ var PersonSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
+		required: 'Please fill a valid email address',
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
 	group: {

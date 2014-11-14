@@ -147,18 +147,14 @@
         </button>
         <!-- Modal Test code -->
         <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">List of Projetcs</h3>
-            </div>
-            <div class="modal-body" data-ng-init="findProjects()">
-                <ul data-ng-repeat ="project in projects">
-                    <li  data-ng-bind ="project.name"></li>
-                </ul>
-            </div>
-            <div class="modal-footer" ng-controller ="ModalInstanceCtrl">
-                <button class="btn btn-primary" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+                <div class="modal-header">
+                    <h3 class="modal-title">List of Projects</h3>
+                </div>
+                <div class="modal-body" data-ng-init="findProjects()">
+                    <ul data-ng-repeat ="project in projects"  >
+                        <li  data-ng-bind ="project.name" ng-click="selectedProject(project)"></li>
+                    </ul>
+                </div>
         </script>
        <!--  Modal Test Ends  -->
         <div class="row top-buffer">

@@ -1,6 +1,7 @@
 'use strict';
 
-angular.module('calendarizes').controller('WorkersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Apicall',
+angular.module('calendarizes')
+    .controller('WorkersController', ['$scope', '$stateParams', '$location', 'Authentication', 'Apicall',
 	function($scope, $stateParams, $location, Authentication, Apicall) {
 		$scope.authentication = Authentication;
 		$scope.workers = [];

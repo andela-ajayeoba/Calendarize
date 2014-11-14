@@ -50,9 +50,14 @@
 			});
 		}));
 
-		it('$scope.findProjects() should create an array with at least one Project object fetched from XHR', inject(function(Apicall) {
-			// Create sample Project using the Apicall service
-			var sampleProject = new Apicall.Projects({
+		afterEach(function() {
+	      $httpBackend.verifyNoOutstandingExpectation();
+	      $httpBackend.verifyNoOutstandingRequest();
+	   	});
+
+		it('$scope.listProjects() should return an array with at least one Project object fetched from XHR', inject(function(Projects) {
+			//Create sample Project using the Apicall service
+			var sampleProject = new Projects({
 				name: 'New Project'
 			});
 
@@ -63,17 +68,16 @@
 			$httpBackend.expectGET('projects').respond(sampleProjects);
 
 			// Run controller functionality
-			scope.findProjects();
+			scope.listProjects();
 			$httpBackend.flush();
 
 			// Test scope value
 			expect(scope.projects).toEqualData(sampleProjects);
 		}));
 
-
-		it('$scope.findOneProject() should create an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Apicall) {
-			// Define a sample Calendarize object
-			var sampleProject = new Apicall.Projects({
+		it('$scope.findOneProject() should return an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Projects) {
+			// Define a sample Project object
+			var sampleProject = new Projects({
 				name: 'New Project'
 			});
 
@@ -91,20 +95,20 @@
 			expect(scope.project).toEqualData(sampleProject);
 		}));
 
-		it('$scope.addProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Apicall) {
+		it('$scope.addProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
 			// Create a sample Calendarize object
-			var sampleProjectPostData = new Apicall.Projects({
+			var sampleProjectPostData = new Projects({
 				name: 'New Project'
 			});
 
-			// Create a sample Project response
-			var sampleProjectResponse = new Apicall.Projects({
+			// Create a sample Calendarize response
+			var sampleProjectResponse = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project'
 			});
 
 			// Fixture mock form input values
-			scope.project = {name: 'New Project'};
+			scope.project = { name:'New Project'};
 
 			// Set POST response
 			$httpBackend.expectPOST('projects', sampleProjectPostData).respond(sampleProjectResponse);
@@ -116,18 +120,16 @@
 			// Test form inputs are reset
 			expect(scope.project).toEqual('');
 
-			// Test URL redirection after the Project was created
-			//expect($location.path()).toBe('/projects/' + sampleProjectResponse._id);
 		}));
 
-		it('$scope.updateProject() should update a valid Project', inject(function(Apicall) {
-		// 	// Define a sample Calendarize put data
-			var sampleProjectPutData = new Apicall.Projects({
+		it('$scope.updateProject() should update a valid Project', inject(function(Projects) {
+			// Define a sample Project put data
+			var sampleProjectPutData = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project'
-		 	});
+			});
 
-		// 	// Mock Calendarize in scope
+			// Mock Project in scope
 			scope.project = sampleProjectPutData;
 
 			// Set PUT response
@@ -137,65 +139,28 @@
 			scope.updateProject();
 			$httpBackend.flush();
 
-		// Test URL location to new object
-			// expect($location.path()).toBe('/projects/' + sampleProjectPutData._id);
 		}));
 
-		 it('$scope.removeProject() should send a DELETE request with a valid calendarizeId and remove the Calendarize from the scope', inject(function(Apicall) {
-		// 	// Create new Calendarize object
-		var sampleProject = new Apicall.Projects({
+		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects) {
+			// Create new Project object
+			var sampleProject = new Projects({
 				_id: '525a8422f6d0f87f0e407a33'
-		 	});
+			});
 
-		// Create new Calendarizes array and include the Calendarize
+			// Create new Projects array and include the Project
 			scope.projects = [sampleProject];
 
-		// Set expected DELETE response
-		$httpBackend.expectDELETE(/projects\/([0-9a-fA-F]{24})$/).respond(204);
-
-		// Run controller functionality
-		scope.removeProject(sampleProject);
-			$httpBackend.flush();
-
-		// 	// Test array after successful delete
-		expect(scope.projects.length).toBe(0);
-		}));
-
-		 it('$scope.addPerson() with valid form data should send a POST request with the form input values and then create an load the person details from the response on the chart', inject(function(Apicall) {
-			// Create a sample Calendarize object
-			var samplePersonPostData = new Apicall.Persons({
-				name: 'New Person',
-				email:'test@test.com',
-				group:''
-			});
-
-			// Create a sample Project response
-			var samplePersonResponse = new Apicall.Persons({
-				_id: '525cf20451979dea2c000001',
-				name: 'New Person',
-				email: 'test@test.com',
-				group: ''
-			});
-
-			// Fixture mock form input values
-			scope.person = {
-						name: 'New Project',
-						email:'test@test.com',
-						group: ''
-						};
-
-			// Set POST response
-			$httpBackend.expectPOST('persons', samplePersonPostData).respond(samplePersonResponse);
+			// Set expected DELETE response
+			$httpBackend.expectDELETE(/projects\/([0-9a-fA-F]{24})$/).respond(204);
 
 			// Run controller functionality
-			scope.addPerson();
+			scope.removeProject(sampleProject);
 			$httpBackend.flush();
 
-			// Test form inputs are reset
-			expect(scope.person).toEqual('');
-
+			// Test array after successful delete
+			expect(scope.projects.length).toBe(0);
 		}));
 
+		// TODO PERSONS TEST
 	});
-		
 }());
