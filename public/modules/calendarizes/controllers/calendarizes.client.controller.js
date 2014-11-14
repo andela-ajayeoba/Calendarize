@@ -184,10 +184,7 @@ angular.module('calendarizes')
             // var upTask = event.targetScope.task;
             console.log(data);
             var task = Tasks.get({ taskId: data.task.id});            
-                    // $stateParams.taskId = data.task.id;
                     task._id = data.task.id;
-                    // $task.projectId = '545b92e8b979bf90bef18397';
-                    // $task.personId = data.task.row.id;
                     task.startDate = data.task.from;
                     task.endDate = data.task.to;
                     console.log(task, task.startDate, task.endDate);

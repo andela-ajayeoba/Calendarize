@@ -119,7 +119,7 @@ describe('Calendarize Model Unit Tests:', function() {
 			return Person.find(function(err){
 				should.not.exist(err);
 				done();
-			})
+			});
 		});
 
 		it('should update a person without any problem', function(done) {
