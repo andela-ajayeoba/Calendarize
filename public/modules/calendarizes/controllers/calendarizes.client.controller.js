@@ -210,7 +210,7 @@ angular.module('calendarizes')
             mode: 'custom',
             scale: 'week',
             maxHeight: false,
-            width: false,
+            width: true,
             autoExpand: 'both',
             taskOutOfRange: 'expand',
             fromDate: undefined,

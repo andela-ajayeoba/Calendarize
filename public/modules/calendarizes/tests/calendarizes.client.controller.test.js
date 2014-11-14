@@ -49,7 +49,6 @@
 				$scope: scope
 			});
 		}));
-
 		afterEach(function() {
 	      $httpBackend.verifyNoOutstandingExpectation();
 	      $httpBackend.verifyNoOutstandingRequest();
@@ -58,6 +57,7 @@
 		it('$scope.listProjects() should return an array with at least one Project object fetched from XHR', inject(function(Projects) {
 			//Create sample Project using the Apicall service
 			var sampleProject = new Projects({
+
 				name: 'New Project'
 			});
 
@@ -162,5 +162,6 @@
 		}));
 
 		// TODO PERSONS TEST
+
 	});
 }());
