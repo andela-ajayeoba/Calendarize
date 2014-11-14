@@ -488,8 +488,8 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     'timespan': [
                         {
                             id: '1',
-                            from: new Date(2014, 11, 1, 0, 0, 0),
-                            to: new Date(2014, 11, 30, 0, 0, 0),
+                            from: new Date(2014, 6, 1, 0, 0, 0),
+                            to: new Date(2014, 12, 30, 0, 0, 0),
                             name: 'Calendarize'
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
