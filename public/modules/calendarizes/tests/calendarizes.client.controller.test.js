@@ -50,15 +50,19 @@
 			});
 		}));
 
-		it('$scope.listProjects() should return an array with at least one Project object fetched from XHR', inject(function(Apicall) {
-			// Create sample Project using the Apicall service
-			var sampleProject = new Apicall.Projects({
+		afterEach(function() {
+	      $httpBackend.verifyNoOutstandingExpectation();
+	      $httpBackend.verifyNoOutstandingRequest();
+	   	});
+
+		it('$scope.listProjects() should return an array with at least one Project object fetched from XHR', inject(function(Projects) {
+			//Create sample Project using the Apicall service
+			var sampleProject = new Projects({
 				name: 'New Project'
 			});
 
 			// Create a sample Projects array that includes the new Project
 			var sampleProjects = [sampleProject];
-			
 
 			// Set GET response
 			$httpBackend.expectGET('projects').respond(sampleProjects);
@@ -71,9 +75,9 @@
 			expect(scope.projects).toEqualData(sampleProjects);
 		}));
 
-		it('$scope.findOneProject() should return an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Apicall) {
+		it('$scope.findOneProject() should return an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Projects) {
 			// Define a sample Project object
-			var sampleProject = new Apicall.Projects({
+			var sampleProject = new Projects({
 				name: 'New Project'
 			});
 
@@ -91,14 +95,14 @@
 			expect(scope.project).toEqualData(sampleProject);
 		}));
 
-		it('$scope.addProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Apicall) {
+		it('$scope.addProject() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Projects) {
 			// Create a sample Calendarize object
-			var sampleProjectPostData = new Apicall.Projects({
+			var sampleProjectPostData = new Projects({
 				name: 'New Project'
 			});
 
 			// Create a sample Calendarize response
-			var sampleProjectResponse = new Apicall.Projects({
+			var sampleProjectResponse = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project'
 			});
@@ -118,9 +122,9 @@
 
 		}));
 
-		it('$scope.updateProject() should update a valid Project', inject(function(Apicall) {
+		it('$scope.updateProject() should update a valid Project', inject(function(Projects) {
 			// Define a sample Project put data
-			var sampleProjectPutData = new Apicall.Projects({
+			var sampleProjectPutData = new Projects({
 				_id: '525cf20451979dea2c000001',
 				name: 'New Project'
 			});
@@ -137,9 +141,9 @@
 
 		}));
 
-		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Apicall) {
+		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects) {
 			// Create new Project object
-			var sampleProject = new Apicall.Projects({
+			var sampleProject = new Projects({
 				_id: '525a8422f6d0f87f0e407a33'
 			});
 
@@ -156,5 +160,7 @@
 			// Test array after successful delete
 			expect(scope.projects.length).toBe(0);
 		}));
+
+		// TODO PERSONS TEST
 	});
 }());

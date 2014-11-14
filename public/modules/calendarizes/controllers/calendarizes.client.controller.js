@@ -1,8 +1,8 @@
 'use strict';
 // Calendarizes controller
 angular.module('calendarizes')
-    .controller('CalendarizesController', ['$scope','$stateParams', '$location', '$timeout','Authentication', 'Apicall','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 
-	function($scope,$stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS,$modal) {
+    .controller('CalendarizesController', ['$http', '$scope','$stateParams', '$location', '$timeout','Authentication','Uuid', 'Sample', 'moment', 'GANTT_EVENTS','$modal', 'Persons', 'Projects', 'Tasks',
+	function($http, $scope,$stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks) {
 		
         $scope.authentication = Authentication;
         var assignment = {};
@@ -28,7 +28,7 @@ angular.module('calendarizes')
 
         /* Create a new person */
         $scope.addPerson = function() {
-            var person = new Apicall.Persons($scope.person);
+            var person = new Persons($scope.person);
                 person.$save(function(response) {
                      alert('Person Successfully added');
                     $scope.person = '';
@@ -65,30 +65,33 @@ angular.module('calendarizes')
 		// Find a list of Persons
 		$scope.findPersons = function() {
             var data = [];
-    		$scope.persons = Apicall.Persons.query({}, function(){
-                  $scope.persons.forEach(function(result){
-                    var $result = {};
-                        $result.tasks = [];
-                        $result.id = result._id;
-                        $result.name = result.name;
-                        result.tasks.forEach(function(task){
-                            var $task = {};
-                                $task.id = task._id;
-                                $task.name = task.projectName;
-                                $task.from = task.startDate;
-                                $task.to = task.endDate;
-                                $task.color = '#F1C232';
-                                $result.tasks.push($task);
-                        });
-                        data.push($result);                        
+    		$scope.persons = Persons.query({}, function(){
+                  $scope.persons.forEach(function(user){
+                    var $user = {};
+                    $user.tasks = [];
+                    $user.id = user._id;
+                    $user.name = user.name;
+                    user.tasks.forEach(function(task){
+                        var $task = {};
+                        $task.id = task._id;
+                        $task.name = task.projectName;
+                        $task.from = task.startDate;
+                        $task.to = task.endDate;
+                        $task.color = '#F1C232';
+                        $user.tasks.push($task);
                     });
+                    data.push($user);                        
+                });
                 $scope.loadData(data);
             });
         };
-        $scope.findPersons();
+
+        //TODO!!!!!!!!!!!!
+        //$scope.findPersons();
+
 		// Find existing Person
 		$scope.findOnePerson = function() {
-			$scope.person = Apicall.Persons.get({ 
+			$scope.person = Persons.get({ 
 				personId: $stateParams.personId
 			});
 		};
@@ -99,7 +102,7 @@ angular.module('calendarizes')
 
 		// Creating a new Project
 		$scope.addProject = function() {
-			var project = new Apicall.Projects($scope.project);
+			var project = new Projects($scope.project);
     			project.$save(function(response) {
     				console.log('Project Successfully added');
     				$scope.project = '';
@@ -132,14 +135,14 @@ angular.module('calendarizes')
         
 		// Find existing Projects
 		$scope.findOneProject = function() {
-			$scope.project = Apicall.Projects.get({ 
+			$scope.project = Projects.get({ 
 				projectId: $stateParams.projectId
 			});
 		};
-        // Find a list of Persons
+        // Find a list of Projects
         $scope.listProjects = function() {
-            $scope.projects = Apicall.Projects.query();
-                console.log($scope.projects);
+            $scope.projects = Projects.query();
+            console.log($scope.projects);
         };
 
 /************************************************
@@ -153,42 +156,42 @@ angular.module('calendarizes')
                 startDate : data.startDate,
                 endDate : data.endDate
             };
-            var task = new Apicall.Tasks(newTask);
-                task.$save(function(response) {
-                        var taskParam = {
-                            id : response.projectId,
-                            name :response.projectName,
-                            from : response.startDate,
-                            to :response.endDate
-                        };
-                        var drawTask = data.infoData.row.addTask(taskParam);
-                            $scope.$apply(function() {
-                                drawTask.updatePosAndSize();
-                                drawTask.row.updateVisibleTasks();
-                            });
-                    alert('Tasks successfully assigned');
+            var task = new Tasks(newTask);
+            task.$save(function(response) {
+                var taskParam = {
+                    id : response._id, //projectId, //_id
+                    name :response.projectName,
+                    from : response.startDate,
+                    to :response.endDate,
+                    color : '#F1C232'
+                };
+                var uiItem = data.infoData.row.addTask(taskParam);
+                uiItem.updatePosAndSize();
+                uiItem.row.updateVisibleTasks();
+                // learn about $scope.apply
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
         };
 
         $scope.findOneTask = function() {
-            $scope.task = Apicall.Tasks.get({ 
+            $scope.task = Tasks.get({ 
                  taskId: $stateParams.taskId
             });
         };
 
         $scope.updateTask = function(event, data) {
             // var upTask = event.targetScope.task;
-            var $task = Apicall.Tasks.get({ taskId: data.task.id});            
-                    $stateParams.taskId = data.task.id;
-                    $task._id = data.task.id;
-                    $task.projectId = '545b92e8b979bf90bef18397';
-                    $task.personId = data.task.row.id;
-                    $task.startDate = data.task.getFromLabel();
-                    $task.endDate = data.task.getToLabel();
-                    console.log($task, $task.startDate, $task.endDate);
-                    $task.$update(function() {
+            console.log(data);
+            var task = Tasks.get({ taskId: data.task.id});            
+                    // $stateParams.taskId = data.task.id;
+                    task._id = data.task.id;
+                    // $task.projectId = '545b92e8b979bf90bef18397';
+                    // $task.personId = data.task.row.id;
+                    task.startDate = data.task.getFromLabel();
+                    task.endDate = data.task.getToLabel();
+                    console.log(task, task.startDate, task.endDate);
+                    task.$update(function() {
                         alert('Updated Successfully taskId');
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
@@ -196,7 +199,7 @@ angular.module('calendarizes')
         };
 
         $scope.findTasks = function() {
-            $scope.tasks = Apicall.Tasks.query();
+            $scope.tasks = Tasks.query();
         };
 
 /************************************************
@@ -308,20 +311,6 @@ angular.module('calendarizes')
                     assignment.endDate = moment(data.date).add(5, 'd');
 
                     assignment.infoData = data;
-                    //endDate.setDate(endDate.getDate());
-                    // var infoTask = {
-                    //     id: Uuid.randomUuid(),  // Unique id of the task.
-                    //     name: 'Assign Task', // Name shown on top of each task.
-                    //     from: startDate, // Date can be a String, Timestamp or Date object.
-                    //     to: endDate,// Date can be a String, Timestamp or Date object.
-                    //     color: '#AA8833' // Color of the task in HEX format (Optional).
-                    // };
-                    // var task = data.row.addTask(infoTask);
-                    // task.isCreating = true;
-                    // $scope.$apply(function() {
-                    //     task.updatePosAndSize();
-                    //     data.row.updateVisibleTasks();
-                    //});
                 }
             }
         };
@@ -461,11 +450,11 @@ angular.module('calendarizes')
             },  
         };
     })
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, projects, Apicall ) {
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, projects, Projects ) {
 
     // Find a list of Persons
         $scope.findProjects = function() {
-            $scope.projects = Apicall.Projects.query();
+            $scope.projects = Projects.query();
 
         };
         $scope.selectedProject = function (data) {
