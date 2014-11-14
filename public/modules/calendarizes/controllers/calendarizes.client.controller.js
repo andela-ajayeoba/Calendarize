@@ -4,18 +4,24 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 	function($scope, $modal, $stateParams, $location, $timeout, Authentication, Apicall, Uuid, Sample, moment, GANTT_EVENTS, $log) {
 		$scope.authentication = Authentication;
 		// Modal Test code
-        $scope.items = ['item1', 'item2', 'item3'];
-
-        $scope.open = function () {
+        var assignment ={};
+        $scope.open = function (size) {
             var modalInstance = $modal.open({
-              templateUrl: 'myModalContent.html',
-              controller: 'ModalInstanceCtrl',
-              resolve: {
-                items: function () {
-                  return $scope.items;
-                }
-              }
+                  templateUrl: 'myModalContent.html',
+                  controller: 'ModalInstanceCtrl',
+                  size :'sm',
+                    resolve: {
+                        projects: function () {
+                          return $scope.projects;
+                        }
+                    }
             });
+            modalInstance.result.then(function (data) {
+                assignment.projectId = data._id ; 
+                assignment.name = data.name;
+            } , function () {}
+            );
+            $scope.createTask();
         };
         //modal test ends 
         /* Create a new person */
@@ -79,14 +85,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                         });
                         data.push($result);                        
                     });
-
-                // $scope.loadData(data);
-                console.log(data);
+                $scope.loadData(data);
             });
-
-
         };
-
         $scope.findPersons();
 
 		// Find existing Person
@@ -140,17 +141,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 			});
 		};			
 
-		// Find a list of Persons
-		$scope.findProjects = function() {
-            console.log(5555);
-			$scope.projects = Apicall.Projects.query();
-
-		};
-
-
-        //populate select option
-        $scope.projectlist = {};
-
 		// Find existing Person
 		$scope.findOneProject = function() {
 			$scope.project = Apicall.Projects.get({ 
@@ -158,24 +148,44 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 			});
 		};
 
-            /************************************************
-                    ASSIGNMENT CRUD
-        ************************************************/
+/************************************************
+            TASK CRUD
+************************************************/
         // Creating a new Assignment
         $scope.createTask = function() {
-            var task = new Apicall.Tasks ($scope.task);
-            task.$save(function(response) {
-                $scope.task = '';
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
+            console.log(data);
+           var newTask = {};
+               newTask.personId = data.row.id;
+               newTask.projectId = assignment.projectId;
+               newTask.startDate = data.date;
+               newTask.endDate = moment(data.date).add( 7 , 'd');
+
+           var task = new Apicall.Tasks(newTask);
+               task.$save(function(response) {
+                   alert('Tasks successfully assigned');
+                       var taskParam = {};
+                           taskParam.id = response.assignment.projectId;
+                           taskParam.name = response.assignment.name;
+                           taskParam.from = response.startDate;
+                           taskParam.to = response.endDate;
+                       var drawTask = data.row.addTask(taskParam);
+                           $scope.$apply(function() {
+                               drawTask.updatePosAndSize();
+                               drawTask.row.updateVisibleTasks();
+                           });
+
+           }, function(errorResponse) {
+               $scope.error = errorResponse.data.message;
+           });
+               
+       };
 
         $scope.findOneTask = function() {
             $scope.task = Apicall.Tasks.get({ 
                 // assignmentId: $stateParams.assignmentId
             });
         };
+
         $scope.updateTask = function() {
             var task = $scope.task ;
 
@@ -258,27 +268,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                 }
             }
         });
-
-        // function that trigers popover onclick on the gantt chart cells
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED,function(){
-        	//show popover code 
-        	console.log('test');
-            $scope.open();
-        //     $scope.items = ['item1', 'item2', 'item3'];
-
-        // $scope.open = function () {
-        //     var modalInstance = $modal.open({
-        //       templateUrl: 'myModalContent.html',
-        //       controller: 'ModalInstanceCtrl',
-        //       resolve: {
-        //         items: function () {
-        //           return $scope.items;
-        //         }
-        //       }
-        //     });
-        // };
-
-       	});
         
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
@@ -311,7 +300,9 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             $scope.clearData();
         };
 
-        var rowEvent = function(event, data) {
+        var handleClickEvent = function(event, data) { 
+            console.log(data.task);
+            $scope.open();
             if (!$scope.options.readOnly && $scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
@@ -345,7 +336,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
             }
         };
 
-        var logTaskEvent = function(event, data) {
+        var logTaskEvent = function(event,data) {
             // A task event has occured.
             var output = '';
             for (var property in data) {
@@ -388,7 +379,7 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CLICKED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
 
@@ -396,8 +387,6 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
         $scope.$on(GANTT_EVENTS.ROW_CHANGED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
-
-        $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, rowEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
@@ -462,21 +451,22 @@ angular.module('calendarizes').controller('CalendarizesController', ['$scope','$
                     }
                 ]
             };
-        }
+        },
     };
 })
-.controller('ModalInstanceCtrl', function ($scope,$modalInstance, items) {
+ .controller('ModalInstanceCtrl', function ($scope,$modalInstance,projects,Apicall ) {
 
-        $scope.items = items;
-        $scope.selected = {
-            item: $scope.items[0]
-        };
+    // Find a list of Persons
+    $scope.findProjects = function() {
+        $scope.projects = Apicall.Projects.query();
 
-        $scope.ok = function () {
-            $modalInstance.close($scope.selected.item);
-        };
+    };
+    $scope.ok = function (data) {
+        $modalInstance.close(data);
+        console.log(data);
+    };
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
-});
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+ });
