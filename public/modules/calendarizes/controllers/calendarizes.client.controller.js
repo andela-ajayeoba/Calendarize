@@ -181,18 +181,14 @@ angular.module('calendarizes')
 
 
         $scope.updateTask = function(event, data) {
-            // var upTask = event.targetScope.task;
             console.log(data);
             var task = Tasks.get({ taskId: data.task.id});            
-                    // $stateParams.taskId = data.task.id;
                     task._id = data.task.id;
-                    // $task.projectId = '545b92e8b979bf90bef18397';
-                    // $task.personId = data.task.row.id;
                     task.startDate = data.task.from;
                     task.endDate = data.task.to;
                     console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
-                        alert('Updated Successfully taskId');
+                        //alert('Updated Successfully taskId');
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
                });
@@ -208,7 +204,7 @@ angular.module('calendarizes')
 
 		$scope.options = {
             mode: 'custom',
-            scale: 'week',
+            scale: 'day',
             maxHeight: false,
             width: true,
             autoExpand: 'both',
@@ -217,7 +213,7 @@ angular.module('calendarizes')
             toDate: undefined,
             showLabelsColumn: true,
             currentDate: 'line',
-            currentDateValue : new Date(2014, 9, 23, 11, 20, 0),
+            currentDateValue : new Date(2014, 11, 16, 8, 0, 0),
             draw: true,
             readOnly: false,
             filterTask: undefined,
@@ -270,12 +266,6 @@ angular.module('calendarizes')
         });
 
 
-        // function that trigers modal onclick on the gantt chart cells 
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
-            console.log('test');
-       });
-
-        
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
             $timeout(function() {
@@ -357,12 +347,24 @@ angular.module('calendarizes')
         });
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_CHANGED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data){
+            console.log(data);
+            //data.task.updatePosAndSize();
+           
+            //check if the task is moved along the current row or away from it
+            //if task is not on the current row 
+                //create a new task from the moved task projectId
+                //change the taskId and personId
+                //update the start and end date
+                //then remove the task from the previous row.
+            //else 
+                //update only start and end dates
+                 $scope.updateTask(event, data);
+        });
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data){
-        });
+        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
             // update tasks
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);

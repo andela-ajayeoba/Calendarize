@@ -117,7 +117,7 @@
     </div>
 </section>
 <section ng-controller="CalendarizesController">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="panel-group" bs-collapse>
                 <div class="panel panel-default">
@@ -161,7 +161,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="container-content" ng-cloak="true">
         <script type="text/ng-template" id="popover">
             <ul class="popoverBox" data-ng-controller="CalendarizesController">
@@ -171,7 +171,7 @@
                     <label for="worker">Group</label>
                     <input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/>
                 </li><br>
-                <button class="btn btn-primary" ng-click="addPerson()">Create</button>
+                <button class="btn btn-primary" ng-click="addPerson()">Add Person</button>
             </ul>
         </script>
 
@@ -184,7 +184,7 @@
                     <label for="project">Name*</label><br>
                     <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
                 </li><br>
-                <button class="btn btn-primary" ng-click="addProject()">Create</button>
+                <button class="btn btn-primary" ng-click="addProject()">Create Project</button>
             </ul>
         </script>
         <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-bottom:50px">
@@ -196,7 +196,7 @@
         <script type="text/ng-template" id="myModalContent.html">
             <section data-ng-init ="findProjects()">
                 <div class="modal-header">
-                    <h3 class="modal-title">List of Projects</h3>
+                    <h3 class="modal-title">Select a Project</h3>
                 </div>
                 <div class="modal-body">
                     <ul ng-repeat="project in projects">
@@ -219,7 +219,7 @@
                         </div>
                         <div class="panel-collapse" bs-collapse-target>
                             <div class="panel-body">
-                                <gantt first-day-of-week="M"
+                                <gantt first-day-of-week="1"
                                    filter-task="{'name': options.filterTask}"
                                    filter-row="{'name': options.filterRow}"
                                    load-data="loadData = fn"
