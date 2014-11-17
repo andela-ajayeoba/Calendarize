@@ -4,61 +4,64 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	errorHandler = require('./errors'),
-	Project = mongoose.model('Project'),
-	Person = mongoose.model('Person'),
-	Task = mongoose.model('Task'),
-	User = mongoose.model('User'),
-	_ = require('lodash');
+    errorHandler = require('./errors'),
+    Project = mongoose.model('Project'),
+    Person = mongoose.model('Person'),
+    Task = mongoose.model('Task'),
+    User = mongoose.model('User'),
+    _ = require('lodash');
 
 
 /* Authentication Middleware */
 
 exports.hasProjectAuthorization = function(req, res, next) {
-	if (req.project.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
-	next();
+    if (req.project.user.id !== req.user.id) {
+        return res.status(403).send('User is not authorized');
+    }
+    next();
 };
 
 exports.hasPersonAuthorization = function(req, res, next) {
-	if (req.person.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
-	next();
+    if (req.person.user.id !== req.user.id) {
+        return res.status(403).send('User is not authorized');
+    }
+    next();
 };
 
 exports.hasTaskAuthorization = function(req, res, next) {
-	if (req.task.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
-	next();
+    if (req.task.user.id !== req.user.id) {
+        return res.status(403).send('User is not authorized');
+    }
+    next();
 };
 
 /* Middleware */
 
-exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
-		if (err) return next(err);
-		if (! project) return next(new Error('Failed to load Person ' + id));
-		req.project = project ;
-		next();
-	});
+exports.projectByID = function(req, res, next, id) {
+    Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
+        if (err) return next(err);
+        if (!project) return next(new Error('Failed to load Person ' + id));
+        req.project = project;
+        next();
+    });
 };
 
-exports.personByID = function(req, res, next, id) { Person.findById(id).populate('user', 'displayName').exec(function(err, person) {
-		if (err) return next(err);
-		if (! person) return next(new Error('Failed to load Person ' + id));
-		req.person = person;
-		next();
-	});
+exports.personByID = function(req, res, next, id) {
+    Person.findById(id).populate('user', 'displayName').exec(function(err, person) {
+        if (err) return next(err);
+        if (!person) return next(new Error('Failed to load Person ' + id));
+        req.person = person;
+        next();
+    });
 };
 
-exports.taskByID = function(req, res, next, id) { Task.findById(id).populate('user', 'displayName').exec(function(err, task) {
-		if (err) return next(err);
-		if (! task) return next(new Error('Failed to load Task' + id));
-		req.task = task;
-		next();
-	});
+exports.taskByID = function(req, res, next, id) {
+    Task.findById(id).populate('user', 'displayName').exec(function(err, task) {
+        if (err) return next(err);
+        if (!task) return next(new Error('Failed to load Task' + id));
+        req.task = task;
+        next();
+    });
 };
 
 
@@ -67,23 +70,25 @@ exports.taskByID = function(req, res, next, id) { Task.findById(id).populate('us
 	==========================	*/
 
 exports.createProject = function(req, res) {
-	
-	var project = new Project(req.body);	
-		project.user = req.user;
-		project.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				res.jsonp(project);
-			}
-	});
+
+    var project = new Project(req.body);
+    project.user = req.user;
+    project.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(project);
+        }
+    });
 };
 
 exports.listProjects = function(req, res) {
-    
-    Project.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, projects) {
+
+    Project.find({
+        'user': req.user._id
+    }).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -95,41 +100,41 @@ exports.listProjects = function(req, res) {
 };
 
 exports.updateProject = function(req, res) {
-	
-	var project = req.project;
 
-	project = _.extend(project , req.body);
+    var project = req.project;
 
-	project.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(project);
-		}
-	});
+    project = _.extend(project, req.body);
+
+    project.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(project);
+        }
+    });
 };
 
 
 exports.readProject = function(req, res) {
-	res.jsonp(req.project);
+    res.jsonp(req.project);
 };
 
 
 exports.deleteProject = function(req, res) {
-	
-	var project = req.project ;
 
-	project.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(project);
-		}
-	});
+    var project = req.project;
+
+    project.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(project);
+        }
+    });
 };
 
 
@@ -138,69 +143,73 @@ exports.deleteProject = function(req, res) {
 	==========================	*/
 
 exports.createPerson = function(req, res) {
-	var person = new Person(req.body);
-	person.user = req.user;
+    var person = new Person(req.body);
+    person.user = req.user;
 
-	person.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(person);
-		}
-	});
+    person.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(person);
+        }
+    });
 };
 
-exports.listPersons = function(req, res) { 
-		Person.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks','projectName personName startDate endDate').exec(function(err, persons) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {			
-				res.jsonp(persons);
-			}
-		});
+exports.listPersons = function(req, res) {
+    Person.find({
+        'user': req.user._id
+    }).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, persons) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(persons);
+        }
+    });
 };
 
 exports.getPersonDetails = function(req, res) {
-	Task.find({'person':req.person._id}, function(err, tasks) {
-		req.person.tasks = tasks;
-	});
-	res.jsonp(req.person);
+    Task.find({
+        'person': req.person._id
+    }, function(err, tasks) {
+        req.person.tasks = tasks;
+    });
+    res.jsonp(req.person);
 };
 
 exports.deletePerson = function(req, res) {
-	
-	var person = req.person;
 
-	person.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(person);
-		}
-	});
+    var person = req.person;
+
+    person.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(person);
+        }
+    });
 };
 
 exports.updatePerson = function(req, res) {
-	
-	var person = req.person;
 
-	person = _.extend(person , req.body);
+    var person = req.person;
 
-	person.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(person);
-		}
-	});
+    person = _.extend(person, req.body);
+
+    person.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(person);
+        }
+    });
 
 };
 
@@ -212,108 +221,108 @@ exports.updatePerson = function(req, res) {
 
 
 exports.createTask = function(req, res) {
-	var person, project;
-	var task = new Task(req.body);
-	
-	task.user = req.user;
+    var person, project;
+    var task = new Task(req.body);
 
-	Person.findById(req.body.personId).exec(function(err, person_object){
-		
-		person = person_object;
+    task.user = req.user;
 
-		Project.findById(req.body.projectId).exec(function(err, project_object){
-			
-			project = project_object;
+    Person.findById(req.body.personId).exec(function(err, person_object) {
 
-			task.projectName = project.name;
-			task.personName = person.name;
+        person = person_object;
 
-			task.save(function(err) {
-				if (err) {
-					return res.status(400).send({
-						message: errorHandler.getErrorMessage(err)
-					});
-				} else {
-					person.tasks.push(task);
-					person.save();
-					project.tasks.push(task);
-					project.save();
-					res.jsonp(task);
-				}
-			});
-		});
-	});
+        Project.findById(req.body.projectId).exec(function(err, project_object) {
+
+            project = project_object;
+
+            task.projectName = project.name;
+            task.personName = person.name;
+
+            task.save(function(err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    person.tasks.push(task);
+                    person.save();
+                    project.tasks.push(task);
+                    project.save();
+                    res.jsonp(task);
+                }
+            });
+        });
+    });
 };
 
-exports.listTasks = function(req, res) { Task.find().sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(tasks);
-		}
-	});
+exports.listTasks = function(req, res) {
+    Task.find({
+        'user': req.user._id
+    }).sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(tasks);
+        }
+    });
 };
 
 
 
 exports.readTask = function(req, res) {
 
-	res.jsonp(req.task);
+    res.jsonp(req.task);
 };
 
 exports.deleteTask = function(req, res) {
-	
-	var task = req.task ;
-	Project.findById(req.task.project).exec(function(err, project){
 
-		if (project && project.tasks)
-		{
-			var i = project.tasks.indexOf(task._id);
+    var task = req.task;
+    Project.findById(req.task.project).exec(function(err, project) {
 
-			project.tasks.splice(i,1);
+        if (project && project.tasks) {
+            var i = project.tasks.indexOf(task._id);
 
-			project.save();
-		}
+            project.tasks.splice(i, 1);
 
-	});
-	Person.findById(req.task.person).exec(function(err, person){
+            project.save();
+        }
 
-		if (person && person.tasks)
-		{
-			var i = person.tasks.indexOf(task._id);
+    });
+    Person.findById(req.task.person).exec(function(err, person) {
 
-			person.tasks.splice(i,1);
+        if (person && person.tasks) {
+            var i = person.tasks.indexOf(task._id);
 
-			person.save();
-		}
+            person.tasks.splice(i, 1);
 
-	});
-	task.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(task);
-		}
-	});
+            person.save();
+        }
+
+    });
+    task.remove(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(task);
+        }
+    });
 };
 
 exports.updateTask = function(req, res) {
-	var task = req.task ;
+    var task = req.task;
 
-	task = _.extend(task, req.body);
+    task = _.extend(task, req.body);
 
-	task.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(task);
-		}
-	});
+    task.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(task);
+        }
+    });
 };
-
