@@ -49,6 +49,7 @@
 				$scope: scope
 			});
 		}));
+
 		afterEach(function() {
 	      $httpBackend.verifyNoOutstandingExpectation();
 	      $httpBackend.verifyNoOutstandingRequest();
@@ -75,9 +76,11 @@
 			expect(scope.projects).toEqualData(sampleProjects);
 		}));
 
+
 		it('$scope.findOneProject() should return an array with one Project object fetched from XHR using a projectId URL parameter', inject(function(Projects) {
 			// Define a sample Project object
 			var sampleProject = new Projects({
+
 				name: 'New Project'
 			});
 

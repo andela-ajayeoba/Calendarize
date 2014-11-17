@@ -80,14 +80,13 @@ angular.module('calendarizes')
                         $task.color = '#F1C232';
                         $user.tasks.push($task);
                     });
+
                     data.push($user);                        
                 });
                 $scope.loadData(data);
             });
         };
 
-        //TODO!!!!!!!!!!!!
-        //$scope.findPersons();
 
 		// Find existing Person
 		$scope.findOnePerson = function() {
@@ -132,8 +131,6 @@ angular.module('calendarizes')
     				$scope.error = errorResponse.data.message;
     			});
 		};
-        
-		// Find existing Projects
 		$scope.findOneProject = function() {
 			$scope.project = Projects.get({ 
 				projectId: $stateParams.projectId
@@ -146,6 +143,7 @@ angular.module('calendarizes')
         };
 
 /************************************************
+
                     TASK CRUD
 ************************************************/
         // Creating a new Assignment/Task
@@ -174,14 +172,15 @@ angular.module('calendarizes')
             });
         };
 
+
         $scope.findOneTask = function() {
             $scope.task = Tasks.get({ 
                  taskId: $stateParams.taskId
             });
         };
 
+
         $scope.updateTask = function(event, data) {
-            // var upTask = event.targetScope.task;
             console.log(data);
             var task = Tasks.get({ taskId: data.task.id});            
                     task._id = data.task.id;
@@ -189,7 +188,7 @@ angular.module('calendarizes')
                     task.endDate = data.task.to;
                     console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
-                        alert('Updated Successfully taskId');
+                        //alert('Updated Successfully taskId');
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
                });
@@ -205,7 +204,7 @@ angular.module('calendarizes')
 
 		$scope.options = {
             mode: 'custom',
-            scale: 'week',
+            scale: 'day',
             maxHeight: false,
             width: true,
             autoExpand: 'both',
@@ -214,7 +213,7 @@ angular.module('calendarizes')
             toDate: undefined,
             showLabelsColumn: true,
             currentDate: 'line',
-            currentDateValue : new Date(2014, 9, 23, 11, 20, 0),
+            currentDateValue : Date.now(),
             draw: true,
             readOnly: false,
             filterTask: undefined,
@@ -266,11 +265,7 @@ angular.module('calendarizes')
             }
         });
 
-        // function that trigers modal onclick on the gantt chart cells 
-       $scope.$on(GANTT_EVENTS.ROW_CLICKED, function(event, data){
-            console.log('test');
-       });
-        
+
         $scope.$on(GANTT_EVENTS.READY, function() {
             $scope.addSamples();
             $timeout(function() {
@@ -282,6 +277,7 @@ angular.module('calendarizes')
             $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
             // $scope.loadData(Sample.getSampleData().data1);
             $scope.loadData($scope.findPersons());
+            console.log($scope.options.currentDateValue);
 
         }; 
 
@@ -295,6 +291,7 @@ angular.module('calendarizes')
             $scope.clearData();
         };
 
+
         var handleClickEvent = function(event, data) {
             console.log(data);
             assignment.personId = data.row.id;
@@ -302,8 +299,7 @@ angular.module('calendarizes')
             if ($scope.options.draw) {
                 // Example to draw task inside row
                 if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
-                    // var startDate = data.date;
-                    // var endDate = moment(startDate).add( 7, 'd');
+
                     assignment.startDate = data.date;
                     assignment.endDate = moment(data.date).add(5, 'd');
 
@@ -322,7 +318,7 @@ angular.module('calendarizes')
             }
         };
 
-        var logTaskEvent = function(event, data) {
+        var logTaskEvent = function(event,data) {
             // A task event has occured.
             var output = '';
             for (var property in data) {
@@ -352,12 +348,24 @@ angular.module('calendarizes')
         });
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_CHANGED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data){
+            console.log(data);
+            //data.task.updatePosAndSize();
+           
+            //check if the task is moved along the current row or away from it
+            //if task is not on the current row 
+                //create a new task from the moved task projectId
+                //change the taskId and personId
+                //update the start and end date
+                //then remove the task from the previous row.
+            //else 
+                //update only start and end dates
+                 $scope.updateTask(event, data);
+        });
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data){
-        });
+        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
             // update tasks
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
@@ -369,7 +377,9 @@ angular.module('calendarizes')
 
         $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
+
         $scope.$on(GANTT_EVENTS.ROW_CLICKED,  handleClickEvent);
+
 
         $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
@@ -449,16 +459,16 @@ angular.module('calendarizes')
     })
 .controller('ModalInstanceCtrl', function ($scope, $modalInstance, projects, Projects ) {
 
-    // Find a list of Persons
-        $scope.findProjects = function() {
-            $scope.projects = Projects.query();
+// Find a list of Persons
+    $scope.findProjects = function() {
+        $scope.projects = Projects.query();
 
-        };
-        $scope.selectedProject = function (data) {
-            $modalInstance.close(data);
-        };
+    };
+    $scope.selectedProject = function (data) {
+        $modalInstance.close(data);
+    };
 
-        $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
-        };
- });
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});
