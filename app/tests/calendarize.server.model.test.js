@@ -109,7 +109,6 @@ describe('Calendarize Model Unit Tests:', function() {
 
 		it('should be able to save without problems', function(done) {
 			return person.save(function(err) {
-<<<<<<< HEAD
 				should.not.exist(err);
 				done();
 			});
@@ -136,7 +135,7 @@ describe('Calendarize Model Unit Tests:', function() {
 			return Person.find(function(err){
 				should.not.exist(err);
 				done();
-			})
+			});
 		});
 
 		it('should update a person without any problem', function(done) {

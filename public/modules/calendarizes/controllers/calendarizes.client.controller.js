@@ -213,7 +213,7 @@ angular.module('calendarizes')
             toDate: undefined,
             showLabelsColumn: true,
             currentDate: 'line',
-            currentDateValue : new Date(2014, 11, 16, 8, 0, 0),
+            currentDateValue : Date.now(),
             draw: true,
             readOnly: false,
             filterTask: undefined,
@@ -277,6 +277,7 @@ angular.module('calendarizes')
             $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
             // $scope.loadData(Sample.getSampleData().data1);
             $scope.loadData($scope.findPersons());
+            console.log($scope.options.currentDateValue);
 
         }; 
 
