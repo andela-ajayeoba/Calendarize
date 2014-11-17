@@ -66,8 +66,8 @@ exports.taskByID = function(req, res, next, id) {
 
 
 /*	==========================
-		Project Controller
-	==========================	*/
+Project Controller
+==========================	*/
 
 exports.createProject = function(req, res) {
 
@@ -139,8 +139,8 @@ exports.deleteProject = function(req, res) {
 
 
 /*	==========================
-		Person Controller
-	==========================	*/
+Person Controller
+==========================	*/
 
 exports.createPerson = function(req, res) {
     var person = new Person(req.body);
@@ -216,8 +216,8 @@ exports.updatePerson = function(req, res) {
 
 
 /*	==========================
-		Task Controller
-	==========================	*/
+Task Controller
+==========================	*/
 
 
 exports.createTask = function(req, res) {
