@@ -108,6 +108,7 @@
     background: #FFF;
     box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
     position: absolute;
+    z-index: 100;
     padding: 15px;
     text-decoration: none;
     list-style: none;

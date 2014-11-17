@@ -17,7 +17,10 @@
     "angular-gantt": "~0.7.0",
     "angular-strap": "~2.1.2",
     "angular-moment": "~0.8.2",
-    "moment": "~2.8.3"
+    "moment": "~2.8.3",
+    "nsPopover": "~0.6.3",
+    "angular-modal-service": "~0.4.0",
+    "angular-motion": "~0.3.4"
   },
   "resolutions": {
     "angular": "~1.2"

@@ -124,6 +124,23 @@ describe('Calendarize Model Unit Tests:', function() {
 		it('should update a person without any problem', function(done) {
 			person.name = 'deji';
 			return person.save(function(err) {
+
+				should.not.exist(err);
+				done();
+			});
+		});
+
+
+		it('should list all the Persons', function(done){
+			return Person.find(function(err){
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should update a person without any problem', function(done) {
+			person.name = 'deji';
+			return person.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
@@ -138,7 +155,6 @@ describe('Calendarize Model Unit Tests:', function() {
 
 		it('should be able to show an error when trying to save without a person name', function(done) {
 			person.name = '';
-
 			return person.save(function(err){
 				should.exist(err);
 				done();
@@ -185,6 +201,7 @@ describe('Calendarize Model Unit Tests:', function() {
 				done();
 			});
 		});
+
 
 		it('should update task', function(done){
 			return task.update(function(err){
