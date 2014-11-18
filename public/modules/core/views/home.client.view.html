@@ -116,10 +116,10 @@
         </div>
     </div>
 </section>
-<section ng-controller="CalendarizesController" ng-show="authentication.user">
+<section ng-controller="TasksController" ng-show="authentication.user">
   <div class="container-content" ng-cloak="true">
         <script type="text/ng-template" id="popover">
-            <ul class="popoverBox" data-ng-controller="CalendarizesController">
+            <ul class="popoverBox" data-ng-controller="PersonsController">
                 <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
                 <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
                 <li>
@@ -134,7 +134,7 @@
             Add People
         </button>
         <script type="text/ng-template" id="popover1">
-            <ul class="popoverBox" data-ng-controller="CalendarizesController">
+            <ul class="popoverBox" data-ng-controller="ProjectsController">
                 <li>
                     <label for="project">Name*</label><br>
                     <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
@@ -147,14 +147,17 @@
         </button>
         <!-- Modal Test code -->
         <script type="text/ng-template" id="myModalContent.html">
+            <section data-ng-init ="findProjects()">
                 <div class="modal-header">
-                    <h3 class="modal-title">List of Projects</h3>
+                    <h3 class="modal-title">Select a Project</h3>
                 </div>
-                <div class="modal-body" data-ng-init="findProjects()">
-                    <ul data-ng-repeat ="project in projects"  >
-                        <li  data-ng-bind ="project.name" ng-click="selectedProject(project)"></li>
+                <div class="modal-body">
+                    <ul ng-repeat="project in projects">
+                     <img src="/modules/core/img/bag.png" style ="float:right"/>
+                     <a ng-click ="selectedProject(project)" style="text-decoration:none"><li data-ng-bind ="project.name" style = "list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li></a>
                     </ul>
                 </div>
+            </section>
         </script>
        <!--  Modal Test Ends  -->
         <div class="row top-buffer">
