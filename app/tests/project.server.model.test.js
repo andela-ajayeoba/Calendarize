@@ -16,30 +16,65 @@ var user, project;
 /**
  * Unit tests
  */
-describe('Project Model Unit Tests:', function() {
-	beforeEach(function(done) {
+ 
+ beforeEach(function(done) {
 		user = new User({
-			firstName: 'Full',
-			lastName: 'Name',
+			name: 'Full',
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password'
 		});
 
-		user.save(function() { 
-			project = new Project({
-				name: 'Project Name',
-				user: user
-			});
+		this.anotherUser = new User({
+			name: 'Another Joe',
+			displayName: 'Another',
+			email: 'joe@another.com',
+			username: 'anotherjoe',
+			password: 'password'
+		});
+		this.anotherUser.save(function(){});
 
+		user.save(function() {
 			done();
 		});
 	});
+ 
+describe('Project Model Unit Tests:', function() {
+	beforeEach(function(done) {
+		project = new Project({
+				name: 'Project Name',
+				user: user
+			});
+			done();
+		});
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
 			return project.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to update without problems', function(done) {
+			project.name = 'New name';
+			//project = _.extend(project , project.name);
+			return project.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to delete project', function(done) {
+			return project.remove(function(err){
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to find all projects', function(done){
+			return Project.find(function(err){
 				should.not.exist(err);
 				done();
 			});

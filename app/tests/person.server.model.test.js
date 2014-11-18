@@ -19,25 +19,6 @@ var user, person;
  */
 describe('Person Model Unit Tests:', function() {
 	beforeEach(function(done) {
-		// user = new User({
-		// 	name: 'Account Name'
-		// 	// displayName: 'Account Name',
-		// 	email: 'test@test.com',
-		// 	username: 'username',
-		// 	password: 'password'
-		// });
-
-		// user.save(function() { 
-		// 	person = new Person({
-		// 		name: 'Person Name',
-		// 		email: 'person@email.com',
-		// 		group: '',
-		// 		user: user
-		// 	});
-
-		// 	done();
-		// });
-
 		user = new User({
 			name: 'Full',
 			displayName: 'Full Name',
@@ -93,7 +74,15 @@ describe('Person Model Unit Tests:', function() {
 		});
 
 		it('should list a Person', function(done){
-			return Person.find(function(err){
+
+			var res = Projects({ 	            
+		            _id: '525a8422f6d0f87f0e407a33',
+					name: 'Person Name',
+					email: 'person@email.com',
+					user: user		           
+        		});
+
+			return Person.find({user: res.user}).distinct(function(err){
 				should.not.exist(err);
 				done();
 			});

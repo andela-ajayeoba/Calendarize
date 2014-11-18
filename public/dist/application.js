@@ -520,8 +520,8 @@ angular.module('tasks').controller('TasksController', [
       });
     };
     /************************************************
-                    TASK CRUD
-************************************************/
+            TASK CRUD
+            ************************************************/
     // Creating a new Assignment/Task
     $scope.createTask = function (data) {
       var newTask = {
@@ -564,8 +564,8 @@ angular.module('tasks').controller('TasksController', [
       $scope.tasks = Tasks.query();
     };
     /************************************************
-					TIMELIME
-************************************************/
+            TIMELIME
+            ************************************************/
     $scope.options = {
       mode: 'custom',
       scale: 'day',
