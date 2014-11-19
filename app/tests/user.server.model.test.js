@@ -38,6 +38,7 @@ describe('User Model Unit Tests:', function() {
 	});
 
 	describe('Method Save', function() {
+		// Should not be able to create a user with name that has symbols
 		it('should begin with no users', function(done) {
 			User.find({}, function(err, users) {
 				users.should.have.length(0);
@@ -59,6 +60,14 @@ describe('User Model Unit Tests:', function() {
 
 		it('should show an error when try to save without first name', function(done) {
 			user.name = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it ('should show an error when trying to save without an email', function(done) {
+			user.email = '';
 			return user.save(function(err) {
 				should.exist(err);
 				done();

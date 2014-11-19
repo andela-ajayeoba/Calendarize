@@ -141,6 +141,7 @@ angular.module('calendarizes')
                 console.log($scope.projects);
             };
 
+
             /************************************************
 
             TASK CRUD
@@ -172,11 +173,13 @@ angular.module('calendarizes')
             };
 
 
+
             $scope.findOneTask = function() {
                 $scope.task = Tasks.get({
                     taskId: $stateParams.taskId
                 });
             };
+
 
 
             $scope.updateTask = function(event, data) {
@@ -195,9 +198,11 @@ angular.module('calendarizes')
                 });
             };
 
+
             $scope.findTasks = function() {
                 $scope.tasks = Tasks.query();
             };
+
 
             /************************************************
             TIMELIME
@@ -269,6 +274,7 @@ angular.module('calendarizes')
             });
 
 
+
             $scope.$on(GANTT_EVENTS.READY, function() {
                 $scope.addSamples();
                 $timeout(function() {
@@ -283,6 +289,7 @@ angular.module('calendarizes')
                 console.log($scope.options.currentDateValue);
 
             };
+
 
             $scope.removeSomeSamples = function() {
                 $scope.removeData([
@@ -343,6 +350,7 @@ angular.module('calendarizes')
                     }
                     output += property + ': ' + propertyValue + '; ';
                 }
+
                 console.log('$scope.$on: ' + event.name + ': ' + output);
             };
             $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
@@ -369,6 +377,7 @@ angular.module('calendarizes')
             $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
+
             // update tasks
             $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
@@ -449,6 +458,7 @@ angular.module('calendarizes')
                         from: new Date(2014, 9, 21, 8, 0, 0),
                         to: new Date(2014, 11, 25, 15, 0, 0),
                         name: 'Sprint 1 Timespan'
+
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.
                             //data: undefined
