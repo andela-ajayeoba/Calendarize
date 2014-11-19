@@ -68,18 +68,16 @@ exports.taskByID = function(req, res, next, id) { Task.findById(id).populate('us
 
 exports.createProject = function(req, res) {
 	
-	var project = new Project(req.body);
-	
-	project.user = req.user;
-
-	project.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(project);
-		}
+	var project = new Project(req.body);	
+		project.user = req.user;
+		project.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(project);
+			}
 	});
 };
 
@@ -91,7 +89,6 @@ exports.listProjects = function(req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-        	// TODO: Add tasks
             res.jsonp(projects);
         }
     });
