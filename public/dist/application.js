@@ -422,16 +422,6 @@ angular.module('projects').controller('ProjectsController', [
 //     };
 // ]);
 'use strict';
-// Configuring the Articles module
-angular.module('calendarizes').run([
-  'Menus',
-  function (Menus) {
-    // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Calendarizes', 'calendarizes', 'dropdown', '/calendarizes(/create)?');
-    Menus.addSubMenuItem('topbar', 'calendarizes', 'List Calendarizes', 'calendarizes');
-    Menus.addSubMenuItem('topbar', 'calendarizes', 'New Calendarize', 'calendarizes/create');
-  }
-]);'use strict';
 //Projects service used to communicate Projects REST endpoints
 angular.module('projects').factory('Projects', [
   '$resource',

@@ -26,7 +26,8 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
                     }
                 }
             } else {
-                $scope.project.$remove(function() {});
+                $scope.project.$remove(function() {
+                });
             }
         };
 
@@ -48,7 +49,6 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
         // Find a list of Projects
         $scope.listProjects = function() {
             $scope.projects = Projects.query();
-            console.log($scope.projects);
         };
     }
 ]);
