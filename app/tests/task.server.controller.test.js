@@ -189,17 +189,17 @@ describe('Task Endpoint Tests', function() {
     //   });
     // });
 
-    // it('should be able to delete a task', function(done){
-    //   agent.delete('/tasks/' + task1._id)
-    //   .expect(200)
+    it('should be able to delete a task', function(done){
+      agent.delete('/tasks/' + task1._id)
+      .expect(200)
 
-    //   .end(function(err, res){
-    //     if(err){
-    //       throw err;
-    //     }
-    //     return done();
-    //   });
-    // });
+      .end(function(err, res){
+        if(err){
+          throw err;
+        }
+        return done();
+      });
+    });
 
 	after(function(done) {
 		Task.remove().exec();
