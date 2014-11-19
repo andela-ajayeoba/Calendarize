@@ -2,7 +2,7 @@
     <div class="projectpuzzle">
         <div class="row intro">
             <div class="col-md-8">
-                <h2 class="leadingIntro text-center">
+                <h2 class="leadingIntro">
                     Keeping track of changes & people is hard.
                     <br>Calendarize
                     <span class="introStyle">makes it easier</span>.
@@ -38,20 +38,19 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div>
-                    <p class="questionTxt">
-                        Calendarize will help you answer these questions
+                <div class="row">
+                    <p class="questionTxt-last"> 
+                            Calendarize will help you answer these questions
                     </p>
                 </div>
             </div>
         </div>
         <div class="row description">
             <div class="col-sm-6 text-center trial_two">
-
-                <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+               <a href="#!/signup"><span class="btn free-trial">Start using Calendarize in 12seconds</span></a>
             </div>
-            <div class="col-sm-6 text-left">
-                <p>
+            <div class="col-sm-6">
+                <p class="project-description">
                     Calendarize is a project scheduling tool.
                     <br>By tracking your current projects and who's working on them and when, you'll have a clear picture of what's going on.
                 </p>
@@ -59,19 +58,19 @@
         </div>
         <div class="row screenshots">
             <div class="col-md-4 text-center div_two alpha">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-01.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-01.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
             </div>
             <div class="col-md-4">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-02.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-02.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
             </div>
             <div class="col-md-4 omega">
-                <img class="img-responsive text-right img-center" src="modules/core/img/brand/screenshot-03.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-right img-center" src="modules/core/img/brand/screenshot-03.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
@@ -82,41 +81,47 @@
                 Plans & Pricing
             </h3>
             <div class="row text-center pricing">
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Premium</strong><em>$ 100/month</em>
-                    </h3>
-                    <p class="text-center">
-                        Unlimited People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Premium</strong><em>$ 100/month</em>
+                        </h3>
+                        <p class="text-center">
+                            Unlimited People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Plus</strong><em>$ 50/month</em>
-                    </h3>
-                    <p class="text-center">
-                        20 People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Plus</strong><em>$ 50/month</em>
+                        </h3>
+                        <p class="text-center">
+                            20 People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Basic</strong><em>$ 20/month</em>
-                    </h3>
-                    <p class="text-center">
-                        5 People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Basic</strong><em>$ 20/month</em>
+                        </h3>
+                        <p class="text-center">
+                            5 People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row text-center trial">
-            <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+            <a href="#!/signup"><span class="btn free-trial button-last">Start using Calendarize in 12seconds</span></a>
         </div>
     </div>
 </section>
-<section ng-controller="CalendarizesController">
+<section ng-controller="CalendarizesController" data-ng-show="authentication.user">
     <div class="container-content" ng-cloak="true">
         <script type="text/ng-template" id="popover">
             <ul class="popoverBox" data-ng-controller="CalendarizesController">

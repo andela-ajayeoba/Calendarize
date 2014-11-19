@@ -155,7 +155,8 @@ angular.module('calendarizes')
                 endDate : data.endDate
             };
             var task = new Tasks(newTask);
-            task.$save(function(response) {
+            task.$save(function(response) {   
+            console.log('fired');
                 var taskParam = {
                     id : response._id, //projectId, //_id
                     name :response.projectName,
@@ -180,15 +181,17 @@ angular.module('calendarizes')
         };
 
 
-        $scope.updateTask = function(event, data) {
-            console.log(data);
+        $scope.updateTask = function(data) {
+                        console.log(data.task);
             var task = Tasks.get({ taskId: data.task.id});            
                     task._id = data.task.id;
                     task.startDate = data.task.from;
                     task.endDate = data.task.to;
+                    task.personId = data.task.row.id;
+                    task.personName = data.task.row.name;
                     console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
-                        //alert('Updated Successfully taskId');
+                        alert('Updated Successfully taskId');
                }, function(errorResponse) {
                    $scope.error = errorResponse.data.message;
                });
@@ -198,6 +201,29 @@ angular.module('calendarizes')
             $scope.tasks = Tasks.query();
         };
 
+        //Remove existing task
+        $scope.removeTask = function(data) {
+            alert('gettin here');
+            console.log(data);
+            var newData = data;
+           $scope.updateTask(newData);
+            // if (task) { task.delete();
+            //     // for (var i in $scope.tasks) {
+            //     //     if ($scope.tasks[i] === task ) {
+            //     //         $scope.tasks.splice(i, 1);
+            //     //          console.log(task);
+            //     //     }
+            // //     // }
+            // // } else {
+            // //     $scope.task.$remove(function() {
+            // //     });
+            // }
+        };
+        // $scope.deleteTask = function(task.id) {
+        // var task = $scope.tasks[taskId];
+        // data.deleteTask({id: taskId});
+        //     $scope.tasks.splice($scope.tasks.indexOf($scope.task),1);
+        // };
 /************************************************
 					TIMELIME
 ************************************************/
@@ -348,19 +374,9 @@ angular.module('calendarizes')
         });
         $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data){
+        $scope.rowId = '';
+        $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
             console.log(data);
-            //data.task.updatePosAndSize();
-           
-            //check if the task is moved along the current row or away from it
-            //if task is not on the current row 
-                //create a new task from the moved task projectId
-                //change the taskId and personId
-                //update the start and end date
-                //then remove the task from the previous row.
-            //else 
-                //update only start and end dates
-                 $scope.updateTask(event, data);
         });
         $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
