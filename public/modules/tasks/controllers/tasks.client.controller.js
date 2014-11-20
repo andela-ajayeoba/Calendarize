@@ -316,7 +316,7 @@ angular.module('tasks')
             $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
-                $scope.updateTask(data)
+                $scope.updateTask(event, data)
             });
             $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
