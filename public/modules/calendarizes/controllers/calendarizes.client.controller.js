@@ -139,7 +139,7 @@ angular.module('calendarizes')
         // Find a list of Projects
         $scope.listProjects = function() {
             $scope.projects = Projects.query();
-            console.log($scope.projects);
+            // console.log($scope.projects);
         };
 
 /************************************************
@@ -156,7 +156,7 @@ angular.module('calendarizes')
             };
             var task = new Tasks(newTask);
             task.$save(function(response) {   
-            console.log('fired');
+            // console.log('fired');
                 var taskParam = {
                     id : response._id,
                     name :response.projectName,
@@ -168,7 +168,7 @@ angular.module('calendarizes')
                 var uiItem = data.infoData.row.addTask(taskParam);
                 uiItem.updatePosAndSize();
                 uiItem.row.updateVisibleTasks();
-                console.log(uiItem);
+                // console.log(uiItem);
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
@@ -183,14 +183,14 @@ angular.module('calendarizes')
 
 
         $scope.updateTask = function(data) {
-            console.log(data.task.id);
+            // console.log(data.task.id);
             var task = Tasks.get({ taskId: data.task.id});            
                     task._id = data.task.id;
                     task.startDate = data.task.from;
                     task.endDate = data.task.to;
                     task.personId = data.task.row.id;
                     task.personName = data.task.row.name;
-                    console.log(task, task.startDate, task.endDate);
+                    // console.log(task, task.startDate, task.endDate);
                     task.$update(function() {
                         //alert('Updated Successfully taskId');
                }, function(errorResponse) {
@@ -202,28 +202,7 @@ angular.module('calendarizes')
             $scope.tasks = Tasks.query();
         };
 
-        //Remove existing task
-        $scope.removeTask = function(task) {
-            if (task) { 
-                console.log(task);
-                task.$remove();
-                
-                for (var i in $scope.tasks) {
-                    if ($scope.tasks[i] === task ) {
-                        $scope.tasks.splice(i, 1);
-                    }
-                }
-            } else {
-                // $scope.tasks.$remove(function() {
-                // });
-                alert('task not found');
-            }
-        };
-        // $scope.deleteTask = function(task.id) {
-        // var task = $scope.tasks[taskId];
-        // data.deleteTask({id: taskId});
-        //     $scope.tasks.splice($scope.tasks.indexOf($scope.task),1);
-        // };
+        
 /************************************************
 					TIMELIME
 ************************************************/
@@ -316,7 +295,7 @@ angular.module('calendarizes')
 
 
         var handleClickEvent = function(event, data) {
-            console.log(data);
+            // console.log(data);
             assignment.personId = data.row.id;
             $scope.open();
             if ($scope.options.draw) {
@@ -365,65 +344,69 @@ angular.module('calendarizes')
             }
             console.log('$scope.$on: ' + event.name + ': ' + output);
         };
-        $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
             data.task.row.removeTask(data.task.id);
             Tasks.delete({taskId: data.task.id});
         });
-        $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
-            console.log(data);
+            //console.log(data);
+            //data.task.row.moveTaskToRow(data.task);
             $scope.updateTask(data);
         });
-        $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
+        $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, function(event, data){
+            console.log(data);
+          
+        });
+        // $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_MOVE_END, logTaskEvent);
             // update tasks
-        $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
         $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
 
-        $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.COLUMN_DBL_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.COLUMN_CONTEXTMENU, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.COLUMN_DBL_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.COLUMN_CONTEXTMENU, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
 
         $scope.$on(GANTT_EVENTS.ROW_CLICKED,  handleClickEvent);
 
 
-        $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_ORDER_CHANGED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_CHANGED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_ORDER_CHANGED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_CHANGED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_LABEL_DBL_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_LABEL_CONTEXTMENU, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABEL_DBL_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABEL_CONTEXTMENU, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEDOWN, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEUP, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_HEADER_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_HEADER_DBL_CLICKED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.ROW_HEADER_CONTEXTMENU, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEDOWN, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEUP, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_HEADER_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_HEADER_DBL_CLICKED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_HEADER_CONTEXTMENU, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.ROW_LABELS_RESIZED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.ROW_LABELS_RESIZED, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.TIMESPAN_ADDED, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.TIMESPAN_CHANGED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TIMESPAN_ADDED, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.TIMESPAN_CHANGED, logTaskEvent);
 
-        $scope.$on(GANTT_EVENTS.READY, logTaskEvent);
-        $scope.$on(GANTT_EVENTS.SCROLL, logScrollEvent);
+        // $scope.$on(GANTT_EVENTS.READY, logTaskEvent);
+        // $scope.$on(GANTT_EVENTS.SCROLL, logScrollEvent);
 
         $scope.$on(GANTT_EVENTS.ROWS_FILTERED, function(event, data) {
             console.log(data);
