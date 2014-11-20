@@ -60,7 +60,7 @@ describe('Project Endpoint Tests', function() {
 		project2.save(function() {
 			done();
 		});
-    })
+    });
     it('should not create project if user is not logged in', function(done) {
     	agent.post('/projects')
     	.send({name: 'matsi'})
@@ -109,7 +109,7 @@ describe('Project Endpoint Tests', function() {
           	return done();
         });
     });
-    
+
 	after(function(done) {
 		Project.remove().exec();
 		User.remove().exec();

@@ -179,9 +179,6 @@ TABS
     font-weight: bold;
     width:120px;
 }
-.tabs :hover{
-    color:;
-}
 a 
 {
     color : #000;
@@ -198,7 +195,6 @@ a
     font-size : 1em;
     color : #fff;
     padding : 8px;
-    outline: none;
 }
 .person-project-btn :hover{
     background-color: #f0f0f0;

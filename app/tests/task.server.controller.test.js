@@ -64,7 +64,7 @@ describe('Task Endpoint Tests', function() {
 		person2.save(function() {
 			done();
 		});
-    })
+    });
 
     it('Create projects', function(done) {
       project1 = new Project({
@@ -82,7 +82,7 @@ describe('Task Endpoint Tests', function() {
     project2.save(function() {
       done();
     });
-    })
+    });
 
     it('Create tasks', function(done) {
       task1 = new Task({
@@ -106,7 +106,8 @@ describe('Task Endpoint Tests', function() {
     task2.save(function() {
       done();
     });
-    })
+    });
+    
     it('should not create task if user is not logged in', function(done) {
     	agent.post('/tasks')
     	.send({

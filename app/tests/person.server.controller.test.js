@@ -62,7 +62,7 @@ describe('Person Endpoint Tests', function() {
 		person2.save(function() {
 			done();
 		});
-    })
+    });
     it('should not create project if user is not logged in', function(done) {
     	agent.post('/persons')
     	.send({name: 'example'})
