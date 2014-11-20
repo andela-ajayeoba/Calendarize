@@ -7,6 +7,7 @@ angular.module('tasks')
 
             $scope.authentication = Authentication;
             var assignment = {};
+            
             $scope.openProject = function(size) {
                 var modalInstance = $modal.open({
                     templateUrl: 'projectModalContent.html',
@@ -410,7 +411,7 @@ angular.module('tasks')
     })
     .controller('ModalInstanceCtrl', function($rootScope, $scope, $modalInstance, Projects, Persons, switchViews) {
 
-        // Find a list of Persons
+        // Find a list
         if(switchViews.myView === 'Project'){
             $scope.findData = function() {
                 $scope.datas = Persons.query();

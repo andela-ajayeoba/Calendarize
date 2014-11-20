@@ -36,11 +36,11 @@
 			});
 		}));
 
-		it('$scope.listProjects() should return an array of projects', function(){
+		it('$scope.listProjects() should return an array of projects', inject(function(Projects){
 
-			var dummyProject = {
+			var dummyProject = new Projects({
 				name: 'New Projects'
-			};
+			});
 			var dummyProjects = [dummyProject];
 
 			$httpBackend.expectGET('projects').respond(dummyProjects);
@@ -49,8 +49,7 @@
 			$httpBackend.flush();
 
 			expect(scope.projects).toEqualData(dummyProjects);
-
-		});
+		}));
 
 		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects){
 

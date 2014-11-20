@@ -123,6 +123,21 @@
 </section>
 <section ng-controller="TasksController" ng-show="authentication.user">
   <div class="container-content" ng-cloak="true">
+  <!-- setting Tabs-->
+    <tabset>
+        <tab class="tabs" heading="Person" data-ng-click='loadPersonsData()' data-ng-model='dataView'>
+        </tab>
+        <tab class="tabs" heading="Project" data-ng-click='loadProjectsData()' data-ng-model='dataView'> 
+        </tab>
+        <button class="person-project-btn" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+         <span class="glyphicon glyphicon-folder-close"></span><span class="glyphicon glyphicon-plus"></span>  Add People
+        </button>
+        <button class="person-project-btn" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+        <span class="glyphicon glyphicon-user"></span><span class="glyphicon glyphicon-plus"></span>Add Project
+        </button>
+     </tabset>
+     
+    <!-- Tabs ends-->
         <script type="text/ng-template" id="popover">
             <ul class="popoverBox" data-ng-controller="PersonsController">
                 <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
@@ -135,27 +150,16 @@
             </ul>
         </script>
 
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-right:15px ; margin-bottom:50px">
-            Add People
-        </button>
         <script type="text/ng-template" id="popover1">
             <ul class="popoverBox" data-ng-controller="ProjectsController">
                 <li>
                     <label for="project">Name*</label><br>
                     <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
                 </li><br>
-                <button class="btn btn-primary" ng-click="addProject()">Create Project</button>
+                <button class="btn btn-primary" ng-click="addProject()">Add Project</button>
             </ul>
         </script>
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-bottom:50px">
-            Add Project
-        </button>
-        <button class="btn btn-default" style="margin-bottom:50px" data-ng-click='loadPersonsData()' data-ng-model='dataView'>
-                Person View
-        </button>
-        <button class="btn btn-success" style="margin-bottom:50px" data-ng-click='loadProjectsData()' data-ng-model='dataView'>
-                Project View
-        </button>
+
         <!-- Modal Test code -->
         <script type="text/ng-template" id="projectModalContent.html">
             <section data-ng-init ="findData()">
@@ -164,7 +168,7 @@
                 </div>
                 <div class="modal-body">
                     <ul ng-repeat="data in datas">
-                     <img src="/modules/calendarizes/img/bag.png" style ="float:right"/>
+                     <img src="/modules/core/img/bag.png" style ="float:right"/>
                      <a ng-click ="selectedData(data)" style="text-decoration:none"><li data-ng-bind ="data.name" style = "list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li></a>
                     </ul>
                 </div>

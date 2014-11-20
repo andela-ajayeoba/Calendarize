@@ -62,13 +62,13 @@
 // 				email: 'test@test.com'
 // 			};
 
+
 // 			var newData = [{
 // 				'id': '525cf20451979dea2c000001',
 // 				'name': dummyPerson.name,
 // 				'tasks': []
 // 			}];
 
-// 			scope.loadData(newData);
 
 // 			$httpBackend.expectPOST('persons').respond(dummyPerson);
 
