@@ -5,23 +5,29 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
+				'public/lib/angular-gantt/assets/gantt.css',
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],
 			js: [
-				'public/lib/angular/angular.min.js',
+				'public/lib/angular/angular.js',
+				'public/lib/jquery/dist/jquery.js',
 				'public/lib/angular-resource/angular-resource.js', 
 				'public/lib/angular-cookies/angular-cookies.js', 
 				'public/lib/angular-animate/angular-animate.js', 
 				'public/lib/angular-touch/angular-touch.js', 
 				'public/lib/angular-sanitize/angular-sanitize.js', 
-				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
+				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-strap/dist/angular-strap.js',
 				'public/lib/angular-strap/dist/angular-strap.tpl.js',
-				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
-				'public/lib/nsPopover/example/nsPopover.js'
+				'public/lib/angular-ui-utils/ui-utils.js',
+				'public/lib/moment/min/moment.min.js',
+				'public/lib/angular-moment/angular-moment.min.js',
+				'public/lib/angular-gantt/assets/angular-gantt.js',
+				'public/lib/angular-modal-service/dst/angular-modal-service.js',
+				'public/lib/nsPopover/example/nsPopover.js',
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
