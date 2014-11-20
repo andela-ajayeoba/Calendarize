@@ -10,6 +10,10 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
             var project = new Projects($scope.project);
             project.$save(function(response) {
                 console.log('Project Successfully added');
+                var newProject = [
+                    {'id': response._id, 'name': response.name, 'tasks': []}
+                ];
+                $scope.loadData(newProject);
                 $scope.project = '';
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;

@@ -14,7 +14,7 @@ angular.module('tasks').factory('Tasks', ['$resource',
 
 angular.module('tasks').factory('switchViews', function(){
     var service = {};
-    service.myView= '';
+    service.myView= 'Person';
 
     return service;
 });

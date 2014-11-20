@@ -116,7 +116,7 @@ exports.deleteTask = function(req, res) {
  * List of Tasks
  */
 exports.listTasks = function(req, res) {
-    Task.find().sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
+    Task.find({'user':req.user._id}).sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

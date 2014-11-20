@@ -19,8 +19,14 @@ angular.module('tasks')
                     }
                 });
                 modalInstance.result.then(function(data) {
-                    assignment.projectId = data._id;
-                    assignment.projectName = data.name;
+                    if (switchViews.myView === 'Person') {
+                        assignment.projectId = data._id;
+                        assignment.projectName = data.name;
+                    }
+                    else {
+                        assignment.personId = data._id;
+                        assignment.personName = data.name;
+                    }
 
                     $scope.createTask(assignment);
                 }, function() {});
@@ -80,6 +86,7 @@ angular.module('tasks')
             ************************************************/
             // Creating a new Assignment/Task
             $scope.createTask = function(data) {
+                console.log(data);
                 var newTask = {
                     personId: data.personId,
                     projectId: data.projectId,
@@ -88,17 +95,24 @@ angular.module('tasks')
                 };
                 var task = new Tasks(newTask);
                 task.$save(function(response) {
+                    console.log(response);
                     var taskParam = {
                         id: response._id, //projectId, //_id
-                        name: response.projectName,
                         from: response.startDate,
                         to: response.endDate,
                         color: '#F1C232'
                     };
+                    if (switchViews.myView === 'Person') {
+                        taskParam.name = response.projectName;
+                    }
+                    else {
+                        taskParam.name = response.personName;
+                    }
+                    
                     var uiItem = data.infoData.row.addTask(taskParam);
                     uiItem.updatePosAndSize();
                     uiItem.row.updateVisibleTasks();
-                    // learn about $scope.apply
+                    //learn about $scope.apply
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
@@ -240,7 +254,12 @@ angular.module('tasks')
 
             var handleClickEvent = function(event, data) {
                 console.log(data);
-                assignment.personId = data.row.id;
+                if (switchViews.myView === 'Person') {
+                    assignment.personId = data.row.id;
+                }
+                else {
+                    assignment.projectId = data.row.id;
+                }
                 $scope.openProject();
                 if ($scope.options.draw) {
                     // Example to draw task inside row
@@ -296,7 +315,9 @@ angular.module('tasks')
             });
             $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
-            $scope.$on(GANTT_EVENTS.TASK_CHANGED, logTaskEvent);
+            $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
+                $scope.updateTask(data)
+            });
             $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
             $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
