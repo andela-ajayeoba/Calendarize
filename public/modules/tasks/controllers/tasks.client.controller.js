@@ -2,14 +2,14 @@
 
 // Tasks controller
 angular.module('tasks')
-    .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS', '$modal', 'Persons', 'Projects', 'Tasks',
-        function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks) {
+    .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS', '$modal', 'Persons', 'Projects', 'Tasks','switchViews',
+        function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, switchViews) {
 
             $scope.authentication = Authentication;
             var assignment = {};
-            $scope.open = function(size) {
+            $scope.openProject = function(size) {
                 var modalInstance = $modal.open({
-                    templateUrl: 'myModalContent.html',
+                    templateUrl: 'projectModalContent.html',
                     controller: 'ModalInstanceCtrl',
                     size: 'sm',
                     resolve: {
@@ -28,7 +28,7 @@ angular.module('tasks')
 
             // Find a list of Persons
             $scope.findPersons = function() {
-                var data = [];
+                var personData = [];
                 $scope.persons = Persons.query({}, function() {
                     $scope.persons.forEach(function(user) {
                         var $user = {};
@@ -45,9 +45,33 @@ angular.module('tasks')
                             $user.tasks.push($task);
                         });
 
-                        data.push($user);
+                        personData.push($user);
                     });
-                    $scope.loadData(data);
+                    $scope.loadData(personData);
+                });
+            };
+            // Find a list of Projects
+            $scope.listProjects = function() {
+                var projectData = [];
+                $scope.projects = Projects.query({}, function() {
+                    $scope.projects.forEach(function(assign) {
+                        var $project = {};
+                        $project.tasks = [];
+                        $project.id = assign._id;
+                        $project.name = assign.name;
+                        assign.tasks.forEach(function(task) {
+                            var $user = {};
+                            $user.id = task._id;
+                            $user.name = task.personName;
+                            $user.from = task.startDate;
+                            $user.to = task.endDate;
+                            $user.color = '#F1C232';
+                            $project.tasks.push($user);
+                        });
+
+                        projectData.push($project);
+                    });
+                    $scope.loadData(projectData);
                 });
             };
 
@@ -192,6 +216,17 @@ angular.module('tasks')
                 $scope.loadData($scope.findPersons());
 
             };
+            $scope.loadProjectsData = function(){
+                switchViews.myView = 'Project';
+                $scope.clearData();
+                $scope.loadData($scope.listProjects());            
+            };
+
+            $scope.loadPersonsData = function(){
+                switchViews.myView = 'Person';
+                $scope.clearData();
+                $scope.loadData($scope.findPersons());
+            };
 
             $scope.removeSomeSamples = function() {
                 $scope.removeData([
@@ -206,7 +241,7 @@ angular.module('tasks')
             var handleClickEvent = function(event, data) {
                 console.log(data);
                 assignment.personId = data.row.id;
-                $scope.open();
+                $scope.openProject();
                 if ($scope.options.draw) {
                     // Example to draw task inside row
                     if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
@@ -349,14 +384,20 @@ angular.module('tasks')
             },
         };
     })
-    .controller('ModalInstanceCtrl', function($scope, $modalInstance, projects, Projects) {
+    .controller('ModalInstanceCtrl', function($rootScope, $scope, $modalInstance, Projects, Persons, switchViews) {
 
         // Find a list of Persons
-        $scope.findProjects = function() {
-            $scope.projects = Projects.query();
-
-        };
-        $scope.selectedProject = function(data) {
+        if(switchViews.myView === 'Project'){
+            $scope.findData = function() {
+                $scope.datas = Persons.query();
+            };
+        }
+        else if (switchViews.myView === 'Person') {
+            $scope.findData = function() {
+                $scope.datas = Projects.query();
+            };   
+        }
+        $scope.selectedData = function(data) {
             $modalInstance.close(data);
         };
 

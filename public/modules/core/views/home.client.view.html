@@ -145,16 +145,22 @@
         <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-bottom:50px">
             Add Project
         </button>
+        <button class="btn btn-default" style="margin-bottom:50px" data-ng-click='loadPersonsData()' data-ng-model='dataView'>
+                Person View
+        </button>
+        <button class="btn btn-success" style="margin-bottom:50px" data-ng-click='loadProjectsData()' data-ng-model='dataView'>
+                Project View
+        </button>
         <!-- Modal Test code -->
-        <script type="text/ng-template" id="myModalContent.html">
-            <section data-ng-init ="findProjects()">
+        <script type="text/ng-template" id="projectModalContent.html">
+            <section data-ng-init ="findData()">
                 <div class="modal-header">
-                    <h3 class="modal-title">Select a Project</h3>
+                    <h3 class="modal-title">Assign a Task</h3>
                 </div>
                 <div class="modal-body">
-                    <ul ng-repeat="project in projects">
-                     <img src="/modules/core/img/bag.png" style ="float:right"/>
-                     <a ng-click ="selectedProject(project)" style="text-decoration:none"><li data-ng-bind ="project.name" style = "list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li></a>
+                    <ul ng-repeat="data in datas">
+                     <img src="/modules/calendarizes/img/bag.png" style ="float:right"/>
+                     <a ng-click ="selectedData(data)" style="text-decoration:none"><li data-ng-bind ="data.name" style = "list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li></a>
                     </ul>
                 </div>
             </section>
