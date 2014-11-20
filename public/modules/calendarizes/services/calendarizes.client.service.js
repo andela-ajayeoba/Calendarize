@@ -37,3 +37,10 @@ angular.module('calendarizes').factory('Tasks', ['$resource',
         });
     }
 ]);
+
+angular.module('calendarizes').factory('switchViews', function(){
+    var service = {};
+    service.myView= '';
+
+    return service;
+});

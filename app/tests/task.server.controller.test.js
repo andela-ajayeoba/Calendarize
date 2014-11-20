@@ -48,14 +48,14 @@ describe('Task Endpoint Tests', function() {
 
     it("Create persons", function(done) {
     	person1 = new Person({
-			name: "Person1",
-      email: "person1@mail.com",
+			name: 'Person1',
+      email: 'person1@mail.com',
 			user: user1
 		});
 
 		person2 = new Person({
-			name: "Person2",
-      email: "person2@mail.com",
+			name: 'Person2',
+      email: 'person2@mail.com',
 			user: user2
 		});
 
@@ -66,14 +66,14 @@ describe('Task Endpoint Tests', function() {
 		});
     })
 
-    it("Create projects", function(done) {
+    it('Create projects', function(done) {
       project1 = new Project({
-      name: "Project1",
+      name: 'Project1',
       user: user1
     });
 
     project2 = new Project({
-      name: "Project2",
+      name: 'Project2',
       user: user2
     });
 
@@ -84,7 +84,7 @@ describe('Task Endpoint Tests', function() {
     });
     })
 
-    it("Create tasks", function(done) {
+    it('Create tasks', function(done) {
       task1 = new Task({
       projectId: project1,
       personId: person1,
@@ -107,7 +107,7 @@ describe('Task Endpoint Tests', function() {
       done();
     });
     })
-    it("should not create task if user is not logged in", function(done) {
+    it('should not create task if user is not logged in', function(done) {
     	agent.post('/tasks')
     	.send({
       projectId: project2,
@@ -125,7 +125,7 @@ describe('Task Endpoint Tests', function() {
     	}
     });
 
-    it("should login User", function(done) {
+    it('should login User', function(done) {
         agent.post('/auth/signin')
             .send({ email: 'test@test.com', password: 'password' })
             .expect(200)
