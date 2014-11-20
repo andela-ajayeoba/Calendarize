@@ -18,7 +18,7 @@ var agent = request.agent('http://localhost:3001');
 
 describe('Person Endpoint Tests', function() {
     
-    it("Create Users", function(done) {
+    it('Create Users', function(done) {
     	user1 = new User({
 			name: 'Full',
 			displayName: 'Full Name',
@@ -44,16 +44,16 @@ describe('Person Endpoint Tests', function() {
 		});
     });
 
-    it("Create persons", function(done) {
+    it('Create persons', function(done) {
     	person1 = new Person({
-			name: "Person1",
-      email: "person1@mail.com",
+			name: 'Person1',
+      email: 'person1@mail.com',
 			user: user1
 		});
 
 		person2 = new Person({
-			name: "Person2",
-      email: "person2@mail.com",
+			name: 'Person2',
+      email: 'person2@mail.com',
 			user: user2
 		});
 
@@ -63,7 +63,7 @@ describe('Person Endpoint Tests', function() {
 			done();
 		});
     })
-    it("should not create project if user is not logged in", function(done) {
+    it('should not create project if user is not logged in', function(done) {
     	agent.post('/persons')
     	.send({name: 'example'})
     	.expect(401)
@@ -75,7 +75,7 @@ describe('Person Endpoint Tests', function() {
     	}
     });
 
-    it("should login User", function(done) {
+    it('should login User', function(done) {
         agent.post('/auth/signin')
             .send({ email: 'test@test.com', password: 'password' })
             .expect(200)
