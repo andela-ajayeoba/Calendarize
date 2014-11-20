@@ -51,12 +51,12 @@
 
 		}));
 
-		it('$scope.addPerson() we should be able to add a person ', inject(function(Persons){
+		it('$scope.addPerson() we should be able to add a person ', inject(function(Persons, _GANTT_EVENTS_){
 			var dummyPerson = new Persons({
 				name : 'person',
 				email : 'test@test.com'
 			});
-
+			console.log(scope.loadData);
 			scope.person = {
 				name: 'Person',
 				email: 'test@test.com'
@@ -68,7 +68,7 @@
 				'tasks': []
 			}];
 
-			scope.loadData(newData);
+			// scope.loadData(newData);
 
 			$httpBackend.expectPOST('persons').respond(dummyPerson);
 

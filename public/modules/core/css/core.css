@@ -162,3 +162,45 @@ p {
         margin-left: 30px;
     }
 }
+/*************************
+TABS
+**************************/
+.glyphicon {
+    margin-right: 5px;
+}
+
+.tabs
+{
+    margin-right:20px; 
+    color:black;
+    font-size: 1em;
+    background-color:#c3c3c3;
+    border-radius: 0;
+    font-weight: bold;
+    width:120px;
+}
+.tabs :hover{
+    color:;
+}
+a 
+{
+    color : #000;
+}
+.person-project-btn
+{
+    width: 150px;
+    height: 35px;
+    background-color:#B0B0B0;
+    margin-bottom:30px ; 
+    margin-left:20px ;
+    border:none;
+    font-weight: bolder;
+    font-size : 1em;
+    color : #fff;
+    padding : 8px;
+    outline: none;
+}
+.person-project-btn :hover{
+    background-color: #f0f0f0;
+    border-radius:0;
+}
