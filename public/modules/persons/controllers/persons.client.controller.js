@@ -1,8 +1,8 @@
 'use strict';
 
 // Persons controller
-angular.module('persons').controller('PersonsController', ['$http', '$scope','$stateParams', '$location', '$timeout','Authentication', 'GANTT_EVENTS','$modal', 'Persons',
-	function($http, $scope,$stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons) {
+angular.module('persons').controller('PersonsController', ['$http', '$scope','$stateParams', '$location', '$timeout','Authentication', 'GANTT_EVENTS','$modal', 'Persons', 'switchViews',
+	function($http, $scope,$stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, switchViews) {
 		
 		$scope.authentication = Authentication;
 
@@ -15,7 +15,9 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope','$s
                     var newPerson = [
                         {'id': response._id, 'name': response.name, 'tasks': []}
                     ];
-                    $scope.loadData(newPerson);
+                    if (switchViews.myview === 'Person') {
+	                    $scope.loadData(newPerson);
+	                }
                 }, function(errorResponse) {
                     $scope.error = errorResponse.data.message;
                 });
