@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks',
-    function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks) {
+angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'switchViews',
+    function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, switchViews) {
         $scope.authentication = Authentication;
 
         // Create new Project
@@ -13,7 +13,9 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
                 var newProject = [
                     {'id': response._id, 'name': response.name, 'tasks': []}
                 ];
-                $scope.loadData(newProject);
+                if (switchViews.myview === 'Project') {
+                    $scope.loadData(newProject);
+                }
                 $scope.project = '';
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
