@@ -264,7 +264,8 @@ angular.module('persons').controller('PersonsController', [
   'GANTT_EVENTS',
   '$modal',
   'Persons',
-  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons) {
+  'switchViews',
+  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, switchViews) {
     $scope.authentication = Authentication;
     // Create new Person
     $scope.addPerson = function () {
@@ -277,7 +278,9 @@ angular.module('persons').controller('PersonsController', [
               'name': response.name,
               'tasks': []
             }];
-        $scope.loadData(newPerson);
+        if (switchViews.myview === 'Person') {
+          $scope.loadData(newPerson);
+        }
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -372,7 +375,8 @@ angular.module('projects').controller('ProjectsController', [
   '$modal',
   'Projects',
   'Tasks',
-  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks) {
+  'switchViews',
+  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, switchViews) {
     $scope.authentication = Authentication;
     // Create new Project
     $scope.addProject = function () {
@@ -384,7 +388,9 @@ angular.module('projects').controller('ProjectsController', [
               'name': response.name,
               'tasks': []
             }];
-        $scope.loadData(newProject);
+        if (switchViews.myview === 'Project') {
+          $scope.loadData(newProject);
+        }
         $scope.project = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
