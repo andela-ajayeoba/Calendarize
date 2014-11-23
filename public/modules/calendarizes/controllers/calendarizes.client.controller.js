@@ -328,9 +328,7 @@ angular.module('calendarizes')
             $scope.addSamples = function() {
                 $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
                 // $scope.loadData(Sample.getSampleData().data1);
-                $scope.loadData($scope.findPersons());
-                console.log($scope.options.currentDateValue);
-
+                $scope.findPersons();
             };
 
             $scope.loadProjectsData = function(){
