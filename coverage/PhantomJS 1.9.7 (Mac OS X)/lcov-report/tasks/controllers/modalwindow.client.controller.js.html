@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for tasks/services/</title>
+    <title>Code coverage report for tasks/controllers/modalwindow.client.controller.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../../prettify.css">
@@ -196,57 +196,107 @@
 </head>
 <body>
 <div class="header low">
-    <h1>Code coverage report for <span class="entity">tasks/services/</span></h1>
+    <h1>Code coverage report for <span class="entity">tasks/controllers/modalwindow.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">33.33% <small>(4 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">9.09% <small>(1 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">33.33% <small>(4 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">9.09% <small>(1 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../../index.html">All files</a> &#187; tasks/services/</div>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">tasks/controllers/</a> &#187; modalwindow.client.controller.js</div>
 </div>
 <div class="body">
-<div class="coverage-summary">
-<table>
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file low" data-value="tasks.client.service.js"><a href="tasks.client.service.js.html">tasks.client.service.js</a></td>
-	<td data-value="33.33" class="pic low"><span class="cover-fill" style="width: 33px;"></span><span class="cover-empty" style="width:67px;"></span></td>
-	<td data-value="33.33" class="pct low">33.33%</td>
-	<td data-value="12" class="abs low">(4&nbsp;/&nbsp;12)</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="0" class="abs high">(0&nbsp;/&nbsp;0)</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="8" class="abs low">(0&nbsp;/&nbsp;8)</td>
-	<td data-value="33.33" class="pct low">33.33%</td>
-	<td data-value="12" class="abs low">(4&nbsp;/&nbsp;12)</td>
-	</tr>
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+// Tasks controller
+angular.module('tasks')
+  .controller('ModalInstanceCtrl', <span class="fstat-no" title="function not covered" >function($rootScope, $scope, $modalInstance, Projects, Persons, SwitchViews) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.findData = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      switch (SwitchViews.state) {</span>
+        case 'Project':
+<span class="cstat-no" title="statement not covered" >          $scope.datas = Persons.query();</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        case 'Person':
+<span class="cstat-no" title="statement not covered" >          $scope.datas = Projects.query();</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+      }
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.selectedData = <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >      $modalInstance.close(data);</span>
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.cancel = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      $modalInstance.dismiss('cancel');</span>
+    };
+&nbsp;
+  });
+&nbsp;</pre></td></tr>
+</table></pre>
 
-</tbody>
-</table>
-</div>
 </div>
 <div class="footer">
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Nov 23 2014 20:46:48 GMT+0100 (WAT)</div>
