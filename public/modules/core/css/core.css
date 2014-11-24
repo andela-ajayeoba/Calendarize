@@ -195,8 +195,6 @@ a
     font-size : 1em;
     color : #fff;
     padding : 8px;
+    outline: none;
 }
-.person-project-btn :hover{
-    background-color: #f0f0f0;
-    border-radius:0;
-}
+

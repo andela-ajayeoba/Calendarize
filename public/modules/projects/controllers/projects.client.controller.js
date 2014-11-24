@@ -1,13 +1,13 @@
 'use strict';
-
 // Projects controller
 angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'SwitchViews',
   function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, SwitchViews) {
     $scope.authentication = Authentication;
-
     // Create new Project
     $scope.addProject = function(popoverCloseFunction) {
       popoverCloseFunction();
+      $scope.messages = 'Project added successfully';
+      console.log($scope.messages);
       var project = new Projects($scope.project);
       project.$save(function(response) {
         if (SwitchViews.state !== 'Person') {
