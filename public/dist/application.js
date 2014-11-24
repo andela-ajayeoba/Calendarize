@@ -271,14 +271,13 @@ angular.module('persons').controller('PersonsController', [
     $scope.addPerson = function () {
       var person = new Persons($scope.person);
       person.$save(function (response) {
-        alert('Person Successfully added');
-        $scope.person = '';
-        var newPerson = [{
-              'id': response._id,
-              'name': response.name,
-              'tasks': []
-            }];
-        if (switchViews.myview === 'Person') {
+        if (switchViews.myView !== 'Project') {
+          $scope.person = '';
+          var newPerson = [{
+                'id': response._id,
+                'name': response.name,
+                'tasks': []
+              }];
           $scope.loadData(newPerson);
         }
       }, function (errorResponse) {
@@ -382,16 +381,15 @@ angular.module('projects').controller('ProjectsController', [
     $scope.addProject = function () {
       var project = new Projects($scope.project);
       project.$save(function (response) {
-        console.log('Project Successfully added');
-        var newProject = [{
-              'id': response._id,
-              'name': response.name,
-              'tasks': []
-            }];
-        if (switchViews.myview === 'Project') {
+        if (switchViews.myView !== 'Person') {
+          $scope.project = '';
+          var newProject = [{
+                'id': response._id,
+                'name': response.name,
+                'tasks': []
+              }];
           $scope.loadData(newProject);
         }
-        $scope.project = '';
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -421,10 +419,6 @@ angular.module('projects').controller('ProjectsController', [
     // Find existing Projects
     $scope.findOneProject = function () {
       $scope.project = Projects.get({ projectId: $stateParams.projectId });
-    };
-    // Find a list of Projects
-    $scope.listProjects = function () {
-      $scope.projects = Projects.query();
     };
   }
 ]);// 'use strict';
@@ -463,6 +457,33 @@ angular.module('tasks').config([
   }
 ]);'use strict';
 // Tasks controller
+angular.module('tasks').controller('ModalInstanceCtrl', [
+  '$rootScope',
+  '$scope',
+  '$modalInstance',
+  'Projects',
+  'Persons',
+  'switchViews',
+  function ($rootScope, $scope, $modalInstance, Projects, Persons, switchViews) {
+    // Find a list
+    if (switchViews.myView === 'Project') {
+      $scope.findData = function () {
+        $scope.datas = Persons.query();
+      };
+    } else if (switchViews.myView === 'Person') {
+      $scope.findData = function () {
+        $scope.datas = Projects.query();
+      };
+    }
+    $scope.selectedData = function (data) {
+      $modalInstance.close(data);
+    };
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+]);'use strict';
+// Tasks controller
 angular.module('tasks').controller('TasksController', [
   '$http',
   '$scope',
@@ -482,6 +503,9 @@ angular.module('tasks').controller('TasksController', [
   function ($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, switchViews) {
     $scope.authentication = Authentication;
     var assignment = {};
+    var autoView = {};
+    autoView.resource = Persons;
+    switchViews.myView = 'Person';
     $scope.openProject = function (size) {
       var modalInstance = $modal.open({
           templateUrl: 'projectModalContent.html',
@@ -505,58 +529,35 @@ angular.module('tasks').controller('TasksController', [
       }, function () {
       });
     };
-    // Find a list of Persons
-    $scope.findPersons = function () {
-      var personData = [];
-      $scope.persons = Persons.query({}, function () {
-        $scope.persons.forEach(function (user) {
-          var $user = {};
-          $user.tasks = [];
-          $user.id = user._id;
-          $user.name = user.name;
-          user.tasks.forEach(function (task) {
+    $scope.getTaskData = function () {
+      var dataObj = [];
+      $scope.dbData = autoView.resource.query({}, function () {
+        $scope.dbData.forEach(function (assign) {
+          var $owner = {};
+          $owner.tasks = [];
+          $owner.id = assign._id;
+          $owner.name = assign.name;
+          assign.tasks.forEach(function (task) {
             var $task = {};
             $task.id = task._id;
-            $task.name = task.projectName;
+            $task.name = task.personName;
             $task.from = task.startDate;
             $task.to = task.endDate;
             $task.color = '#F1C232';
-            $user.tasks.push($task);
+            if (switchViews.myView === 'Person') {
+              $task.name = task.projectName;
+            } else {
+              $task.name = task.personName;
+            }
+            $owner.tasks.push($task);
           });
-          personData.push($user);
+          dataObj.push($owner);
         });
-        $scope.loadData(personData);
+        $scope.loadData(dataObj);
       });
     };
-    // Find a list of Projects
-    $scope.listProjects = function () {
-      var projectData = [];
-      $scope.projects = Projects.query({}, function () {
-        $scope.projects.forEach(function (assign) {
-          var $project = {};
-          $project.tasks = [];
-          $project.id = assign._id;
-          $project.name = assign.name;
-          assign.tasks.forEach(function (task) {
-            var $user = {};
-            $user.id = task._id;
-            $user.name = task.personName;
-            $user.from = task.startDate;
-            $user.to = task.endDate;
-            $user.color = '#F1C232';
-            $project.tasks.push($user);
-          });
-          projectData.push($project);
-        });
-        $scope.loadData(projectData);
-      });
-    };
-    /************************************************
-            TASK CRUD
-            ************************************************/
     // Creating a new Assignment/Task
     $scope.createTask = function (data) {
-      console.log(data);
       var newTask = {
           personId: data.personId,
           projectId: data.projectId,
@@ -565,7 +566,6 @@ angular.module('tasks').controller('TasksController', [
         };
       var task = new Tasks(newTask);
       task.$save(function (response) {
-        console.log(response);
         var taskParam = {
             id: response._id,
             from: response.startDate,
@@ -584,26 +584,19 @@ angular.module('tasks').controller('TasksController', [
         $scope.error = errorResponse.data.message;
       });
     };
-    $scope.findOneTask = function () {
-      $scope.task = Tasks.get({ taskId: $stateParams.taskId });
-    };
     $scope.updateTask = function (event, data) {
       var task = Tasks.get({ taskId: data.task.id });
       task._id = data.task.id;
       task.startDate = data.task.from;
       task.endDate = data.task.to;
-      console.log(task, task.startDate, task.endDate);
       task.$update(function () {
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
-    $scope.findTasks = function () {
-      $scope.tasks = Tasks.query();
-    };
     /************************************************
-            TIMELIME
-            ************************************************/
+TIMELIME
+************************************************/
     $scope.options = {
       mode: 'custom',
       scale: 'day',
@@ -617,9 +610,6 @@ angular.module('tasks').controller('TasksController', [
       currentDate: 'line',
       currentDateValue: Date.now(),
       draw: true,
-      readOnly: false,
-      filterTask: undefined,
-      filterRow: undefined,
       allowLabelsResizing: true,
       timeFrames: {
         'day': {
@@ -662,10 +652,6 @@ angular.module('tasks').controller('TasksController', [
         }
       }
     });
-    // function that trigers modal onclick on the gantt chart cells 
-    $scope.$on(GANTT_EVENTS.ROW_CLICKED, function (event, data) {
-      console.log('test');
-    });
     $scope.$on(GANTT_EVENTS.READY, function () {
       $scope.addSamples();
       $timeout(function () {
@@ -674,24 +660,19 @@ angular.module('tasks').controller('TasksController', [
     });
     $scope.addSamples = function () {
       $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
-      // $scope.loadData(Sample.getSampleData().data1);
-      $scope.loadData($scope.findPersons());
+      $scope.loadData($scope.getTaskData());
     };
     $scope.loadProjectsData = function () {
       switchViews.myView = 'Project';
+      autoView.resource = Projects;
       $scope.clearData();
-      $scope.loadData($scope.listProjects());
+      $scope.getTaskData();
     };
     $scope.loadPersonsData = function () {
       switchViews.myView = 'Person';
+      autoView.resource = Persons;
       $scope.clearData();
-      $scope.loadData($scope.findPersons());
-    };
-    $scope.removeSomeSamples = function () {
-      $scope.removeData([]);
-    };
-    $scope.removeSamples = function () {
-      $scope.clearData();
+      $scope.getTaskData();
     };
     var handleClickEvent = function (event, data) {
       console.log(data);
@@ -702,114 +683,42 @@ angular.module('tasks').controller('TasksController', [
       }
       $scope.openProject();
       if ($scope.options.draw) {
-        // Example to draw task inside row
         if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
-          // var startDate = data.date;
-          // var endDate = moment(startDate).add( 7, 'd');
           assignment.startDate = data.date;
           assignment.endDate = moment(data.date).add(7, 'd');
           assignment.infoData = data;
         }
       }
     };
-    var logScrollEvent = function (event, data) {
-      if (angular.equals(data.direction, 'left')) {
-        // Raised if the user scrolled to the left side of the Gantt. Use this event to load more data.
-        console.log('Scroll event: Left ' + data.left);
-      } else if (angular.equals(data.direction, 'right')) {
-        // Raised if the user scrolled to the right side of the Gantt. Use this event to load more data.
-        console.log('Scroll event: Right');
-      }
-    };
-    var logTaskEvent = function (event, data) {
-      // A task event has occured.
-      var output = '';
-      for (var property in data) {
-        var propertyValue = data[property];
-        if (property === 'evt' && propertyValue) {
-          propertyValue = propertyValue.type;
-        } else if (property === 'element' && propertyValue.length > 0) {
-          propertyValue = propertyValue[0].localName + (propertyValue[0].className ? '.' + propertyValue[0].className : '');
-        } else if (property === 'task') {
-          propertyValue = propertyValue.name;
-        } else if (property === 'timespan') {
-          propertyValue = propertyValue.name;
-        } else if (property === 'column') {
-          propertyValue = propertyValue.date.format() + ' <---> ' + propertyValue.endDate.format();
-        } else if (property === 'row') {
-          propertyValue = propertyValue.name;
-        } else if (property === 'date') {
-          propertyValue = propertyValue.format();
-        }
-        output += property + ': ' + propertyValue + '; ';
-      }
-      console.log('$scope.$on: ' + event.name + ': ' + output);
-    };
-    $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
     $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function (event, data) {
       data.task.row.removeTask(data.task.id);
       Tasks.delete({ taskId: data.task.id });
     });
-    $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
     $scope.$on(GANTT_EVENTS.TASK_CHANGED, function (event, data) {
       $scope.updateTask(event, data);
     });
-    $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
     $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function (event, data) {
     });
-    // update tasks
-    $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
     $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
-    $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.COLUMN_DBL_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.COLUMN_CONTEXTMENU, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
     $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-    $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_ORDER_CHANGED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_CHANGED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_DBL_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_CONTEXTMENU, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEDOWN, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEUP, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_HEADER_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_HEADER_DBL_CLICKED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_HEADER_CONTEXTMENU, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABELS_RESIZED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TIMESPAN_ADDED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.TIMESPAN_CHANGED, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.READY, logTaskEvent);
-    $scope.$on(GANTT_EVENTS.SCROLL, logScrollEvent);
-    $scope.$on(GANTT_EVENTS.ROWS_FILTERED, function (event, data) {
-      console.log(data);
-      console.log('$scope.$on: ' + event.name + ': ' + data.filteredRows.length + '/' + data.rows.length + ' rows displayed.');
-    });
-    $scope.$on(GANTT_EVENTS.TASKS_FILTERED, function (event, data) {
-      console.log('$scope.$on: ' + event.name + ': ' + data.filteredTasks.length + '/' + data.tasks.length + ' tasks displayed.');
-    });
   }
-]).service('Uuid', function Uuid() {
-  return {
-    s4: function () {
-      return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
-    },
-    randomUuid: function () {
-      return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
-    }
-  };
-}).service('Sample', function Sample() {
+]);'use strict';
+//Tasks service used to communicate Tasks REST endpoints
+angular.module('tasks').factory('Tasks', [
+  '$resource',
+  function ($resource) {
+    return $resource('tasks/:taskId', { taskId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);
+angular.module('tasks').factory('switchViews', [
+  '$rootScope',
+  function ($rootScope) {
+    var service = {};
+    service.myView = '';
+    return service;
+  }
+]);
+angular.module('tasks').service('Sample', function Sample() {
   return {
     getSampleData: function () {
       return {};
@@ -825,35 +734,16 @@ angular.module('tasks').controller('TasksController', [
       };
     }
   };
-}).controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance, Projects, Persons, switchViews) {
-  // Find a list
-  if (switchViews.myView === 'Project') {
-    $scope.findData = function () {
-      $scope.datas = Persons.query();
-    };
-  } else if (switchViews.myView === 'Person') {
-    $scope.findData = function () {
-      $scope.datas = Projects.query();
-    };
-  }
-  $scope.selectedData = function (data) {
-    $modalInstance.close(data);
+});
+angular.module('tasks').service('Uuid', function Uuid() {
+  return {
+    s4: function () {
+      return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
+    },
+    randomUuid: function () {
+      return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
   };
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-});'use strict';
-//Tasks service used to communicate Tasks REST endpoints
-angular.module('tasks').factory('Tasks', [
-  '$resource',
-  function ($resource) {
-    return $resource('tasks/:taskId', { taskId: '@_id' }, { update: { method: 'PUT' } });
-  }
-]);
-angular.module('tasks').factory('switchViews', function () {
-  var service = {};
-  service.myView = 'Person';
-  return service;
 });'use strict';
 // Config HTTP Error Handling
 angular.module('users').config([
