@@ -19,7 +19,7 @@ angular.module('tasks')
       $scope.triggerModal = function(size) {
         
         var modalInstance = $modal.open({
-          templateUrl: 'projectModalContent.html',
+          templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
           controller: 'ModalInstanceCtrl',
           size: 'sm',
           resolve: {}

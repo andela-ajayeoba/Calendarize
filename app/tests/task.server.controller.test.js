@@ -150,19 +150,6 @@ describe('Task Endpoint Tests', function() {
         });
     });
 
-    // it('Should not list tasks that does not belong to the logged in project manager', function(){
-    //     agent.get('/tasks')
-    //     .send(task2)
-    //     .expect(403)
-    //     // end handles the response
-    //     .end(function(err, res){
-    //       if(err){
-    //         throw err;
-    //       }
-    //       return done();
-    //     });
-    // });
-
     it('should not create a task that already exists', function(done) {
     	agent.post('/tasks')
     	.send(task1)
@@ -188,6 +175,18 @@ describe('Task Endpoint Tests', function() {
         return done();
       });
     });
+
+    //     it('Should not list tasks that does not belong to the logged in project manager', function(){
+    //     agent.get('/tasks')
+    //     .expect(403)
+    //     // end handles the response
+    //     .end(function(err, res){
+    //       if(err){
+    //         throw err;
+    //       }
+    //       return done();
+    //     });
+    // });
 
 	after(function(done) {
 		Task.remove().exec();
