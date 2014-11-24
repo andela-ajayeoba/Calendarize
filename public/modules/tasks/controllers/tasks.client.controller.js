@@ -198,7 +198,7 @@ angular.module('tasks')
         $scope.clearData();
         $scope.getTaskData();
         
-      }
+      };
       
       var handleClickEvent = function(event, data) {
         switch(SwitchViews.state) {
@@ -237,4 +237,4 @@ angular.module('tasks')
       $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
       $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
     }
-  ])
+  ]);
