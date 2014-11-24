@@ -2,7 +2,7 @@
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = function () {
     // Init module configuration options
-    var applicationModuleName = 'calendarize';
+    var applicationModuleName = 'task';
     var applicationModuleVendorDependencies = [
         'ngResource',
         'ngCookies',
@@ -10,8 +10,12 @@ var ApplicationConfiguration = function () {
         'ngTouch',
         'ngSanitize',
         'ui.router',
+        'ngAnimate',
+        'mgcrea.ngStrap',
         'ui.bootstrap',
-        'ui.utils'
+        'ui.utils',
+        'gantt',
+        'nsPopover'
       ];
     // Add a new vertical module
     var registerModule = function (moduleName, dependencies) {
@@ -43,105 +47,16 @@ angular.element(document).ready(function () {
   //Then init the app
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });'use strict';
-// Use applicaion configuration module to register a new module
-ApplicationConfiguration.registerModule('calendarizes');'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');'use strict';
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('persons');'use strict';
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('projects');'use strict';
+// Use applicaion configuration module to register a new module
+ApplicationConfiguration.registerModule('tasks');'use strict';
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('users');'use strict';
-// Configuring the Articles module
-angular.module('calendarizes').run([
-  'Menus',
-  function (Menus) {
-    // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Calendarizes', 'calendarizes', 'dropdown', '/calendarizes(/create)?');
-    Menus.addSubMenuItem('topbar', 'calendarizes', 'List Calendarizes', 'calendarizes');
-    Menus.addSubMenuItem('topbar', 'calendarizes', 'New Calendarize', 'calendarizes/create');
-  }
-]);'use strict';
-//Setting up route
-angular.module('calendarizes').config([
-  '$stateProvider',
-  function ($stateProvider) {
-    // Calendarizes state routing
-    $stateProvider.state('listCalendarizes', {
-      url: '/calendarizes',
-      templateUrl: 'modules/calendarizes/views/list-calendarizes.client.view.html'
-    }).state('createCalendarize', {
-      url: '/calendarizes/create',
-      templateUrl: 'modules/calendarizes/views/create-calendarize.client.view.html'
-    }).state('viewCalendarize', {
-      url: '/calendarizes/:calendarizeId',
-      templateUrl: 'modules/calendarizes/views/view-calendarize.client.view.html'
-    }).state('editCalendarize', {
-      url: '/calendarizes/:calendarizeId/edit',
-      templateUrl: 'modules/calendarizes/views/edit-calendarize.client.view.html'
-    });
-  }
-]);'use strict';
-// Calendarizes controller
-angular.module('calendarizes').controller('CalendarizesController', [
-  '$scope',
-  '$stateParams',
-  '$location',
-  'Authentication',
-  'Calendarizes',
-  function ($scope, $stateParams, $location, Authentication, Calendarizes) {
-    $scope.authentication = Authentication;
-    // Create new Calendarize
-    $scope.create = function () {
-      // Create new Calendarize object
-      var calendarize = new Calendarizes({ name: this.name });
-      // Redirect after save
-      calendarize.$save(function (response) {
-        $location.path('calendarizes/' + response._id);
-        // Clear form fields
-        $scope.name = '';
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-    // Remove existing Calendarize
-    $scope.remove = function (calendarize) {
-      if (calendarize) {
-        calendarize.$remove();
-        for (var i in $scope.calendarizes) {
-          if ($scope.calendarizes[i] === calendarize) {
-            $scope.calendarizes.splice(i, 1);
-          }
-        }
-      } else {
-        $scope.calendarize.$remove(function () {
-          $location.path('calendarizes');
-        });
-      }
-    };
-    // Update existing Calendarize
-    $scope.update = function () {
-      var calendarize = $scope.calendarize;
-      calendarize.$update(function () {
-        $location.path('calendarizes/' + calendarize._id);
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-    // Find a list of Calendarizes
-    $scope.find = function () {
-      $scope.calendarizes = Calendarizes.query();
-    };
-    // Find existing Calendarize
-    $scope.findOne = function () {
-      $scope.calendarize = Calendarizes.get({ calendarizeId: $stateParams.calendarizeId });
-    };
-  }
-]);'use strict';
-//Calendarizes service used to communicate Calendarizes REST endpoints
-angular.module('calendarizes').factory('Calendarizes', [
-  '$resource',
-  function ($resource) {
-    return $resource('calendarizes/:calendarizeId', { calendarizeId: '@_id' }, { update: { method: 'PUT' } });
-  }
-]);'use strict';
 // Setting up route
 angular.module('core').config([
   '$stateProvider',
@@ -178,7 +93,7 @@ angular.module('core').controller('HomeController', [
   'Authentication',
   function ($scope, Authentication) {
     // This provides Authentication context.
-    $scope.authentication = Authentication;
+    $scope.authentication = Authentication;  // console.log($scope.authentication.user);
   }
 ]);'use strict';
 //Menu service used for managing  menus
@@ -318,6 +233,622 @@ angular.module('core').service('Menus', [function () {
     //Adding the topbar menu
     this.addMenu('topbar');
   }]);'use strict';
+//Setting up route
+angular.module('persons').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Persons state routing
+    $stateProvider.state('listPersons', {
+      url: '/persons',
+      templateUrl: 'modules/persons/views/list-persons.client.view.html'
+    }).state('createPerson', {
+      url: '/persons/create',
+      templateUrl: 'modules/persons/views/create-person.client.view.html'
+    }).state('viewPerson', {
+      url: '/persons/:personId',
+      templateUrl: 'modules/persons/views/view-person.client.view.html'
+    }).state('editPerson', {
+      url: '/persons/:personId/edit',
+      templateUrl: 'modules/persons/views/edit-person.client.view.html'
+    });
+  }
+]);'use strict';
+// Persons controller
+angular.module('persons').controller('PersonsController', [
+  '$http',
+  '$scope',
+  '$stateParams',
+  '$location',
+  '$timeout',
+  'Authentication',
+  'GANTT_EVENTS',
+  '$modal',
+  'Persons',
+  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons) {
+    $scope.authentication = Authentication;
+    // Create new Person
+    $scope.addPerson = function () {
+      var person = new Persons($scope.person);
+      person.$save(function (response) {
+        alert('Person Successfully added');
+        $scope.person = '';
+        var newPerson = [{
+              'id': response._id,
+              'name': response.name,
+              'tasks': []
+            }];
+        $scope.loadData(newPerson);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Remove existing Person
+    $scope.removePerson = function (person) {
+      if (person) {
+        person.$remove();
+        for (var i in $scope.persons) {
+          if ($scope.persons[i] === person) {
+            $scope.persons.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.person.$remove(function () {
+        });
+      }
+    };
+    // Update existing Person
+    $scope.updatePerson = function () {
+      var person = $scope.person;
+      person.$update(function () {
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find a list of Persons
+    $scope.findPersons = function () {
+      var data = [];
+      $scope.persons = Persons.query({}, function () {
+        $scope.persons.forEach(function (user) {
+          var $user = {};
+          $user.tasks = [];
+          $user.id = user._id;
+          $user.name = user.name;
+          user.tasks.forEach(function (task) {
+            var $task = {};
+            $task.id = task._id;
+            $task.name = task.projectName;
+            $task.from = task.startDate;
+            $task.to = task.endDate;
+            $task.color = '#F1C232';
+            $user.tasks.push($task);
+          });
+          data.push($user);
+        });
+        $scope.loadData(data);
+      });
+    };
+    // Find existing Person
+    $scope.findOnePerson = function () {
+      $scope.person = Persons.get({ personId: $stateParams.personId });
+    };
+  }
+]);'use strict';
+//Persons service used to communicate Persons REST endpoints
+angular.module('persons').factory('Persons', [
+  '$resource',
+  function ($resource) {
+    return $resource('persons/:personId', { personId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
+//Setting up route
+angular.module('projects').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Projects state routing
+    $stateProvider.state('listProjects', {
+      url: '/projects',
+      templateUrl: 'modules/projects/views/list-projects.client.view.html'
+    }).state('createProject', {
+      url: '/projects/create',
+      templateUrl: 'modules/projects/views/create-project.client.view.html'
+    }).state('viewProject', {
+      url: '/projects/:projectId',
+      templateUrl: 'modules/projects/views/view-project.client.view.html'
+    }).state('editProject', {
+      url: '/projects/:projectId/edit',
+      templateUrl: 'modules/projects/views/edit-project.client.view.html'
+    });
+  }
+]);'use strict';
+// Projects controller
+angular.module('projects').controller('ProjectsController', [
+  '$http',
+  '$scope',
+  '$stateParams',
+  '$location',
+  '$timeout',
+  'Authentication',
+  'GANTT_EVENTS',
+  '$modal',
+  'Projects',
+  'Tasks',
+  function ($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks) {
+    $scope.authentication = Authentication;
+    // Create new Project
+    $scope.addProject = function () {
+      var project = new Projects($scope.project);
+      project.$save(function (response) {
+        console.log('Project Successfully added');
+        var newProject = [{
+              'id': response._id,
+              'name': response.name,
+              'tasks': []
+            }];
+        $scope.loadData(newProject);
+        $scope.project = '';
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Remove existing Project
+    $scope.removeProject = function (project) {
+      if (project) {
+        project.$remove();
+        for (var i in $scope.projects) {
+          if ($scope.projects[i] === project) {
+            $scope.projects.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.project.$remove(function () {
+        });
+      }
+    };
+    // Update existing Project
+    $scope.updateProject = function () {
+      var project = $scope.project;
+      project.$update(function () {
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Find existing Projects
+    $scope.findOneProject = function () {
+      $scope.project = Projects.get({ projectId: $stateParams.projectId });
+    };
+    // Find a list of Projects
+    $scope.listProjects = function () {
+      $scope.projects = Projects.query();
+    };
+  }
+]);// 'use strict';
+// angular.module('calendarizes').directive('custompopover', [
+// 	return {
+//         restrict: 'E',
+//         templateUrl: 'popover.html',  
+//     };
+// ]);
+'use strict';
+//Projects service used to communicate Projects REST endpoints
+angular.module('projects').factory('Projects', [
+  '$resource',
+  function ($resource) {
+    return $resource('projects/:projectId', { projectId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);'use strict';
+//Setting up route
+angular.module('tasks').config([
+  '$stateProvider',
+  function ($stateProvider) {
+    // Tasks state routing
+    $stateProvider.state('listTasks', {
+      url: '/tasks',
+      templateUrl: 'modules/tasks/views/list-tasks.client.view.html'
+    }).state('createTask', {
+      url: '/tasks/create',
+      templateUrl: 'modules/tasks/views/create-task.client.view.html'
+    }).state('viewTask', {
+      url: '/tasks/:taskId',
+      templateUrl: 'modules/tasks/views/view-task.client.view.html'
+    }).state('editTask', {
+      url: '/tasks/:taskId/edit',
+      templateUrl: 'modules/tasks/views/edit-task.client.view.html'
+    });
+  }
+]);'use strict';
+// Tasks controller
+angular.module('tasks').controller('TasksController', [
+  '$http',
+  '$scope',
+  '$stateParams',
+  '$location',
+  '$timeout',
+  'Authentication',
+  'Uuid',
+  'Sample',
+  'moment',
+  'GANTT_EVENTS',
+  '$modal',
+  'Persons',
+  'Projects',
+  'Tasks',
+  'switchViews',
+  function ($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, switchViews) {
+    $scope.authentication = Authentication;
+    var assignment = {};
+    $scope.openProject = function (size) {
+      var modalInstance = $modal.open({
+          templateUrl: 'projectModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'sm',
+          resolve: {
+            projects: function () {
+              return $scope.projects;
+            }
+          }
+        });
+      modalInstance.result.then(function (data) {
+        if (switchViews.myView === 'Person') {
+          assignment.projectId = data._id;
+          assignment.projectName = data.name;
+        } else {
+          assignment.personId = data._id;
+          assignment.personName = data.name;
+        }
+        $scope.createTask(assignment);
+      }, function () {
+      });
+    };
+    // Find a list of Persons
+    $scope.findPersons = function () {
+      var personData = [];
+      $scope.persons = Persons.query({}, function () {
+        $scope.persons.forEach(function (user) {
+          var $user = {};
+          $user.tasks = [];
+          $user.id = user._id;
+          $user.name = user.name;
+          user.tasks.forEach(function (task) {
+            var $task = {};
+            $task.id = task._id;
+            $task.name = task.projectName;
+            $task.from = task.startDate;
+            $task.to = task.endDate;
+            $task.color = '#F1C232';
+            $user.tasks.push($task);
+          });
+          personData.push($user);
+        });
+        $scope.loadData(personData);
+      });
+    };
+    // Find a list of Projects
+    $scope.listProjects = function () {
+      var projectData = [];
+      $scope.projects = Projects.query({}, function () {
+        $scope.projects.forEach(function (assign) {
+          var $project = {};
+          $project.tasks = [];
+          $project.id = assign._id;
+          $project.name = assign.name;
+          assign.tasks.forEach(function (task) {
+            var $user = {};
+            $user.id = task._id;
+            $user.name = task.personName;
+            $user.from = task.startDate;
+            $user.to = task.endDate;
+            $user.color = '#F1C232';
+            $project.tasks.push($user);
+          });
+          projectData.push($project);
+        });
+        $scope.loadData(projectData);
+      });
+    };
+    /************************************************
+            TASK CRUD
+            ************************************************/
+    // Creating a new Assignment/Task
+    $scope.createTask = function (data) {
+      console.log(data);
+      var newTask = {
+          personId: data.personId,
+          projectId: data.projectId,
+          startDate: data.startDate,
+          endDate: data.endDate
+        };
+      var task = new Tasks(newTask);
+      task.$save(function (response) {
+        console.log(response);
+        var taskParam = {
+            id: response._id,
+            from: response.startDate,
+            to: response.endDate,
+            color: '#F1C232'
+          };
+        if (switchViews.myView === 'Person') {
+          taskParam.name = response.projectName;
+        } else {
+          taskParam.name = response.personName;
+        }
+        var uiItem = data.infoData.row.addTask(taskParam);
+        uiItem.updatePosAndSize();
+        uiItem.row.updateVisibleTasks();  //learn about $scope.apply
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    $scope.findOneTask = function () {
+      $scope.task = Tasks.get({ taskId: $stateParams.taskId });
+    };
+    $scope.updateTask = function (event, data) {
+      var task = Tasks.get({ taskId: data.task.id });
+      task._id = data.task.id;
+      task.startDate = data.task.from;
+      task.endDate = data.task.to;
+      console.log(task, task.startDate, task.endDate);
+      task.$update(function () {
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    $scope.findTasks = function () {
+      $scope.tasks = Tasks.query();
+    };
+    /************************************************
+            TIMELIME
+            ************************************************/
+    $scope.options = {
+      mode: 'custom',
+      scale: 'day',
+      maxHeight: false,
+      width: true,
+      autoExpand: 'both',
+      taskOutOfRange: 'expand',
+      fromDate: undefined,
+      toDate: undefined,
+      showLabelsColumn: true,
+      currentDate: 'line',
+      currentDateValue: Date.now(),
+      draw: true,
+      readOnly: false,
+      filterTask: undefined,
+      filterRow: undefined,
+      allowLabelsResizing: true,
+      timeFrames: {
+        'day': {
+          start: moment('8:00', 'HH:mm'),
+          end: moment('20:00', 'HH:mm'),
+          working: true,
+          default: true
+        },
+        'noon': {
+          start: moment('12:00', 'HH:mm'),
+          end: moment('13:30', 'HH:mm'),
+          working: false,
+          default: true
+        },
+        'weekend': { working: false }
+      },
+      dateFrames: {
+        'weekend': {
+          evaluator: function (date) {
+            return date.isoWeekday() === 6 || date.isoWeekday() === 7;
+          },
+          targets: ['weekend']
+        }
+      },
+      timeFramesNonWorkingMode: 'visible',
+      columnMagnet: '5 minutes'
+    };
+    $scope.$watch('fromDate+toDate', function () {
+      $scope.options.fromDate = $scope.fromDate;
+      $scope.options.toDate = $scope.toDate;
+    });
+    $scope.$watch('options.scale', function (newValue, oldValue) {
+      if (!angular.equals(newValue, oldValue)) {
+        if (newValue === 'quarter') {
+          $scope.options.headersFormats = { 'quarter': '[Q]Q YYYY' };
+          $scope.options.headers = ['quarter'];
+        } else {
+          $scope.options.headersFormats = undefined;
+          $scope.options.headers = undefined;
+        }
+      }
+    });
+    // function that trigers modal onclick on the gantt chart cells 
+    $scope.$on(GANTT_EVENTS.ROW_CLICKED, function (event, data) {
+      console.log('test');
+    });
+    $scope.$on(GANTT_EVENTS.READY, function () {
+      $scope.addSamples();
+      $timeout(function () {
+        $scope.scrollToDate($scope.options.currentDateValue);
+      }, 0, true);
+    });
+    $scope.addSamples = function () {
+      $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
+      // $scope.loadData(Sample.getSampleData().data1);
+      $scope.loadData($scope.findPersons());
+    };
+    $scope.loadProjectsData = function () {
+      switchViews.myView = 'Project';
+      $scope.clearData();
+      $scope.loadData($scope.listProjects());
+    };
+    $scope.loadPersonsData = function () {
+      switchViews.myView = 'Person';
+      $scope.clearData();
+      $scope.loadData($scope.findPersons());
+    };
+    $scope.removeSomeSamples = function () {
+      $scope.removeData([]);
+    };
+    $scope.removeSamples = function () {
+      $scope.clearData();
+    };
+    var handleClickEvent = function (event, data) {
+      console.log(data);
+      if (switchViews.myView === 'Person') {
+        assignment.personId = data.row.id;
+      } else {
+        assignment.projectId = data.row.id;
+      }
+      $scope.openProject();
+      if ($scope.options.draw) {
+        // Example to draw task inside row
+        if ((data.evt.target ? data.evt.target : data.evt.srcElement).className.indexOf('gantt-row') > -1) {
+          // var startDate = data.date;
+          // var endDate = moment(startDate).add( 7, 'd');
+          assignment.startDate = data.date;
+          assignment.endDate = moment(data.date).add(7, 'd');
+          assignment.infoData = data;
+        }
+      }
+    };
+    var logScrollEvent = function (event, data) {
+      if (angular.equals(data.direction, 'left')) {
+        // Raised if the user scrolled to the left side of the Gantt. Use this event to load more data.
+        console.log('Scroll event: Left ' + data.left);
+      } else if (angular.equals(data.direction, 'right')) {
+        // Raised if the user scrolled to the right side of the Gantt. Use this event to load more data.
+        console.log('Scroll event: Right');
+      }
+    };
+    var logTaskEvent = function (event, data) {
+      // A task event has occured.
+      var output = '';
+      for (var property in data) {
+        var propertyValue = data[property];
+        if (property === 'evt' && propertyValue) {
+          propertyValue = propertyValue.type;
+        } else if (property === 'element' && propertyValue.length > 0) {
+          propertyValue = propertyValue[0].localName + (propertyValue[0].className ? '.' + propertyValue[0].className : '');
+        } else if (property === 'task') {
+          propertyValue = propertyValue.name;
+        } else if (property === 'timespan') {
+          propertyValue = propertyValue.name;
+        } else if (property === 'column') {
+          propertyValue = propertyValue.date.format() + ' <---> ' + propertyValue.endDate.format();
+        } else if (property === 'row') {
+          propertyValue = propertyValue.name;
+        } else if (property === 'date') {
+          propertyValue = propertyValue.format();
+        }
+        output += property + ': ' + propertyValue + '; ';
+      }
+      console.log('$scope.$on: ' + event.name + ': ' + output);
+    };
+    $scope.$on(GANTT_EVENTS.TASK_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function (event, data) {
+      data.task.row.removeTask(data.task.id);
+      Tasks.delete({ taskId: data.task.id });
+    });
+    $scope.$on(GANTT_EVENTS.TASK_CONTEXTMENU, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_ADDED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_CHANGED, function (event, data) {
+      $scope.updateTask(event, data);
+    });
+    $scope.$on(GANTT_EVENTS.TASK_REMOVED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_MOVE_BEGIN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_MOVE, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function (event, data) {
+    });
+    // update tasks
+    $scope.$on(GANTT_EVENTS.TASK_RESIZE_BEGIN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_RESIZE, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
+    $scope.$on(GANTT_EVENTS.COLUMN_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.COLUMN_DBL_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.COLUMN_CONTEXTMENU, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_MOUSEUP, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
+    $scope.$on(GANTT_EVENTS.ROW_DBL_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_CONTEXTMENU, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_ORDER_CHANGED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_CHANGED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_ADDED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_REMOVED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_MOUSEDOWN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEDOWN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_MOUSEUP, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_DBL_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_CONTEXTMENU, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEDOWN, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_HEADER_MOUSEUP, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_HEADER_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_HEADER_DBL_CLICKED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_HEADER_CONTEXTMENU, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.ROW_LABELS_RESIZED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TIMESPAN_ADDED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.TIMESPAN_CHANGED, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.READY, logTaskEvent);
+    $scope.$on(GANTT_EVENTS.SCROLL, logScrollEvent);
+    $scope.$on(GANTT_EVENTS.ROWS_FILTERED, function (event, data) {
+      console.log(data);
+      console.log('$scope.$on: ' + event.name + ': ' + data.filteredRows.length + '/' + data.rows.length + ' rows displayed.');
+    });
+    $scope.$on(GANTT_EVENTS.TASKS_FILTERED, function (event, data) {
+      console.log('$scope.$on: ' + event.name + ': ' + data.filteredTasks.length + '/' + data.tasks.length + ' tasks displayed.');
+    });
+  }
+]).service('Uuid', function Uuid() {
+  return {
+    s4: function () {
+      return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
+    },
+    randomUuid: function () {
+      return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
+    }
+  };
+}).service('Sample', function Sample() {
+  return {
+    getSampleData: function () {
+      return {};
+    },
+    getSampleTimespans: function () {
+      return {
+        'timespan1': [{
+            id: '1',
+            from: new Date(2014, 9, 21, 8, 0, 0),
+            to: new Date(2014, 11, 25, 15, 0, 0),
+            name: 'Sprint 1 Timespan'
+          }]
+      };
+    }
+  };
+}).controller('ModalInstanceCtrl', function ($rootScope, $scope, $modalInstance, Projects, Persons, switchViews) {
+  // Find a list
+  if (switchViews.myView === 'Project') {
+    $scope.findData = function () {
+      $scope.datas = Persons.query();
+    };
+  } else if (switchViews.myView === 'Person') {
+    $scope.findData = function () {
+      $scope.datas = Projects.query();
+    };
+  }
+  $scope.selectedData = function (data) {
+    $modalInstance.close(data);
+  };
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});'use strict';
+//Tasks service used to communicate Tasks REST endpoints
+angular.module('tasks').factory('Tasks', [
+  '$resource',
+  function ($resource) {
+    return $resource('tasks/:taskId', { taskId: '@_id' }, { update: { method: 'PUT' } });
+  }
+]);
+angular.module('tasks').factory('switchViews', function () {
+  var service = {};
+  service.myView = 'Person';
+  return service;
+});'use strict';
 // Config HTTP Error Handling
 angular.module('users').config([
   '$httpProvider',
