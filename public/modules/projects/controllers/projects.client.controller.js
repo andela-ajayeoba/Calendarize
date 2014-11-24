@@ -6,7 +6,8 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
     $scope.authentication = Authentication;
 
     // Create new Project
-    $scope.addProject = function() {
+    $scope.addProject = function(popoverCloseFunction) {
+      popoverCloseFunction();
       var project = new Projects($scope.project);
       project.$save(function(response) {
         if (SwitchViews.state !== 'Person') {
@@ -21,6 +22,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+      
     };
     // Remove existing Project
     $scope.removeProject = function(project) {

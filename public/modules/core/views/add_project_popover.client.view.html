@@ -1,0 +1,10 @@
+<ul class="popoverBox" data-ng-controller="ProjectsController">
+    <span class="glyphicon glyphicon-remove" ng-click="hidePopover()"></span>
+    <li>
+        <label for="project">Name*</label>
+        <br>
+        <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
+    </li>
+    <br>
+    <button class="btn btn-primary" ng-click="addProject(hidePopover)">Add Project</button>
+</ul>
