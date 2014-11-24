@@ -17,6 +17,7 @@ angular.module('tasks').factory('Tasks', ['$resource',
 angular.module('tasks').factory('SwitchViews', function($rootScope) {
   return {
     state: ''
+    // feedBack: function()
   };
 });
 
