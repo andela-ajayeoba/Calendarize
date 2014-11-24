@@ -1,0 +1,15 @@
+<section>
+    <script type="text/ng-template" id="popover.html">
+        <ul class="popoverBox" data-ng-controller="CalendarizesController">
+            <li><label for="project">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="worker.name" required novalidate/></li>
+            <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="worker.email" required novalidate/></li>
+            <li><label for="worker">Group*</label><input type="text"  id="group" name="group" class="form-control" ng-model="worker.group" required novalidate/></li>
+            <button class="btn btn-primary" ng-click="addWorker()">Create</button>
+        </ul>
+    </script>
+    <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="right" ns-popover-hide-on-click="false">
+        Popover
+    </button>
+    
+</section>  
+

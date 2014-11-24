@@ -1,0 +1,25 @@
+<section data-ng-controller="CalendarizesController" data-ng-init="findOneTask()">
+	<div class="page-header">
+		<h4>
+			<span data-ng-bind="task.personName"></span> is assigned to
+			<span data-ng-bind="task.projectName"></span>
+
+		</h4>
+	</div>
+	<div class="pull-right" data-ng-show="authentication.user._id == task.user._id">
+		<a class="btn btn-primary" href="/#!/tasks/{{task._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="removeTask();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<small>
+		<em class="text-muted">
+			Assigned on
+			<span data-ng-bind="assigned.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="assignment.user.displayName"></span>
+		</em>
+	</small>
+</section>
