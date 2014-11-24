@@ -7,8 +7,8 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
     $scope.authentication = Authentication;
 
     // Create new Person
-    $scope.addPerson = function(popoverCloseFunction) {
-      popoverCloseFunction();
+    $scope.addPerson = function(closePersonPopover) {
+      closePersonPopover();
       var person = new Persons($scope.person);
       person.$save(function(response) {
         if (SwitchViews.state !== 'Project') {

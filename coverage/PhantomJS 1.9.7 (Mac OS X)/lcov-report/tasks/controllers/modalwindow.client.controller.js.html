@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for users/controllers/password.client.controller.js</title>
+    <title>Code coverage report for tasks/controllers/modalwindow.client.controller.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../../prettify.css">
@@ -196,23 +196,23 @@
 </head>
 <body>
 <div class="header low">
-    <h1>Code coverage report for <span class="entity">users/controllers/password.client.controller.js</span></h1>
+    <h1>Code coverage report for <span class="entity">tasks/controllers/modalwindow.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">5.56% <small>(1 / 18)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">9.09% <small>(1 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">5.88% <small>(1 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">9.09% <small>(1 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">users/controllers/</a> &#187; password.client.controller.js</div>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">tasks/controllers/</a> &#187; modalwindow.client.controller.js</div>
 </div>
 <div class="body">
 <pre><table class="coverage">
@@ -242,36 +242,16 @@
 24
 25
 26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+27</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -283,69 +263,38 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
-angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',
-<span class="fstat-no" title="function not covered" >	function($scope, $stateParams, $http, $location, Authentication) {</span>
-<span class="cstat-no" title="statement not covered" >		$scope.authentication = Authentication;</span>
+// Tasks controller
+angular.module('tasks')
+  .controller('ModalInstanceCtrl', <span class="fstat-no" title="function not covered" >function($rootScope, $scope, $modalInstance, Projects, Persons, SwitchViews) {</span>
 &nbsp;
-		//If user is signed in then redirect back home
-<span class="cstat-no" title="statement not covered" >		if ($scope.authentication.user) <span class="cstat-no" title="statement not covered" >$location.path('/');</span></span>
+<span class="cstat-no" title="statement not covered" >    $scope.findData = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      switch (SwitchViews.state) {</span>
+        case 'Project':
+<span class="cstat-no" title="statement not covered" >          $scope.datas = Persons.query();</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        case 'Person':
+<span class="cstat-no" title="statement not covered" >          $scope.datas = Projects.query();</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+      }
+    };
 &nbsp;
-		// Submit forgotten password account id
-<span class="cstat-no" title="statement not covered" >		$scope.askForPasswordReset = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >			$scope.success = $scope.error = null;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.selectedData = <span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >      $modalInstance.close(data);</span>
+    };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >			$http.post('/auth/forgot', $scope.credentials).success(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
-				// Show user success message and clear form
-<span class="cstat-no" title="statement not covered" >				$scope.credentials = null;</span>
-<span class="cstat-no" title="statement not covered" >				$scope.success = response.message;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.cancel = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      $modalInstance.dismiss('cancel');</span>
+    };
 &nbsp;
-			}).error(<span class="fstat-no" title="function not covered" >function(response) {</span>
-				// Show user error message and clear form
-<span class="cstat-no" title="statement not covered" >				$scope.credentials = null;</span>
-<span class="cstat-no" title="statement not covered" >				$scope.error = response.message;</span>
-			});
-		};
-&nbsp;
-		// Change user password
-<span class="cstat-no" title="statement not covered" >		$scope.resetUserPassword = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >			$scope.success = $scope.error = null;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >			$http.post('/auth/reset/' + $stateParams.token, $scope.passwordDetails).success(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
-				// If successful show success message and clear form
-<span class="cstat-no" title="statement not covered" >				$scope.passwordDetails = null;</span>
-&nbsp;
-				// Attach user profile
-<span class="cstat-no" title="statement not covered" >				Authentication.user = response;</span>
-&nbsp;
-				// And redirect to the index page
-<span class="cstat-no" title="statement not covered" >				$location.path('/password/reset/success');</span>
-			}).error(<span class="fstat-no" title="function not covered" >function(response) {</span>
-<span class="cstat-no" title="statement not covered" >				$scope.error = response.message;</span>
-			});
-		};
-	}
-]);</pre></td></tr>
+  });
+&nbsp;</pre></td></tr>
 </table></pre>
 
 </div>

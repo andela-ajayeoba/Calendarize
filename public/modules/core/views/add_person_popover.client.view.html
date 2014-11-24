@@ -1,15 +1,15 @@
-<ul class="popoverBox" data-ng-controller="PersonsController"> 
-    <span class="glyphicon glyphicon-remove" ng-click="hidePopover()" style="float:right"></span>
+<ul class="popoverBox" data-ng-controller="PersonsController">
+    <span class="glyphicon glyphicon-remove pull-right" data-ng-click="hidePopover()" style="margin:10px"></span>
     <li>
         <label for="people">Name*</label>
         <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
     </li>
     <li>
-        <label for="person">Email*</label>
+        <label for="worker">Email*</label>
         <input type="text" id="email" name="email" class="form-control" ng-model="person.email" required novalidate/>
     </li>
     <li>
-        <label for="person">Group</label>
+        <label for="worker">Group</label>
         <input type="text" id="group" name="group" class="form-control" ng-model="person.group" required novalidate/>
     </li>
     <br>
