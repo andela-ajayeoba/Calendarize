@@ -6,7 +6,8 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
     $scope.authentication = Authentication;
 
     // Create new Project
-    $scope.addProject = function() {
+    $scope.addProject = function(closeProjectPopover) {
+      closeProjectPopover();
       var project = new Projects($scope.project);
       project.$save(function(response) {
         if (SwitchViews.state !== 'Person') {

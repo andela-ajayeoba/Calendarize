@@ -136,65 +136,16 @@
             </tab>
             <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")' data-ng-model='dataView'>
             </tab>
-            <button class="person-project-btn" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-folder-close"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add People
             </button>
-            <button class="person-project-btn" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add Project
             </button>
         </tabset>
-
-        <!-- Tabs ends-->
-        <script type="text/ng-template" id="popover">
-            <ul class="popoverBox" data-ng-controller="PersonsController">
-                <li>
-                    <label for="people">Name*</label>
-                    <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
-                </li>
-                <li>
-                    <label for="worker">Email*</label>
-                    <input type="text" id="email" name="email" class="form-control" ng-model="person.email" required novalidate/>
-                </li>
-                <li>
-                    <label for="worker">Group</label>
-                    <input type="text" id="group" name="group" class="form-control" ng-model="person.group" required novalidate/>
-                </li>
-                <br>
-                <button class="btn btn-primary" ng-click="addPerson()">Add Person</button>
-            </ul>
-        </script>
-
-        <script type="text/ng-template" id="popover1">
-            <ul class="popoverBox" data-ng-controller="ProjectsController">
-                <li>
-                    <label for="project">Name*</label>
-                    <br>
-                    <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
-                </li>
-                <br>
-                <button class="btn btn-primary" ng-click="addProject()">Add Project</button>
-            </ul>
-        </script>
-
-        <!-- Modal Test code --> 
-        <script type="text/ng-template" id="projectModalContent.html">
-            <section data-ng-init="findData()">
-                <div class="modal-header">
-                    <h3 class="modal-title">Assign a Task</h3>
-                </div>
-                <div class="modal-body" >
-                    <h5 ng-if="datas.length === 0">No Options yet</h5>
-                    <ul ng-repeat="data in datas" ng-if="datas.length !== 0">
-                        <img src="/modules/core/img/bag.png" style="float:right" />
-                        <a ng-click="selectedData(data)" style="text-decoration:none">
-                            <li data-ng-bind="data.name" style="list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li>
-                        </a>
-                    </ul>
-                </div>
-            </section>
-        </script>
+        <!-- Tabs end-->
         <!--  Modal Ends  -->
         <div class="row top-buffer">
             <div class="col-md-12">
