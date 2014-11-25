@@ -1,11 +1,11 @@
 <ul class="popoverBox" data-ng-controller="PersonsController">
     <span class="glyphicon glyphicon-remove pull-right" data-ng-click="hidePopover()" style="margin:10px"></span>
     <li>
-        <label for="people">Name*</label>
+        <label for="people">Name<span class="req">*</span></label>
         <input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/>
     </li>
     <li>
-        <label for="worker">Email*</label>
+        <label for="worker">Email<span class="req">*</span></label>
         <input type="text" id="email" name="email" class="form-control" ng-model="person.email" required novalidate/>
     </li>
     <li>
