@@ -197,5 +197,34 @@ a
     padding : 8px;
     outline: none;
 }
+    @-webkit-keyframes responseAlert {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.response.ng-hide-add {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid green;
+    position: absolute;
+    z-index: 1;
+    left:40%;
+    background: rgba(129, 178, 8, 0.8);
+    border: 2px solid #81b208;
+    text-shadow:0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-animation: responseAlert 3s;
+    /* Chrome, Safari, Opera */
+}
 
+.req{
+    color: red;
+    margin-left: 2px;
+}
 
