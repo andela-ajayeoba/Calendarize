@@ -6,13 +6,10 @@ angular.module('tasks')
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
 
       $scope.authentication = Authentication;
-
       var assignment = {};
-
       var autoView = {
         resource: Persons
       };
-
       SwitchViews.state = 'Person';
 
       /* Function to Open Modal */
@@ -33,7 +30,6 @@ angular.module('tasks')
             assignment.personId = data._id;
             assignment.personName = data.name;
           }
-
           $scope.createTask(assignment);
         }, function() {});
       };
@@ -60,6 +56,15 @@ angular.module('tasks')
           $scope.loadData(dataObj);
         });
       };
+
+      $scope.$on('response', function(event, notification){
+        $scope.notify = false;
+        $timeout(function(){
+          $scope.notify = true;
+          $scope.msg = notification;
+        }, 200);
+          $scope.msg = '';
+      });
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
@@ -198,7 +203,7 @@ angular.module('tasks')
         $scope.clearData();
         $scope.getTaskData();
         
-      }
+      };
       
       var handleClickEvent = function(event, data) {
         switch(SwitchViews.state) {
@@ -237,4 +242,4 @@ angular.module('tasks')
       $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
       $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
     }
-  ])
+  ]);
