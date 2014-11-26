@@ -252,8 +252,10 @@ angular.module('persons').controller('PersonsController', [
       closePersonPopover();
       var person = new Persons($scope.person);
       person.$save(function (response) {
+        $scope.person = '';
+        $scope.msg = response.name + ' was successfully created';
+        $scope.$emit('response', $scope.msg);
         if (SwitchViews.state !== 'Project') {
-          $scope.person = '';
           var newPerson = [{
                 'id': response._id,
                 'name': response.name,
@@ -342,8 +344,10 @@ angular.module('projects').controller('ProjectsController', [
       closeProjectPopover();
       var project = new Projects($scope.project);
       project.$save(function (response) {
+        $scope.project = '';
+        $scope.msg = response.name + ' was successfully created';
+        $scope.$emit('response', $scope.msg);
         if (SwitchViews.state !== 'Person') {
-          $scope.project = '';
           var newProject = [{
                 'id': response._id,
                 'name': response.name,
@@ -484,6 +488,14 @@ angular.module('tasks').controller('TasksController', [
         $scope.loadData(dataObj);
       });
     };
+    $scope.$on('response', function (event, notification) {
+      $scope.notify = false;
+      $timeout(function () {
+        $scope.notify = true;
+        $scope.msg = notification;
+      }, 200);
+      $scope.msg = '';
+    });
     // Creating a new Assignment/Task
     $scope.createTask = function (data) {
       var newTask = {
@@ -735,6 +747,9 @@ angular.module('users').config([
     }).state('reset', {
       url: '/password/reset/:token',
       templateUrl: 'modules/users/views/password/reset-password.client.view.html'
+    }).state('email-confirmation', {
+      url: '/submit/:email',
+      templateUrl: 'modules/users/views/authentication/email-confirmation.client.view.html'
     });
   }
 ]);'use strict';
@@ -878,7 +893,8 @@ angular.module('users').factory('Authentication', [function () {
     var _this = this;
     _this._data = { user: window.user };
     return _this._data;
-  }]);'use strict';
+  }]);  // angular.module('users').ser
+'use strict';
 // Users service used for communicating with the users REST endpoint
 angular.module('users').factory('Users', [
   '$resource',

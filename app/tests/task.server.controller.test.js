@@ -164,7 +164,7 @@ describe('Task Endpoint Tests', function() {
         });
     });
 
-    it('should be able to delete a task', function(done){
+    it('should be able to delete a task', function(done) {
       agent.delete('/tasks/' + task1._id)
       .expect(200)
 
