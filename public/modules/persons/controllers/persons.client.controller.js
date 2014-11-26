@@ -12,6 +12,9 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       var person = new Persons($scope.person);
       person.$save(function(response) {
         $scope.person = '';
+        $scope.msg = response.name+ ' was successfully created';
+        $scope.$emit('response', $scope.msg);
+        
         if (SwitchViews.state !== 'Project') {
           var newPerson = [{
             'id': response._id,
@@ -20,7 +23,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
           }];
           $scope.loadData(newPerson);
         }
-
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
