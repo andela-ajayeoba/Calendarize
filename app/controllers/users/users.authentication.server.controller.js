@@ -8,6 +8,7 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	Mailgun = require('mailgun-js'),
+	Verificationtoken = mongoose.model('Verificationtoken'),
 	User = mongoose.model('User');
 
 var api_key = 'key-3c618b8023b0606df8a322e4986ff398';
@@ -24,7 +25,7 @@ var sendMail = function(req, res) {
 		from: from_who,
 		to: req.body.email,
 		subject: 'Email Verification',
-		html: 'Something goes in here'
+		html: req.protocol + '://' + req.get('host') + '/verify/' + Verificationtoken.token
 	};
 	console.log(data);
 	mailgun.messages().send(data, function(err, body) {
@@ -40,14 +41,12 @@ var sendMail = function(req, res) {
 };
 
 
-
 /**
  * Signup
  */
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
-	sendMail(req, res);
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
@@ -66,6 +65,13 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+			var verificationToken = new Verificationtoken({
+				_userId: user._id
+			});
+			verificationToken.createVerificationToken(function (err, token) {
+			    if (err) return console.log('Couldn\'t create verification token', err);
+    			sendMail(req, res);
+			});
 
 			req.login(user, function(err) {
 				if (err) {
