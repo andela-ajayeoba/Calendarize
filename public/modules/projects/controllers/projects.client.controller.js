@@ -8,8 +8,8 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       closeProjectPopover();
       var project = new Projects($scope.project);
       project.$save(function(response) {
+        $scope.project = '';
         if (SwitchViews.state !== 'Person') {
-          $scope.project = '';
           var newProject = [{
             'id': response._id,
             'name': response.name,

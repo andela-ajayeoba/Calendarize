@@ -11,8 +11,8 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       closePersonPopover();
       var person = new Persons($scope.person);
       person.$save(function(response) {
+        $scope.person = '';
         if (SwitchViews.state !== 'Project') {
-          $scope.person = '';
           var newPerson = [{
             'id': response._id,
             'name': response.name,
