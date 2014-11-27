@@ -47,7 +47,7 @@ angular.module('tasks')
               $task.id = task._id;
               $task.from = task.startDate;
               $task.to = task.endDate;
-              $task.color = '#F1C232';
+              $task.color = '';
               $task.name = (SwitchViews.state === 'Person') ? task.projectName : task.personName;
               $label.tasks.push($task);
             });
@@ -80,7 +80,7 @@ angular.module('tasks')
             id: response._id, //projectId, //_id
             from: response.startDate,
             to: response.endDate,
-            color: '#F1C232'
+            color: '#85A3E0'
           };
 
           if (SwitchViews.state === 'Person') {
