@@ -2,14 +2,17 @@
 angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'SwitchViews',
   function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, SwitchViews) {
     $scope.authentication = Authentication;
-
+    
     // Create new Project
     $scope.addProject = function(closeProjectPopover) {
       closeProjectPopover();
       var project = new Projects($scope.project);
       project.$save(function(response) {
+        $scope.project = '';
+        $scope.msg = response.name+ ' was successfully created';
+        $scope.$emit('response', $scope.msg);
+
         if (SwitchViews.state !== 'Person') {
-          $scope.project = '';
           var newProject = [{
             'id': response._id,
             'name': response.name,
