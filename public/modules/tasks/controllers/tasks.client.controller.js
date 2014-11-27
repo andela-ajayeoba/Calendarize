@@ -6,6 +6,7 @@ angular.module('tasks')
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
 
       $scope.authentication = Authentication;
+      var globalRowData = {};
       var assignment = {};
       var autoView = {
         resource: Persons,
@@ -15,8 +16,7 @@ angular.module('tasks')
       SwitchViews.state = 'Person';
 
       /* Function to Open Modal */
-      $scope.triggerModal = function(size) {
-        
+      $scope.triggerModal = function(size) {        
         var modalInstance = $modal.open({
           templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
           controller: 'ModalInstanceCtrl',
@@ -34,6 +34,44 @@ angular.module('tasks')
           }
           $scope.createTask(assignment);
         }, function() {});
+      };
+
+      $scope.triggerUpdateModal = function(details) {
+        var updateObj = {
+          controller:function($scope, updateData, $modalInstance){
+            $scope.updateData = updateData;
+            SwitchViews.updateData = updateData;
+            $scope.updateLabel = function () {
+              updateRowLabel(SwitchViews.updateData);
+              $modalInstance.close();
+            };
+          },
+          size: 'sm',
+          resolve: {
+            updateData : function(){
+              return details;
+            } 
+          }          
+        }
+         if (SwitchViews.state === 'Person') {
+            updateObj.templateUrl= '/modules/core/views/edit_person.client.view.html';
+          } else {
+            updateObj.templateUrl= '/modules/core/views/edit_project.client.view.html';
+          }       
+        var modalInstance = $modal.open(updateObj);
+          
+
+      };
+
+      var updateRowLabel = function (labelData){
+        var label = labelData;
+        label.$update(function(response) {
+          globalRowData.data.row.name = response.name;
+          $scope.msg = response.name+ ' was successfully updated';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
       };
 
       $scope.getTaskData = function() {
@@ -69,10 +107,11 @@ angular.module('tasks')
       });
 
       var getDetails = function(event, data){
+        globalRowData.data = data;
         var id = data.row.id;
         autoView.param[autoView.paramKey]=id;
         var detail = autoView.resource.get(autoView.param);
-        console.log(detail);
+        $scope.triggerUpdateModal(detail);
       };
 
       // Creating a new Assignment/Task
