@@ -199,7 +199,7 @@
     <h1>Code coverage report for <span class="entity">persons/controllers/persons.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">2.38% <small>(1 / 42)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">2.27% <small>(1 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -208,7 +208,7 @@
         Functions: <span class="metric">0% <small>(0 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">2.44% <small>(1 / 41)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">2.27% <small>(1 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -296,7 +296,10 @@
 78
 79
 80
-81</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+81
+82
+83
+84</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -304,6 +307,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -313,9 +337,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,21 +346,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -379,89 +385,92 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 // Persons controller
-angular.module('persons').controller('PersonsController', ['$http', '$scope','$stateParams', '$location', '$timeout','Authentication', 'GANTT_EVENTS','$modal', 'Persons', 'switchViews',
-<span class="fstat-no" title="function not covered" >	function($http, $scope,$stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, switchViews) {</span>
-		
-<span class="cstat-no" title="statement not covered" >		$scope.authentication = Authentication;</span>
+angular.module('persons').controller('PersonsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Persons', 'SwitchViews',
+<span class="fstat-no" title="function not covered" >  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {</span>
 &nbsp;
-		// Create new Person
-<span class="cstat-no" title="statement not covered" >        $scope.addPerson = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >            var person = new Persons($scope.person);</span>
-<span class="cstat-no" title="statement not covered" >                person.$save(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
-<span class="cstat-no" title="statement not covered" >                     alert('Person Successfully added');</span>
-<span class="cstat-no" title="statement not covered" >                    $scope.person = '';</span>
-<span class="cstat-no" title="statement not covered" >                    var newPerson = [</span>
-                        {'id': response._id, 'name': response.name, 'tasks': []}
-                    ];
-<span class="cstat-no" title="statement not covered" >                    if (switchViews.myview === 'Person') {</span>
-<span class="cstat-no" title="statement not covered" >	                    $scope.loadData(newPerson);</span>
-	                }
-                }, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
-<span class="cstat-no" title="statement not covered" >                    $scope.error = errorResponse.data.message;</span>
-                });
-        };
+<span class="cstat-no" title="statement not covered" >    $scope.authentication = Authentication;</span>
+        // Create new Person
+<span class="cstat-no" title="statement not covered" >    $scope.addPerson = <span class="fstat-no" title="function not covered" >function(closePersonPopover) {</span></span>
+<span class="cstat-no" title="statement not covered" >      closePersonPopover();</span>
+<span class="cstat-no" title="statement not covered" >      var person = new Persons($scope.person);</span>
+<span class="cstat-no" title="statement not covered" >      person.$save(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $scope.person = '';</span>
+<span class="cstat-no" title="statement not covered" >        $scope.msg = response.name+ ' was successfully created';</span>
+<span class="cstat-no" title="statement not covered" >        $scope.$emit('response', $scope.msg);</span>
 &nbsp;
-		// Remove existing Person
-<span class="cstat-no" title="statement not covered" >		$scope.removePerson = <span class="fstat-no" title="function not covered" >function( person ) {</span></span>
-<span class="cstat-no" title="statement not covered" >			if ( person ) { <span class="cstat-no" title="statement not covered" >person.$remove();</span></span>
-<span class="cstat-no" title="statement not covered" >				for (var i in $scope.persons) {</span>
-<span class="cstat-no" title="statement not covered" >					if ($scope.persons [i] === person ) {</span>
-<span class="cstat-no" title="statement not covered" >						$scope.persons.splice(i, 1);</span>
-					}
-				}
-			} else {
-<span class="cstat-no" title="statement not covered" >				$scope.person.$remove(<span class="fstat-no" title="function not covered" >function() {</span></span>
-				});
-			}
-		};
+<span class="cstat-no" title="statement not covered" >        if (SwitchViews.state !== 'Project') {</span>
+<span class="cstat-no" title="statement not covered" >          var newPerson = [{</span>
+            'id': response._id,
+            'name': response.name,
+            'tasks': []
+          }];
+<span class="cstat-no" title="statement not covered" >          $scope.loadData(newPerson);</span>
+        }
+      }, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.error = errorResponse.data.message;</span>
+      });
+    };
 &nbsp;
-		// Update existing Person
-<span class="cstat-no" title="statement not covered" >		$scope.updatePerson = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >			var person = $scope.person ;</span>
-<span class="cstat-no" title="statement not covered" >			person.$update(<span class="fstat-no" title="function not covered" >function() {</span></span>
-			}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
-<span class="cstat-no" title="statement not covered" >				$scope.error = errorResponse.data.message;</span>
-			});
-		};
+    // Remove existing Person
+<span class="cstat-no" title="statement not covered" >    $scope.removePerson = <span class="fstat-no" title="function not covered" >function(person) {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (person) {</span>
+<span class="cstat-no" title="statement not covered" >        person.$remove();</span>
+<span class="cstat-no" title="statement not covered" >        for (var i in $scope.persons) {</span>
+<span class="cstat-no" title="statement not covered" >          if ($scope.persons[i] === person) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.persons.splice(i, 1);</span>
+          }
+        }
+      } else {
+<span class="cstat-no" title="statement not covered" >        $scope.person.$remove(<span class="fstat-no" title="function not covered" >function() {</span>});</span>
+      }
+    };
 &nbsp;
-		// Find a list of Persons
-<span class="cstat-no" title="statement not covered" >		$scope.findPersons = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >            var data = [];</span>
-<span class="cstat-no" title="statement not covered" >    		$scope.persons = Persons.query({}, <span class="fstat-no" title="function not covered" >function(){</span></span>
-<span class="cstat-no" title="statement not covered" >                  $scope.persons.forEach(<span class="fstat-no" title="function not covered" >function(user){</span></span>
-<span class="cstat-no" title="statement not covered" >                    var $user = {};</span>
-<span class="cstat-no" title="statement not covered" >                    $user.tasks = [];</span>
-<span class="cstat-no" title="statement not covered" >                    $user.id = user._id;</span>
-<span class="cstat-no" title="statement not covered" >                    $user.name = user.name;</span>
-<span class="cstat-no" title="statement not covered" >                    user.tasks.forEach(<span class="fstat-no" title="function not covered" >function(task){</span></span>
-<span class="cstat-no" title="statement not covered" >                        var $task = {};</span>
-<span class="cstat-no" title="statement not covered" >                        $task.id = task._id;</span>
-<span class="cstat-no" title="statement not covered" >                        $task.name = task.projectName;</span>
-<span class="cstat-no" title="statement not covered" >                        $task.from = task.startDate;</span>
-<span class="cstat-no" title="statement not covered" >                        $task.to = task.endDate;</span>
-<span class="cstat-no" title="statement not covered" >                        $task.color = '#F1C232';</span>
-<span class="cstat-no" title="statement not covered" >                        $user.tasks.push($task);</span>
-                    });
-<span class="cstat-no" title="statement not covered" >                    data.push($user);                        </span>
-                });
-<span class="cstat-no" title="statement not covered" >                $scope.loadData(data);</span>
-            });
-        };
+    // Update existing Person
+<span class="cstat-no" title="statement not covered" >    $scope.updatePerson = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      var person = $scope.person;</span>
+<span class="cstat-no" title="statement not covered" >      person.$update(<span class="fstat-no" title="function not covered" >function() {</span>}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $scope.error = errorResponse.data.message;</span>
+      });
+    };
 &nbsp;
-		// Find existing Person
-<span class="cstat-no" title="statement not covered" >		$scope.findOnePerson = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >			$scope.person = Persons.get({ </span>
-				personId: $stateParams.personId
-			});
-		};
-	}
+    // Find a list of Persons
+<span class="cstat-no" title="statement not covered" >    $scope.findPersons = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      var data = [];</span>
+<span class="cstat-no" title="statement not covered" >      $scope.persons = Persons.query({}, <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        $scope.persons.forEach(<span class="fstat-no" title="function not covered" >function(user) {</span></span>
+<span class="cstat-no" title="statement not covered" >          var $user = {};</span>
+<span class="cstat-no" title="statement not covered" >          $user.tasks = [];</span>
+<span class="cstat-no" title="statement not covered" >          $user.id = user._id;</span>
+<span class="cstat-no" title="statement not covered" >          $user.name = user.name;</span>
+<span class="cstat-no" title="statement not covered" >          user.tasks.forEach(<span class="fstat-no" title="function not covered" >function(task) {</span></span>
+<span class="cstat-no" title="statement not covered" >            var $task = {};</span>
+<span class="cstat-no" title="statement not covered" >            $task.id = task._id;</span>
+<span class="cstat-no" title="statement not covered" >            $task.name = task.projectName;</span>
+<span class="cstat-no" title="statement not covered" >            $task.from = task.startDate;</span>
+<span class="cstat-no" title="statement not covered" >            $task.to = task.endDate;</span>
+<span class="cstat-no" title="statement not covered" >            $task.color = '#F1C232';</span>
+<span class="cstat-no" title="statement not covered" >            $user.tasks.push($task);</span>
+          });
+<span class="cstat-no" title="statement not covered" >          data.push($user);</span>
+        });
+<span class="cstat-no" title="statement not covered" >        $scope.loadData(data);</span>
+      });
+    };
+&nbsp;
+    // Find existing Person
+<span class="cstat-no" title="statement not covered" >    $scope.findOnePerson = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >      $scope.person = Persons.get({</span>
+        personId: $stateParams.personId
+      });
+    };
+  }
 ]);
 &nbsp;</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 11:41:05 GMT+0100 (WAT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Nov 27 2014 13:32:13 GMT+0100 (WAT)</div>
 </div>
 
 <script src="../../prettify.js"></script>

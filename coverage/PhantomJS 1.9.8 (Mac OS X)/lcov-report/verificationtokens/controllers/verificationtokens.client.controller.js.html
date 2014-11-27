@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for tasks/controllers/</title>
+    <title>Code coverage report for verificationtokens/controllers/verificationtokens.client.controller.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../../prettify.css">
@@ -195,71 +195,225 @@
     </style>
 </head>
 <body>
-<div class="header low">
-    <h1>Code coverage report for <span class="entity">tasks/controllers/</span></h1>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">verificationtokens/controllers/verificationtokens.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">1.61% <small>(2 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">84% <small>(21 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">0% <small>(0 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">50% <small>(2 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 32)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">72.73% <small>(8 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">1.61% <small>(2 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">84% <small>(21 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../../index.html">All files</a> &#187; tasks/controllers/</div>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">verificationtokens/controllers/</a> &#187; verificationtokens.client.controller.js</div>
 </div>
 <div class="body">
-<div class="coverage-summary">
-<table>
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file low" data-value="modalwindow.client.controller.js"><a href="modalwindow.client.controller.js.html">modalwindow.client.controller.js</a></td>
-	<td data-value="9.09" class="pic low"><span class="cover-fill" style="width: 9px;"></span><span class="cover-empty" style="width:91px;"></span></td>
-	<td data-value="9.09" class="pct low">9.09%</td>
-	<td data-value="11" class="abs low">(1&nbsp;/&nbsp;11)</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="2" class="abs low">(0&nbsp;/&nbsp;2)</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="4" class="abs low">(0&nbsp;/&nbsp;4)</td>
-	<td data-value="9.09" class="pct low">9.09%</td>
-	<td data-value="11" class="abs low">(1&nbsp;/&nbsp;11)</td>
-	</tr>
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+// Verificationtokens controller
+angular.module('verificationtokens').controller('VerificationtokensController', ['$scope', '$stateParams', '$location', 'Authentication', 'Verificationtokens',
+	function($scope, $stateParams, $location, Authentication, Verificationtokens) {
+		$scope.authentication = Authentication;
+&nbsp;
+		// Create new Verificationtoken
+		$scope.create = function() {
+			// Create new Verificationtoken object
+			var verificationtoken = new Verificationtokens ({
+				name: this.name
+			});
+&nbsp;
+			// Redirect after save
+			verificationtoken.$save(function(response) {
+				$location.path('verificationtokens/' + response._id);
+&nbsp;
+				// Clear form fields
+				$scope.name = '';
+			}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.error = errorResponse.data.message;</span>
+			});
+		};
+&nbsp;
+		// Remove existing Verificationtoken
+		$scope.remove = function(verificationtoken) {
+			<span class="missing-if-branch" title="else path not taken" >E</span>if ( verificationtoken ) { 
+				verificationtoken.$remove();
+&nbsp;
+				for (var i in $scope.verificationtokens) {
+					<span class="missing-if-branch" title="else path not taken" >E</span>if ($scope.verificationtokens [i] === verificationtoken) {
+						$scope.verificationtokens.splice(i, 1);
+					}
+				}
+			} else {
+<span class="cstat-no" title="statement not covered" >				$scope.verificationtoken.$remove(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >					$location.path('verificationtokens');</span>
+				});
+			}
+		};
+&nbsp;
+		// Update existing Verificationtoken
+		$scope.update = function() {
+			var verificationtoken = $scope.verificationtoken;
+&nbsp;
+			verificationtoken.$update(function() {
+				$location.path('verificationtokens/' + verificationtoken._id);
+			}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.error = errorResponse.data.message;</span>
+			});
+		};
+&nbsp;
+		// Find a list of Verificationtokens
+		$scope.find = function() {
+			$scope.verificationtokens = Verificationtokens.query();
+		};
+&nbsp;
+		// Find existing Verificationtoken
+		$scope.findOne = function() {
+			$scope.verificationtoken = Verificationtokens.get({ 
+				verificationtokenId: $stateParams.verificationtokenId
+			});
+		};
+	}
+]);</pre></td></tr>
+</table></pre>
 
-<tr>
-	<td class="file low" data-value="tasks.client.controller.js"><a href="tasks.client.controller.js.html">tasks.client.controller.js</a></td>
-	<td data-value="0.88" class="pic low"><span class="cover-fill" style="width: 0px;"></span><span class="cover-empty" style="width:100px;"></span></td>
-	<td data-value="0.88" class="pct low">0.88%</td>
-	<td data-value="113" class="abs low">(1&nbsp;/&nbsp;113)</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="22" class="abs low">(0&nbsp;/&nbsp;22)</td>
-	<td data-value="0" class="pct low">0%</td>
-	<td data-value="28" class="abs low">(0&nbsp;/&nbsp;28)</td>
-	<td data-value="0.88" class="pct low">0.88%</td>
-	<td data-value="113" class="abs low">(1&nbsp;/&nbsp;113)</td>
-	</tr>
-
-</tbody>
-</table>
-</div>
 </div>
 <div class="footer">
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Nov 27 2014 13:32:13 GMT+0100 (WAT)</div>
