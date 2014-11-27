@@ -19,8 +19,7 @@ var user, verificationtoken;
 describe('Verificationtoken Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		user = new User({
-			firstName: 'Full',
-			lastName: 'Name',
+			name: 'Full',
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
@@ -29,8 +28,8 @@ describe('Verificationtoken Model Unit Tests:', function() {
 
 		user.save(function() { 
 			verificationtoken = new Verificationtoken({
-				name: 'Verificationtoken Name',
-				user: user
+				_userId: user,
+				token: 'ghjvsjh7887ds76dhvsvddsdubh73b8bns'
 			});
 
 			done();
@@ -45,8 +44,8 @@ describe('Verificationtoken Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			verificationtoken.name = '';
+		it('should be able to show an error when try to save without token', function(done) { 
+			verificationtoken.token = '';
 
 			return verificationtoken.save(function(err) {
 				should.exist(err);
