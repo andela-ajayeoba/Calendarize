@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for projects/services/projects.client.service.js</title>
+    <title>Code coverage report for verificationtokens/config/verificationtokens.client.routes.js</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="../../prettify.css">
@@ -195,24 +195,24 @@
     </style>
 </head>
 <body>
-<div class="header medium">
-    <h1>Code coverage report for <span class="entity">projects/services/projects.client.service.js</span></h1>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">verificationtokens/config/verificationtokens.client.routes.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">50% <small>(1 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">100% <small>(2 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(1 / 1)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">50% <small>(1 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(2 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
-    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">projects/services/</a> &#187; projects.client.service.js</div>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">verificationtokens/config/</a> &#187; verificationtokens.client.routes.js</div>
 </div>
 <div class="body">
 <pre><table class="coverage">
@@ -228,12 +228,36 @@
 10
 11
 12
-13</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,14 +266,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
-//Projects service used to communicate Projects REST endpoints
-angular.module('projects').factory('Projects', ['$resource',
-<span class="fstat-no" title="function not covered" >	function($resource) {</span>
-<span class="cstat-no" title="statement not covered" >		return $resource('projects/:projectId', { projectId: '@_id'</span>
-		}, {
-			update: {
-				method: 'PUT'
-			}
+//Setting up route
+angular.module('verificationtokens').config(['$stateProvider',
+	function($stateProvider) {
+		// Verificationtokens state routing
+		$stateProvider.
+		state('listVerificationtokens', {
+			url: '/verificationtokens',
+			templateUrl: 'modules/verificationtokens/views/list-verificationtokens.client.view.html'
+		}).
+		state('createVerificationtoken', {
+			url: '/verificationtokens/create',
+			templateUrl: 'modules/verificationtokens/views/create-verificationtoken.client.view.html'
+		}).
+		state('viewVerificationtoken', {
+			url: '/verificationtokens/:verificationtokenId',
+			templateUrl: 'modules/verificationtokens/views/view-verificationtoken.client.view.html'
+		}).
+		state('editVerificationtoken', {
+			url: '/verificationtokens/:verificationtokenId/edit',
+			templateUrl: 'modules/verificationtokens/views/edit-verificationtoken.client.view.html'
 		});
 	}
 ]);</pre></td></tr>
