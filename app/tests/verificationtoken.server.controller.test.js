@@ -4,34 +4,59 @@
  * Module dependencies.
  */
 var should = require('should'),
-	request = require('supertest'),
 	mongoose = require('mongoose'),
-	passport = require('passport'),
+	request = require('supertest'),
 	User = mongoose.model('User'),
 	Verificationtoken = mongoose.model('Verificationtoken');
 
 /**
  * Globals
  */
-var user, verificationtoken
+
+var user1, verificationtoken;
+
 var agent = request.agent('http://localhost:3001');
 
-describe('Verification Controller Endpoint Tests', function() {
-    
-    it('Create Users', function(done) {
-    	user = new User({
-			name: 'Full',
+describe('Verificationtoken Controller Unit Tests:', function() {
+	beforeEach(function(done) {
+		user1 = new User({
+			name: 'Full Name',
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
-			password: 'password',
-			provider: 'local'
+			password: 'password'
 		});
-		user.save(function(){
+
+		user1.save(function() { 
 			verificationtoken = new Verificationtoken({
-				_userId: user,
-				token:
-			})
+				_userId: 'user1',
+				token: 'hhbsru8798uuiji898iuyg7ybvhg788i',
+				createdAt: Date.now()
+			});
+			done();
 		});
-		});
-    });
+	});
+
+	describe('Method Verify', function() {
+		it('should be able to verify users with a valid token', function(done) {
+			agent.post('/verify')
+			.send(verificationtoken)
+			.expect(200)
+
+			.end(onResponse);
+
+	    	function onResponse(err, res) {
+	    		if(err) return done(err);
+	    		return done();
+	    	}
+		})
+	})
+
+	afterEach(function(done) { 
+		Verificationtoken.remove().exec();
+		User.remove().exec();
+
+		done();
+	});
+})
+

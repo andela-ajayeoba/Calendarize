@@ -110,8 +110,9 @@ exports.hasAuthorization = function(req, res, next) {
 
 exports.verifyUser = function(token, done) {
     Verificationtoken.findOne({token: token}, function (err, doc){
+    	console.log(token);
         if (err) return done(err);
-        User.findOne({_id: user.id}, function (err, user) {
+        User.findOne({_id: token._userId}, function (err, user) {
             if (err) return done(err);
             user['verified'] = true;
             user.save(function(err) {

@@ -11,14 +11,14 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, verificationtoken;
+var user1, verificationtoken;
 
 /**
  * Unit tests
  */
 describe('Verificationtoken Model Unit Tests:', function() {
 	beforeEach(function(done) {
-		user = new User({
+		user1 = new User({
 			name: 'Full',
 			displayName: 'Full Name',
 			email: 'test@test.com',
@@ -26,10 +26,9 @@ describe('Verificationtoken Model Unit Tests:', function() {
 			password: 'password'
 		});
 
-		user.save(function() { 
+		user1.save(function() { 
 			verificationtoken = new Verificationtoken({
-				_userId: user,
-				token: 'ghjvsjh7887ds76dhvsvddsdubh73b8bns'
+				token: 'hhbsru8798uuiji898iuyg7ybvhg788i'
 			});
 
 			done();
@@ -53,6 +52,16 @@ describe('Verificationtoken Model Unit Tests:', function() {
 			});
 		});
 	});
+
+	describe('Method Verify', function() {
+		it('should be able to verify users with a valid token', function(done) {
+			return verificationtoken.verifyUser('hhbsru8798uuiji898iuyg7ybvhg788i', function(err) {
+				should.not.exist(err);
+				expect(user['verify']).to.equal(true);
+			});
+
+		})
+	})
 
 	afterEach(function(done) { 
 		Verificationtoken.remove().exec();
