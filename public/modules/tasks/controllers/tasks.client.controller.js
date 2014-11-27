@@ -73,7 +73,6 @@ angular.module('tasks')
         autoView.param[autoView.paramKey]=id;
         var detail = autoView.resource.get(autoView.param);
         console.log(detail);
-
       };
 
       // Creating a new Assignment/Task
