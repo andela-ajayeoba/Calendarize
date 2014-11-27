@@ -8,7 +8,9 @@ angular.module('tasks')
       $scope.authentication = Authentication;
       var assignment = {};
       var autoView = {
-        resource: Persons
+        resource: Persons,
+        param: {personId: null},
+        paramKey: 'personId'
       };
       SwitchViews.state = 'Person';
 
@@ -47,7 +49,7 @@ angular.module('tasks')
               $task.id = task._id;
               $task.from = task.startDate;
               $task.to = task.endDate;
-              $task.color = '#F1C232';
+              $task.color = '#81b208';
               $task.name = (SwitchViews.state === 'Person') ? task.projectName : task.personName;
               $label.tasks.push($task);
             });
@@ -65,6 +67,13 @@ angular.module('tasks')
         }, 200);
           $scope.msg = '';
       });
+
+      var getDetails = function(event, data){
+        var id = data.row.id;
+        autoView.param[autoView.paramKey]=id;
+        var detail = autoView.resource.get(autoView.param);
+        console.log(detail);
+      };
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
@@ -194,9 +203,11 @@ angular.module('tasks')
         switch(view) {
           case 'Person':
             autoView.resource = Persons;
+            autoView.paramKey = 'personId';
             break;
           case 'Project':
             autoView.resource = Projects;
+            autoView.paramKey = 'projectId';
             break;
         }
 
@@ -241,5 +252,6 @@ angular.module('tasks')
       $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
       $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
       $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
+      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getDetails);
     }
   ]);

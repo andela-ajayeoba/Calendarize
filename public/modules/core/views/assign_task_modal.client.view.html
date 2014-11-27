@@ -4,13 +4,13 @@
         <h3 class="modal-title">Assign a Task</h3>
     </div>
     <div class="modal-body" >
-        <h5 ng-if="datas.length === 0">No Options yet</h5>
         <ul ng-repeat="data in datas" ng-if="datas.length !== 0">
             <img src="/modules/core/img/bag.png" style="float:right" />
             <a ng-click="selectedData(data)" style="text-decoration:none">
                 <li data-ng-bind="data.name" style="list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li>
             </a>
         </ul>
+        <h5 ng-if="datas.length === 0">No Options yet</h5>
     </div>
 </section>
 
