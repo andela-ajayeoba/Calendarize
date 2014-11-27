@@ -20,41 +20,44 @@ var agent = request.agent('http://localhost:3001');
 describe('Verificationtoken Controller Unit Tests:', function() {
 	beforeEach(function(done) {
 		user1 = new User({
-			name: 'Full Name',
+			name: 'Full',
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
-			password: 'password'
+			password: 'password',
+			provider: 'local'
 		});
 
 		user1.save(function() { 
 			verificationtoken = new Verificationtoken({
-				_userId: 'user1',
+				_userId: user1,
 				token: 'hhbsru8798uuiji898iuyg7ybvhg788i',
 				createdAt: Date.now()
 			});
-			done();
+			verificationtoken.save();
+	        done();
 		});
+			
+			
 	});
 
 	describe('Method Verify', function() {
 		it('should be able to verify users with a valid token', function(done) {
-			agent.post('/verify')
-			.send(verificationtoken)
-			.expect(200)
+			agent.get('/verify/' + verificationtoken.token)
 
-			.end(onResponse);
-
-	    	function onResponse(err, res) {
-	    		if(err) return done(err);
-	    		return done();
-	    	}
-		})
+			.end(function(err, res) {
+				console.log('here');
+	          	if (err) {
+	            	throw err;
+	          	}
+	          	return done();
+	        });
+		});
 	})
 
 	afterEach(function(done) { 
-		Verificationtoken.remove().exec();
-		User.remove().exec();
+		//Verificationtoken.remove().exec();
+		// User.remove().exec();
 
 		done();
 	});
