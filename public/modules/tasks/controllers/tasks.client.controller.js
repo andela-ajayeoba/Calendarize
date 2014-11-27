@@ -45,14 +45,14 @@ angular.module('tasks')
               updateRowLabel(SwitchViews.updateData);
               $modalInstance.close();
             };
-          },
+            },
           size: 'sm',
           resolve: {
             updateData : function(){
               return details;
             } 
           }          
-        }
+          }
          if (SwitchViews.state === 'Person') {
             updateObj.templateUrl= '/modules/core/views/edit_person.client.view.html';
           } else {

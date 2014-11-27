@@ -12,7 +12,7 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       var person = new Persons($scope.person);
       person.$save(function(response) {
         $scope.person = '';
-        $scope.msg = response.name+ ' was successfully created';
+        $scope.msg = response.name + ' was successfully created';
         $scope.$emit('response', $scope.msg);
         if (SwitchViews.state !== 'Project') {
           var newPerson = [{
@@ -41,7 +41,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       }
     };
 
-
     // Find existing Person
     $scope.findOnePerson = function() {
       $scope.person = Persons.get({
@@ -50,3 +49,4 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
     };
   }
 ]);
+
