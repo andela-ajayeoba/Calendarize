@@ -108,15 +108,18 @@ exports.hasAuthorization = function(req, res, next) {
 };
 
 
-exports.verifyUser = function(token, done) {
+var verifyUser = function(token, done) {
+	Verificationtoken.count({}, function(e, c) {
+		console.log('verification count is ' + c);
+	});
     Verificationtoken.findOne({token: token}, function (err, doc){
-    	console.log(token);
         if (err) return done(err);
-        User.findOne({_id: token._userId}, function (err, user) {
+        User.findOne({_id: doc._userId}, function (err, user) {
             if (err) return done(err);
             user['verified'] = true;
             user.save(function(err) {
-                done(err);
+            	console.log(err);
+              return done(err);
             });
         });
     });
@@ -125,7 +128,10 @@ exports.verifyUser = function(token, done) {
 exports.verifyToken = function(req, res, next) {
 	var token = req.params.token;
     verifyUser(token, function(err) {
-        if (err) return res.redirect('verification-failure');
-        res.redirect('verification-success');
+        if (err) return res.status(400);
+        console.log('i\'m here');
+        res.status(200);
     });
 };
+
+
