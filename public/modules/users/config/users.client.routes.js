@@ -42,7 +42,7 @@ angular.module('users').config(['$stateProvider',
 			templateUrl: 'modules/users/views/password/reset-password.client.view.html'
 		}).
 		state('email-confirmation', {
-			url: '/verify/:token',
+			url: '/confirmation',
 			templateUrl: 'modules/users/views/authentication/email-confirmation.client.view.html'
 		});
 	}

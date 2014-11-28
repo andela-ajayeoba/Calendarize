@@ -109,28 +109,30 @@ exports.hasAuthorization = function(req, res, next) {
 
 
 var verifyUser = function(token, done) {
-	Verificationtoken.count({}, function(e, c) {
-		console.log('verification count is ' + c);
-	});
     Verificationtoken.findOne({token: token}, function (err, doc){
-        if (err) return done(err);
-        User.findOne({_id: doc._userId}, function (err, user) {
-            if (err) return done(err);
-            user['verified'] = true;
-            user.save(function(err) {
-            	console.log(err);
-              return done(err);
-            });
-        });
+        if (err) {
+        	return done(err);
+        }
+        if (doc) {
+	        User.findOne({_id: doc._userId}, function (err, user) {
+	            if (err) return done(err);
+	            user['verified'] = true;
+	            user.save(function(err) {
+	              return done(err);
+	            });
+	        });
+    	}
+    	else{
+    		return done(new Error('Token not found'));
+    	}
     });
 };
 
 exports.verifyToken = function(req, res, next) {
 	var token = req.params.token;
     verifyUser(token, function(err) {
-        if (err) return res.status(400);
-        console.log('i\'m here');
-        res.status(200);
+        if (err) return res.status(400).send('Token not valid');
+        res.status(200).send('User is verified');
     });
 };
 

@@ -44,20 +44,30 @@ describe('Verificationtoken Controller Unit Tests:', function() {
 	describe('Method Verify', function() {
 		it('should be able to verify users with a valid token', function(done) {
 			agent.get('/verify/' + verificationtoken.token)
-
+			.expect(200)
 			.end(function(err, res) {
-				console.log('here');
 	          	if (err) {
 	            	throw err;
 	          	}
 	          	return done();
 	        });
 		});
+
+		it('should not verify users with an invalid token', function(done) {
+			agent.get('/verify/hshdfj8bdjhsjh7khbdhb')
+			.expect(400)
+			.end(function(err, res) {
+				if(err) {
+					throw err;
+				}
+				return done();
+			})
+		})
 	})
 
 	afterEach(function(done) { 
-		//Verificationtoken.remove().exec();
-		// User.remove().exec();
+		Verificationtoken.remove().exec();
+		User.remove().exec();
 
 		done();
 	});

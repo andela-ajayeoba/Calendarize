@@ -15,31 +15,6 @@ var api_key = 'key-3c618b8023b0606df8a322e4986ff398';
 var domain = 'sandbox13255ecc69fa45e1acb966e95b235586.mailgun.org';
 var from_who = 'olusola.adenekan@andela.co';
 
-/**
- * Sendmail
- */
-// var sendMail = function(req, res) {
-// 	var mailgun = new Mailgun({apiKey: api_key, domain: domain});
-
-// 	var data = {
-// 		from: from_who,
-// 		to: req.body.email,
-// 		subject: 'Email Verification',
-// 		html: req.protocol + '://' + req.get('host') + '/verify/' + Verificationtoken.token
-// 	};
-// 	console.log(data);
-// 	mailgun.messages().send(data, function(err, body) {
-// 		if (err) {
-// 			//res.render('error', {error: err});
-// 			console.log(err);
-// 		}
-// 		else {
-// 			//res.render('submitted', {email: req.body.email});
-// 			console.log('submitted', body);
-// 		}
-// 	});
-// };
-
 
 /**
  * Signup
