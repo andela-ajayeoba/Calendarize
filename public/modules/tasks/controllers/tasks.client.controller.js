@@ -4,7 +4,6 @@
 angular.module('tasks')
   .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
-
       $scope.authentication = Authentication;
       var globalRowData = {};
       var assignment = {};
@@ -14,7 +13,8 @@ angular.module('tasks')
         paramKey: 'personId'
       };
       SwitchViews.state = 'Person';
-
+      $scope.dataView = SwitchViews.state;
+      
       /* Function to Open Modal */
       $scope.triggerModal = function(size) {        
         var modalInstance = $modal.open({
@@ -238,7 +238,7 @@ angular.module('tasks')
 
       $scope.loadTabData = function(view) {
         SwitchViews.state = view;
-        
+        $scope.dataView = view;
         switch(view) {
           case 'Person':
             autoView.resource = Persons;
