@@ -28,6 +28,7 @@ describe('Verificationtoken Model Unit Tests:', function() {
 
 		user1.save(function() { 
 			verificationtoken = new Verificationtoken({
+				_userId: user1,
 				token: 'hhbsru8798uuiji898iuyg7ybvhg788i'
 			});
 
@@ -52,16 +53,6 @@ describe('Verificationtoken Model Unit Tests:', function() {
 			});
 		});
 	});
-
-	describe('Method Verify', function() {
-		it('should be able to verify users with a valid token', function(done) {
-			return verificationtoken.verifyUser('hhbsru8798uuiji898iuyg7ybvhg788i', function(err) {
-				should.not.exist(err);
-				expect(user['verify']).to.equal(true);
-			});
-
-		})
-	})
 
 	afterEach(function(done) { 
 		Verificationtoken.remove().exec();
