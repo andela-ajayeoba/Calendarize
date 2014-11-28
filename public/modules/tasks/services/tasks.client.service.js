@@ -16,7 +16,7 @@ angular.module('tasks').factory('Tasks', ['$resource',
 // Service to monitor the view we are in (Persons or Project)
 angular.module('tasks').factory('SwitchViews', function($rootScope) {
   return {
-    state: ''
+    state: '',
   };
 });
 

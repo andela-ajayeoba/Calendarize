@@ -197,6 +197,9 @@ a
     padding : 8px;
     outline: none;
 }
+.flatbtn {
+    border-radius: 0;
+}
     @-webkit-keyframes responseAlert {
     from {
         opacity: 1;
