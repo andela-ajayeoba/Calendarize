@@ -1,11 +1,18 @@
 <ul class="popoverBox" data-ng-controller="ProjectsController">
-<span class="glyphicon glyphicon-remove pull-right" data-ng-click="hidePopover()" style="margin:10px"></span>
+    <div class="modal-header">
+        <span class="glyphicon glyphicon-remove pull-right" data-ng-click="close()" style="margin:10px"></span>
+        <h3 class="modal-title">Edit Project</h3>
+    </div>
     <li>
         <label for="project">Name<span class="req">*</span></label>
         <br>
         <input type="text" id="name" name="name" class="form-control" ng-model="updateData.name" required novalidate/>
     </li>
     <br>
-    <button class="btn btn-primary" ng-click="updateLabel()">Update Project</button>
+    <div class="modal-footer">
+            <button class="btn btn-primary pull-right" ng-click="updateLabel()">Update Project</button>
+            <button class="btn btn-danger pull-left" ng-click="">Inactivate Project</button>
+    </div>
+
 </ul>
 
