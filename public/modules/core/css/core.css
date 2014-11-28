@@ -197,7 +197,7 @@ a
     padding : 8px;
     outline: none;
 }
-.inactive {
+.flatbtn {
     border-radius: 0;
 }
     @-webkit-keyframes responseAlert {
