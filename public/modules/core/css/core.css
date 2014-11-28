@@ -197,6 +197,9 @@ a
     padding : 8px;
     outline: none;
 }
+.inactive {
+    border-radius: 0;
+}
     @-webkit-keyframes responseAlert {
     from {
         opacity: 1;
