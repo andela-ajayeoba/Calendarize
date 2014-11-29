@@ -1,4 +1,7 @@
 <section class="row" data-ng-controller="AuthenticationController">
+	<div ng-if="user.verified===true">
+		<span>Your account has been verified, please sign in to continue</span>
+	</div>
 	<div class="container-fluid no-pad">
 		<h2>
     <strong>Please sign in </strong>below

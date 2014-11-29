@@ -116,7 +116,7 @@ var verifyUser = function(token, done) {
         if (doc) {
 	        User.findOne({_id: doc._userId}, function (err, user) {
 	            if (err) return done(err);
-	            user['verified'] = true;
+	            user.verified = true;
 	            user.save(function(err) {
 	              return done(err);
 	            });
