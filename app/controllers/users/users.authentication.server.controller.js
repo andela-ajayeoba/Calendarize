@@ -65,14 +65,23 @@ exports.signup = function(req, res) {
 					}
 				});
 			});
-
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.jsonp(user);
-				}
-			});
+			return res.redirect('/#!/signin');
+			// req.login(user, function(err) {
+			// 	if (err) {
+			// 		res.status(400).send(err);
+			// 	} else {
+			// 		res.jsonp(user);
+			// 	}
+			// });
+			// if (user.verified === true){
+			// 	req.login(user, function(err) {
+			// 		if (err) {
+			// 			res.status(400).send(err);
+			// 		} else {
+			// 			res.jsonp(user);
+			// 		}
+			// 	});
+			// }
 		}
 	});
 };
