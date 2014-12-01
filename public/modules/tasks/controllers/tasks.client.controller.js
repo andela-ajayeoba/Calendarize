@@ -40,9 +40,12 @@ angular.module('tasks')
         var updateObj = {
           controller:function($scope, updateData, $modalInstance){
             $scope.updateData = updateData;
-            SwitchViews.updateData = updateData;
             $scope.updateLabel = function () {
-              updateRowLabel(SwitchViews.updateData);
+              updateRowLabel(updateData);
+              $modalInstance.close();
+            };
+            $scope.deactivate = function(){
+              inActivate(updateData);
               $modalInstance.close();
             };
             },
@@ -52,15 +55,13 @@ angular.module('tasks')
               return details;
             } 
           }          
-          }
+          };
          if (SwitchViews.state === 'Person') {
             updateObj.templateUrl= '/modules/core/views/edit_person.client.view.html';
           } else {
             updateObj.templateUrl= '/modules/core/views/edit_project.client.view.html';
           }       
         var modalInstance = $modal.open(updateObj);
-          
-
       };
 
       var updateRowLabel = function (labelData){
@@ -68,6 +69,17 @@ angular.module('tasks')
         label.$update(function(response) {
           globalRowData.data.row.name = response.name;
           $scope.msg = response.name+ ' was successfully updated';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+
+      var inActivate = function(id){
+        id.isActive = false;
+        $scope.removeData([{'id':id._id}]);
+        id.$update(function(response) {
+          $scope.msg = response.name+ ' is now inactive';
           $scope.$emit('response', $scope.msg);
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -160,6 +172,36 @@ angular.module('tasks')
         });
       };
 
+      // Function to Open inactive persons/projects
+      var viewInactiveModal = function(list){
+        var inactiveList = $modal.open({
+          templateUrl: '/modules/core/views/view_inactive.client.view.html',
+          controller:function($scope, $modalInstance, listData){
+            $scope.datas = listData;
+            $scope.state = SwitchViews.state;
+            $scope.activateData = function(){
+              // activateRowLabel();
+              $modalInstance.close();
+            };
+            $scope.deleteData = function(){
+              // deleteRowLabel();
+              $modalInstance.close();
+            };
+          },
+          size: 'lg',
+          resolve:{
+            listData: function(){
+              return list;
+            }
+          }
+        });
+      };
+
+      // Get inactive assignments
+      $scope.viewInactive = function(){
+        var inactiveList = autoView.resource.query();
+        viewInactiveModal(inactiveList);
+      }; 
 
       $scope.options = {
         mode: 'custom',
