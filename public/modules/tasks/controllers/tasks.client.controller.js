@@ -6,7 +6,9 @@ angular.module('tasks')
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
       $scope.authentication = Authentication;
       var globalRowData = {};
+      var globalRowDatum = {};
       var assignment = {};
+      var deactivateDatum = {};
       var autoView = {
         resource: Persons,
         param: {personId: null},
@@ -42,8 +44,13 @@ angular.module('tasks')
             $scope.updateData = updateData;
             SwitchViews.updateData = updateData;
             $scope.updateLabel = function () {
-              updateRowLabel(SwitchViews.updateData);
+              updateRowLabel(updateData);
               $modalInstance.close();
+            };
+            $scope.deactivate = function(){
+              inActivate(updateData);
+              $modalInstance.close();
+
             };
             },
           size: 'sm',
@@ -59,8 +66,6 @@ angular.module('tasks')
             updateObj.templateUrl= '/modules/core/views/edit_project.client.view.html';
           }       
         var modalInstance = $modal.open(updateObj);
-          
-
       };
 
       var updateRowLabel = function (labelData){
@@ -68,6 +73,17 @@ angular.module('tasks')
         label.$update(function(response) {
           globalRowData.data.row.name = response.name;
           $scope.msg = response.name+ ' was successfully updated';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+
+      var inActivate = function(id){
+        id.isActive = false;
+        $scope.removeData([{'id':id._id}]);
+        id.$update(function(response) {
+          $scope.msg = response.name+ ' is now inactive';
           $scope.$emit('response', $scope.msg);
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -154,7 +170,6 @@ angular.module('tasks')
         task.startDate = data.task.from;
         task.endDate = data.task.to;
         task.$update(function() {
-          //alert('Updated Successfully taskId');
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });

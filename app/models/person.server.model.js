@@ -27,6 +27,11 @@ var PersonSchema = new Schema({
         default: '',
         trim: true
     },
+    location: {
+        type:String,
+        default:'',
+        trim:true
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

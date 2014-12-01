@@ -49,6 +49,7 @@ exports.read = function(req, res) {
 /**
  * Update a Person
  */
+
 exports.updatePerson = function(req, res) {
 
     var person = req.person;
@@ -89,7 +90,7 @@ exports.deletePerson = function(req, res) {
  * List of Persons
  */
 exports.listPersons = function(req, res) {
-    Person.find({'user': req.user._id}).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, persons) {
+    Person.find({'user': req.user._id}).where('isActive',true).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, persons) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -97,7 +98,7 @@ exports.listPersons = function(req, res) {
         } else {
             res.jsonp(persons);
         }
-    });
+   });
 };
 
 /**
