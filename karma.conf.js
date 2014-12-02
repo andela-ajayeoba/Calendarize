@@ -44,14 +44,14 @@ module.exports = function(config) {
 		// - Safari (only Mac)
 		// - PhantomJS
 		// - IE (only Windows)
-		browsers: ['PhantomJS'], //["Chrome"],
+		browsers: ['Chrome'], //["PhantomJS"],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
 
 		// Continuous Integration mode
 		// If true, it capture browsers, run tests and exit
-		singleRun: true,
+		singleRun: false,
 
 		coverageReporter: {
 		  type : 'lcov',
@@ -61,6 +61,7 @@ module.exports = function(config) {
 			'karma-jasmine',
 			'karma-phantomjs-launcher',
 			'karma-coverage',
+			'karma-chrome-launcher'
 	    ],
 	});
 };

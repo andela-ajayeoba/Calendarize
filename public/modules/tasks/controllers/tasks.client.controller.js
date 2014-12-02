@@ -37,7 +37,7 @@ angular.module('tasks')
           $scope.createTask(assignment);
         }, function() {});
       };
-
+      //Update Data Modal
       $scope.triggerUpdateModal = function(details) {
         var updateObj = {
           controller:function($scope, updateData, $modalInstance){
@@ -50,7 +50,9 @@ angular.module('tasks')
             $scope.deactivate = function(){
               inActivate(updateData);
               $modalInstance.close();
-
+            };
+            $scope.close = function(){
+              $modalInstance.dismiss('cancel');
             };
             },
           size: 'sm',
@@ -68,6 +70,58 @@ angular.module('tasks')
         var modalInstance = $modal.open(updateObj);
       };
 
+      //Reactivate and Delete data Modal
+      // Function to Open inactive persons/projects
+     var viewInactiveModal = function(list){
+       var inactiveList = $modal.open({
+         templateUrl: '/modules/core/views/view_inactive.client.view.html',
+         controller:function($scope, $modalInstance, listData){
+           $scope.datas = listData;
+           $scope.state = SwitchViews.state;
+           $scope.activateData = function(data){
+             activateDatum(data);
+             $modalInstance.close();
+           };
+           $scope.deleteData = function(data){
+            deleteDatum(data);
+             // deleteRowLabel();
+             $modalInstance.close();
+           };
+           $scope.close = function(){
+              $modalInstance.dismiss('cancel');
+            };
+         },
+         size: '',
+         resolve:{
+           listData: function(){
+             return list;
+           }
+         }
+       });
+     };
+     //Delete Datum
+     var deleteDatum = function(data){
+      data.$delete(function(response){
+        $scope.msg = response.name+ ' is now deleted';
+        $scope.$emit('response', $scope.msg);
+        },
+        function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+     };
+     //Activate Inactive Data
+     var activateDatum = function(inActiveData){
+      inActiveData.isActive = true;
+      inActiveData.$update(function(response){
+      $scope.getTaskData();
+      });
+    };
+     // Get inactive assignments
+     $scope.viewInactive = function(){
+       var inactiveList = autoView.resource.query({isActive:false});
+          viewInactiveModal(inactiveList);
+     };
+
       var updateRowLabel = function (labelData){
         var label = labelData;
         label.$update(function(response) {
@@ -82,7 +136,7 @@ angular.module('tasks')
       var inActivate = function(id){
         id.isActive = false;
         $scope.removeData([{'id':id._id}]);
-        id.$update(function(response) {
+        id.$update(function(response){
           $scope.msg = response.name+ ' is now inactive';
           $scope.$emit('response', $scope.msg);
         }, function(errorResponse) {
@@ -92,7 +146,7 @@ angular.module('tasks')
 
       $scope.getTaskData = function() {
         var dataObj = [];
-        $scope.dbData = autoView.resource.query({}, function() {
+        $scope.dbData = autoView.resource.query({isActive:true}, function() {
           $scope.dbData.forEach(function(assign) {
             var $label = {};
             $label.tasks = [];

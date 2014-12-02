@@ -43,7 +43,7 @@ exports.updateProject = function(req, res) {
 
     project = _.extend(project, req.body);
 
-    project.save(function(err) {
+    project.save(function(err){
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -77,7 +77,7 @@ exports.deleteProject = function(req, res) {
  */
 exports.listProjects = function(req, res) {
 
-    Project.find({'user':req.user._id}).where('isActive',true).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
+    Project.find({'user':req.user._id}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

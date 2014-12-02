@@ -199,6 +199,8 @@ a
 }
 .flatbtn {
     border-radius: 0;
+    outline: none;
+    float: right;
 }
     @-webkit-keyframes responseAlert {
     from {
@@ -229,6 +231,9 @@ a
     color: red;
     margin-left: 2px;
 }
-
-
-
+.inactive{
+    padding:0 20px 0 25px;
+}
+.icon{
+    margin-left:20px;
+}
