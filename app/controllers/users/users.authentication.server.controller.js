@@ -66,22 +66,6 @@ exports.signup = function(req, res) {
 				});
 			});
 			return res.redirect('/#!/signin');
-			// req.login(user, function(err) {
-			// 	if (err) {
-			// 		res.status(400).send(err);
-			// 	} else {
-			// 		res.jsonp(user);
-			// 	}
-			// });
-			// if (user.verified === true){
-			// 	req.login(user, function(err) {
-			// 		if (err) {
-			// 			res.status(400).send(err);
-			// 		} else {
-			// 			res.jsonp(user);
-			// 		}
-			// 	});
-			// }
 		}
 	});
 };
@@ -98,13 +82,18 @@ exports.signin = function(req, res, next) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.jsonp(user);
-				}
-			});
+			if(user.verified === true) {
+				req.login(user, function(err) {
+					if (err) {
+						res.status(400).send(err);
+					} else {
+						res.jsonp(user);
+					}
+				});
+			}
+			else {
+				res.status(400).send('User not yet verified');
+			}
 		}
 	})(req, res, next);
 };
