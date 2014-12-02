@@ -115,9 +115,11 @@ var verifyUser = function(token, done) {
         }
         if (doc) {
 	        User.findOne({_id: doc._userId}, function (err, user) {
+	        	console.log(user);
 	            if (err) return done(err);
 	            user.verified = true;
 	            user.save(function(err) {
+	            	console.log(user);
 	              return done(err);
 	            });
 	        });
@@ -133,6 +135,7 @@ exports.verifyToken = function(req, res, next) {
     verifyUser(token, function(err) {
         if (err) return res.status(400).send('Token not valid');
         res.status(200).send('User is verified');
+        //res.redirect('/#!/signin');
     });
 };
 

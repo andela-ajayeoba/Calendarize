@@ -5,3 +5,8 @@ env:
   - NODE_ENV=travis
 services:
   - mongodb
+addons:
+    code_climate:
+        repo_token: f95cae1d1cebd21e7797862a182ad2b2f5b54dda8db5d0ce0ac41d968806532c
+after:
+    -codeclimate < coverage/PhantomJS\ 1.9.8\ \(Mac\ OS\ X\)/lcov.info

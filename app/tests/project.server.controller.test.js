@@ -22,9 +22,10 @@ describe('Project Endpoint Tests', function() {
     	user1 = new User({
 			name: 'Full',
 			displayName: 'Full Name',
-			email: 'test@test.com',
+			email: 'tester@test.com',
 			username: 'username',
 			password: 'password',
+			verified: true,
 			provider: 'local'
 		});
 
@@ -34,6 +35,7 @@ describe('Project Endpoint Tests', function() {
 			email: 'joe@another.com',
 			username: 'anotherjoe',
 			password: 'password',
+			verified: true,
 			provider: 'local'
 		});
 		
@@ -75,7 +77,7 @@ describe('Project Endpoint Tests', function() {
 
     it('should login User', function(done) {
         agent.post('/auth/signin')
-            .send({ email: 'test@test.com', password: 'password' })
+            .send({ email: 'tester@test.com', password: 'password' })
             .expect(200)
             .end(onResponse);
 

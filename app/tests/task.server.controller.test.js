@@ -27,6 +27,7 @@ describe('Task Endpoint Tests', function() {
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password',
+      verified: true,
 			provider: 'local'
 		});
 
@@ -36,6 +37,7 @@ describe('Task Endpoint Tests', function() {
 			email: 'joe@another.com',
 			username: 'anotherjoe',
 			password: 'password',
+      verified: true,
 			provider: 'local'
 		});
 		
