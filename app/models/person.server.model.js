@@ -27,6 +27,11 @@ var PersonSchema = new Schema({
         default: '',
         trim: true
     },
+    location: {
+        type: String,
+        trim: true,
+        required: 'Please fill in a Location'
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

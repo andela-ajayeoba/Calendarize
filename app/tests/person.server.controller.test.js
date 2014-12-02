@@ -139,6 +139,37 @@ describe('Person Endpoint Tests', function() {
       });
     });
 
+    it('Should be able to update a person', function(done){
+      agent.put('/persons/'+ person1._id)
+      .send({name: 'Another Name'})
+      .expect(200)
+
+      .end(function(err, res){
+        if(err){
+          throw err;
+        }
+        Person.findOne({name: 'Another Name'}, function(err, per){
+          should.exist(per);
+        });
+        return done();
+      });
+    });
+
+    it('should list persons', function(done){
+      agent.get('/persons')
+      .expect(200)
+
+      .end(function(err, res){
+        if(err){
+          throw err;
+        }
+        Person.find({}, function(err, pers){
+          should.exist(pers);
+        });
+        return done(); 
+      });
+    });
+
     it('should be able to delete a person', function(done){
       agent.delete('/persons/' + person1._id)
       .expect(200)
