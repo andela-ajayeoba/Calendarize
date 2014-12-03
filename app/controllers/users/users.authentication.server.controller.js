@@ -7,7 +7,39 @@ var _ = require('lodash'),
 	errorHandler = require('../errors'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
+	Mailgun = require('mailgun-js'),
 	User = mongoose.model('User');
+
+var api_key = 'key-3c618b8023b0606df8a322e4986ff398';
+var domain = 'sandbox13255ecc69fa45e1acb966e95b235586.mailgun.org';
+var from_who = 'olusola.adenekan@andela.co';
+
+/**
+ * Sendmail
+ */
+var sendMail = function(req, res) {
+	var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+
+	var data = {
+		from: from_who,
+		to: req.body.email,
+		subject: 'Email Verification',
+		html: 'Something goes in here'
+	};
+	console.log(data);
+	mailgun.messages().send(data, function(err, body) {
+		if (err) {
+			//res.render('error', {error: err});
+			console.log(err);
+		}
+		else {
+			//res.render('submitted', {email: req.body.email});
+			console.log('submitted', body);
+		}
+	});
+};
+
+
 
 /**
  * Signup
@@ -15,7 +47,7 @@ var _ = require('lodash'),
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
-
+	sendMail(req, res);
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
@@ -24,7 +56,7 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	// Then save the user 
+	//Then save the user 
 	user.save(function(err) {
 		if (err) {
 			return res.status(400).send({

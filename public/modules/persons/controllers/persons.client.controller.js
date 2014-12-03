@@ -5,8 +5,7 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
   function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {
 
     $scope.authentication = Authentication;
-
-    // Create new Person
+        // Create new Person
     $scope.addPerson = function(closePersonPopover) {
       closePersonPopover();
       var person = new Persons($scope.person);
