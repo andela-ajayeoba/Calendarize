@@ -79,8 +79,8 @@ angular.module('tasks')
               activateRow(data);
               $modalInstance.close();
             };
-            $scope.deleteData = function() {
-              // deleteRowLabel();
+            $scope.deleteData = function(data) {
+              deleteRowLabel(data);
               $modalInstance.close();
             };
           },
@@ -106,13 +106,22 @@ angular.module('tasks')
         var label = labelData;
         label.$update(function(response) {
           globalRowData.data.row.name = response.name;
-          $scope.msg = response.name + ' was successfully updated';
+          $scope.msg = response.name + ' is successfully updated';
           $scope.$emit('response', $scope.msg);
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
       };
- 
+       var deleteRowLabel = function(labelData) {
+        var label = labelData;
+        label.$delete(function(response) {
+          $scope.msg = response.name + ' is successfully deleted';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+
       var deactivateRow = function(data) {
         $scope.removeData([{
           'id': data._id
