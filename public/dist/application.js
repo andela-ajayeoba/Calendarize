@@ -294,7 +294,6 @@ angular.module('persons').factory('Persons', [
     return $resource('persons/:personId', { personId: '@_id' }, { update: { method: 'PUT' } });
   }
 ]);'use strict';
-// Projects controller
 angular.module('projects').controller('ProjectsController', [
   '$http',
   '$scope',
@@ -422,7 +421,7 @@ angular.module('tasks').controller('TasksController', [
       };
     SwitchViews.state = 'Person';
     $scope.dataView = SwitchViews.state;
-    /* Function to Open Modal */
+    /* Function to Open Assignment Modal */
     $scope.triggerModal = function (size) {
       var modalInstance = $modal.open({
           templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
@@ -452,7 +451,7 @@ angular.module('tasks').controller('TasksController', [
               $modalInstance.close();
             };
             $scope.deactivate = function () {
-              inActivate(updateData);
+              deactivateRow(updateData);
               $modalInstance.close();
             };
           },
@@ -470,7 +469,38 @@ angular.module('tasks').controller('TasksController', [
       }
       var modalInstance = $modal.open(updateObj);
     };
-    // Function to update the Row clicked
+    /* Function to trigger view inactivated projects/persons */
+    var viewInactiveModal = function (list) {
+      var inactiveList = $modal.open({
+          templateUrl: '/modules/core/views/view_inactive.client.view.html',
+          controller: function ($scope, $modalInstance, listData) {
+            $scope.datas = listData;
+            $scope.state = SwitchViews.state;
+            $scope.activateData = function (data) {
+              activateRow(data);
+              $modalInstance.close();
+            };
+            $scope.deleteData = function () {
+              // deleteRowLabel();
+              $modalInstance.close();
+            };
+          },
+          size: 'lg',
+          resolve: {
+            listData: function () {
+              return list;
+            }
+          }
+        });
+    };
+    /*  ROW LABEL FUNCTIONS  */
+    var getRowDetails = function (event, data) {
+      globalRowData.data = data;
+      var id = data.row.id;
+      autoView.param[autoView.paramKey] = id;
+      var detail = autoView.resource.get(autoView.param);
+      $scope.triggerUpdateModal(detail);
+    };
     var updateRowLabel = function (labelData) {
       var label = labelData;
       label.$update(function (response) {
@@ -481,17 +511,32 @@ angular.module('tasks').controller('TasksController', [
         $scope.error = errorResponse.data.message;
       });
     };
-    // 
-    var inActivate = function (id) {
-      $scope.removeData([{ 'id': id._id }]);
-      id.isActive = false;
-      id.$update(function (response) {
+    var deactivateRow = function (data) {
+      $scope.removeData([{ 'id': data._id }]);
+      var rowData = data;
+      rowData._id = data._id;
+      rowData.isActive = false;
+      rowData.$update(function (response) {
         $scope.msg = response.name + ' is now inactive';
         $scope.$emit('response', $scope.msg);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
     };
+    var activateRow = function (data) {
+      autoView.param[autoView.paramKey] = data._id;
+      var label = autoView.resource.get(autoView.param);
+      label.isActive = true;
+      label._id = data._id;
+      label.$update(function (response) {
+        $scope.msg = response.name + ' is now active';
+        $scope.$emit('response', $scope.msg);
+        $scope.getTaskData();
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
+    // Function to Populate Calender with Data
     $scope.getTaskData = function () {
       var dataObj = [];
       $scope.dbData = autoView.resource.query({ isActive: true }, function () {
@@ -514,6 +559,7 @@ angular.module('tasks').controller('TasksController', [
         $scope.loadData(dataObj);
       });
     };
+    // Flash notice function
     $scope.$on('response', function (event, notification) {
       $scope.notify = false;
       $timeout(function () {
@@ -522,13 +568,6 @@ angular.module('tasks').controller('TasksController', [
       }, 200);
       $scope.msg = '';
     });
-    var getDetails = function (event, data) {
-      globalRowData.data = data;
-      var id = data.row.id;
-      autoView.param[autoView.paramKey] = id;
-      var detail = autoView.resource.get(autoView.param);
-      $scope.triggerUpdateModal(detail);
-    };
     // Creating a new Assignment/Task
     $scope.createTask = function (data) {
       var newTask = {
@@ -567,48 +606,12 @@ angular.module('tasks').controller('TasksController', [
         $scope.error = errorResponse.data.message;
       });
     };
-    // Function to Open inactive persons/projects
-    var viewInactiveModal = function (list) {
-      var inactiveList = $modal.open({
-          templateUrl: '/modules/core/views/view_inactive.client.view.html',
-          controller: function ($scope, $modalInstance, listData) {
-            $scope.datas = listData;
-            $scope.state = SwitchViews.state;
-            $scope.activateData = function (data) {
-              activateRowLabel(data);
-              $modalInstance.close();
-            };
-            $scope.deleteData = function () {
-              // deleteRowLabel();
-              $modalInstance.close();
-            };
-          },
-          size: 'lg',
-          resolve: {
-            listData: function () {
-              return list;
-            }
-          }
-        });
-    };
     // Get inactive assignments
     $scope.viewInactive = function () {
       var inactiveList = autoView.resource.query({ isActive: false });
       viewInactiveModal(inactiveList);
     };
-    var activateRowLabel = function (data) {
-      autoView.param[autoView.paramKey] = data._id;
-      var label = autoView.resource.get(autoView.param);
-      label.isActive = true;
-      label._id = data._id;
-      label.$update(function (response) {
-        $scope.msg = response.name + ' is now active';
-        $scope.$emit('response', $scope.msg);
-        $scope.getTaskData();
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
+    // Gantt-Chart options
     $scope.options = {
       mode: 'custom',
       scale: 'day',
@@ -720,7 +723,7 @@ angular.module('tasks').controller('TasksController', [
     });
     $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
     $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-    $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getDetails);
+    $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getRowDetails);
   }
 ]);'use strict';
 //Tasks service used to communicate Tasks REST endpoints
@@ -826,6 +829,9 @@ angular.module('users').config([
     }).state('reset', {
       url: '/password/reset/:token',
       templateUrl: 'modules/users/views/password/reset-password.client.view.html'
+    }).state('email-confirmation', {
+      url: '/submit/:email',
+      templateUrl: 'modules/users/views/authentication/email-confirmation.client.view.html'
     });
   }
 ]);'use strict';
@@ -842,10 +848,11 @@ angular.module('users').controller('AuthenticationController', [
     $scope.signup = function () {
       $http.post('/auth/signup', $scope.credentials).success(function (response) {
         // If successful we assign the response to the global user model
-        if (response)
-          $location.path('/signin');  // $scope.authentication.user = response;
-                                      // // And redirect to the index page
-                                      // $location.path('/');
+        // $scope.authentication.user = response;
+        // And redirect to the index page
+        if (response) {
+          $location.path('/signin');
+        }
       }).error(function (response) {
         $scope.error = response.message;
       });
@@ -968,7 +975,8 @@ angular.module('users').factory('Authentication', [function () {
     var _this = this;
     _this._data = { user: window.user };
     return _this._data;
-  }]);'use strict';
+  }]);  // angular.module('users').ser
+'use strict';
 // Users service used for communicating with the users REST endpoint
 angular.module('users').factory('Users', [
   '$resource',
