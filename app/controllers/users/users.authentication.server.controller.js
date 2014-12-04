@@ -44,7 +44,11 @@ exports.signup = function(req, res) {
 				_userId: user._id
 			});
 			verificationToken.createVerificationToken(function (err, token) {
-			    if (err) return console.log('Couldn\'t create verification token', err);
+			    if (err) {
+			    	return res.status(400).send({
+			    		message: errorHandler.getErrorMessage(err)
+			    	});
+			    }
     			var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
 				var data = {
@@ -56,16 +60,15 @@ exports.signup = function(req, res) {
 				console.log(data);
 				mailgun.messages().send(data, function(err, body) {
 					if (err) {
-						//res.render('error', {error: err});
-						console.log(err);
+						res.render('error', {error: err});
+						errorHandler.getErrorMessage(err);
 					}
 					else {
-						//res.render('submitted', {email: req.body.email});
+						res.render('email-confirmation', {email: req.body.email});
 						console.log('submitted', body);
 					}
 				});
 			});
-			return res.redirect('/#!/signin');
 		}
 	});
 };

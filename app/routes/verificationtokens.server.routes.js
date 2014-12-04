@@ -14,9 +14,6 @@ module.exports = function(app) {
 		.put(users.requiresLogin, verificationtokens.hasAuthorization, verificationtokens.update)
 		.delete(users.requiresLogin, verificationtokens.hasAuthorization, verificationtokens.delete);
 
-	// app.route('/verify')
-	// 	.post(verificationtokens.verifyUser);
-
 	app.route('/verify/:token')
 		.get(verificationtokens.verifyToken);
 
