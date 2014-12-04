@@ -36,6 +36,15 @@ describe('Verificationtoken Model Unit Tests:', function() {
 		});
 	});
 
+	describe('Verification token server model unit test', function() {
+		it('Create token', function(done) {
+	    	return verificationtoken.createVerificationToken(function(err) {
+	    		should.not.exist(err);
+	    		done();
+	    	});
+			});
+	});
+
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
 			return verificationtoken.save(function(err) {

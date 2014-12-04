@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var verificationtoken = new Verificationtoken(req.body);
-	verificationtoken.user = req.user;
+	verificationtoken._userId = req.user;
 
 	verificationtoken.save(function(err) {
 		if (err) {
@@ -90,7 +90,12 @@ exports.list = function(req, res) {
  */
 exports.verificationtokenByID = function(req, res, next, id) { 
 	Verificationtoken.findById(id).populate('user', 'displayName').exec(function(err, verificationtoken) {
-		if (err) return next(err);
+		if (err) {
+				res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+				return next(err);
+			}
 		if (! verificationtoken) return next(new Error('Failed to load Verificationtoken ' + id));
 		req.verificationtoken = verificationtoken ;
 		next();
@@ -111,15 +116,18 @@ exports.hasAuthorization = function(req, res, next) {
 var verifyUser = function(token, done) {
     Verificationtoken.findOne({token: token}, function (err, doc){
         if (err) {
+        	errorHandler.getErrorMessage(err);
         	return done(err);
         }
         if (doc) {
 	        User.findOne({_id: doc._userId}, function (err, user) {
-	        	console.log(user);
-	            if (err) return done(err);
+	            if (err) {
+	            	errorHandler.getErrorMessage(err);
+	            	return done(err);
+	            }
 	            user.verified = true;
 	            user.save(function(err) {
-	            	console.log(user);
+	            	errorHandler.getErrorMessage(err);
 	              return done(err);
 	            });
 	        });
@@ -133,9 +141,9 @@ var verifyUser = function(token, done) {
 exports.verifyToken = function(req, res, next) {
 	var token = req.params.token;
     verifyUser(token, function(err) {
-        if (err) return res.status(400).send('Token not valid');
-        res.status(200).send('User is verified');
-        //res.redirect('/#!/signin');
+        if (err) 
+        	return res.status(400).send('Token not valid');
+        res.redirect('/#!/signin');
     });
 };
 

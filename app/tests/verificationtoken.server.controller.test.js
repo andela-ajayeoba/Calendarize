@@ -41,6 +41,44 @@ describe('Verificationtoken Controller Unit Tests:', function() {
 			
 	});
 
+	describe('verification tokens crud method', function() {
+	// it('should login User', function(done) {
+ //        agent.post('/auth/signin')
+ //            .send({ email: 'test@test.com', password: 'password' })
+ //            .expect(200)
+ //            .end(onResponse);
+
+ //        function onResponse(err, res) {
+ //           	if (err) return done(err);
+ //           	return done();
+ //        }
+ //    });
+
+		it('should be able to create verification token', function(done) {
+			agent.post('/verificationtokens')
+			.send(verificationtoken)
+			.expect(200)
+			.end(function(err, res) {
+	          	if (err) {
+	            	throw err;
+	          	}
+	          	return done();
+	        });
+		});
+
+		it('should be able to update verification token', function(done) {
+			agent.post('/verificationtokens/' + verificationtoken._id)
+			.expect(200)
+			.end(function(err, res) {
+	          	if (err) {
+	            	throw err;
+	          	}
+	          	return done();
+	        });
+		});
+
+	});
+
 	describe('Method Verify', function() {
 		it('should be able to verify users with a valid token', function(done) {
 			agent.get('/verify/' + verificationtoken.token)
