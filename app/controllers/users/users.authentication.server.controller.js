@@ -41,7 +41,7 @@ exports.signup = function(req, res) {
 			user.password = undefined;
 			user.salt = undefined;
 			var verificationToken = new Verificationtoken({
-				_userId: user._id
+				_userId: user
 			});
 			verificationToken.createVerificationToken(function (err, token) {
 			    if (err) {
@@ -57,18 +57,27 @@ exports.signup = function(req, res) {
 					subject: 'Email Verification',
 					html: req.protocol + '://' + req.get('host') + '/verify/' + verificationToken.token
 				};
-				console.log(data);
+				//console.log(data);
 				mailgun.messages().send(data, function(err, body) {
 					if (err) {
+						console.log(err);
 						res.render('error', {error: err});
 						errorHandler.getErrorMessage(err);
 					}
 					else {
 						res.render('email-confirmation', {email: req.body.email});
-						console.log('submitted', body);
+						//console.log('submitted', body);
 					}
 				});
 			});
+			verificationToken.save(function(err) {
+				if (err) {
+
+				}
+				else{
+					console.log(verificationToken);
+				}
+			})
 		}
 	});
 };
@@ -78,6 +87,7 @@ exports.signup = function(req, res) {
  */
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log(user);
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
@@ -95,7 +105,8 @@ exports.signin = function(req, res, next) {
 				});
 			}
 			else {
-				res.status(400).send('User not yet verified');
+				console.log('it got here');
+				res.status(401).send('User not yet verified');
 			}
 		}
 	})(req, res, next);

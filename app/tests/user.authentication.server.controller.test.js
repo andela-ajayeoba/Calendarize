@@ -7,18 +7,19 @@ var should = require('should'),
 	mongoose = require('mongoose'),
 	request = require('supertest'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	Verificationtoken = mongoose.model('Verificationtoken');
 
 /**
  * Globals
  */
-var user1, user2;
+var user1, user2, verificationtoken1, verificationtoken2;
 
 var agent = request.agent('http://localhost:3001');
 
 describe('User authentication server controller unit test', function() {
 	it('Create Users', function(done) {
-    	user1 = new User({
+    user1 = new User({
 			name: 'Fullest',
 			displayName: 'Fuller Name',
 			email: 'tester@tester.com',
@@ -37,6 +38,11 @@ describe('User authentication server controller unit test', function() {
 			provider: 'local'
 		});
 		user1.save(function() {
+			verificationtoken1 = new Verificationtoken({
+				_userId: user1,
+				token: 'bjws8923b982b923jb020932bbe',
+				createdAt: Date.now
+			})
 		});
 		user2.save(function() {
 			done();
@@ -44,6 +50,7 @@ describe('User authentication server controller unit test', function() {
 	});
 
 	it ('should Signin verified users', function(done) {
+		console.log(user1);
 		agent.post('/auth/signin')
 		.send({email: 'tester@tester.com', password: 'password'})
 		.expect(200)
@@ -57,7 +64,7 @@ describe('User authentication server controller unit test', function() {
 	it ('should not Signin unverified users', function(done) {
 		agent.post('/auth/signin')
 		.send({email: 'joe@another.com', password: 'password'})
-		.expect(400)
+		.expect(401)
 		.end(function(err, res) {
           	if (err) {
             	throw err;
