@@ -30,6 +30,8 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
+	user.encryptPassword();
+
 	//Then save the user 
 	user.save(function(err) {
 		if (err) {
@@ -87,7 +89,6 @@ exports.signup = function(req, res) {
  */
 exports.signin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log(user);
 		if (err || !user) {
 			res.status(400).send(info);
 		} else {
@@ -105,7 +106,6 @@ exports.signin = function(req, res, next) {
 				});
 			}
 			else {
-				console.log('it got here');
 				res.status(401).send('User not yet verified');
 			}
 		}

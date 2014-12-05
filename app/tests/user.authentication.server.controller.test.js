@@ -50,7 +50,6 @@ describe('User authentication server controller unit test', function() {
 	});
 
 	it ('should Signin verified users', function(done) {
-		console.log(user1);
 		agent.post('/auth/signin')
 		.send({email: 'tester@tester.com', password: 'password'})
 		.expect(200)
