@@ -4,6 +4,7 @@
 angular.module('tasks')
   .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
+
       $scope.authentication = Authentication;
       var globalRowData = {};
       var globalRowDatum = {};
@@ -11,14 +12,16 @@ angular.module('tasks')
       var deactivateDatum = {};
       var autoView = {
         resource: Persons,
-        param: {personId: null},
+        param: {
+          personId: null
+        },
         paramKey: 'personId'
       };
       SwitchViews.state = 'Person';
       $scope.dataView = SwitchViews.state;
-      
-      /* Function to Open Modal */
-      $scope.triggerModal = function(size) {        
+
+      /* Function to Open Assignment Modal */
+      $scope.triggerModal = function(size) {
         var modalInstance = $modal.open({
           templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
           controller: 'ModalInstanceCtrl',
@@ -37,10 +40,11 @@ angular.module('tasks')
           $scope.createTask(assignment);
         }, function() {});
       };
-      //Update Data Modal
+
+      // Function to trigger update modal for both Project/Person
       $scope.triggerUpdateModal = function(details) {
         var updateObj = {
-          controller:function($scope, updateData, $modalInstance){
+          controller: function($scope, updateData, $modalInstance) {
             $scope.updateData = updateData;
             SwitchViews.updateData = updateData;
             $scope.updateLabel = function () {
@@ -55,18 +59,18 @@ angular.module('tasks')
               $modalInstance.dismiss('cancel');
             };
             },
+          },
           size: 'sm',
           resolve: {
-            updateData : function(){
+            updateData: function() {
               return details;
-            } 
-          }          
+            }
           }
-         if (SwitchViews.state === 'Person') {
-            updateObj.templateUrl= '/modules/core/views/edit_person.client.view.html';
-          } else {
-            updateObj.templateUrl= '/modules/core/views/edit_project.client.view.html';
-          }       
+        if (SwitchViews.state === 'Person') {
+          updateObj.templateUrl = '/modules/core/views/edit_person.client.view.html';
+        } else {
+          updateObj.templateUrl = '/modules/core/views/edit_project.client.view.html';
+        }
         var modalInstance = $modal.open(updateObj);
       };
 
@@ -122,11 +126,69 @@ angular.module('tasks')
           viewInactiveModal(inactiveList);
      };
 
-      var updateRowLabel = function (labelData){
+      /* Function to trigger view inactivated projects/persons */
+      var viewInactiveModal = function(list) {
+        var inactiveList = $modal.open({
+          templateUrl: '/modules/core/views/view_inactive.client.view.html',
+          controller: function($scope, $modalInstance, listData) {
+            $scope.datas = listData;
+            $scope.state = SwitchViews.state;
+            $scope.activateData = function(data) {
+              activateRow(data);
+              $modalInstance.close();
+            };
+            $scope.deleteData = function(data) {
+              deleteRowLabel(data);
+              $modalInstance.close();
+            };
+          },
+          size: 'lg',
+          resolve: {
+            listData: function() {
+              return list;
+            }
+          }
+        });
+      };
+
+      /*  ROW LABEL FUNCTIONS  */
+      var getRowDetails = function(event, data) {
+        globalRowData.data = data;
+        var id = data.row.id;
+        autoView.param[autoView.paramKey] = id;
+        var detail = autoView.resource.get(autoView.param);
+        $scope.triggerUpdateModal(detail);
+      };
+
+      var updateRowLabel = function(labelData) {
         var label = labelData;
         label.$update(function(response) {
           globalRowData.data.row.name = response.name;
-          $scope.msg = response.name+ ' was successfully updated';
+          $scope.msg = response.name + ' is successfully updated';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+       var deleteRowLabel = function(labelData) {
+        var label = labelData;
+        label.$delete(function(response) {
+          $scope.msg = response.name + ' is successfully deleted';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+
+      var deactivateRow = function(data) {
+        $scope.removeData([{
+          'id': data._id
+        }]);
+        var rowData = data;
+            rowData._id = data._id;
+            rowData.isActive = false;
+        rowData.$update(function(response) {
+          $scope.msg = response.name + ' is now inactive';
           $scope.$emit('response', $scope.msg);
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -139,14 +201,26 @@ angular.module('tasks')
         id.$update(function(response){
           $scope.msg = response.name+ ' is now inactive';
           $scope.$emit('response', $scope.msg);
+
+      var activateRow = function(data) {
+        autoView.param[autoView.paramKey] = data._id;
+        var label = autoView.resource.get(autoView.param);
+        label.isActive = true;
+        label._id = data._id;
+        label.$update(function(response) {
+          $scope.msg = response.name + ' is now active';
+          $scope.$emit('response', $scope.msg);
+          $scope.getTaskData();
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
       };
 
+      // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         var dataObj = [];
-        $scope.dbData = autoView.resource.query({isActive:true}, function() {
+        $scope.dbData = autoView.resource.query({isActive: true}, 
+          function() {
           $scope.dbData.forEach(function(assign) {
             var $label = {};
             $label.tasks = [];
@@ -167,22 +241,15 @@ angular.module('tasks')
         });
       };
 
-      $scope.$on('response', function(event, notification){
+      // Flash notice function
+      $scope.$on('response', function(event, notification) {
         $scope.notify = false;
-        $timeout(function(){
+        $timeout(function() {
           $scope.notify = true;
           $scope.msg = notification;
         }, 200);
-          $scope.msg = '';
+        $scope.msg = '';
       });
-
-      var getDetails = function(event, data){
-        globalRowData.data = data;
-        var id = data.row.id;
-        autoView.param[autoView.paramKey]=id;
-        var detail = autoView.resource.get(autoView.param);
-        $scope.triggerUpdateModal(detail);
-      };
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
@@ -195,7 +262,7 @@ angular.module('tasks')
         var task = new Tasks(newTask);
         task.$save(function(response) {
           var taskParam = {
-            id: response._id, //projectId, //_id
+            id: response._id,
             from: response.startDate,
             to: response.endDate,
             color: '#85A3E0'
@@ -229,7 +296,15 @@ angular.module('tasks')
         });
       };
 
+      // Get inactive assignments
+      $scope.viewInactive = function() {
+        var inactiveList = autoView.resource.query({
+          isActive: false
+        });
+        viewInactiveModal(inactiveList);
+      };
 
+      // Gantt-Chart options
       $scope.options = {
         mode: 'custom',
         scale: 'day',
@@ -308,7 +383,7 @@ angular.module('tasks')
       $scope.loadTabData = function(view) {
         SwitchViews.state = view;
         $scope.dataView = view;
-        switch(view) {
+        switch (view) {
           case 'Person':
             autoView.resource = Persons;
             autoView.paramKey = 'personId';
@@ -321,11 +396,11 @@ angular.module('tasks')
 
         $scope.clearData();
         $scope.getTaskData();
-        
+
       };
-      
+
       var handleClickEvent = function(event, data) {
-        switch(SwitchViews.state) {
+        switch (SwitchViews.state) {
           case 'Person':
             assignment.personId = data.row.id;
             break;
@@ -360,6 +435,6 @@ angular.module('tasks')
       $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
       $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
       $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getDetails);
+      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getRowDetails);
     }
   ]);

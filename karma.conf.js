@@ -4,12 +4,19 @@
  * Module dependencies.
  */
 var applicationConfiguration = require('./config/config');
+var sourcePreprocessors = 'coverage';
+function isDebug(argument) {
+    return argument === '--debug';
+}
+if (process.argv.some(isDebug)) {
+    sourcePreprocessors = [];
+}
 
 // Karma configuration
 module.exports = function(config) {
 	config.set({
 		preprocessors : {
-		  'public/modules/*/*[!tests]*/*.js': 'coverage'
+		  'public/modules/*/*[!tests]*/*.js': sourcePreprocessors
 		},
 
 		// Frameworks to use
@@ -21,7 +28,7 @@ module.exports = function(config) {
 		// Test results reporter to use
 		// Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
 		//reporters: ['progress'],
-		reporters: ['progress', 'coverage'],
+		reporters: ['progress', sourcePreprocessors],
 
 		// Web server port
 		port: 9876,
@@ -33,7 +40,7 @@ module.exports = function(config) {
 		// Possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		// logLevel: config.LOG_INFO,
 		logLevel: config.LOG_DEBUG,
-
+		
 		// Enable / disable watching file and executing tests whenever any file changes
 		autoWatch: true,
 

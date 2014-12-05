@@ -5,12 +5,12 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
   function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {
 
     $scope.authentication = Authentication;
-
-    // Create new Person
+        // Create new Person
     $scope.addPerson = function(closePersonPopover) {
       closePersonPopover();
       var person = new Persons($scope.person);
       person.$save(function(response) {
+        console.log('saving person');
         $scope.person = '';
         $scope.msg = response.name + ' was successfully created';
         $scope.$emit('response', $scope.msg);
@@ -23,6 +23,7 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
           $scope.loadData(newPerson);
         }
       }, function(errorResponse) {
+        console.log('error saving');
         $scope.error = errorResponse.data.message;
       });
     };
@@ -39,13 +40,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       } else {
         $scope.person.$remove(function() {});
       }
-    };
-
-    // Find existing Person
-    $scope.findOnePerson = function() {
-      $scope.person = Persons.get({
-        personId: $stateParams.personId
-      });
     };
   }
 ]);

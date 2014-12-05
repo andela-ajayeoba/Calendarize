@@ -199,16 +199,27 @@
     <h1>Code coverage report for <span class="entity">projects/controllers/projects.client.controller.js</span></h1>
     <h2>
         
+<<<<<<< HEAD
         Statements: <span class="metric">76.19% <small>(16 / 21)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+=======
+        Statements: <span class="metric">76.92% <small>(20 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
         
         
         Branches: <span class="metric">50% <small>(3 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
+<<<<<<< HEAD
         Functions: <span class="metric">44.44% <small>(4 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Lines: <span class="metric">76.19% <small>(16 / 21)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+=======
+        Functions: <span class="metric">54.55% <small>(6 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">76.92% <small>(20 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -262,7 +273,25 @@
 44
 45
 46
+<<<<<<< HEAD
 47</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+=======
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
@@ -275,6 +304,7 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
+<<<<<<< HEAD
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -282,11 +312,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 <span class="cline-any cline-yes">4</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
@@ -300,6 +342,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 <span class="cline-any cline-yes">4</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -308,6 +355,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 // Projects controller
@@ -353,13 +401,90 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       });
     };
   }
+=======
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+// Projects controller
+angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'switchViews',
+    function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, switchViews) {
+        $scope.authentication = Authentication;
+&nbsp;
+        // Create new Project
+        $scope.addProject = function() {
+            var project = new Projects($scope.project);
+            project.$save(function(response) {
+                console.log('Project Successfully added');
+                var newProject = [
+                    {'id': response._id, 'name': response.name, 'tasks': []}
+                ];
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (switchViews.myview === 'Project') {
+<span class="cstat-no" title="statement not covered" >                    $scope.loadData(newProject);</span>
+                }
+                $scope.project = '';
+            }, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.error = errorResponse.data.message;</span>
+            });
+        };
+&nbsp;
+        // Remove existing Project
+        $scope.removeProject = function(project) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (project) {
+                project.$remove();
+                for (var i in $scope.projects) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if ($scope.projects[i] === project) {
+                        $scope.projects.splice(i, 1);
+                    }
+                }
+            } else {
+<span class="cstat-no" title="statement not covered" >                $scope.project.$remove(<span class="fstat-no" title="function not covered" >function() {</span></span>
+                });
+            }
+        };
+&nbsp;
+        // Update existing Project
+        $scope.updateProject = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            var project = $scope.project;</span>
+<span class="cstat-no" title="statement not covered" >            project.$update(<span class="fstat-no" title="function not covered" >function() {</span>}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span></span>
+<span class="cstat-no" title="statement not covered" >                $scope.error = errorResponse.data.message;</span>
+            });
+        };
+&nbsp;
+        // Find existing Projects
+        $scope.findOneProject = function() {
+            $scope.project = Projects.get({
+                projectId: $stateParams.projectId
+            });
+        };
+&nbsp;
+        // Find a list of Projects
+        $scope.listProjects = function() {
+            $scope.projects = Projects.query();
+        };
+    }
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 ]);
 &nbsp;</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
+<<<<<<< HEAD
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 09:32:23 GMT+0100 (WAT)</div>
+=======
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 11:41:05 GMT+0100 (WAT)</div>
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 </div>
 
 <script src="../../prettify.js"></script>

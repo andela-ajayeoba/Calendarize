@@ -231,9 +231,19 @@ a
     color: red;
     margin-left: 2px;
 }
+<<<<<<< HEAD
 .inactive{
     padding:0 20px 0 25px;
 }
 .icon{
     margin-left:20px;
 }
+=======
+
+.inactive {
+    padding: 0 20px 0 25px;
+}
+
+
+
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
