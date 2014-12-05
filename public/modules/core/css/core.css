@@ -197,6 +197,9 @@ a
     padding : 8px;
     outline: none;
 }
+.flatbtn {
+    border-radius: 0;
+}
     @-webkit-keyframes responseAlert {
     from {
         opacity: 1;
@@ -226,6 +229,10 @@ a
 .req{
     color: red;
     margin-left: 2px;
+}
+
+.inactive {
+    padding: 0 20px 0 25px;
 }
 
 

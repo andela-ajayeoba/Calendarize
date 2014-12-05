@@ -11,9 +11,8 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       var person = new Persons($scope.person);
       person.$save(function(response) {
         $scope.person = '';
-        $scope.msg = response.name+ ' was successfully created';
+        $scope.msg = response.name + ' was successfully created';
         $scope.$emit('response', $scope.msg);
-
         if (SwitchViews.state !== 'Project') {
           var newPerson = [{
             'id': response._id,
@@ -41,38 +40,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       }
     };
 
-    // Update existing Person
-    $scope.updatePerson = function() {
-      var person = $scope.person;
-      person.$update(function() {}, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-
-    // Find a list of Persons
-    $scope.findPersons = function() {
-      var data = [];
-      $scope.persons = Persons.query({}, function() {
-        $scope.persons.forEach(function(user) {
-          var $user = {};
-          $user.tasks = [];
-          $user.id = user._id;
-          $user.name = user.name;
-          user.tasks.forEach(function(task) {
-            var $task = {};
-            $task.id = task._id;
-            $task.name = task.projectName;
-            $task.from = task.startDate;
-            $task.to = task.endDate;
-            $task.color = '#F1C232';
-            $user.tasks.push($task);
-          });
-          data.push($user);
-        });
-        $scope.loadData(data);
-      });
-    };
-
     // Find existing Person
     $scope.findOnePerson = function() {
       $scope.person = Persons.get({
@@ -81,3 +48,4 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
     };
   }
 ]);
+

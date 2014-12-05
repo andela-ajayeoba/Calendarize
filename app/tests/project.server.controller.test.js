@@ -87,6 +87,37 @@ describe('Project Endpoint Tests', function() {
         }
     });
 
+    it('Should be able to update a project', function(done){
+      agent.put('/projects/'+ project1._id)
+      .send({name: 'Another Name'})
+      .expect(200)
+
+      .end(function(err, res){
+        if(err){
+          throw err;
+        }
+        Project.findOne({name: 'Another Name'}, function(err, per){
+          should.exist(per);
+        });
+        return done();
+      });
+    });
+
+    it('should list Projects', function(done){
+      agent.get('/projects')
+      .expect(200)
+
+      .end(function(err, res){
+        if(err){
+          throw err;
+        }
+        Project.find({}, function(err, pro){
+          should.exist(pro);
+        });
+        return done(); 
+      });
+    });
+
     it('should not delete a project that does not belong to him', function(done) {
     	agent.delete('/projects/' + project2._id)
 		.expect(403)
