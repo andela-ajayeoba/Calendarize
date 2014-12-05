@@ -155,9 +155,8 @@ angular.module('tasks')
       // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         var dataObj = [];
-        $scope.dbData = autoView.resource.query({
-          isActive: true
-        }, function() {
+        $scope.dbData = autoView.resource.query({isActive: true}, 
+          function() {
           $scope.dbData.forEach(function(assign) {
             var $label = {};
             $label.tasks = [];
