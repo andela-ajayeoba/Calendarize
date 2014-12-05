@@ -76,8 +76,7 @@ exports.deleteProject = function(req, res) {
  * List of Projects
  */
 exports.listProjects = function(req, res) {
-
-    Project.find({'user':req.user._id}).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
+    Project.find({'user':req.user._id}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
