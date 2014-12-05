@@ -195,20 +195,20 @@
     </style>
 </head>
 <body>
-<div class="header low">
+<div class="header high">
     <h1>Code coverage report for <span class="entity">persons/controllers/persons.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">27.27% <small>(6 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">86.36% <small>(19 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">50% <small>(3 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">28.57% <small>(2 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">66.67% <small>(4 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">27.27% <small>(6 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">86.36% <small>(19 / 22)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -262,59 +262,47 @@
 44
 45
 46
-47
-48
-49
-50
-51
-52
-53</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+47</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,47 +315,41 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
   function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {
 &nbsp;
     $scope.authentication = Authentication;
-&nbsp;
-    // Create new Person
+        // Create new Person
     $scope.addPerson = function(closePersonPopover) {
       closePersonPopover();
-<span class="cstat-no" title="statement not covered" >      var person = new Persons($scope.person);</span>
-<span class="cstat-no" title="statement not covered" >      person.$save(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
-<span class="cstat-no" title="statement not covered" >        $scope.person = '';</span>
-<span class="cstat-no" title="statement not covered" >        $scope.msg = response.name + ' was successfully created';</span>
-<span class="cstat-no" title="statement not covered" >        $scope.$emit('response', $scope.msg);</span>
-<span class="cstat-no" title="statement not covered" >        if (SwitchViews.state !== 'Project') {</span>
-<span class="cstat-no" title="statement not covered" >          var newPerson = [{</span>
+      var person = new Persons($scope.person);
+      person.$save(function(response) {
+        console.log('saving person');
+        $scope.person = '';
+        $scope.msg = response.name + ' was successfully created';
+        $scope.$emit('response', $scope.msg);
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (SwitchViews.state !== 'Project') {
+          var newPerson = [{
             'id': response._id,
             'name': response.name,
             'tasks': []
           }];
-<span class="cstat-no" title="statement not covered" >          $scope.loadData(newPerson);</span>
+          $scope.loadData(newPerson);
         }
       }, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log('error saving');</span>
 <span class="cstat-no" title="statement not covered" >        $scope.error = errorResponse.data.message;</span>
       });
     };
 &nbsp;
     // Remove existing Person
-    $scope.removePerson = <span class="fstat-no" title="function not covered" >function(person) {</span>
-<span class="cstat-no" title="statement not covered" >      if (person) {</span>
-<span class="cstat-no" title="statement not covered" >        person.$remove();</span>
-<span class="cstat-no" title="statement not covered" >        for (var i in $scope.persons) {</span>
-<span class="cstat-no" title="statement not covered" >          if ($scope.persons[i] === person) {</span>
-<span class="cstat-no" title="statement not covered" >            $scope.persons.splice(i, 1);</span>
+    $scope.removePerson = function(person) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (person) {
+        person.$remove();
+        for (var i in $scope.persons) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if ($scope.persons[i] === person) {
+            $scope.persons.splice(i, 1);
           }
         }
       } else {
 <span class="cstat-no" title="statement not covered" >        $scope.person.$remove(<span class="fstat-no" title="function not covered" >function() {</span>});</span>
       }
-    };
-&nbsp;
-    // Find existing Person
-    $scope.findOnePerson = <span class="fstat-no" title="function not covered" >function() {</span>
-<span class="cstat-no" title="statement not covered" >      $scope.person = Persons.get({</span>
-        personId: $stateParams.personId
-      });
     };
   }
 ]);
@@ -377,7 +359,7 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 03 2014 06:19:50 GMT+0100 (WAT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Dec 05 2014 16:51:27 GMT+0100 (WAT)</div>
 </div>
 
 <script src="../../prettify.js"></script>
