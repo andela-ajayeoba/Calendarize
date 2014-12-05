@@ -36,15 +36,14 @@ var VerificationtokenSchema = new Schema({
  * Verificationtoken Schema method
  */
 VerificationtokenSchema.methods.createVerificationToken = function (done) {
-    var verificationToken = this;
+    var verificationtoken = this;
     var token = uuid.v4();
-    verificationToken.set('token', token);
-    verificationToken.save( function (err) {
+    verificationtoken.set('token', token);
+    verificationtoken.save( function (err) {
         if (err) {
         	return done(err);
         }
         return done(null, token);
-        console.log('Verification token', verificationToken);
     });
 };
 

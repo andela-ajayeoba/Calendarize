@@ -5,6 +5,7 @@
  */
 var should = require('should'),
 	mongoose = require('mongoose'),
+	uuid = require('node-uuid'),
 	User = mongoose.model('User'),
 	Verificationtoken = mongoose.model('Verificationtoken');
 
@@ -61,7 +62,17 @@ describe('Verificationtoken Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should be able to show an error when try to save without a user', function(done) { 
+			verificationtoken._userId = '';
+
+			return verificationtoken.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
+
 
 	afterEach(function(done) { 
 		Verificationtoken.remove().exec();
