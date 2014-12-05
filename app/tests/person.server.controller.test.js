@@ -87,18 +87,6 @@ describe('Person Endpoint Tests', function() {
         }
     });
 
-    it('should not delete a person that does not belong to him', function(done) {
-    	agent.delete('/persons/' + person2._id)
-		  .expect(403)
-   		// end handles the response
-		  .end(function(err, res) {
-          	if (err) {
-            	throw err;
-          	}
-          	return done();
-        });
-    });
-
     it('should not create a person that already exists', function(done) {
     	agent.post('/persons')
     	.send(person1)
@@ -120,7 +108,7 @@ describe('Person Endpoint Tests', function() {
 
       .end(function(err, res) {
             if (err) {
-              throw err;
+              should.exist(err);
             }
             return done();
         });
@@ -139,9 +127,9 @@ describe('Person Endpoint Tests', function() {
       });
     });
 
-    it('Should be able to update a person', function(done){
+    it('Should be able to update a person', function(done) {
       agent.put('/persons/'+ person1._id)
-      .send({name: 'Another Name'})
+      .send({name: 'Another Name', email:'jyd@y.com'})
       .expect(200)
 
       .end(function(err, res){
@@ -180,6 +168,18 @@ describe('Person Endpoint Tests', function() {
         }
         return done();
       });
+    });
+
+    it('should not delete a person that does not belong to him', function(done) {
+      agent.delete('/persons/' + person2._id)
+      .expect(403)
+      // end handles the response
+      .end(function(err, res) {
+            if (err) {
+              should.exist(err);
+            }
+            return done();
+        });
     });
 
 	after(function(done) {

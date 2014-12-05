@@ -195,20 +195,20 @@
     </style>
 </head>
 <body>
-<div class="header high">
+<div class="header low">
     <h1>Code coverage report for <span class="entity">users/controllers/authentication.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">92.86% <small>(13 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">7.14% <small>(1 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">50% <small>(2 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">0% <small>(0 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(7 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">0% <small>(0 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">7.69% <small>(1 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -250,36 +250,40 @@
 32
 33
 34
-35</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+35
+36
+37</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5</span>
-<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -287,33 +291,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
-	function($scope, $http, $location, Authentication) {
-		$scope.authentication = Authentication;
+<span class="fstat-no" title="function not covered" >	function($scope, $http, $location, Authentication) {</span>
+<span class="cstat-no" title="statement not covered" >		$scope.authentication = Authentication;</span>
 &nbsp;
 		// If user is signed in then redirect back home
-		<span class="missing-if-branch" title="if path not taken" >I</span>if ($scope.authentication.user) <span class="cstat-no" title="statement not covered" >$location.path('/');</span>
+<span class="cstat-no" title="statement not covered" >		if ($scope.authentication.user) <span class="cstat-no" title="statement not covered" >$location.path('/');</span></span>
 &nbsp;
-		$scope.signup = function() {
-			$http.post('/auth/signup', $scope.credentials).success(function(response) {
+<span class="cstat-no" title="statement not covered" >		$scope.signup = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >			$http.post('/auth/signup', $scope.credentials).success(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
 				// If successful we assign the response to the global user model
-				<span class="missing-if-branch" title="else path not taken" >E</span>if(response) $location.path('/signin');
 				// $scope.authentication.user = response;
-				// // And redirect to the index page
-				// $location.path('/');
-			}).error(function(response) {
-				$scope.error = response.message;
+&nbsp;
+				// And redirect to the index page
+<span class="cstat-no" title="statement not covered" >				if (response) {</span>
+<span class="cstat-no" title="statement not covered" >					$location.path('/signin');</span>
+				}
+			}).error(<span class="fstat-no" title="function not covered" >function(response) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.error = response.message;</span>
 			});
 		};
 &nbsp;
-		$scope.signin = function() {
-			$http.post('/auth/signin', $scope.credentials).success(function(response) {
+<span class="cstat-no" title="statement not covered" >		$scope.signin = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >			$http.post('/auth/signin', $scope.credentials).success(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
 				// If successful we assign the response to the global user model
-				$scope.authentication.user = response;
+<span class="cstat-no" title="statement not covered" >				$scope.authentication.user = response;</span>
 &nbsp;
 				// And redirect to the index page
-				$location.path('/');
-			}).error(function(response) {
-				$scope.error = response.message;
+<span class="cstat-no" title="statement not covered" >				$location.path('/');</span>
+			}).error(<span class="fstat-no" title="function not covered" >function(response) {</span>
+<span class="cstat-no" title="statement not covered" >				$scope.error = response.message;</span>
 			});
 		};
 	}
@@ -323,7 +329,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 03 2014 06:19:50 GMT+0100 (WAT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Dec 05 2014 16:51:27 GMT+0100 (WAT)</div>
 </div>
 
 <script src="../../prettify.js"></script>

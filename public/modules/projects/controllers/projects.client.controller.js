@@ -10,8 +10,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       project.$save(function(response) {
         $scope.project = '';
         $scope.msg = response.name+ ' was successfully created';
-        $scope.$emit('response', $scope.msg);
-
+        $scope.$emit('response', $scope.msg); 
         if (SwitchViews.state !== 'Person') {
           var newProject = [{
             'id': response._id,
@@ -38,11 +37,11 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       }
     };
     // Update existing Project
-    $scope.updateProject = function() {
-      var project = $scope.project;
-      project.$update(function() {}, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
+    // $scope.updateProject = function() {
+    //   var project = $scope.project;
+    //   project.$update(function() {}, function(errorResponse) {
+    //     $scope.error = errorResponse.data.message;
+    //   });
+    // };
   }
 ]);
