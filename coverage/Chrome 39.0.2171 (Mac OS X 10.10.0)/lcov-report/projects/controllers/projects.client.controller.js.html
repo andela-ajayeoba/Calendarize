@@ -199,16 +199,16 @@
     <h1>Code coverage report for <span class="entity">projects/controllers/projects.client.controller.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">4.17% <small>(1 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">45.83% <small>(11 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">33.33% <small>(2 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">0% <small>(0 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">33.33% <small>(3 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">4.17% <small>(1 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">45.83% <small>(11 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -270,45 +270,45 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -319,12 +319,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 // Projects controller
 angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'SwitchViews',
-<span class="fstat-no" title="function not covered" >  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, SwitchViews) {</span>
-<span class="cstat-no" title="statement not covered" >    $scope.authentication = Authentication;</span>
+  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, SwitchViews) {
+    $scope.authentication = Authentication;
 &nbsp;
     // Create new Project
-<span class="cstat-no" title="statement not covered" >    $scope.addProject = <span class="fstat-no" title="function not covered" >function(closeProjectPopover) {</span></span>
-<span class="cstat-no" title="statement not covered" >      closeProjectPopover();</span>
+    $scope.addProject = function(closeProjectPopover) {
+      closeProjectPopover();
 <span class="cstat-no" title="statement not covered" >      var project = new Projects($scope.project);</span>
 <span class="cstat-no" title="statement not covered" >      project.$save(<span class="fstat-no" title="function not covered" >function(response) {</span></span>
 <span class="cstat-no" title="statement not covered" >        $scope.project = '';</span>
@@ -345,12 +345,12 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       
     };
     // Remove existing Project
-<span class="cstat-no" title="statement not covered" >    $scope.removeProject = <span class="fstat-no" title="function not covered" >function(project) {</span></span>
-<span class="cstat-no" title="statement not covered" >      if (project) {</span>
-<span class="cstat-no" title="statement not covered" >        project.$remove();</span>
-<span class="cstat-no" title="statement not covered" >        for (var i in $scope.projects) {</span>
-<span class="cstat-no" title="statement not covered" >          if ($scope.projects[i] === project) {</span>
-<span class="cstat-no" title="statement not covered" >            $scope.projects.splice(i, 1);</span>
+    $scope.removeProject = function(project) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (project) {
+        project.$remove();
+        for (var i in $scope.projects) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if ($scope.projects[i] === project) {
+            $scope.projects.splice(i, 1);
           }
         }
       } else {
@@ -358,7 +358,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       }
     };
     // Update existing Project
-<span class="cstat-no" title="statement not covered" >    $scope.updateProject = <span class="fstat-no" title="function not covered" >function() {</span></span>
+    $scope.updateProject = <span class="fstat-no" title="function not covered" >function() {</span>
 <span class="cstat-no" title="statement not covered" >      var project = $scope.project;</span>
 <span class="cstat-no" title="statement not covered" >      project.$update(<span class="fstat-no" title="function not covered" >function() {</span>}, <span class="fstat-no" title="function not covered" >function(errorResponse) {</span></span>
 <span class="cstat-no" title="statement not covered" >        $scope.error = errorResponse.data.message;</span>
@@ -371,7 +371,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Dec 02 2014 14:54:26 GMT+0100 (WAT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Dec 04 2014 14:00:00 GMT+0100 (WAT)</div>
 </div>
 
 <script src="../../prettify.js"></script>
