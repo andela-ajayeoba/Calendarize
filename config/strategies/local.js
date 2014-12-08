@@ -26,12 +26,16 @@ module.exports = function() {
 						message: 'Unknown user'
 					});
 				}
+				if (!user.verified) {
+					return done(null, false, {
+						message: 'Unverified account, please check your email and click the verification link.'
+					});
+				}
 				if (!user.authenticate(password)) {
 					return done(null, false, {
 						message: 'Invalid password'
 					});
 				}
-
 				return done(null, user);
 			});
 		}

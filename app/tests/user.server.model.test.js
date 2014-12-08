@@ -10,7 +10,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, user2;
+var user, user2, user3;
 
 /**
  * Unit tests
@@ -30,6 +30,14 @@ describe('User Model Unit Tests:', function() {
 			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
+			password: 'password',
+			provider: 'local'
+		});
+		user3 = new User({
+			name: 'New',
+			displayName: 'New Boy',
+			email: 'test@test.com',
+			username: 'newboy',
 			password: 'password',
 			provider: 'local'
 		});
@@ -69,6 +77,14 @@ describe('User Model Unit Tests:', function() {
 		it ('should show an error when trying to save without an email', function(done) {
 			user.email = '';
 			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should show an error when trying to save with an existing email', function(done) {
+			user.save();
+			return user3.save(function(err) {
 				should.exist(err);
 				done();
 			});
