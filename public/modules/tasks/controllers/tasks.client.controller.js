@@ -123,13 +123,14 @@ angular.module('tasks')
       };
 
       var deactivateRow = function(data) {
+        console.log(data);
         $scope.removeData([{
           'id': data._id
         }]);
         var rowData = data;
 
-            rowData.isActive = false;
-            rowData._id = data._id;
+        rowData.isActive = false;
+        rowData._id = data._id;
         rowData.$update(function(response) {
           $scope.msg = response.name + ' is now inactive';
           $scope.$emit('response', $scope.msg);

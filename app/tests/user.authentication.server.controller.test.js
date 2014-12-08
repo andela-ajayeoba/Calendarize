@@ -42,7 +42,7 @@ describe('User authentication server controller unit test', function() {
 				_userId: user1,
 				token: 'bjws8923b982b923jb020932bbe',
 				createdAt: Date.now
-			})
+			});
 		});
 		user2.save(function() {
 			done();

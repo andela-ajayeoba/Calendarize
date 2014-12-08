@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 	// Verificationtokens Routes
 	app.route('/verificationtokens')
-		.get(verificationtokens.list)
+		.get(verificationtokens.list);
 
 	app.route('/verify/:token')
 		.get(verificationtokens.verifyToken);
