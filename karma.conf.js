@@ -59,7 +59,7 @@ module.exports = function(config) {
 
 		// Continuous Integration mode
 		// If true, it capture browsers, run tests and exit
-		singleRun: false,
+		singleRun: true,
 
 		coverageReporter: {
 		  type : 'lcov',
@@ -70,6 +70,6 @@ module.exports = function(config) {
 			'karma-phantomjs-launcher',
 			'karma-coverage',
 			'karma-chrome-launcher',
-	    ],
+	  ],
 	});
 };
