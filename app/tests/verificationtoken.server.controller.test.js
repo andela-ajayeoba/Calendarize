@@ -75,9 +75,9 @@ describe('Verificationtoken Controller Unit Tests:', function() {
 					throw err;
 				}
 				return done();
-			})
-		})
-	})
+			});
+		});
+	});
 
 	after(function(done) { 
 		Verificationtoken.remove().exec();
@@ -85,5 +85,5 @@ describe('Verificationtoken Controller Unit Tests:', function() {
 
 		done();
 	});
-})
+});
 

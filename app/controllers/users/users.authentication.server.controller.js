@@ -79,7 +79,7 @@ exports.signup = function(req, res) {
 				else{
 					console.log(verificationToken);
 				}
-			})
+			});
 		}
 	});
 };
