@@ -106,7 +106,7 @@ exports.signin = function(req, res, next) {
 				});
 			}
 			else {
-				res.status(401).send('User not yet verified');
+				return res.status(401).send('User not yet verified');
 			}
 		}
 	})(req, res, next);
