@@ -8,37 +8,12 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	Mailgun = require('mailgun-js'),
+	Verificationtoken = mongoose.model('Verificationtoken'),
 	User = mongoose.model('User');
 
 var api_key = 'key-3c618b8023b0606df8a322e4986ff398';
 var domain = 'sandbox13255ecc69fa45e1acb966e95b235586.mailgun.org';
 var from_who = 'olusola.adenekan@andela.co';
-
-/**
- * Sendmail
- */
-var sendMail = function(req, res) {
-	var mailgun = new Mailgun({apiKey: api_key, domain: domain});
-
-	var data = {
-		from: from_who,
-		to: req.body.email,
-		subject: 'Email Verification',
-		html: 'Something goes in here'
-	};
-	console.log(data);
-	mailgun.messages().send(data, function(err, body) {
-		if (err) {
-			//res.render('error', {error: err});
-			console.log(err);
-		}
-		else {
-			//res.render('submitted', {email: req.body.email});
-			console.log('submitted', body);
-		}
-	});
-};
-
 
 
 /**
@@ -47,7 +22,6 @@ var sendMail = function(req, res) {
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
-	sendMail(req, res);
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
@@ -55,6 +29,8 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
+
+	user.encryptPassword();
 
 	//Then save the user 
 	user.save(function(err) {
@@ -66,12 +42,42 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+			var verificationToken = new Verificationtoken({
+				_userId: user
+			});
+			verificationToken.createVerificationToken(function (err, token) {
+			    if (err) {
+			    	return res.status(400).send({
+			    		message: errorHandler.getErrorMessage(err)
+			    	});
+			    }
+    			var mailgun = new Mailgun({apiKey: api_key, domain: domain});
 
-			req.login(user, function(err) {
+				var data = {
+					from: from_who,
+					to: req.body.email,
+					subject: 'Email Verification',
+					html: req.protocol + '://' + req.get('host') + '/verify/' + verificationToken.token
+				};
+				//console.log(data);
+				mailgun.messages().send(data, function(err, body) {
+					if (err) {
+						console.log(err);
+						res.render('error', {error: err});
+						errorHandler.getErrorMessage(err);
+					}
+					else {
+						res.render('email-confirmation', {email: req.body.email});
+						//console.log('submitted', body);
+					}
+				});
+			});
+			verificationToken.save(function(err) {
 				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.jsonp(user);
+
+				}
+				else{
+					console.log(verificationToken);
 				}
 			});
 		}
@@ -90,13 +96,18 @@ exports.signin = function(req, res, next) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			req.login(user, function(err) {
-				if (err) {
-					res.status(400).send(err);
-				} else {
-					res.jsonp(user);
-				}
-			});
+			if(user.verified === true) {
+				req.login(user, function(err) {
+					if (err) {
+						res.status(400).send(err);
+					} else {
+						res.jsonp(user);
+					}
+				});
+			}
+			else {
+				return res.status(401).send('User not yet verified');
+			}
 		}
 	})(req, res, next);
 };

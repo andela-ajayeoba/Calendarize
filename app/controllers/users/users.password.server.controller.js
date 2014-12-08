@@ -202,6 +202,8 @@ exports.changePassword = function(req, res, next) {
 						if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
 							user.password = passwordDetails.newPassword;
 
+							user.encryptPassword();
+
 							user.save(function(err) {
 								if (err) {
 									return res.status(400).send({

@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 // Tasks controller
 angular.module('tasks')
