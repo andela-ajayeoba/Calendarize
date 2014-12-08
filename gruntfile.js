@@ -137,12 +137,12 @@ module.exports = function(grunt) {
 			}
 		},
 		codeclimate: {
-	        options: {
-	            file: 'coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info',
-	            token: 'f95cae1d1cebd21e7797862a182ad2b2f5b54dda8db5d0ce0ac41d968806532c',
-	            timeout: 5000
-	        }
-	    }
+      options: {
+        file: 'coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info',
+        token: 'f95cae1d1cebd21e7797862a182ad2b2f5b54dda8db5d0ce0ac41d968806532c',
+        timeout: 5000
+      }
+    }
 	});
 
 	// Load NPM tasks 
