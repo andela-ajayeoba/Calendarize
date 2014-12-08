@@ -135,12 +135,19 @@ module.exports = function(grunt) {
 			unit: {
 				configFile: 'karma.conf.js'
 			}
-		}
+		},
+		codeclimate: {
+	        options: {
+	            file: 'coverage/PhantomJS 1.9.8 (Mac OS X)/lcov.info',
+	            token: 'f95cae1d1cebd21e7797862a182ad2b2f5b54dda8db5d0ce0ac41d968806532c',
+	            timeout: 5000
+	        }
+	    }
 	});
 
 	// Load NPM tasks 
 	require('load-grunt-tasks')(grunt);
-
+	grunt.loadNpmTasks('grunt-codeclimate');
 	// Making grunt default to force in order not to break the project.
 	grunt.option('force', true);
 
@@ -166,5 +173,5 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['lint', 'loadConfig', 'ngmin', 'uglify', 'cssmin']);
 
 	// Test task.
-	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit', 'codeclimate:options']);
 };
