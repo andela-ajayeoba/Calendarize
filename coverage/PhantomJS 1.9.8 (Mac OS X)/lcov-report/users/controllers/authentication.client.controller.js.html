@@ -199,6 +199,7 @@
     <h1>Code coverage report for <span class="entity">users/controllers/authentication.client.controller.js</span></h1>
     <h2>
         
+<<<<<<< HEAD
         Statements: <span class="metric">92.86% <small>(13 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
@@ -207,12 +208,22 @@
 =======
         Branches: <span class="metric">50% <small>(2 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+        Statements: <span class="metric">93.33% <small>(14 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">50% <small>(2 / 4)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
         
         
         Functions: <span class="metric">100% <small>(7 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
+<<<<<<< HEAD
         Lines: <span class="metric">100% <small>(13 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+=======
+        Lines: <span class="metric">100% <small>(14 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -254,14 +265,20 @@
 32
 33
 <<<<<<< HEAD
+<<<<<<< HEAD
 34</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 =======
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 34
 35
 36
 37
 38</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -274,11 +291,14 @@
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 =======
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -286,14 +306,21 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 <span class="cline-any cline-neutral">&nbsp;</span>
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5</span>
 <span class="cline-any cline-yes">3</span>
+<<<<<<< HEAD
+=======
+<span class="cline-any cline-yes">3</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,9 +332,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <span class="cline-any cline-neutral">&nbsp;</span>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
@@ -321,25 +352,37 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 			$http.post('/auth/signup', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$scope.authentication.user = response;
 &nbsp;
 				// And redirect to the index page
 				$location.path('/');
 =======
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 				// $scope.authentication.user = response;
 &nbsp;
 				// And redirect to the index page
 				<span class="missing-if-branch" title="else path not taken" >E</span>if (response) {
+<<<<<<< HEAD
 					$location.path('/signin');
 				}
 				
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+					$location.path('/confirmation');
+				}
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
 		};
 &nbsp;
 		$scope.signin = function() {
+<<<<<<< HEAD
+=======
+			console.log($scope.credentials);
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 			$http.post('/auth/signin', $scope.credentials).success(function(response) {
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
@@ -352,20 +395,29 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 		};
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 ]);</pre></td></tr>
 =======
 ]);
 &nbsp;</pre></td></tr>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+]);
+&nbsp;</pre></td></tr>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 </table></pre>
 
 </div>
 <div class="footer">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 09:32:23 GMT+0100 (WAT)</div>
 =======
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 11:41:05 GMT+0100 (WAT)</div>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Dec 05 2014 14:25:22 GMT+0100 (WAT)</div>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 </div>
 
 <script src="../../prettify.js"></script>

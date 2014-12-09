@@ -2,14 +2,14 @@
     <div class="projectpuzzle">
         <div class="row intro">
             <div class="col-md-8">
-                <h2 class="leadingIntro text-center">
+                <h2 class="leadingIntro">
                     Keeping track of changes & people is hard.
                     <br>Calendarize
                     <span class="introStyle">makes it easier</span>.
                 </h2>
             </div>
             <div class="col-md-4">
-                <img class="img-responsive img-center" src="modules/core/img/brand/screenshot-image.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive img-center" src="modules/core/img/brand/Screen Shot 1.png" alt="Project Puzzle ScreenShot">
             </div>
         </div>
         <div class="row questions text-center">
@@ -38,8 +38,8 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <div>
-                    <p class="questionTxt">
+                <div class="row">
+                    <p class="questionTxt-last">
                         Calendarize will help you answer these questions
                     </p>
                 </div>
@@ -47,11 +47,12 @@
         </div>
         <div class="row description">
             <div class="col-sm-6 text-center trial_two">
-
-                <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+                <a href="#!/signup">
+                    <span class="btn free-trial">Start using Calendarize in 12seconds</span>
+                </a>
             </div>
-            <div class="col-sm-6 text-left">
-                <p>
+            <div class="col-sm-6">
+                <p class="project-description">
                     Calendarize is a project scheduling tool.
                     <br>By tracking your current projects and who's working on them and when, you'll have a clear picture of what's going on.
                 </p>
@@ -59,19 +60,19 @@
         </div>
         <div class="row screenshots">
             <div class="col-md-4 text-center div_two alpha">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-01.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/Screen Shot 2.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
-                    Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
+                    Create projects, Add persons and many other exciting features
                 </p>
             </div>
             <div class="col-md-4">
-                <img class="img-responsive text-center img-center" src="modules/core/img/brand/screenshot-02.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-center img-center" src="modules/core/img/brand/Screen Shot 3.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
-                    Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
+                    Assign tasks to various persons and view their schedule at a glance.
                 </p>
             </div>
             <div class="col-md-4 omega">
-                <img class="img-responsive text-right img-center" src="modules/core/img/brand/screenshot-03.png" alt="Project Puzzle ScreenShot">
+                <img class="img-responsive text-right img-center" src="modules/core/img/brand/Screen Shot 4.png" alt="Calendarize ScreenShot">
                 <p class="imgxt text-center">
                     Switch between projects view or people view on the timeline. See which projects need people, or which people need projects.
                 </p>
@@ -82,129 +83,90 @@
                 Plans & Pricing
             </h3>
             <div class="row text-center pricing">
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Premium</strong><em>$ 100/month</em>
-                    </h3>
-                    <p class="text-center">
-                        Unlimited People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Premium</strong>
+                            <em>$ 100/month</em>
+                        </h3>
+                        <p class="text-center">
+                            Unlimited People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Plus</strong><em>$ 50/month</em>
-                    </h3>
-                    <p class="text-center">
-                        20 People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Plus</strong>
+                            <em>$ 50/month</em>
+                        </h3>
+                        <p class="text-center">
+                            20 People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
-                <div class="col-sm-4 plan text-center">
-                    <h3>
-                        <strong>Basic</strong><em>$ 20/month</em>
-                    </h3>
-                    <p class="text-center">
-                        5 People
-                        <br>Unlimited Projects
-                    </p>
+                <div class="col-sm-4 text-center">
+                    <div class="plan">
+                        <h3>
+                            <strong>Basic</strong>
+                            <em>$ 20/month</em>
+                        </h3>
+                        <p class="text-center">
+                            5 People
+                            <br>Unlimited Projects
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row text-center trial">
-            <a href="" class="button free-trial">Start using Calendarize in 12seconds</a>
+            <a href="#!/signup">
+                <span class="btn free-trial button-last">Start using Calendarize in 12seconds</span>
+            </a>
         </div>
     </div>
 </section>
-<section ng-controller="CalendarizesController" ng-show="authentication.user">
+<section ng-controller="TasksController" ng-show="authentication.user">
   <div class="container-content" ng-cloak="true">
-        <script type="text/ng-template" id="popover">
-            <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                <li><label for="people">Name*</label><input type="text" id="name" name="name" class="form-control" ng-model="person.name" required novalidate/></li>
-                <li><label for="worker">Email*</label><input type="text"  id="email" name="email" class="form-control" ng-model="person.email" required novalidate/></li>
-                <li>
-                    <label for="worker">Group</label>
-                    <input type="text"  id="group" name="group" class="form-control" ng-model="person.group" required novalidate/>
-                </li><br>
-                <button class="btn btn-primary" ng-click="addPerson()">Create</button>
-            </ul>
-        </script>
-
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-right:15px ; margin-bottom:50px">
-            Add People
-        </button>
-        <script type="text/ng-template" id="popover1">
-            <ul class="popoverBox" data-ng-controller="CalendarizesController">
-                <li>
-                    <label for="project">Name*</label><br>
-                    <input type="text" id="name" name="name" class="form-control" ng-model="project.name" required novalidate/>
-                </li><br>
-                <button class="btn btn-primary" ng-click="addProject()">Create</button>
-            </ul>
-        </script>
-        <button class="btn btn-primary" ns-popover ns-popover-template="popover1" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false" style="margin-bottom:50px">
-            Add Project
-        </button>
-        <!-- Modal Test code -->
-        <script type="text/ng-template" id="myModalContent.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">List of Projects</h3>
-                </div>
-                <div class="modal-body" data-ng-init="findProjects()">
-                    <ul data-ng-repeat ="project in projects"  >
-                        <li  data-ng-bind ="project.name" ng-click="selectedProject(project)"></li>
-                    </ul>
-                </div>
-        </script>
-       <!--  Modal Test Ends  -->
-        <div class="row top-buffer">
-            <div class="col-md-12">
-                <div class="panel-group" bs-collapse>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a href="" bs-collapse-toggle>Calendarize</a>
-                            </h4>
-                        </div>
-                        <div class="panel-collapse" bs-collapse-target>
-                            <div class="panel-body">
-                                <gantt first-day-of-week="M"
-                                   filter-task="{'name': options.filterTask}"
-                                   filter-row="{'name': options.filterRow}"
-                                   load-data="loadData = fn"
-                                   load-timespans="loadTimespans = fn"
-                                   center-date="scrollToDate = fn"
-                                   remove-data="removeData = fn"
-                                   clear-data="clearData = fn"
-                                   allow-task-moving="!options.readOnly"
-                                   allow-task-resizing="!options.readOnly"
-                                   allow-task-row-switching="!options.readOnly"
-                                   allow-labels-resizing="option.allowLabelsResizing"
-                                   sort-mode="options.mode"
-                                   view-scale="options.scale"
-                                   column-width="options.width && {minute: 40, hour: 40, day: 40, week: 150, month: 300, quarter: 500, year: 800}[options.scale] || undefined"
-                                   auto-expand="options.autoExpand"
-                                   task-out-of-range="options.taskOutOfRange"
-                                   from-date = "options.fromDate"
-                                   to-date = "options.toDate"
-                                   show-labels-column="options.showLabelsColumn"
-                                   current-date="options.currentDate"
-                                   current-date-value="options.currentDateValue"
-                                   max-height="options.maxHeight && 300 || 0"
-                                   on-scroll="scrollEvent(event)"
-                                   headers-formats="options.headersFormats"
-                                   headers="options.headers"
-                                   time-frames="options.timeFrames"
-                                   date-frames="options.dateFrames"
-                                   time-frames-non-working-mode="options.timeFramesNonWorkingMode"
-                                   column-magnet="options.columnMagnet">
-                                </gantt>
-                                </div>
-                            </div>
+    <!-- setting Tabs-->
+    <tabset>
+      <tab class="tabs" heading="Person" data-ng-click='loadTabData("Person")'>
+      </tab>
+      <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")'>
+      </tab>
+      <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+          <span class="glyphicon glyphicon-folder-close"></span>
+          <span class="glyphicon glyphicon-plus"></span>Add People
+      </button>
+      <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="glyphicon glyphicon-plus"></span>Add Project
+      </button>
+    </tabset>
+      <!-- Tabs end-->
+    <span class="response" ng-hide="notify" ng-bind="msg"><i class="glyphicon glyphicon-remove"></i></span>
+      <div class="row top-buffer">
+        <div class="col-md-12">
+            <div class="panel-group" bs-collapse>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="" bs-collapse-toggle>Calendarize</a>
+                        </h4>
+                    </div>
+                    <div class="panel-collapse" bs-collapse-target>
+                        <div class="panel-body">
+                            <gantt first-day-of-week="1" filter-task="{'name': options.filterTask}" filter-row="{'name': options.filterRow}" load-data="loadData = fn" load-timespans="loadTimespans = fn" center-date="scrollToDate = fn" remove-data="removeData = fn" clear-data="clearData = fn" allow-task-moving="!options.readOnly" allow-task-resizing="!options.readOnly" allow-task-row-switching="false" allow-labels-resizing="option.allowLabelsResizing" sort-mode="options.mode" view-scale="options.scale" column-width="options.width && {minute: 40, hour: 40, day: 40, week: 150, month: 300, quarter: 500, year: 800}[options.scale] || undefined" auto-expand="options.autoExpand" task-out-of-range="options.taskOutOfRange" from-date="options.fromDate" to-date="options.toDate" show-labels-column="options.showLabelsColumn" current-date="options.currentDate" current-date-value="options.currentDateValue" max-height="options.maxHeight && 300 || 0" on-scroll="scrollEvent(event)" headers-formats="options.headersFormats" headers="options.headers" time-frames="options.timeFrames" date-frames="options.dateFrames" time-frames-non-working-mode="options.timeFramesNonWorkingMode" column-magnet="options.columnMagnet">
+                            </gantt>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br>
+    <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
+  </div>
 </section>

@@ -3,10 +3,17 @@ SF:./public/modules/core/config/core.client.routes.js
 FN:5,(anonymous_1)
 FNF:1
 FNH:1
+<<<<<<< HEAD
 FNDA:11,(anonymous_1)
 DA:4,1
 DA:7,11
 DA:10,11
+=======
+FNDA:12,(anonymous_1)
+DA:4,1
+DA:7,12
+DA:10,12
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 LF:3
 LH:3
 BRF:0
@@ -180,6 +187,7 @@ BRH:8
 end_of_record
 TN:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 SF:./public/modules/persons/config/persons.client.routes.js
 FN:5,(anonymous_1)
@@ -224,6 +232,23 @@ FN:53,(anonymous_12)
 FN:58,(anonymous_13)
 FN:74,(anonymous_14)
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+SF:./public/modules/persons/controllers/persons.client.controller.js
+FN:5,(anonymous_1)
+FN:9,(anonymous_2)
+FN:12,(anonymous_3)
+FN:25,(anonymous_4)
+FN:31,(anonymous_5)
+FN:40,(anonymous_6)
+FN:45,(anonymous_7)
+FN:47,(anonymous_8)
+FN:47,(anonymous_9)
+FN:53,(anonymous_10)
+FN:55,(anonymous_11)
+FN:56,(anonymous_12)
+FN:61,(anonymous_13)
+FN:77,(anonymous_14)
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FNF:14
 FNH:0
 FNDA:0,(anonymous_1)
@@ -242,6 +267,10 @@ FNDA:0,(anonymous_13)
 FNDA:0,(anonymous_14)
 DA:4,1
 DA:7,0
+<<<<<<< HEAD
+=======
+DA:9,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:10,0
 DA:11,0
 DA:12,0
@@ -249,14 +278,22 @@ DA:13,0
 DA:14,0
 DA:15,0
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:20,0
 DA:24,0
 DA:29,0
 DA:30,0
+=======
+DA:17,0
+DA:18,0
+DA:23,0
+DA:26,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:31,0
 DA:32,0
 DA:33,0
 DA:34,0
+<<<<<<< HEAD
 DA:38,0
 DA:43,0
 DA:44,0
@@ -280,6 +317,15 @@ DA:50,0
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 DA:51,0
 DA:52,0
+=======
+DA:35,0
+DA:36,0
+DA:40,0
+DA:45,0
+DA:46,0
+DA:47,0
+DA:48,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:53,0
 DA:54,0
 DA:55,0
@@ -293,6 +339,7 @@ DA:62,0
 DA:63,0
 DA:64,0
 DA:65,0
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:66,0
 DA:68,0
@@ -321,6 +368,23 @@ BRDA:28,2,1,0
 BRDA:30,3,0,0
 BRDA:30,3,1,0
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+DA:66,0
+DA:67,0
+DA:68,0
+DA:70,0
+DA:72,0
+DA:77,0
+DA:78,0
+LF:44
+LH:1
+BRDA:17,1,0,0
+BRDA:17,1,1,0
+BRDA:32,2,0,0
+BRDA:32,2,1,0
+BRDA:35,3,0,0
+BRDA:35,3,1,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRF:6
 BRH:0
 end_of_record
@@ -338,6 +402,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 SF:./public/modules/projects/config/projects.client.routes.js
@@ -384,10 +449,30 @@ FNDA:1,(anonymous_2)
 FNDA:1,(anonymous_3)
 FNDA:0,(anonymous_4)
 FNDA:1,(anonymous_5)
+=======
+SF:./public/modules/projects/controllers/projects.client.controller.js
+FN:3,(anonymous_1)
+FN:7,(anonymous_2)
+FN:10,(anonymous_3)
+FN:23,(anonymous_4)
+FN:28,(anonymous_5)
+FN:37,(anonymous_6)
+FN:41,(anonymous_7)
+FN:43,(anonymous_8)
+FN:43,(anonymous_9)
+FNF:9
+FNH:0
+FNDA:0,(anonymous_1)
+FNDA:0,(anonymous_2)
+FNDA:0,(anonymous_3)
+FNDA:0,(anonymous_4)
+FNDA:0,(anonymous_5)
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FNDA:0,(anonymous_6)
 FNDA:0,(anonymous_7)
 FNDA:0,(anonymous_8)
 FNDA:0,(anonymous_9)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 FNDA:1,(anonymous_10)
@@ -446,6 +531,42 @@ BRDA:30,3,0,1
 BRDA:30,3,1,0
 BRF:6
 BRH:3
+=======
+DA:2,1
+DA:4,0
+DA:7,0
+DA:8,0
+DA:9,0
+DA:10,0
+DA:11,0
+DA:12,0
+DA:13,0
+DA:15,0
+DA:16,0
+DA:21,0
+DA:24,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:37,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+LF:24
+LH:1
+BRDA:15,1,0,0
+BRDA:15,1,1,0
+BRDA:29,2,0,0
+BRDA:29,2,1,0
+BRDA:32,3,0,0
+BRDA:32,3,1,0
+BRF:6
+BRH:0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 end_of_record
 TN:
 SF:./public/modules/projects/directives/custompopover.client.directive.js
@@ -460,17 +581,29 @@ TN:
 SF:./public/modules/projects/services/projects.client.service.js
 FN:5,(anonymous_1)
 FNF:1
+<<<<<<< HEAD
 FNH:1
 FNDA:4,(anonymous_1)
 DA:4,1
 DA:6,4
 LF:2
 LH:2
+=======
+FNH:0
+FNDA:0,(anonymous_1)
+DA:4,1
+DA:6,0
+LF:2
+LH:1
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRF:0
 BRH:0
 end_of_record
 TN:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 SF:./public/modules/tasks/controllers/modalwindow.client.controller.js
 FN:5,(anonymous_1)
 FN:7,(anonymous_2)
@@ -498,6 +631,7 @@ LH:1
 BRDA:8,1,0,0
 BRDA:8,1,1,0
 BRF:2
+<<<<<<< HEAD
 =======
 SF:./public/modules/tasks/config/tasks.client.routes.js
 FN:5,(anonymous_1)
@@ -510,11 +644,14 @@ LF:2
 LH:2
 BRF:0
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRH:0
 end_of_record
 TN:
 SF:./public/modules/tasks/controllers/tasks.client.controller.js
 FN:6,(anonymous_1)
+<<<<<<< HEAD
 <<<<<<< HEAD
 FN:19,(anonymous_2)
 FN:28,(anonymous_3)
@@ -594,6 +731,36 @@ FN:425,(anonymous_50)
 FN:429,(anonymous_51)
 FNF:51
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+FN:18,(anonymous_2)
+FN:27,(anonymous_3)
+FN:36,(anonymous_4)
+FN:39,(anonymous_5)
+FN:41,(anonymous_6)
+FN:42,(anonymous_7)
+FN:47,(anonymous_8)
+FN:62,(anonymous_9)
+FN:64,(anonymous_10)
+FN:71,(anonymous_11)
+FN:79,(anonymous_12)
+FN:87,(anonymous_13)
+FN:105,(anonymous_14)
+FN:110,(anonymous_15)
+FN:117,(anonymous_16)
+FN:119,(anonymous_17)
+FN:158,(anonymous_18)
+FN:168,(anonymous_19)
+FN:173,(anonymous_20)
+FN:187,(anonymous_21)
+FN:189,(anonymous_22)
+FN:194,(anonymous_23)
+FN:200,(anonymous_24)
+FN:219,(anonymous_25)
+FN:241,(anonymous_26)
+FN:248,(anonymous_27)
+FN:252,(anonymous_28)
+FNF:28
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FNH:0
 FNDA:0,(anonymous_1)
 FNDA:0,(anonymous_2)
@@ -620,6 +787,7 @@ FNDA:0,(anonymous_22)
 FNDA:0,(anonymous_23)
 FNDA:0,(anonymous_24)
 FNDA:0,(anonymous_25)
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:4,1
 DA:8,0
@@ -680,6 +848,27 @@ DA:38,0
 DA:39,0
 DA:40,0
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+FNDA:0,(anonymous_26)
+FNDA:0,(anonymous_27)
+FNDA:0,(anonymous_28)
+DA:4,1
+DA:8,0
+DA:9,0
+DA:10,0
+DA:15,0
+DA:18,0
+DA:20,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:32,0
+DA:33,0
+DA:35,0
+DA:39,0
+DA:40,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:41,0
 DA:42,0
 DA:43,0
@@ -692,6 +881,7 @@ DA:49,0
 DA:50,0
 DA:51,0
 DA:52,0
+<<<<<<< HEAD
 <<<<<<< HEAD
 DA:53,0
 DA:54,0
@@ -714,10 +904,36 @@ DA:92,0
 DA:96,0
 DA:97,0
 DA:100,0
+=======
+DA:53,0
+DA:54,0
+DA:56,0
+DA:58,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:68,0
+DA:71,0
+DA:72,0
+DA:73,0
+DA:74,0
+DA:75,0
+DA:79,0
+DA:80,0
+DA:86,0
+DA:87,0
+DA:88,0
+DA:95,0
+DA:96,0
+DA:98,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:101,0
 DA:102,0
 DA:103,0
 DA:106,0
+<<<<<<< HEAD
 DA:111,0
 DA:145,0
 DA:154,0
@@ -730,10 +946,25 @@ DA:162,0
 DA:165,0
 DA:167,0
 DA:168,0
+=======
+DA:110,0
+DA:111,0
+DA:114,0
+DA:115,0
+DA:116,0
+DA:117,0
+DA:120,0
+DA:125,0
+DA:159,0
+DA:168,0
+DA:169,0
+DA:170,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:173,0
 DA:174,0
 DA:175,0
 DA:176,0
+<<<<<<< HEAD
 DA:180,0
 DA:182,0
 DA:183,0
@@ -748,10 +979,27 @@ DA:198,0
 DA:199,0
 DA:203,0
 DA:204,0
+=======
+DA:179,0
+DA:181,0
+DA:182,0
+DA:187,0
+DA:188,0
+DA:189,0
+DA:190,0
+DA:194,0
+DA:196,0
+DA:197,0
+DA:200,0
+DA:201,0
+DA:203,0
+DA:205,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:206,0
 DA:207,0
 DA:209,0
 DA:210,0
+<<<<<<< HEAD
 DA:213,0
 DA:215,0
 DA:216,0
@@ -1021,12 +1269,66 @@ BRDA:420,23,0,0
 BRDA:420,23,1,0
 BRF:46
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+DA:211,0
+DA:214,0
+DA:215,0
+DA:219,0
+DA:220,0
+DA:222,0
+DA:223,0
+DA:225,0
+DA:226,0
+DA:229,0
+DA:231,0
+DA:232,0
+DA:233,0
+DA:234,0
+DA:235,0
+DA:241,0
+DA:242,0
+DA:243,0
+DA:248,0
+DA:249,0
+DA:252,0
+DA:253,0
+DA:254,0
+DA:255,0
+LF:113
+LH:1
+BRDA:28,1,0,0
+BRDA:28,1,1,0
+BRDA:53,2,0,0
+BRDA:53,2,1,0
+BRDA:95,3,0,0
+BRDA:95,3,1,0
+BRDA:159,4,0,0
+BRDA:159,4,1,0
+BRDA:174,5,0,0
+BRDA:174,5,1,0
+BRDA:175,6,0,0
+BRDA:175,6,1,0
+BRDA:203,7,0,0
+BRDA:203,7,1,0
+BRDA:220,8,0,0
+BRDA:220,8,1,0
+BRDA:231,9,0,0
+BRDA:231,9,1,0
+BRDA:232,10,0,0
+BRDA:232,10,1,0
+BRDA:232,11,0,0
+BRDA:232,11,1,0
+BRF:22
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRH:0
 end_of_record
 TN:
 SF:./public/modules/tasks/services/tasks.client.service.js
 FN:5,(anonymous_1)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FN:17,(anonymous_2)
 FN:23,Sample
 FN:25,(anonymous_4)
@@ -1035,9 +1337,15 @@ FN:44,Uuid
 FN:46,(anonymous_7)
 FN:51,(anonymous_8)
 FNF:8
+<<<<<<< HEAD
 FNH:2
 FNDA:4,(anonymous_1)
 FNDA:4,(anonymous_2)
+=======
+FNH:0
+FNDA:0,(anonymous_1)
+FNDA:0,(anonymous_2)
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FNDA:0,Sample
 FNDA:0,(anonymous_4)
 FNDA:0,(anonymous_5)
@@ -1045,9 +1353,15 @@ FNDA:0,Uuid
 FNDA:0,(anonymous_7)
 FNDA:0,(anonymous_8)
 DA:4,1
+<<<<<<< HEAD
 DA:6,4
 DA:17,1
 DA:18,4
+=======
+DA:6,0
+DA:17,1
+DA:18,0
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:23,1
 DA:24,0
 DA:26,0
@@ -1057,6 +1371,7 @@ DA:45,0
 DA:47,0
 DA:52,0
 LF:12
+<<<<<<< HEAD
 =======
 FN:15,(anonymous_2)
 FNF:2
@@ -1072,6 +1387,9 @@ DA:19,4
 LF:6
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 LH:6
+=======
+LH:4
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRF:0
 BRH:0
 end_of_record
@@ -1082,12 +1400,21 @@ FN:8,(anonymous_2)
 FN:10,(anonymous_3)
 FNF:3
 FNH:3
+<<<<<<< HEAD
 FNDA:11,(anonymous_1)
 FNDA:9,(anonymous_2)
 FNDA:3,(anonymous_3)
 DA:4,1
 DA:7,11
 DA:9,9
+=======
+FNDA:12,(anonymous_1)
+FNDA:10,(anonymous_2)
+FNDA:3,(anonymous_3)
+DA:4,1
+DA:7,12
+DA:9,10
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:11,3
 DA:14,0
 DA:17,0
@@ -1106,9 +1433,15 @@ SF:./public/modules/users/config/users.client.routes.js
 FN:5,(anonymous_1)
 FNF:1
 FNH:1
+<<<<<<< HEAD
 FNDA:11,(anonymous_1)
 DA:4,1
 DA:7,11
+=======
+FNDA:12,(anonymous_1)
+DA:4,1
+DA:7,12
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 LF:2
 LH:2
 BRF:0
@@ -1120,6 +1453,7 @@ FN:4,(anonymous_1)
 FN:10,(anonymous_2)
 FN:11,(anonymous_3)
 <<<<<<< HEAD
+<<<<<<< HEAD
 FN:17,(anonymous_4)
 FN:22,(anonymous_5)
 FN:23,(anonymous_6)
@@ -1130,6 +1464,12 @@ FN:25,(anonymous_5)
 FN:26,(anonymous_6)
 FN:32,(anonymous_7)
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+FN:19,(anonymous_4)
+FN:24,(anonymous_5)
+FN:26,(anonymous_6)
+FN:32,(anonymous_7)
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 FNF:7
 FNH:7
 FNDA:5,(anonymous_1)
@@ -1145,6 +1485,7 @@ DA:8,5
 DA:10,5
 DA:11,2
 <<<<<<< HEAD
+<<<<<<< HEAD
 DA:13,1
 DA:16,1
 DA:18,1
@@ -1158,10 +1499,18 @@ DA:16,1
 DA:17,1
 DA:21,1
 DA:25,5
+=======
+DA:16,1
+DA:17,1
+DA:20,1
+DA:24,5
+DA:25,3
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 DA:26,3
 DA:28,1
 DA:31,1
 DA:33,2
+<<<<<<< HEAD
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
 LF:13
 LH:13
@@ -1171,11 +1520,20 @@ BRDA:8,1,1,5
 BRF:2
 BRH:1
 =======
+=======
+LF:14
+LH:14
+BRDA:8,1,0,0
+BRDA:8,1,1,5
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 BRDA:16,2,0,1
 BRDA:16,2,1,0
 BRF:4
 BRH:2
+<<<<<<< HEAD
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 end_of_record
 TN:
 SF:./public/modules/users/controllers/password.client.controller.js
@@ -1294,11 +1652,19 @@ SF:./public/modules/users/services/authentication.client.service.js
 FN:6,(anonymous_1)
 FNF:1
 FNH:1
+<<<<<<< HEAD
 FNDA:11,(anonymous_1)
 DA:4,1
 DA:7,11
 DA:9,11
 DA:13,11
+=======
+FNDA:12,(anonymous_1)
+DA:4,1
+DA:7,12
+DA:9,12
+DA:13,12
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 LF:4
 LH:4
 BRF:0
@@ -1317,3 +1683,92 @@ LH:1
 BRF:0
 BRH:0
 end_of_record
+<<<<<<< HEAD
+=======
+TN:
+SF:./public/modules/verificationtokens/config/verificationtokens.client.routes.js
+FN:5,(anonymous_1)
+FNF:1
+FNH:1
+FNDA:12,(anonymous_1)
+DA:4,1
+DA:7,12
+LF:2
+LH:2
+BRF:0
+BRH:0
+end_of_record
+TN:
+SF:./public/modules/verificationtokens/controllers/verificationtokens.client.controller.js
+FN:5,(anonymous_1)
+FN:9,(anonymous_2)
+FN:16,(anonymous_3)
+FN:21,(anonymous_4)
+FN:27,(anonymous_5)
+FN:37,(anonymous_6)
+FN:44,(anonymous_7)
+FN:47,(anonymous_8)
+FN:49,(anonymous_9)
+FN:55,(anonymous_10)
+FN:60,(anonymous_11)
+FNF:11
+FNH:8
+FNDA:5,(anonymous_1)
+FNDA:1,(anonymous_2)
+FNDA:1,(anonymous_3)
+FNDA:0,(anonymous_4)
+FNDA:1,(anonymous_5)
+FNDA:0,(anonymous_6)
+FNDA:1,(anonymous_7)
+FNDA:1,(anonymous_8)
+FNDA:0,(anonymous_9)
+FNDA:1,(anonymous_10)
+FNDA:1,(anonymous_11)
+DA:4,1
+DA:6,5
+DA:9,5
+DA:11,1
+DA:16,1
+DA:17,1
+DA:20,1
+DA:22,0
+DA:27,5
+DA:28,1
+DA:29,1
+DA:31,1
+DA:32,1
+DA:33,1
+DA:37,0
+DA:38,0
+DA:44,5
+DA:45,1
+DA:47,1
+DA:48,1
+DA:50,0
+DA:55,5
+DA:56,1
+DA:60,5
+DA:61,1
+LF:25
+LH:21
+BRDA:28,1,0,1
+BRDA:28,1,1,0
+BRDA:32,2,0,1
+BRDA:32,2,1,0
+BRF:4
+BRH:2
+end_of_record
+TN:
+SF:./public/modules/verificationtokens/services/verificationtokens.client.service.js
+FN:5,(anonymous_1)
+FNF:1
+FNH:1
+FNDA:5,(anonymous_1)
+DA:4,1
+DA:6,5
+LF:2
+LH:2
+BRF:0
+BRH:0
+end_of_record
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400

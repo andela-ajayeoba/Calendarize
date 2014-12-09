@@ -196,6 +196,7 @@
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div class="header medium">
     <h1>Code coverage report for <span class="entity">tasks/services/tasks.client.service.js</span></h1>
     <h2>
@@ -208,11 +209,19 @@
         
         Statements: <span class="metric">100% <small>(6 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">tasks/services/tasks.client.service.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">33.33% <small>(4 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
+<<<<<<< HEAD
 <<<<<<< HEAD
         Functions: <span class="metric">25% <small>(2 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
@@ -224,6 +233,12 @@
         
         Lines: <span class="metric">100% <small>(6 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+        Functions: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">33.33% <small>(4 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -252,6 +267,9 @@
 19
 20
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 21
 22
 23
@@ -289,14 +307,21 @@
 55
 56
 57</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 =======
 21</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 <span class="cline-any cline-yes">4</span>
+=======
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,10 +331,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">4</span>
+=======
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,6 +379,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<<<<<<< HEAD
 =======
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">4</span>
@@ -354,14 +387,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4</span>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
 &nbsp;
 //Tasks service used to communicate Tasks REST endpoints
 angular.module('tasks').factory('Tasks', ['$resource',
 <<<<<<< HEAD
+<<<<<<< HEAD
   function($resource) {
     return $resource('tasks/:taskId', {
+=======
+<span class="fstat-no" title="function not covered" >  function($resource) {</span>
+<span class="cstat-no" title="statement not covered" >    return $resource('tasks/:taskId', {</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
       taskId: '@_id'
     }, {
       update: {
@@ -372,8 +412,13 @@ angular.module('tasks').factory('Tasks', ['$resource',
 ]);
 &nbsp;
 // Service to monitor the view we are in (Persons or Project)
+<<<<<<< HEAD
 angular.module('tasks').factory('SwitchViews', function($rootScope) {
   return {
+=======
+angular.module('tasks').factory('SwitchViews', <span class="fstat-no" title="function not covered" >function($rootScope) {</span>
+<span class="cstat-no" title="statement not covered" >  return {</span>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
     state: ''
   };
 });
@@ -411,6 +456,7 @@ angular.module('tasks').service('Uuid', <span class="fstat-no" title="function n
         this.s4() + '-' + this.s4() + this.s4() + this.s4();
     }
   };
+<<<<<<< HEAD
 =======
 	function($resource) {
 		return $resource('tasks/:taskId', { taskId: '@_id'
@@ -428,6 +474,8 @@ angular.module('tasks').factory('switchViews', function(){
 &nbsp;
     return service;
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 });
 &nbsp;</pre></td></tr>
 </table></pre>
@@ -435,10 +483,14 @@ angular.module('tasks').factory('switchViews', function(){
 </div>
 <div class="footer">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 09:32:23 GMT+0100 (WAT)</div>
 =======
     <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Nov 24 2014 11:41:05 GMT+0100 (WAT)</div>
 >>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+=======
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Dec 05 2014 14:25:22 GMT+0100 (WAT)</div>
+>>>>>>> adf4528f20a0e8234ba8268eb14d0dc71fb74400
 </div>
 
 <script src="../../prettify.js"></script>
