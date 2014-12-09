@@ -45,7 +45,8 @@
     "passport-twitter": "~1.0.2",
     "swig": "~1.4.1",
     "load-grunt-tasks": "~0.6.0",
-    "node-uuid": "~1.4.2"
+    "node-uuid": "~1.4.2",
+    "grunt-ngmin": "0.0.3"
   },
   "devDependencies": {
     "grunt-codeclimate": "0.0.1-1",
