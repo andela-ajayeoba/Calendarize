@@ -145,5 +145,30 @@
 
     }));
 
+    it('Should be able to activate an inactive Data ',inject(function(Projects, Persons){
+      scope.getTaskData = function(){};
+
+      scope.label = {
+        _id: '525a8422f6d0f87f0e407a80',
+        name: 'Person Name',
+        isActive: false
+      };
+
+      var data = {
+        _id: '525a8422f6d0f87f0e407a80';
+        isActive: false
+      }
+
+      scope.label.isActive = true;
+      $httpBackend.expectGET('persons/525a8422f6d0f87f0e407a80').respond(200, scope.label);
+      $httpBackend.expectPUT('persons/525a8422f6d0f87f0e407a80').respond(200);
+      scope.activateRow(data);
+      $httpBackend.flush();
+
+      expect(scope.label).toBe(true);
+
+    }));
+
+
 	});
 }());

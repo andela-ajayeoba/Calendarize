@@ -140,9 +140,9 @@ angular.module('tasks')
       var activateRow = function(data) {
         autoView.param[autoView.paramKey] = data._id;
         var label = autoView.resource.get(autoView.param);
-        label.isActive = true;
-        label._id = data._id;
-        label.$update(function(response) {
+        $scope.label.isActive = true;
+        $scope.label._id = data._id;
+        $scope.label.$update(function(response) {
           $scope.msg = response.name + ' is now active';
           $scope.$emit('response', $scope.msg);
           $scope.getTaskData();
@@ -151,6 +151,7 @@ angular.module('tasks')
         });
       };
 
+      $scope.activateRow = activateRow;
       // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         var dataObj = [];
