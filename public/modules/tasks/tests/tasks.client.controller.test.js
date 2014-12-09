@@ -177,13 +177,9 @@
       scope.removeData = function() {
         _id : '25a8422f6d0f87f0e807a80'
       };
-      scope.rowData = {
+      scope.rowData =new Persons({
         _id :'25a8422f6d0f87f0e807a80',
         isActive:true
-      };
-     var data = new Persons({
-        _id : '25a8422f6d0f87f0e807a80',
-        isActive : true
       });
       var responseData = {
         _id:'25a8422f6d0f87f0e807a80',
@@ -191,11 +187,13 @@
       };
       // $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(data);
       $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(responseData);
-      scope.deactivateRow(data);
+      scope.deactivateRow(scope.rowData);
       $httpBackend.flush();
       expect(scope.rowData.isActive).toBe(responseData.isActive);
     }));
     it('scope.activateRow() should be reactivate data using data Id successfully',inject(function(Persons,Projects){
+      scope.getTaskData = function(){};
+
       var person = new Persons({
         _id : '25a8422f6d0f87f0e807a80',
         isActive:false
@@ -208,11 +206,14 @@
         _id : '25a8422f6d0f87f0e807a80',
         isActive:false
       };
-      // $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(person);
-      $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(scope.label);
+
+      // data.isActive = true;
+
+      $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(person);
+      $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(person);
       scope.activateRow(data);
       $httpBackend.flush();
-      expect(data.isActive).toBe(scope.label.isActive);
+      expect(scope.msg).toBe('person name is now active');
     }));
 	});
 }());

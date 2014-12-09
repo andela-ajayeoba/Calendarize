@@ -102,8 +102,10 @@ angular.module('tasks')
         autoView.param[autoView.paramKey] = data._id;
         $scope.label = autoView.resource.get(autoView.param);
         $scope.label.isActive = true;
+        console.log($scope.label);
         $scope.label._id = data._id;
         $scope.label.$update(function(response) {
+          console.log(response);
           $scope.msg = response.name + 'is now active';
           $scope.$emit('response', $scope.msg);
           $scope.getTaskData();
