@@ -43,7 +43,8 @@
     "passport-linkedin": "~0.1.3",
     "passport-local": "~1.0.0",
     "passport-twitter": "~1.0.2",
-    "swig": "~1.4.1"
+    "swig": "~1.4.1",
+    "load-grunt-tasks": "~0.6.0"
   },
   "devDependencies": {
     "grunt-codeclimate": "0.0.1-1",
