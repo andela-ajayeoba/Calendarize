@@ -66,6 +66,7 @@
 			$httpBackend.flush();
 			expect(scope.project).toBe('');
       expect(scope.msg).toBe('Project name was successfully created');
+		}));
 		
 	});
 }());

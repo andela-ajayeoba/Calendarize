@@ -41,10 +41,7 @@ angular.module('tasks')
 
       var updateRowLabel = function(labelData) {
         var label = labelData;
-        console.log(label);
         label.$update(function(response){
-          console.log(response);
-          // debugger;
           $scope.globalRowData.data.row.name = response.name;
           $scope.msg = response.name + ' is successfully updated';
           $scope.$emit('response', $scope.msg);
@@ -103,10 +100,8 @@ angular.module('tasks')
         autoView.param[autoView.paramKey] = data._id;
         $scope.label = autoView.resource.get(autoView.param);
         $scope.label.isActive = true;
-        console.log($scope.label);
         $scope.label._id = data._id;
         $scope.label.$update(function(response) {
-          console.log(response);
           $scope.msg = response.name + 'is now active';
           $scope.$emit('response', $scope.msg);
           $scope.getTaskData();
@@ -155,13 +150,9 @@ angular.module('tasks')
       /*  ROW LABEL FUNCTIONS  */
       $scope.getRowDetails = function(event, data) {
         $scope.globalRowData.data = data;
-        console.log(data);
         var id = data.row.id;
-        console.log(id);
         autoView.param[autoView.paramKey] = id;
-        console.log(id);
         $scope.detail = autoView.resource.get(autoView.param);
-        console.log($scope.detail);
         $scope.triggerUpdateModal($scope.detail);
       };
 
