@@ -83,10 +83,11 @@ describe('User Model Unit Tests:', function() {
 		});
 
 		it('should show an error when trying to save with an existing email', function(done) {
-			user.save();
-			return user3.save(function(err) {
-				should.exist(err);
-				done();
+			user.save(function() {
+				user3.save(function(err) {
+					should.exist(err);
+					done();
+				});
 			});
 		});
 	});
