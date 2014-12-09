@@ -2,8 +2,8 @@
 
 // Tasks controller
 angular.module('tasks')
-  .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', 'GANTT_EVENTS', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
-    function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
+  .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'Uuid', 'Sample', 'moment', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
+    function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, $modal, Persons, Projects, Tasks, SwitchViews) {
 
       $scope.authentication = Authentication;
       var globalRowData = {};
@@ -305,12 +305,12 @@ angular.module('tasks')
         }
       });
 
-      $scope.$on(GANTT_EVENTS.READY, function() {
-        $scope.addSamples();
-        $timeout(function() {
-          $scope.scrollToDate($scope.options.currentDateValue);
-        }, 0, true);
-      });
+      // $scope.$on(GANTT_EVENTS.READY, function() {
+      //   $scope.addSamples();
+      //   $timeout(function() {
+      //     $scope.scrollToDate($scope.options.currentDateValue);
+      //   }, 0, true);
+      // });
 
       $scope.addSamples = function() {
         /* Chimela, Deji, Jide look for error on this line */
@@ -359,20 +359,20 @@ angular.module('tasks')
 
       };
 
-      $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
-        data.task.row.removeTask(data.task.id);
-        Tasks.delete({
-          taskId: data.task.id
-        });
-      });
+      // $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
+      //   data.task.row.removeTask(data.task.id);
+      //   Tasks.delete({
+      //     taskId: data.task.id
+      //   });
+      // });
 
-      $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
-        $scope.updateTask(event, data);
-      });
+      // $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
+      //   $scope.updateTask(event, data);
+      // });
 
-      $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
-      $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
-      $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getRowDetails);
+      // $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
+      // $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
+      // $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
+      // $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getRowDetails);
     }
   ]);
