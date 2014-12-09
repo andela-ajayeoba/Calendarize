@@ -35,54 +35,6 @@
 				$scope: scope
 			});
 		}));
-
-		it('$scope.listProjects() should return an array of projects', inject(function(Projects){
-			var dummyProject = new Projects({
-				name: 'New Projects'
-			});
-			var dummyProjects = [dummyProject];
-
-			$httpBackend.expectGET('projects').respond(dummyProjects);
-
-			scope.listProjects();
-			$httpBackend.flush();
-
-			expect(scope.projects).toEqualData(dummyProjects);
-		}));
-
-		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects){
-			var dummyProject = new Projects({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'Project'
-			});
-			scope.projects = [dummyProject];
-			$httpBackend.expectDELETE(/projects\/([0-9a-fA-F]{24})$/).respond(204);
-			scope.removeProject(dummyProject);
-			$httpBackend.flush();
-			expect(scope.projects.length).toBe(0);
-		}));
-
-		it('$scope.findOneProject() should be able to return an array with project object with a valid projectId from the URL parmeter', inject(function(Projects){
-			var dummyProject = new Projects({
-				_id: '525a8422f6d0f87f0e407a33',
-				name: 'Project'
-			});
-			$stateParams.projectId = dummyProject._id;
-			$httpBackend.expectGET(/projects\/([0-9a-fA-F]{24})$/).respond(dummyProject);
-			scope.findOneProject();
-			$httpBackend.flush();
-			expect(scope.project).toEqualData(dummyProject);
-		}));
-
-		it('$scope.addProject() should be able to save a project object without errors' ,inject (function(Projects){
-			var dummyProject  = new Projects({
-				name : 'project'
-			});
-			$httpBackend.expectPOST('projects').respond(dummyProject);
-			scope.addProject();
-			$httpBackend.flush();
-			expect(scope.project).toBe('');
-			
 		it('$scope.removeProject() should send a DELETE request with a valid projectId and remove the Project from the scope', inject(function(Projects){
 
 			var dummyProject = new Projects({
@@ -98,22 +50,22 @@
 
 
 		it('$scope.addProject() should be able to save a project object without errors' ,inject (function(Projects){
-      var closeProjectPopoverMock = function(){};
-			scope.project  =  {
-        name :'Project name'
-      };
-      scope.loadData = function(){};
-      var dummyResponse = {
-        _id:'525a8422f6d0f87f0e407a34',
-        name : scope.project.name
-      }
-			$httpBackend.expectPOST('projects').respond(dummyResponse);
+	      var closeProjectPopover = function(){};
+				scope.project  =  {
+	        name :'Project name'
+	      };
+	      scope.loadData = function(){};
+	      var dummyResponse = {
+	        _id:'525a8422f6d0f87f0e407a34',
+	        name : scope.project.name
+	      }
+				$httpBackend.expectPOST('projects').respond(dummyResponse);
 
-			scope.addProject(closeProjectPopoverMock);
+				scope.addProject(closeProjectPopover);
 
-			$httpBackend.flush();
-			expect(scope.project).toBe('');
-      expect(scope.msg).toBe('Project name was successfully created');
+				$httpBackend.flush();
+				expect(scope.project).toBe('');
+	      expect(scope.msg).toBe('Project name was successfully created');
 		}));
 		
 	});

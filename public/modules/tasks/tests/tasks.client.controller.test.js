@@ -123,29 +123,96 @@
       scope.loadData = function(){};
 
       $httpBackend.expectGET('persons?isActive=true').respond(200, activeDataArray);
-
       scope.getTaskData();
       $httpBackend.flush();
 		
 		}));
 
 		
-    // it('getRowDetails() should get details of a row ',inject(function(Projects){
-    //   var data = {
-    //       row: {
-    //         id: '525a8422f6d0f87f0e407a80'
-    //       }
-    //   };
-    //   var dummyProject = new Projects({
-    //     _id: '525a8422f6d0f87f0e407a80',
-    //     name: 'Project Name'
-    //   });
-      
-    //   $httpBackend.expectGET('projects').respond(200, dummyProject);
-    //   scope.getRowDetails({},data);
-    //   scope.triggerUpdateModalMock(detail)
-    //   $httpBackend.flush();
-    // }));
+    it('getRowDetails() should get data details of a row', inject(function(Persons){
+      // var getRowDetails = function(event,data){};
+      var data = {
+          row: {
+            id: '525a8422f6d0f87f0e807a80'
+          }
+      };
+      var dummyPerson = {
+        _id: '525a8422f6d0f87f0e407a80',
+        name: 'Person Name'
+      };
+      scope.triggerUpdateModal = function(){};
+      $httpBackend.expectGET('persons/525a8422f6d0f87f0e807a80').respond(200,dummyPerson);
+      scope.getRowDetails(event,data);
+      $httpBackend.flush();
+      expect(scope.detail).toEqualData(dummyPerson);
+    }));
 
+    it('updateRowLabel() should update row with current data irrespective of views', inject(function(Persons, Projects){
+      scope.globalRowData = {
+        data : {
+          row : {
+            name :'project name'
+          }
+        }
+      };
+      var data = new Projects({
+                _id : '525a8422f6d0f87f0e807a80',
+                name : 'project name',
+                skill : ['skill1','skill2']
+              });
+      var responseData = {
+              _id : '525a8422f6d0f87f0e807a80',
+              name :'new project name',
+              skill:['skill3','skill24']
+            };
+      
+      // $httpBackend.expectGET('projects/525a8422f6d0f87f0e807a80').respond(200,data);
+      $httpBackend.expectPUT('projects/525a8422f6d0f87f0e807a80').respond(200, responseData);
+      scope.updateRowLabel(data);
+      $httpBackend.flush();
+      expect(scope.globalRowData.data.row.name).toBe(responseData.name);
+    }));
+
+    it('scope.deactivateRow() should to remove data from a row  using the Id successfully',inject(function(Persons,Projects){
+      scope.removeData = function() {
+        _id : '25a8422f6d0f87f0e807a80'
+      };
+      scope.rowData = {
+        _id :'25a8422f6d0f87f0e807a80',
+        isActive:true
+      };
+     var data = new Persons({
+        _id : '25a8422f6d0f87f0e807a80',
+        isActive : true
+      });
+      var responseData = {
+        _id:'25a8422f6d0f87f0e807a80',
+        isActive : false
+      };
+      // $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(data);
+      $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(responseData);
+      scope.deactivateRow(data);
+      $httpBackend.flush();
+      expect(scope.rowData.isActive).toBe(responseData.isActive);
+    }));
+    it('scope.activateRow() should be reactivate data using data Id successfully',inject(function(Persons,Projects){
+      var person = new Persons({
+        _id : '25a8422f6d0f87f0e807a80',
+        isActive:false
+      });
+      scope.label = {
+        _id : '25a8422f6d0f87f0e807a80',
+        isActive:true
+      };
+      var data = {
+        _id : '25a8422f6d0f87f0e807a80',
+        isActive:false
+      };
+      // $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(person);
+      $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(scope.label);
+      scope.activateRow(data);
+      $httpBackend.flush();
+      expect(data.isActive).toBe(scope.label.isActive);
+    }));
 	});
 }());

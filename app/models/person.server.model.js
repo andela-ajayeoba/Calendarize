@@ -30,9 +30,7 @@ var PersonSchema = new Schema({
     location: {
         type:String,
         default:'',
-        trim:true
-        type: String,
-        trim: true,
+        trim:true,
         required: 'Please fill in a Location'
     },
     skill: {
