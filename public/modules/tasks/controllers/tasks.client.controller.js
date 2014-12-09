@@ -6,7 +6,7 @@ angular.module('tasks')
     function($http, $scope, $stateParams, $location, $timeout, Authentication, Uuid, Sample, moment, GANTT_EVENTS, $modal, Persons, Projects, Tasks, SwitchViews) {
 
       $scope.authentication = Authentication;
-      var globalRowData = {};
+      $scope.globalRowData = {};
       var assignment = {};
       var autoView = {
         resource: Persons,
@@ -39,6 +39,37 @@ angular.module('tasks')
         }, function() {});
       };
 
+      var updateRowLabel = function(labelData) {
+        var label = labelData;
+        console.log(label);
+        label.$update(function(response){
+          console.log(response);
+          // debugger;
+          $scope.globalRowData.data.row.name = response.name;
+          $scope.msg = response.name + ' is successfully updated';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+       $scope.updateRowLabel = updateRowLabel;
+    
+      var deactivateRow = function(data) {
+        $scope.removeData([{
+          'id': data._id
+        }]);
+            $scope.rowData = data;
+            $scope.rowData._id = data._id;
+            $scope.rowData.isActive = false;
+        $scope.rowData.$update(function(response) {
+          $scope.msg = response.name + ' is now inactive';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+      $scope.deactivateRow = deactivateRow;
+
       // Function to trigger update modal for both Project/Person
       $scope.triggerUpdateModal = function(details) {
         var updateObj = {
@@ -68,6 +99,34 @@ angular.module('tasks')
         var modalInstance = $modal.open(updateObj);
       };
 
+      var activateRow = function(data) {
+        autoView.param[autoView.paramKey] = data._id;
+        $scope.label = autoView.resource.get(autoView.param);
+        $scope.label.isActive = true;
+        console.log($scope.label);
+        $scope.label._id = data._id;
+        $scope.label.$update(function(response) {
+          console.log(response);
+          $scope.msg = response.name + 'is now active';
+          $scope.$emit('response', $scope.msg);
+          $scope.getTaskData();
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+      $scope.activateRow = activateRow;
+
+      var deleteRowLabel = function(labelData) {
+        var label = labelData;
+        label.$delete(function(response) {
+          $scope.msg = response.name + ' is successfully deleted';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+      $scope.deleteRowLabel = deleteRowLabel;
+
       /* Function to trigger view inactivated projects/persons */
       var viewInactiveModal = function(list) {
         var inactiveList = $modal.open({
@@ -94,64 +153,18 @@ angular.module('tasks')
       };
 
       /*  ROW LABEL FUNCTIONS  */
-      var getRowDetails = function(event, data) {
-        globalRowData.data = data;
+      $scope.getRowDetails = function(event, data) {
+        $scope.globalRowData.data = data;
+        console.log(data);
         var id = data.row.id;
+        console.log(id);
         autoView.param[autoView.paramKey] = id;
-        var detail = autoView.resource.get(autoView.param);
-        $scope.triggerUpdateModal(detail);
+        console.log(id);
+        $scope.detail = autoView.resource.get(autoView.param);
+        console.log($scope.detail);
+        $scope.triggerUpdateModal($scope.detail);
       };
 
-      var updateRowLabel = function(labelData) {
-        var label = labelData;
-        label.$update(function(response) {
-          globalRowData.data.row.name = response.name;
-          $scope.msg = response.name + ' is successfully updated';
-          $scope.$emit('response', $scope.msg);
-        }, function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
-      };
-       var deleteRowLabel = function(labelData) {
-        var label = labelData;
-        label.$delete(function(response) {
-          $scope.msg = response.name + ' is successfully deleted';
-          $scope.$emit('response', $scope.msg);
-        }, function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
-      };
-
-      var deactivateRow = function(data) {
-        $scope.removeData([{
-          'id': data._id
-        }]);
-        var rowData = data;
-            rowData._id = data._id;
-            rowData.isActive = false;
-        rowData.$update(function(response) {
-          $scope.msg = response.name + ' is now inactive';
-          $scope.$emit('response', $scope.msg);
-        }, function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
-      };
-
-      var activateRow = function(data) {
-        autoView.param[autoView.paramKey] = data._id;
-        var label = autoView.resource.get(autoView.param);
-        $scope.label.isActive = true;
-        $scope.label._id = data._id;
-        $scope.label.$update(function(response) {
-          $scope.msg = response.name + ' is now active';
-          $scope.$emit('response', $scope.msg);
-          $scope.getTaskData();
-        }, function(errorResponse) {
-          $scope.error = errorResponse.data.message;
-        });
-      };
-
-      $scope.activateRow = activateRow;
       // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         var dataObj = [];
@@ -372,6 +385,7 @@ angular.module('tasks')
       $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
       $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
       $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, getRowDetails);
+      $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, $scope.getRowDetails);
+
     }
   ]);

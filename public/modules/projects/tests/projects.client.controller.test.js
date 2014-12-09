@@ -49,7 +49,6 @@
 			expect(scope.projects.length).toBe(0);
 		}));
 
-
 		it('$scope.addProject() should be able to save a project object without errors' ,inject (function(Projects){
       var closeProjectPopoverMock = function(){};
 			scope.project  =  {
@@ -67,7 +66,6 @@
 			$httpBackend.flush();
 			expect(scope.project).toBe('');
       expect(scope.msg).toBe('Project name was successfully created');
-		}));
 		
 	});
 }());

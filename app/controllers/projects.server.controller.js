@@ -43,7 +43,7 @@ exports.updateProject = function(req, res) {
 
     project = _.extend(project, req.body);
 
-    project.save(function(err) {
+    project.save(function(err){
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

@@ -28,8 +28,9 @@ var PersonSchema = new Schema({
         trim: true
     },
     location: {
-        type: String,
-        trim: true,
+        type:String,
+        default:'',
+        trim:true,
         required: 'Please fill in a Location'
     },
     skill: {

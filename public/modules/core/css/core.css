@@ -199,6 +199,11 @@ a
 }
 .flatbtn {
     border-radius: 0;
+<<<<<<< HEAD
+=======
+    outline: none;
+    float: right;
+>>>>>>> cf282402b64fb5797057bfb345eb9b9f99ac5e2b
 }
     @-webkit-keyframes responseAlert {
     from {
@@ -224,6 +229,7 @@ a
     text-shadow:0 1px 0 rgba(0, 0, 0, 0.4);
     -webkit-animation: responseAlert 3s;
     /* Chrome, Safari, Opera */
+<<<<<<< HEAD
 }
 
 .req{
@@ -237,3 +243,26 @@ a
 
 
 
+=======
+}
+.req{
+    color: red;
+    margin-left: 2px;
+}
+<<<<<<< HEAD
+.inactive{
+    padding:0 20px 0 25px;
+}
+.icon{
+    margin-left:20px;
+}
+=======
+
+.inactive {
+    padding: 0 20px 0 25px;
+}
+
+
+
+>>>>>>> 8fba20175a6af7a574f6ffa0913ee570d5c62e4d
+>>>>>>> cf282402b64fb5797057bfb345eb9b9f99ac5e2b

@@ -22,6 +22,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+      
     };
     // Remove existing Project
     $scope.removeProject = function(project) {
