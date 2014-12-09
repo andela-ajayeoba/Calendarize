@@ -127,7 +127,7 @@
       $httpBackend.flush();
 		
 		}));
-    		
+
     it('Should get the list of inactive set of data ',inject(function(Projects, Persons){
 
       var dummyPerson = new Persons({
@@ -230,6 +230,7 @@
       $httpBackend.flush();
       expect(scope.rowData.isActive).toBe(responseData.isActive);
     }));
+
     it('scope.activateRow() should be reactivate data using data Id successfully',inject(function(Persons,Projects){
       scope.getTaskData = function(){};
 
@@ -247,7 +248,6 @@
       };
 
       // data.isActive = true;
-
       $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(person);
       $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(person);
       scope.activateRow(data);
