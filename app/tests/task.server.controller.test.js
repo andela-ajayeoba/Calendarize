@@ -20,94 +20,94 @@ var agent = request.agent('http://localhost:3001');
 
 describe('Task Endpoint Tests', function() {
     
-  it('Create Users', function(done) {
+  before(function(done) {
   	user1 = new User({
-		name: 'Full',
-		displayName: 'Full Name',
-		email: 'test@test.com',
-		username: 'username',
-		password: 'password',
-    verified: true,
-		provider: 'local'
-	});
+		  name: 'Full',
+		  displayName: 'Full Name',
+		  email: 'test@test.com',
+		  username: 'username',
+		  password: 'password',
+      verified: true,
+		  provider: 'local'
+	  });
 
-	user2 = new User({
-		name: 'Another Joe',
-		displayName: 'Another',
-		email: 'joe@another.com',
-		username: 'anotherjoe',
-		password: 'password',
-    verified: true,
-		provider: 'local'
-	});
+  	user2 = new User({
+  		name: 'Another Joe',
+  		displayName: 'Another',
+  		email: 'joe@another.com',
+  		username: 'anotherjoe',
+  		password: 'password',
+      verified: true,
+  		provider: 'local'
+  	});
+
+    person1 = new Person({
+      name: 'Person1',
+      email: 'person1@mail.com',
+      skill: 'HTML',
+      location: 'Lagos',
+      user: user1
+    });
+
+    person2 = new Person({
+      name: 'Person2',
+      email: 'person2@mail.com',
+      skill: 'HTML',
+      location: 'Lagos',
+      user: user2
+    });
 	
-	user1.save(function(){});
-
-	user2.save(function() {
-		done();
-	});
-  });
-
-  it('Create persons', function(done) {
-  	person1 = new Person({
-		name: 'Person1',
-    email: 'person1@mail.com',
-		user: user1
-	});
-
-	person2 = new Person({
-		name: 'Person2',
-    email: 'person2@mail.com',
-		user: user2
-	});
-
-	person1.save(function(){});
-
-	person2.save(function() {
-		done();
-	});
+  	user1.save(function() {
+      user2.save(function() {
+        person1.save(function() {
+          person2.save(function() {
+            done();
+          });
+        });
+      });
+    });
   });
 
   it('Create projects', function(done) {
     project1 = new Project({
-    name: 'Project1',
-    user: user1
-  });
+      name: 'Project1',
+      user: user1
+    });
 
-  project2 = new Project({
-    name: 'Project2',
-    user: user2
-  });
+    project2 = new Project({
+      name: 'Project2',
+      user: user2
+    });
 
-  project1.save(function(){});
-
-  project2.save(function() {
-    done();
-  });
+    project1.save(function() {
+      project2.save(function() {
+        done();
+      });
+    });
   });
 
   it('Create tasks', function(done) {
     task1 = new Task({
-    projectId: project1,
-    personId: person1,
-    startDate: '2014-10-10',
-    endDate: '2014-11-11',
-    user: user1
-  });
+      projectId: project1,
+      personId: person1,
+      startDate: '2014-10-10',
+      endDate: '2014-11-11',
+      user: user1
+    });
 
-  task2 = new Task({
-    projectId: project2,
-    personId: person2,
-    startDate: '2014-8-8',
-    endDate: '2014-9-9',
-    user: user2
-  });
+    task2 = new Task({
+      projectId: project2,
+      personId: person2,
+      startDate: '2014-8-8',
+      endDate: '2014-9-9',
+      user: user2
+    });
 
-  task1.save(function(){});
-
-  task2.save(function() {
-    done();
-  });
+    task1.save(function() {
+      task2.save(function() {
+        done();
+      });
+    });
   });
   
   it('should not create task if user is not logged in', function(done) {
@@ -129,15 +129,15 @@ describe('Task Endpoint Tests', function() {
   });
 
   it('should login User', function(done) {
-      agent.post('/auth/signin')
-          .send({ email: 'test@test.com', password: 'password' })
-          .expect(200)
-          .end(onResponse);
+    agent.post('/auth/signin')
+      .send({ email: 'test@test.com', password: 'password' })
+      .expect(200)
+      .end(onResponse);
 
-      function onResponse(err, res) {
-         	if (err) return done(err);
-         	return done();
-      }
+    function onResponse(err, res) {
+     	if (err) return done(err);
+     	return done();
+    }
   });
 
   it('should not delete a task that does not belong to him', function(done) {
@@ -145,11 +145,11 @@ describe('Task Endpoint Tests', function() {
 	  .expect(403)
  		// end handles the response
 	  .end(function(err, res) {
-        	if (err) {
-          	throw err;
-        	}
-        	return done();
-      });
+    	if (err) {
+      	throw err;
+    	}
+    	return done();
+    });
   });
 
   it('should not create a task that already exists', function(done) {
@@ -159,11 +159,11 @@ describe('Task Endpoint Tests', function() {
 
  		// end handles the response
 	  .end(function(err, res) {
-        	if (err) {
-          	throw err;
-        	}
-        	return done();
-      });
+    	if (err) {
+      	throw err;
+    	}
+    	return done();
+    });
   });
 
   it('should be able to delete a task', function(done) {
