@@ -162,3 +162,78 @@ p {
         margin-left: 30px;
     }
 }
+/*************************
+TABS
+**************************/
+.glyphicon {
+    margin-right: 5px;
+}
+
+.tabs
+{
+    margin-right:20px; 
+    color:black;
+    font-size: 1em;
+    background-color:#c3c3c3;
+    border-radius: 0;
+    font-weight: bold;
+    width:120px;
+}
+a 
+{
+    color : #000;
+}
+.person-project-btn
+{
+    width: 150px;
+    height: 35px;
+    background-color:#B0B0B0;
+    margin-bottom:30px ; 
+    margin-left:20px ;
+    border:none;
+    font-weight: bolder;
+    font-size : 1em;
+    color : #fff;
+    padding : 8px;
+    outline: none;
+}
+.flatbtn {
+    border-radius: 0;
+}
+    @-webkit-keyframes responseAlert {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.response.ng-hide-add {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid green;
+    position: absolute;
+    z-index: 1;
+    left:40%;
+    background: rgba(129, 178, 8, 0.8);
+    border: 2px solid #81b208;
+    text-shadow:0 1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-animation: responseAlert 3s;
+    /* Chrome, Safari, Opera */
+}
+
+.req{
+    color: red;
+    margin-left: 2px;
+}
+
+.inactive {
+    padding: 0 20px 0 25px;
+}
+
+
+
