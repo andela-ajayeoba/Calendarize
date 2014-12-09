@@ -31,7 +31,16 @@ module.exports = {
 			]
 		},
 		css: 'public/dist/application.min.css',
-		js: 'public/dist/application.min.js'
+		js: 'public/dist/application.min.js',
+		target_css: [
+			'public/modules/**/css/*.css'
+		],
+		target_js: [
+			'public/config.js',
+			'public/application.js',
+			'public/modules/*/*.js',
+			'public/modules/*/*[!tests]*/*.js'
+		]
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
