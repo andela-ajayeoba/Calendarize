@@ -128,24 +128,22 @@
       $httpBackend.flush();
 		
 		}));
-
 		
-    // it('getRowDetails() should get details of a row ',inject(function(Projects){
-    //   var data = {
-    //       row: {
-    //         id: '525a8422f6d0f87f0e407a80'
-    //       }
-    //   };
-    //   var dummyProject = new Projects({
-    //     _id: '525a8422f6d0f87f0e407a80',
-    //     name: 'Project Name'
-    //   });
-      
-    //   $httpBackend.expectGET('projects').respond(200, dummyProject);
-    //   scope.getRowDetails({},data);
-    //   scope.triggerUpdateModalMock(detail)
-    //   $httpBackend.flush();
-    // }));
+    it('Should get the list of inactive set of data ',inject(function(Projects, Persons){
+
+      var dummyPerson = new Persons({
+        _id: '525a8422f6d0f87f0e407a80',
+        name: 'Person Name',
+        isActive: false
+      });
+
+      var dummyPersons = [dummyPerson];
+      $httpBackend.expectGET('persons?isActive=false').respond(200, dummyPersons);
+      $httpBackend.expectGET('/modules/core/views/view_inactive.client.view.html').respond(200);
+      scope.viewInactive();
+      $httpBackend.flush();
+
+    }));
 
 	});
 }());
