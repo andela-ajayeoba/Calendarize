@@ -2,7 +2,7 @@
 
 // Tasks controller
 angular.module('tasks')
-  .controller('TasksController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication','$log','Sample','moment', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
+  .controller('TaskxController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication','$log','Sample','moment', '$modal', 'Persons', 'Projects', 'Tasks', 'SwitchViews',
     function($http, $scope, $stateParams, $location, $timeout, Authentication, $log, Sample, moment, $modal, Persons, Projects, Tasks, SwitchViews) {
 
       $scope.authentication = Authentication;

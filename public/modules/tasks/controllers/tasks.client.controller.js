@@ -7,6 +7,17 @@ angular.module('tasks')
     function($http, $scope, $stateParams, $location, $timeout, Authentication, $log, Sample, moment, $modal, Persons, Projects, Tasks, SwitchViews,ObjectModel,debounce, utils, mouseOffset) {
 
       $scope.authentication = Authentication;
+      $scope.globalRowData = {};
+        var assignment = {};
+        var autoView = {
+          resource: Persons,
+          param: {
+            personId: null
+          },
+          paramKey: 'personId'
+        };
+        SwitchViews.state = 'Person';
+        $scope.dataView = SwitchViews.state;
       var objectModel;
       var dataToRemove;
 
@@ -15,9 +26,9 @@ angular.module('tasks')
             scale: 'day',
             sortMode: undefined,
             maxHeight: false,
-            width: false,
-            autoExpand: 'none',
-            taskOutOfRange: 'truncate',
+            width: true,
+            autoExpand: 'both',
+            taskOutOfRange: 'expand',
             fromDate: undefined,
             toDate: undefined,
             allowSideResizing: true,
@@ -142,6 +153,7 @@ angular.module('tasks')
                         if (directiveName === 'ganttTask') {
                             element.bind('click', function() {
                                 logTaskEvent('task-click', directiveScope.task);
+                                
                             });
                             element.bind('mousedown touchstart', function(event) {
                                 event.stopPropagation();
@@ -165,6 +177,7 @@ angular.module('tasks')
                         } else if (directiveName === 'ganttRowLabel') {
                             element.bind('click', function() {
                                 logRowEvent('row-label-click', directiveScope.row);
+                                console.log(directiveScope.row);
                             });
                             element.bind('mousedown touchstart', function() {
                                 $scope.live.row = directiveScope.row.model;
