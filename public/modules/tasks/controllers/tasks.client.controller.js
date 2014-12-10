@@ -102,7 +102,7 @@ angular.module('tasks')
         $scope.label.isActive = true;
         $scope.label._id = data._id;
         $scope.label.$update(function(response) {
-          $scope.msg = response.name + 'is now active';
+          $scope.msg = response.name + ' is now active';
           $scope.$emit('response', $scope.msg);
           $scope.getTaskData();
         }, function(errorResponse) {
@@ -316,7 +316,6 @@ angular.module('tasks')
       });
 
       $scope.addSamples = function() {
-        /* Chimela, Deji, Jide look for error on this line */
         $scope.loadTimespans(Sample.getSampleTimespans().timespan1);
         $scope.getTaskData();
       };

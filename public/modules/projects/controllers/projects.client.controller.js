@@ -37,12 +37,6 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
         $scope.project.$remove(function() {});
       }
     };
-    // Update existing Project
-    // $scope.updateProject = function() {
-    //   var project = $scope.project;
-    //   project.$update(function() {}, function(errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
+
   }
 ]);

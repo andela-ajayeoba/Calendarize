@@ -207,29 +207,32 @@
       expect(scope.rowData.isActive).toBe(responseData.isActive);
     }));
 
-    // it('scope.activateRow() should be reactivate data using data Id successfully',inject(function(Persons,Projects){
-    //   scope.getTaskData = function(){};
+    it('scope.activateRow() should be reactivate data using data Id successfully',inject(function(Persons,Projects){
+      scope.getTaskData = function(){};
 
-    //   var person = new Persons({
-    //     _id : '25a8422f6d0f87f0e807a80',
-    //     isActive:false
-    //   });
-    //   scope.label = {
-    //     _id : '25a8422f6d0f87f0e807a80',
-    //     isActive:true
-    //   };
-    //   var data = {
-    //     _id : '25a8422f6d0f87f0e807a80',
-    //     isActive:false
-    //   };
+      scope.label = new Persons({
+        _id : '25a8422f6d0f87f0e807a80',
+        name: 'Person Name',
+        isActive:false
+      });
 
-    //   // data.isActive = true;
-    //   $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(person);
-    //   $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(person);
-    //   scope.activateRow(data);
-    //   $httpBackend.flush();
-    //   expect(scope.msg).toBe('person name is now active');
-    // }));
+      var dummyLabelResponse = {
+        _id: scope.label._id,
+        name: scope.label.name,
+        isActive: true
+      }
+
+      var data = {
+        _id : '25a8422f6d0f87f0e807a80',
+        isActive:false
+      };
+
+      $httpBackend.expectGET('persons/25a8422f6d0f87f0e807a80').respond(scope.label);
+      $httpBackend.expectPUT('persons/25a8422f6d0f87f0e807a80').respond(dummyLabelResponse);
+      scope.activateRow(data);
+      $httpBackend.flush();
+      expect(scope.label.isActive).toBe(dummyLabelResponse.isActive);
+    }));
 
 	});
 }());
