@@ -1,8 +1,8 @@
 'use strict';
 
 // Persons controller
-angular.module('persons').controller('PersonsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Persons', 'SwitchViews',
-  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {
+angular.module('persons').controller('PersonsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', '$modal', 'Persons', 'SwitchViews',
+  function($http, $scope, $stateParams, $location, $timeout, Authentication, $modal, Persons, SwitchViews) {
 
     $scope.authentication = Authentication;
         // Create new Person

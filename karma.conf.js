@@ -4,19 +4,12 @@
  * Module dependencies.
  */
 var applicationConfiguration = require('./config/config');
-var sourcePreprocessors = 'coverage';
-function isDebug(argument) {
-    return argument === '--debug';
-}
-if (process.argv.some(isDebug)) {
-    sourcePreprocessors = [];
-}
 
 // Karma configuration
 module.exports = function(config) {
 	config.set({
 		preprocessors : {
-		  'public/modules/*/*[!tests]*/*.js': sourcePreprocessors
+		  'public/modules/*/*[!tests]*/*.js': 'coverage'
 		},
 
 		// Frameworks to use
@@ -28,7 +21,7 @@ module.exports = function(config) {
 		// Test results reporter to use
 		// Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
 		//reporters: ['progress'],
-		reporters: ['progress', sourcePreprocessors],
+		reporters: ['progress', 'coverage'],
 
 		// Web server port
 		port: 9876,
@@ -53,14 +46,14 @@ module.exports = function(config) {
 		// - PhantomJS
 		// - IE (only Windows)
 
-		browsers: ['Chrome'], //["PhantomJS"],
+		browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
 
 		// Continuous Integration mode
 		// If true, it capture browsers, run tests and exit
-		singleRun: false,
+		singleRun: true,
 
 		coverageReporter: {
 		  type : 'lcov',

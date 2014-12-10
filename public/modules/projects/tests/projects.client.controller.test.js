@@ -58,7 +58,7 @@
       var dummyResponse = {
         _id:'525a8422f6d0f87f0e407a34',
         name : scope.project.name
-      }
+      };
 			$httpBackend.expectPOST('projects').respond(dummyResponse);
 
 			scope.addProject(closeProjectPopoverMock);
