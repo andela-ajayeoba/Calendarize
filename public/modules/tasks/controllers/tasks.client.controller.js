@@ -175,6 +175,84 @@ angular.module('tasks')
       };
       $scope.deactivateRow = deactivateRow;
 
+      // Get inactive assignments
+      $scope.viewInactive = function() {
+        var inactiveList = autoView.resource.query({
+          isActive: false
+        });
+        viewInactiveModal(inactiveList);
+      };
+
+      // Function to trigger the view of Inactive Project/Person
+      var viewInactiveModal = function(list) {
+        var inactiveList = $modal.open({
+          templateUrl: '/modules/core/views/view_inactive.client.view.html',
+          controller: function($scope, $modalInstance, listData) {
+            $scope.datas = listData;
+            $scope.state = SwitchViews.state;
+            $scope.activateData = function(data) {
+              activateData(data);
+              $modalInstance.close();
+            };
+            $scope.deleteData = function(data) {
+              deleteData(data);
+              $modalInstance.close();
+            };
+          },
+          size: 'lg',
+          resolve: {
+            listData: function() {
+              return list;
+            }
+          }
+        });
+      };
+
+      var activateData = function(data) {
+        autoView.param[autoView.paramKey] = data._id;
+        $scope.lbl = autoView.resource.get(autoView.param);
+        $scope.lbl.isActive = true;
+        $scope.lbl._id = data._id;
+        $scope.lbl.$update(function(response) {
+          $scope.load();
+          $scope.msg = response.name + ' is now active';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+      $scope.activateData = activateData;
+
+      var deleteData = function(labelData) {
+        var lbl = labelData;
+        lbl.$delete(function(response) {
+          $scope.msg = response.name + ' is successfully deleted';
+          $scope.$emit('response', $scope.msg);
+        }, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+      $scope.deleteData = deleteData;
+
+      $scope.loadTabData = function(view) {
+        SwitchViews.state = view;
+        $scope.dataView = view;
+        switch (view) {
+          case 'Person':
+            autoView.resource = Persons;
+            autoView.paramKey = 'personId';
+            break;
+          case 'Project':
+            autoView.resource = Projects;
+            autoView.paramKey = 'projectId';
+            break;
+        }
+
+        $scope.clear();
+        $scope.load();
+
+      };
+
       $scope.options = {
         mode: 'custom',
         scale: 'day',
@@ -187,7 +265,7 @@ angular.module('tasks')
         toDate: undefined,
         allowSideResizing: true,
         labelsEnabled: true,
-        currentDate: 'line',
+        currentDate: 'column',
         currentDateValue: Date.now(),
         draw: false,
         readOnly: false,
@@ -222,7 +300,7 @@ angular.module('tasks')
             },
             targets: ['weekend']
           },
-          '11-november': {
+          '24-December': {
             evaluator: function(date) {
               return date.month() === 10 && date.date() === 11;
             },
@@ -245,6 +323,11 @@ angular.module('tasks')
           $scope.api = api;
 
           api.core.on.ready($scope, function() {
+
+            // When gantt is ready, load data.
+            // `data` attribute could have been used too.
+            $scope.load();
+            
             // Log various events to console
             api.scroll.on.scroll($scope, logScrollEvent);
             api.core.on.ready($scope, logReadyEvent);
@@ -281,29 +364,7 @@ angular.module('tasks')
 
             api.data.on.change($scope, function() {
               // $scope.live.row = $scope.data[5];
-
-              if (dataToRemove === undefined) {
-
-                  // dataToRemove = [
-                  //     {'id': $scope.data[2].id}, // Remove Kickoff row
-                  //     {
-                  //         'id': $scope.data[0].id, 'tasks': [
-                  //         {'id': $scope.data[0].tasks[0].id},
-                  //         {'id': $scope.data[0].tasks[3].id}
-                  //     ]
-                  //     }, // Remove some Milestones
-                  //     {
-                  //         'id': $scope.data[6].id, 'tasks': [
-                  //         {'id': $scope.data[6].tasks[0].id}
-                  //     ]
-                  //     } // Remove order basket from Sprint 2
-                  // ];
-              }
             });
-
-            // When gantt is ready, load data.
-            // `data` attribute could have been used too.
-            $scope.load();
 
             // Add some DOM events
             api.directives.on.new($scope, function(directiveName, directiveScope, element) {
@@ -476,46 +537,6 @@ angular.module('tasks')
         if (date !== undefined) {
           $log.info('[Event] api.on.scroll: ' + left + ', ' + (date === undefined ? 'undefined' : date.format()) + ', ' + direction);
         }
-      };
-
-      // Event handler
-      var logTaskEvent = function(eventName, task) {
-        $log.info('[Event] ' + eventName + ': ' + task.model.name);
-      };
-
-      // Event handler
-      var logRowEvent = function(eventName, row) {
-        $log.info('[Event] ' + eventName + ': ' + row.model.name);
-      };
-
-      // Event handler
-      var logTimespanEvent = function(eventName, timespan) {
-        $log.info('[Event] ' + eventName + ': ' + timespan.model.name);
-      };
-
-      // Event handler
-      var logLabelsEvent = function(eventName, width) {
-        $log.info('[Event] ' + eventName + ': ' + width);
-      };
-
-      // Event handler
-      var logColumnsGenerateEvent = function(columns, headers) {
-        $log.info('[Event] ' + 'columns.on.generate' + ': ' + columns.length + ' column(s), ' + headers.length + ' header(s)');
-      };
-
-      // Event handler
-      var logRowsFilterEvent = function(rows, filteredRows) {
-        $log.info('[Event] rows.on.filter: ' + filteredRows.length + '/' + rows.length + ' rows displayed.');
-      };
-
-      // Event handler
-      var logTasksFilterEvent = function(tasks, filteredTasks) {
-        $log.info('[Event] tasks.on.filter: ' + filteredTasks.length + '/' + tasks.length + ' tasks displayed.');
-      };
-
-      // Event handler
-      var logReadyEvent = function() {
-        $log.info('[Event] core.on.ready');
       };
 
       // Event utility function
