@@ -14,12 +14,12 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
         $scope.msg = response.name + ' was successfully created';
         $scope.$emit('response', $scope.msg);
         if (SwitchViews.state !== 'Project') {
-          var newPerson = [{
+          $scope.data = [{
             'id': response._id,
             'name': response.name,
             'tasks': []
           }];
-          $scope.loadData(newPerson);
+          $scope.load();
         }
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;

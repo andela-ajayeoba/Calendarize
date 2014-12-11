@@ -8,18 +8,107 @@ angular.module('tasks')
 
       $scope.authentication = Authentication;
       $scope.globalRowData = {};
-        var assignment = {};
-        var autoView = {
-          resource: Persons,
-          param: {
-            personId: null
-          },
-          paramKey: 'personId'
-        };
-        SwitchViews.state = 'Person';
-        $scope.dataView = SwitchViews.state;
       var objectModel;
       var dataToRemove;
+      var assignment = {};
+      var autoView = {
+        resource: Persons,
+        param: {
+          personId: null
+        },
+        paramKey: 'personId'
+      };
+      SwitchViews.state = 'Person';
+      $scope.dataView = SwitchViews.state;
+
+      // Creating a new Assignment/Task
+      $scope.createTask = function(data) {
+        console.log(data);
+        // var newTask = {
+        //   personId: data.personId,
+        //   projectId: data.projectId,
+        //   startDate: data.startDate,
+        //   endDate: data.endDate
+        // };
+        // var task = new Tasks(newTask);
+        // task.$save(function(response) {
+        //   var taskParam = {
+        //     id: response._id,
+        //     from: response.startDate,
+        //     to: response.endDate,
+        //     color: '#F1C232'
+        //   };
+
+        //   if (SwitchViews.state === 'Person') {
+        //     taskParam.name = response.projectName;
+        //   } else {
+        //     taskParam.name = response.personName;
+        //   }
+        //   console.log(taskParam);
+        //   // var uiItem = data.infoData.row.addTask(taskParam);
+        //   // uiItem.updatePosAndSize();
+        //   // uiItem.row.updateVisibleTasks();
+        //   //learn about $scope.apply
+        // }, function(errorResponse) {
+        //   $scope.error = errorResponse.data.message;
+        // });
+      };
+
+      // Function to Populate Calender with Data
+      $scope.getTaskData = function() {
+        $scope.data = [];
+        $scope.dbData = autoView.resource.query({isActive: true}, 
+          function() {
+          $scope.dbData.forEach(function(assign) {
+            var $label = {};
+            $label.tasks = [];
+            $label.id = assign._id;
+            $label.name = assign.name;
+            assign.tasks.forEach(function(task) {
+              var $task = {};
+              $task.id = task._id;
+              $task.from = task.startDate;
+              $task.to = task.endDate;
+              $task.color = '#81b208';
+              $task.name = (SwitchViews.state === 'Person') ? task.projectName : task.personName;
+              $label.tasks.push($task);
+            });
+            $scope.data.push($label);
+          });
+            // $scope.data;
+        });
+      };
+
+      /* Function to open Assignment modal windows */
+      $scope.triggerModal = function(size) {
+        var modalInstance = $modal.open({
+          templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
+          controller: 'AssignTaskController',
+          size: 'sm',
+          resolve: {}
+        });
+
+        modalInstance.result.then(function(data) {
+          if (SwitchViews.state === 'Person') {
+            assignment.projectId = data._id;
+            assignment.projectName = data.name;
+          } else {
+            assignment.personId = data._id;
+            assignment.personName = data.name;
+          }
+          $scope.createTask(assignment);
+        }, function() {});
+      };
+
+      // Flash notice function
+      $scope.$on('response', function(event, notification) {
+        $scope.notify = false;
+        $timeout(function() {
+          $scope.notify = true;
+          $scope.msg = notification;
+        }, 200);
+        $scope.msg = '';
+      });
 
         $scope.options = {
             mode: 'custom',
@@ -34,8 +123,8 @@ angular.module('tasks')
             allowSideResizing: true,
             labelsEnabled: true,
             currentDate: 'line',
-            currentDateValue: new Date(2013, 9, 23, 11, 20, 0),
-            draw: true,
+            currentDateValue: Date.now(),
+            draw: false,
             readOnly: false,
             filterTask: '',
             filterRow: '',
@@ -126,22 +215,23 @@ angular.module('tasks')
                     api.data.on.change($scope, function() {
                         $scope.live.row = $scope.data[5];
 
-                        if (dataToRemove === undefined) {
-                            dataToRemove = [
-                                {'id': $scope.data[2].id}, // Remove Kickoff row
-                                {
-                                    'id': $scope.data[0].id, 'tasks': [
-                                    {'id': $scope.data[0].tasks[0].id},
-                                    {'id': $scope.data[0].tasks[3].id}
-                                ]
-                                }, // Remove some Milestones
-                                {
-                                    'id': $scope.data[6].id, 'tasks': [
-                                    {'id': $scope.data[6].tasks[0].id}
-                                ]
-                                } // Remove order basket from Sprint 2
-                            ];
-                        }
+                        // if (dataToRemove === undefined) {
+
+                        //     // dataToRemove = [
+                        //     //     {'id': $scope.data[2].id}, // Remove Kickoff row
+                        //     //     {
+                        //     //         'id': $scope.data[0].id, 'tasks': [
+                        //     //         {'id': $scope.data[0].tasks[0].id},
+                        //     //         {'id': $scope.data[0].tasks[3].id}
+                        //     //     ]
+                        //     //     }, // Remove some Milestones
+                        //     //     {
+                        //     //         'id': $scope.data[6].id, 'tasks': [
+                        //     //         {'id': $scope.data[6].tasks[0].id}
+                        //     //     ]
+                        //     //     } // Remove order basket from Sprint 2
+                        //     // ];
+                        // }
                     });
 
                     // When gantt is ready, load data.
@@ -167,7 +257,20 @@ angular.module('tasks')
                             });
                         } else if (directiveName === 'ganttRow') {
                             element.bind('click', function() {
-                                logRowEvent('row-click', directiveScope.row);
+                            // logRowEvent('row-click', directiveScope.row);
+                            var data = directiveScope.row;
+                              switch (SwitchViews.state) {
+                              case 'Person':
+                              assignment.personId = data.model.id;
+                              break;
+                              case 'Project':
+                              assignment.projectId = data.model.id;
+                              break;
+                              }
+                              // console.log(data);
+                              assignment.startDate = data.from;
+                              assignment.endDate = moment(data.from).add(7, 'd');
+                              $scope.triggerModal(); 
                             });
                             element.bind('mousedown touchstart', function(event) {
                                 event.stopPropagation();
@@ -177,7 +280,8 @@ angular.module('tasks')
                         } else if (directiveName === 'ganttRowLabel') {
                             element.bind('click', function() {
                                 logRowEvent('row-label-click', directiveScope.row);
-                                console.log(directiveScope.row);
+                                // console.log(directiveScope.row.model);
+
                             });
                             element.bind('mousedown touchstart', function() {
                                 $scope.live.row = directiveScope.row.model;
@@ -197,7 +301,7 @@ angular.module('tasks')
 
         // Reload data action
         $scope.load = function() {
-            $scope.data = Sample.getSampleData();
+            $scope.getTaskData(); 
             dataToRemove = undefined;
 
             $scope.timespans = Sample.getSampleTimespans();
