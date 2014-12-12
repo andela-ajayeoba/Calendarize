@@ -199,6 +199,10 @@ a
 }
 .flatbtn {
     border-radius: 0;
+<<<<<<< HEAD
+=======
+    outline: none;
+>>>>>>> feature/upgrade
 }
     @-webkit-keyframes responseAlert {
     from {
@@ -225,15 +229,27 @@ a
     -webkit-animation: responseAlert 3s;
     /* Chrome, Safari, Opera */
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/upgrade
 .req{
     color: red;
     margin-left: 2px;
 }
+<<<<<<< HEAD
 
 .inactive {
     padding: 0 20px 0 25px;
 }
 
+=======
+.inactive{
+    padding:0 20px 0 25px;
+}
+.icon{
+    margin-left:20px;
+}
+>>>>>>> feature/upgrade
 
 
