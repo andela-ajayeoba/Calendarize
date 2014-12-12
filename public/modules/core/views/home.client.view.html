@@ -136,11 +136,11 @@
             </tab>
             <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")'>
             </tab>
-            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-folder-close"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add People
             </button>
-            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add Project
             </button>
@@ -199,9 +199,6 @@
           </div>
         </div>
         <br>
-        <!-- <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button> -->
+        <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
     </div>
-    <br>
-    <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
-  </div>
 </section>
