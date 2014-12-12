@@ -23,7 +23,6 @@ angular.module('tasks')
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
-        console.log(data);
         var newTask = {
           personId: data.personId,
           projectId: data.projectId,
@@ -73,6 +72,7 @@ angular.module('tasks')
                 $label.tasks.push($task);
               });
               $scope.data.push($label);
+              console.log($scope.data);
             });
             // $scope.data;
           });
@@ -327,7 +327,7 @@ angular.module('tasks')
             // When gantt is ready, load data.
             // `data` attribute could have been used too.
             $scope.load();
-            
+
             // Log various events to console
             api.scroll.on.scroll($scope, logScrollEvent);
             api.core.on.ready($scope, logReadyEvent);
@@ -432,6 +432,7 @@ angular.module('tasks')
       // Reload data action
       $scope.load = function() {
         $scope.getTaskData();
+        $scope.data = Sample.getSampleData();
         dataToRemove = undefined;
 
         $scope.timespans = Sample.getSampleTimespans();
@@ -538,6 +539,51 @@ angular.module('tasks')
           $log.info('[Event] api.on.scroll: ' + left + ', ' + (date === undefined ? 'undefined' : date.format()) + ', ' + direction);
         }
       };
+
+        $scope.$watchCollection('live.task', function(task) {
+            $scope.live.taskJson = angular.toJson(task, true);
+            $scope.live.rowJson = angular.toJson($scope.live.row, true);
+        });
+
+        // Event handler
+        var logTaskEvent = function(eventName, task) {
+            $log.info('[Event] ' + eventName + ': ' + task.model.name);
+        };
+
+        // Event handler
+        var logRowEvent = function(eventName, row) {
+            $log.info('[Event] ' + eventName + ': ' + row.model.name);
+        };
+
+        // Event handler
+        var logTimespanEvent = function(eventName, timespan) {
+            $log.info('[Event] ' + eventName + ': ' + timespan.model.name);
+        };
+
+        // Event handler
+        var logLabelsEvent = function(eventName, width) {
+            $log.info('[Event] ' + eventName + ': ' + width);
+        };
+
+        // Event handler
+        var logColumnsGenerateEvent = function(columns, headers) {
+            $log.info('[Event] ' + 'columns.on.generate' + ': ' + columns.length + ' column(s), ' + headers.length + ' header(s)');
+        };
+
+        // Event handler
+        var logRowsFilterEvent = function(rows, filteredRows) {
+            $log.info('[Event] rows.on.filter: ' + filteredRows.length + '/' + rows.length + ' rows displayed.');
+        };
+
+        // Event handler
+        var logTasksFilterEvent = function(tasks, filteredTasks) {
+            $log.info('[Event] tasks.on.filter: ' + filteredTasks.length + '/' + tasks.length + ' tasks displayed.');
+        };
+
+        // Event handler
+        var logReadyEvent = function() {
+            $log.info('[Event] core.on.ready');
+        };
 
       // Event utility function
       var addEventName = function(eventName, func) {
