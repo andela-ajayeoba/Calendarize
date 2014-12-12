@@ -1,8 +1,8 @@
 'use strict';
 
 // Persons controller
-angular.module('persons').controller('PersonsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Persons', 'SwitchViews',
-  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Persons, SwitchViews) {
+angular.module('persons').controller('PersonsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', '$modal', 'Persons', 'SwitchViews',
+  function($http, $scope, $stateParams, $location, $timeout, Authentication, $modal, Persons, SwitchViews) {
 
     $scope.authentication = Authentication;
         // Create new Person
@@ -10,7 +10,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
       closePersonPopover();
       var person = new Persons($scope.person);
       person.$save(function(response) {
-        console.log('saving person');
         $scope.person = '';
         $scope.msg = response.name + ' was successfully created';
         $scope.$emit('response', $scope.msg);
@@ -23,7 +22,6 @@ angular.module('persons').controller('PersonsController', ['$http', '$scope', '$
           $scope.loadData(newPerson);
         }
       }, function(errorResponse) {
-        console.log('error saving');
         $scope.error = errorResponse.data.message;
       });
     };

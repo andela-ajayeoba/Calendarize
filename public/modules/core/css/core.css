@@ -199,6 +199,7 @@ a
 }
 .flatbtn {
     border-radius: 0;
+    outline: none;
 }
     @-webkit-keyframes responseAlert {
     from {
@@ -225,15 +226,15 @@ a
     -webkit-animation: responseAlert 3s;
     /* Chrome, Safari, Opera */
 }
-
 .req{
     color: red;
     margin-left: 2px;
 }
-
-.inactive {
-    padding: 0 20px 0 25px;
+.inactive{
+    padding:0 20px 0 25px;
 }
-
+.icon{
+    margin-left:20px;
+}
 
 

@@ -9,3 +9,5 @@ app/tests/coverage/
 coverage/
 .bower-*/
 .idea/
+coverage/
+
