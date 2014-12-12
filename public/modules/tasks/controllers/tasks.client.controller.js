@@ -20,6 +20,7 @@ angular.module('tasks')
       };
       SwitchViews.state = 'Person';
       $scope.dataView = SwitchViews.state;
+      
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
@@ -276,6 +277,15 @@ angular.module('tasks')
         readOnly: false,
         filterTask: '',
         filterRow: '',
+        headersFormats: {
+          'year': 'YYYY', 
+          'quarter': '[Q]Q YYYY', 
+          month: 'MMMM YYYY', 
+          week: 'w', 
+          day: 'ddd', 
+          hour: 'H', 
+          minute:'HH:mm'
+        },
         timeFrames: {
           'day': {
             start: moment('8:00', 'HH:mm'),

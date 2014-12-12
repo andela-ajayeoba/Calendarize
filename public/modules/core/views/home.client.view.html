@@ -174,13 +174,14 @@
                              allow-side-resizing = "options.allowSideResizing"
                              current-date="options.currentDate"
                              current-date-value="options.currentDateValue"
-                             headers="options.width && options.shortHeaders || options.longHeaders"
+                             headers="(options.width && options.shortHeaders || options.longHeaders)"
                              max-height="options.maxHeight && 300 || 0"
                              time-frames="options.timeFrames"
                              date-frames="options.dateFrames"
                              time-frames-non-working-mode="options.timeFramesNonWorkingMode"
                              api="options.api"
-                             column-magnet="options.columnMagnet">
+                             column-magnet="options.columnMagnet"
+                             headers-formats="options.headersFormats">
                           <gantt-labels></gantt-labels>
                           <gantt-tooltips></gantt-tooltips>
                           <gantt-bounds></gantt-bounds>
