@@ -38,7 +38,6 @@ module.exports = {
 				'public/lib/angular-modal-service/dst/angular-modal-service.js',
 				'public/lib/nsPopover/example/nsPopover.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
-
 			]
 		},
 		css: [

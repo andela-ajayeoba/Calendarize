@@ -59,10 +59,10 @@ angular.module('tasks').service('Sample', function Sample() {
                         },
                         {
                           name: 'Create concept', 
-                          // tasks: [
-                          //   {name: 'Create concept', color: '#F1C232', from: new Date(2013, 9, 10, 8, 0, 0), to: new Date(2013, 9, 16, 18, 0, 0), est: new Date(2013, 9, 8, 8, 0, 0), lct: new Date(2013, 9, 18, 20, 0, 0),
-                          //       progress: 100}
-                          // ]
+                          tasks: [
+                            {name: 'Create concept', color: '#F1C232', from: new Date(2013, 9, 10, 8, 0, 0), to: new Date(2013, 9, 16, 18, 0, 0), est: new Date(2013, 9, 8, 8, 0, 0), lct: new Date(2013, 9, 18, 20, 0, 0),
+                                progress: 100}
+                          ]
                         },
                         {
                           name: 'Finalize concept', 
@@ -85,60 +85,19 @@ angular.module('tasks').service('Sample', function Sample() {
                           // ]
                         },
                         {
-                          name: 'Sprint 3', 
-                          // tasks: [
-                          //   {name: 'Checkout', color: '#F1C232', from: new Date(2013, 10, 4, 8, 0, 0), to: new Date(2013, 10, 8, 15, 0, 0)}
-                          // ]
-                        },
-                        {
-                          name: 'Sprint 4', 
-                          // tasks: [
-                          //   {name: 'Login & Signup & Admin Views', color: '#F1C232', from: new Date(2013, 10, 11, 8, 0, 0), to: new Date(2013, 10, 15, 15, 0, 0)}
-                          // ]
-                        },
-                        {
-                          name: 'Setup server', 
-                          // tasks: [
-                          //   {name: 'HW', color: '#F1C232', from: new Date(2013, 10, 18, 8, 0, 0), to: new Date(2013, 10, 18, 12, 0, 0)}
-                          // ]
-                        },
-                        {
-                          name: 'Config server', 
-                          // tasks: [
-                          //   {name: 'SW / DNS/ Backups', color: '#F1C232', from: new Date(2013, 10, 18, 12, 0, 0), to: new Date(2013, 10, 21, 18, 0, 0)}
-                          // ]
-                        },
-                        {
                           name: 'Deployment', 
                           // tasks: [
                           //   {name: 'Depl. & Final testing', color: '#F1C232', from: new Date(2013, 10, 21, 8, 0, 0), to: new Date(2013, 10, 22, 12, 0, 0), 'classes': 'gantt-task-deployment'}
                           // ]
-                        },
-                        {
-                          name: 'Workshop', 
-                          // tasks: [
-                          //   {name: 'On-side education', color: '#F1C232', from: new Date(2013, 10, 24, 9, 0, 0), to: new Date(2013, 10, 25, 15, 0, 0)}
-                          // ]
-                        },
-                        {
-                          name: 'Content', 
-                          // tasks: [
-                          //   {name: 'Supervise content creation', color: '#F1C232', from: new Date(2013, 10, 26, 9, 0, 0), to: new Date(2013, 10, 29, 16, 0, 0)}
-                          // ]
-                        },
-                        {
-                          name: 'Documentation', 
-                          // tasks: [
-                          //   {name: 'Technical/User documentation', color: '#F1C232', from: new Date(2013, 10, 26, 8, 0, 0), to: new Date(2013, 10, 28, 18, 0, 0)}
-                          // ]
                         }
+
                     ];
             },
             getSampleTimespans: function() {
                 return [
                         {
-                            from: new Date(2014, 9, 21, 8, 0, 0),
-                            to: new Date(2014, 9, 25, 15, 0, 0),
+                            from: new Date(2014, 1, 1, 8, 0, 0),
+                            to: new Date(2014, 12, 1, 15, 0, 0),
                             name: 'Sprint 1 Timespan'
                             //priority: undefined,
                             //classes: [], //Set custom classes names to apply to the timespan.

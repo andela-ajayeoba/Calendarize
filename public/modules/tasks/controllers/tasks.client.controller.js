@@ -33,8 +33,8 @@ angular.module('tasks')
         task.$save(function(response) {
           var taskParam = {
             id: response._id,
-            from: response.startDate,
-            to: response.endDate,
+            from: new Date(response.startDate),
+            to: new Date(response.endDate),
             color: '#F1C232'
           };
 
@@ -43,7 +43,6 @@ angular.module('tasks')
           } else {
             taskParam.name = response.personName;
           }
-          $scope.options.drawTaskFactory(taskParam);
           //learn about $scope.apply
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -65,14 +64,14 @@ angular.module('tasks')
               assign.tasks.forEach(function(task) {
                 var $task = {};
                 $task.id = task._id;
-                $task.from = task.startDate;
-                $task.to = task.endDate;
+                $task.from = moment(task.startDate);
+                $task.to = moment(task.endDate);
                 $task.color = '#81b208';
                 $task.name = (SwitchViews.state === 'Person') ? task.projectName : task.personName;
                 $label.tasks.push($task);
               });
               $scope.data.push($label);
-              console.log($scope.data);
+              // console.log($scope.data);
             });
             // $scope.data;
           });
@@ -96,6 +95,12 @@ angular.module('tasks')
             assignment.personName = data.name;
           }
           $scope.createTask(assignment);
+          $scope.data[0].tasks.push({
+            id:assignment.id,
+            name:assignment.projectName,
+            from:moment(assignment.startDate),
+            to:moment(assignment.endDate)
+          });
         }, function() {});
       };
 
@@ -111,6 +116,9 @@ angular.module('tasks')
             $scope.deactivate = function() {
               deactivateRow(updateData);
               $modalInstance.close();
+            };
+            $scope.cancel = function() {
+              $modalInstance.dismiss('cancel');
             };
           },
           size: 'sm',
@@ -198,6 +206,9 @@ angular.module('tasks')
               deleteData(data);
               $modalInstance.close();
             };
+            $scope.cancel = function() {
+              $modalInstance.dismiss('cancel');
+            };
           },
           size: 'lg',
           resolve: {
@@ -261,8 +272,8 @@ angular.module('tasks')
         width: true,
         autoExpand: 'both',
         taskOutOfRange: 'expand',
-        fromDate: undefined,
-        toDate: undefined,
+        fromDate: moment(Date.now()).subtract(2,'days'),
+        toDate: moment(Date.now()).add(1,'months'),
         allowSideResizing: true,
         labelsEnabled: true,
         currentDate: 'column',
@@ -271,6 +282,15 @@ angular.module('tasks')
         readOnly: false,
         filterTask: '',
         filterRow: '',
+        headersFormats: { 
+          'year': 'YYYY', 
+          'quarter': '[Q]Q YYYY', 
+          month: 'MMMM YYYY', 
+          week: 'w', 
+          day: 'ddd', 
+          hour: 'H', 
+          minute:'HH:mm'
+        },
         timeFrames: {
           'day': {
             start: moment('8:00', 'HH:mm'),
@@ -309,13 +329,13 @@ angular.module('tasks')
         },
         timeFramesNonWorkingMode: 'visible',
         columnMagnet: '5 minutes',
-        drawTaskFactory: function(data) {
+        drawTaskFactory: function() {
           return {
-            id: data.id, // Unique id of the task.
-            name: data.name, // Name shown on top of each task.
-            color: '#AA8833', // Color of the task in HEX format (Optional).
-            from: data.from,
-            to: data.to
+            id: utils.randomUuid(),  // Unique id of the task.
+            name: 'Assign task', // Name shown on top of each task.
+            color: '#AA8833' // Color of the task in HEX format (Optional).
+            // from: new Date(data.from),
+            // to: new Date(data.to)
           };
         },
         api: function(api) {
@@ -368,25 +388,21 @@ angular.module('tasks')
 
             // Add some DOM events
             api.directives.on.new($scope, function(directiveName, directiveScope, element) {
+
               if (directiveName === 'ganttTask') {
                 element.bind('click', function() {
-                  logTaskEvent('task-click', directiveScope.task);
+                  logTaskEvent('task-clicked', directiveScope.task);
 
                 });
-                element.bind('mousedown touchstart', function(event) {
-                  event.stopPropagation();
-                  $scope.live.row = directiveScope.task.row.model;
-                  if (directiveScope.task.originalModel !== undefined) {
-                    $scope.live.task = directiveScope.task.originalModel;
-                  } else {
-                    $scope.live.task = directiveScope.task.model;
-                  }
-                  $scope.$digest();
-                });
+
               } else if (directiveName === 'ganttRow') {
-                element.bind('click', function() {
+                element.bind('click', function(evt, data) {
                   // logRowEvent('row-click', directiveScope.row);
+
+                  var test = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
+
                   var data = directiveScope.row;
+
                   switch (SwitchViews.state) {
                     case 'Person':
                       assignment.personId = data.model.id;
@@ -395,29 +411,22 @@ angular.module('tasks')
                       assignment.projectId = data.model.id;
                       break;
                   }
-                  var startDate = moment(data.from).format();
-                  var endDate = moment(startDate).add(7, 'd');
+                  var startDate = moment(test).format();
                   assignment.startDate = startDate;
-                  assignment.endDate = moment(endDate).format();
+                  assignment.endDate = moment(startDate).add(7, 'd');                  
                   $scope.triggerModal();
+
                 });
-                element.bind('mousedown touchstart', function(event) {
-                  event.stopPropagation();
-                  $scope.live.row = directiveScope.row.model;
-                  $scope.$digest();
-                });
+
               } else if (directiveName === 'ganttRowLabel') {
                 element.bind('click', function() {
                   // logRowEvent('row-label-click', directiveScope.row);
-                  // console.log(directiveScope.row.model);
                   var data = directiveScope.row;
                     $scope.getRowDetails(data);
                 });
-                element.bind('mousedown touchstart', function() {
-                  $scope.live.row = directiveScope.row.model;
-                  $scope.$digest();
-                });
               }
+              // else if (directiveName === 'ganttTimespan'){
+              // }
             });
 
             api.tasks.on.rowChange($scope, function(task) {
@@ -431,11 +440,12 @@ angular.module('tasks')
 
       // Reload data action
       $scope.load = function() {
-        $scope.getTaskData();
-        $scope.data = Sample.getSampleData();
-        dataToRemove = undefined;
 
-        $scope.timespans = Sample.getSampleTimespans();
+        $scope.getTaskData();
+        // $scope.data = Sample.getSampleData();
+        dataToRemove = undefined;
+        $scope.api.side.setWidth(140);
+        // $scope.timespans = Sample.getSampleTimespans();
       };
 
       $scope.reload = function() {
@@ -453,97 +463,12 @@ angular.module('tasks')
         $scope.data = [];
       };
 
-
-      // Visual two way binding.
-      $scope.live = {};
-
-      var debounceValue = 1000;
-
-      var listenTaskJson = debounce(function(taskJson) {
-        if (taskJson !== undefined) {
-          var task = angular.fromJson(taskJson);
-          objectModel.cleanTask(task);
-          var model = $scope.live.task;
-          angular.extend(model, task);
-        }
-      }, debounceValue);
-      $scope.$watch('live.taskJson', listenTaskJson);
-
-      var listenRowJson = debounce(function(rowJson) {
-        if (rowJson !== undefined) {
-          var row = angular.fromJson(rowJson);
-          objectModel.cleanRow(row);
-          var tasks = row.tasks;
-
-          delete row.tasks;
-          var rowModel = $scope.live.row;
-
-          angular.extend(rowModel, row);
-
-          var newTasks = {};
-          var i, l;
-
-          if (tasks !== undefined) {
-            for (i = 0, l = tasks.length; i < l; i++) {
-              objectModel.cleanTask(tasks[i]);
-            }
-
-            for (i = 0, l = tasks.length; i < l; i++) {
-              newTasks[tasks[i].id] = tasks[i];
-            }
-
-            if (rowModel.tasks === undefined) {
-              rowModel.tasks = [];
-            }
-            for (i = rowModel.tasks.length - 1; i >= 0; i--) {
-              var existingTask = rowModel.tasks[i];
-              var newTask = newTasks[existingTask.id];
-              if (newTask === undefined) {
-                rowModel.tasks.splice(i, 1);
-              } else {
-                objectModel.cleanTask(newTask);
-                angular.extend(existingTask, newTask);
-                delete newTasks[existingTask.id];
-              }
-            }
-          } else {
-            delete rowModel.tasks;
-          }
-
-          angular.forEach(newTasks, function(newTask) {
-            rowModel.tasks.push(newTask);
-          });
-        }
-      }, debounceValue);
-      $scope.$watch('live.rowJson', listenRowJson);
-
-      $scope.$watchCollection('live.task', function(task) {
-        $scope.live.taskJson = angular.toJson(task, true);
-        $scope.live.rowJson = angular.toJson($scope.live.row, true);
-      });
-
-      $scope.$watchCollection('live.row', function(row) {
-        $scope.live.rowJson = angular.toJson(row, true);
-        if (row !== undefined && row.tasks.indexOf($scope.live.task) < 0) {
-          $scope.live.task = (row.tasks === undefined || row.tasks.length <= 0) ? undefined : row.tasks[0];
-        }
-      });
-
-      $scope.$watchCollection('live.row.tasks', function() {
-        $scope.live.rowJson = angular.toJson($scope.live.row, true);
-      });
-
       // Event handler
       var logScrollEvent = function(left, date, direction) {
         if (date !== undefined) {
           $log.info('[Event] api.on.scroll: ' + left + ', ' + (date === undefined ? 'undefined' : date.format()) + ', ' + direction);
         }
       };
-
-        $scope.$watchCollection('live.task', function(task) {
-            $scope.live.taskJson = angular.toJson(task, true);
-            $scope.live.rowJson = angular.toJson($scope.live.row, true);
-        });
 
         // Event handler
         var logTaskEvent = function(eventName, task) {
