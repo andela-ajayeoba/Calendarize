@@ -12,3 +12,6 @@ deployment:
     branch: master
     heroku:
       appname: calendarizeapp
+general:
+  artifacts:
+    - "public/lib/angular-gantt/assets"
