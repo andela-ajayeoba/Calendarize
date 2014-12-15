@@ -6,10 +6,11 @@ angular.module('tasks')
     'GanttObjectModel', 'ganttDebounce', 'ganttUtils', 'ganttMouseOffset',
     function($http, $scope, $stateParams, $location, $timeout, Authentication, $log, Sample, moment, $modal, Persons, Projects, Tasks, SwitchViews, ObjectModel, debounce, utils, mouseOffset) {
 
+      // Global Variables
       $scope.authentication = Authentication;
+      $scope.assignTask = {};
       $scope.globalRowData = {};
-      var objectModel;
-      var dataToRemove;
+      var objectModel, dataToRemove;
       var assignment = {};
       var autoView = {
         resource: Persons,
@@ -20,8 +21,12 @@ angular.module('tasks')
       };
       SwitchViews.state = 'Person';
       $scope.dataView = SwitchViews.state;
-      
+      $scope.msg = '';
 
+
+      /**
+       * Task Functions
+       */
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
         var newTask = {
@@ -36,7 +41,7 @@ angular.module('tasks')
             id: response._id,
             from: new Date(response.startDate),
             to: new Date(response.endDate),
-            color: '#F1C232'
+            color: '#81b208'
           };
 
           if (SwitchViews.state === 'Person') {
@@ -44,6 +49,8 @@ angular.module('tasks')
           } else {
             taskParam.name = response.personName;
           }
+
+          $scope.drawTaskHandler(taskParam);
           //learn about $scope.apply
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -72,14 +79,15 @@ angular.module('tasks')
                 $label.tasks.push($task);
               });
               $scope.data.push($label);
-              // console.log($scope.data);
             });
-            // $scope.data;
           });
       };
 
+      /**
+       * Modal Windows Function
+       */
       /* Function to open Assignment modal windows */
-      $scope.triggerModal = function(size) {
+      $scope.triggerAssignModal = function(size) {
         var modalInstance = $modal.open({
           templateUrl: '/modules/core/views/assign_task_modal.client.view.html',
           controller: 'AssignTaskController',
@@ -95,16 +103,10 @@ angular.module('tasks')
             assignment.personName = data.name;
           }
           $scope.createTask(assignment);
-          $scope.data[0].tasks.push({
-            id:assignment.id,
-            name:assignment.projectName,
-            from:moment(assignment.startDate),
-            to:moment(assignment.endDate)
-          });
         }, function() {});
       };
 
-      // Function to trigger update project/person modal
+      /*  Trigger Update Modal Window  */
       $scope.triggerUpdateModal = function(details) {
         var updateObj = {
           controller: function($scope, updateData, $modalInstance) {
@@ -136,16 +138,50 @@ angular.module('tasks')
         var modalInstance = $modal.open(updateObj);
       };
 
-      // Flash notice function
+      /* Function to trigger the view of Inactive Project/Person */
+      var viewInactiveModal = function(list) {
+        var inactiveList = $modal.open({
+          templateUrl: '/modules/core/views/view_inactive.client.view.html',
+          controller: function($scope, $modalInstance, listData) {
+            $scope.datas = listData;
+            $scope.state = SwitchViews.state;
+            $scope.activateData = function(data) {
+              activateData(data);
+              $modalInstance.close();
+            };
+            $scope.deleteData = function(data) {
+              deleteData(data);
+              $modalInstance.close();
+            };
+            $scope.cancel = function() {
+              $modalInstance.dismiss('cancel');
+            };
+          },
+          size: 'lg',
+          resolve: {
+            listData: function() {
+              return list;
+            }
+          }
+        });
+      };
+
+      /**
+       * Flash Notification
+       */
       $scope.$on('response', function(event, notification) {
-        $scope.notify = false;
+        $scope.notify = true;
         $timeout(function() {
-          $scope.notify = true;
+          $scope.notify = false;
           $scope.msg = notification;
         }, 200);
         $scope.msg = '';
+        $scope.notify = true;
       });
 
+      /**
+       * Row Label Functions
+       */
       $scope.getRowDetails = function(data) {
         $scope.globalRowData.data = data;
         var id = data.model.id;
@@ -191,43 +227,16 @@ angular.module('tasks')
         viewInactiveModal(inactiveList);
       };
 
-      // Function to trigger the view of Inactive Project/Person
-      var viewInactiveModal = function(list) {
-        var inactiveList = $modal.open({
-          templateUrl: '/modules/core/views/view_inactive.client.view.html',
-          controller: function($scope, $modalInstance, listData) {
-            $scope.datas = listData;
-            $scope.state = SwitchViews.state;
-            $scope.activateData = function(data) {
-              activateData(data);
-              $modalInstance.close();
-            };
-            $scope.deleteData = function(data) {
-              deleteData(data);
-              $modalInstance.close();
-            };
-            $scope.cancel = function() {
-              $modalInstance.dismiss('cancel');
-            };
-          },
-          size: 'lg',
-          resolve: {
-            listData: function() {
-              return list;
-            }
-          }
-        });
-      };
-
       var activateData = function(data) {
         autoView.param[autoView.paramKey] = data._id;
         $scope.lbl = autoView.resource.get(autoView.param);
         $scope.lbl.isActive = true;
         $scope.lbl._id = data._id;
         $scope.lbl.$update(function(response) {
-          $scope.load();
+          $scope.reload();
           $scope.msg = response.name + ' is now active';
           $scope.$emit('response', $scope.msg);
+
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
@@ -263,6 +272,10 @@ angular.module('tasks')
         $scope.load();
 
       };
+
+      /**
+       * Angular Gantt-chart Options/Functions
+       */
 
       $scope.options = {
         mode: 'custom',
@@ -331,14 +344,9 @@ angular.module('tasks')
         },
         timeFramesNonWorkingMode: 'visible',
         columnMagnet: '5 minutes',
-        drawTaskFactory: function() {
-          return {
-            id: utils.randomUuid(),  // Unique id of the task.
-            name: 'Assign task', // Name shown on top of each task.
-            color: '#AA8833' // Color of the task in HEX format (Optional).
-            // from: new Date(data.from),
-            // to: new Date(data.to)
-          };
+        drawTaskFactory: function(data) {
+          var task = {};
+          return task;
         },
         api: function(api) {
           // API Object is used to control methods and events from angular-gantt.
@@ -398,11 +406,9 @@ angular.module('tasks')
                 });
 
               } else if (directiveName === 'ganttRow') {
-                element.bind('click', function(evt, data) {
-                  // logRowEvent('row-click', directiveScope.row);
-
-                  var test = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
-
+                element.bind('click', function(evt) {
+                  // logRowEvent('row-click', directiveScope.row); 
+                  // $scope.options.draw = false
                   var data = directiveScope.row;
 
                   switch (SwitchViews.state) {
@@ -413,10 +419,32 @@ angular.module('tasks')
                       assignment.projectId = data.model.id;
                       break;
                   }
-                  var startDate = moment(test).format();
-                  assignment.startDate = startDate;
-                  assignment.endDate = moment(startDate).add(7, 'd');                  
-                  $scope.triggerModal();
+
+                  $scope.triggerAssignModal();
+                  var getDate = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
+                  var taskBegin = moment(getDate).format();
+                  assignment.startDate = moment(taskBegin).format();
+                  var taskEnd = moment(assignment.startDate).add(7 , 'd');
+                  assignment.endDate = moment(taskEnd).format();
+
+                  $scope.drawTaskHandler = function(task){
+                  
+                    var taskParam = $scope.options.drawTaskFactory();
+                    taskParam = {
+                      id : task.id,
+                      name: task.name,
+                      from:assignment.startDate,
+                      to: assignment.endDate,
+                      color:'#F1C232'
+                    };
+
+                    var uiItem = directiveScope.row.addTask(taskParam);
+                    // uiItem.isResizing = true;
+                    uiItem.updatePosAndSize();
+
+                    directiveScope.row.updateVisibleTasks();
+                    // directiveScope.row.$scope.$apply();
+                  };
 
                 });
 
@@ -442,12 +470,9 @@ angular.module('tasks')
 
       // Reload data action
       $scope.load = function() {
-
         $scope.getTaskData();
-        // $scope.data = Sample.getSampleData();
         dataToRemove = undefined;
         $scope.api.side.setWidth(140);
-        // $scope.timespans = Sample.getSampleTimespans();
       };
 
       $scope.reload = function() {
