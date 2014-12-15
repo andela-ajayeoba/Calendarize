@@ -8,7 +8,7 @@ module.exports = {
 				'public/lib/angular-gantt/assets/angular-gantt.css',
 				'public/lib/angular-gantt/assets/angular-gantt-plugins.css',
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
