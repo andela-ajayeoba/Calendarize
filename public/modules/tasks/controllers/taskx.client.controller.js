@@ -361,21 +361,21 @@ angular.module('tasks')
 
             };
 
-            $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
-              data.task.row.removeTask(data.task.id);
-              Tasks.delete({
-                taskId: data.task.id
-              });
-            });
+            // $scope.$on(GANTT_EVENTS.TASK_DBL_CLICKED, function(event, data) {
+            //   data.task.row.removeTask(data.task.id);
+            //   Tasks.delete({
+            //     taskId: data.task.id
+            //   });
+            // });
 
-            $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
-              $scope.updateTask(event, data);
-            });
+            // $scope.$on(GANTT_EVENTS.TASK_CHANGED, function(event, data) {
+            //   $scope.updateTask(event, data);
+            // });
 
-            $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
-            $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
-            $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
-            $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, $scope.getRowDetails);
+            // $scope.$on(GANTT_EVENTS.TASK_MOVE_END, function(event, data) {});
+            // $scope.$on(GANTT_EVENTS.TASK_RESIZE_END, $scope.updateTask);
+            // $scope.$on(GANTT_EVENTS.ROW_CLICKED, handleClickEvent);
+            // $scope.$on(GANTT_EVENTS.ROW_LABEL_CLICKED, $scope.getRowDetails);
 
     }
   ]);

@@ -136,11 +136,11 @@
             </tab>
             <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")'>
             </tab>
-            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-folder-close"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add People
             </button>
-            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
                 <span class="glyphicon glyphicon-user"></span>
                 <span class="glyphicon glyphicon-plus"></span>Add Project
             </button>
@@ -174,7 +174,7 @@
                              allow-side-resizing = "options.allowSideResizing"
                              current-date="options.currentDate"
                              current-date-value="options.currentDateValue"
-                             headers="options.width && options.shortHeaders || options.longHeaders"
+                             headers="(options.width && options.shortHeaders || options.longHeaders)"
                              max-height="options.maxHeight && 300 || 0"
                              time-frames="options.timeFrames"
                              date-frames="options.dateFrames"

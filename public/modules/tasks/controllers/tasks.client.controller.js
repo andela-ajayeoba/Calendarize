@@ -20,6 +20,7 @@ angular.module('tasks')
       };
       SwitchViews.state = 'Person';
       $scope.dataView = SwitchViews.state;
+      
 
       // Creating a new Assignment/Task
       $scope.createTask = function(data) {
@@ -85,7 +86,6 @@ angular.module('tasks')
           size: 'sm',
           resolve: {}
         });
-
         modalInstance.result.then(function(data) {
           if (SwitchViews.state === 'Person') {
             assignment.projectId = data._id;
@@ -282,11 +282,13 @@ angular.module('tasks')
         readOnly: false,
         filterTask: '',
         filterRow: '',
-        headersFormats: { 
+        headersFormats: {
           'year': 'YYYY', 
           'quarter': '[Q]Q YYYY', 
           month: 'MMMM YYYY', 
-          week: 'w', 
+          week: function(column) {
+            return column.date.format('MMM Do [-]') + column.endDate.format('[ ]MMM Do');
+          },
           day: 'ddd', 
           hour: 'H', 
           minute:'HH:mm'
