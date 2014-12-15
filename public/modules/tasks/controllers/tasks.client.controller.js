@@ -171,14 +171,13 @@ angular.module('tasks')
        * Flash Notification
        */
       $scope.$on('response', function(event, notification) {
-        $scope.notify = true;
+        $scope.notify = true;       
         $timeout(function() {
           $scope.notify = false;
           $scope.msg = notification;
-          // $('.response').css('display', 'none');
-        }, 200);
+          $('.response').css('opacity', 0);
+        },200);
         $scope.msg = '';
-
       });
 
       /**
