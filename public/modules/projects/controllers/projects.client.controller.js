@@ -20,7 +20,8 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
           $scope.load();
         }
       }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
+        $scope.msg = errorResponse.config.data.name+ ' already exist!';
+        $scope.$emit('response',$scope.msg);
       });
     };
     // Remove existing Project
