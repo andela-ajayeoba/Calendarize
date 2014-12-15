@@ -287,7 +287,7 @@ angular.module('tasks')
           'quarter': '[Q]Q YYYY', 
           month: 'MMMM YYYY', 
           week: function(column) {
-            return column.date.format('MMM Do [-]') + column.endDate.format('[ ]MMM Do');
+            return column.date.format('MMM D [-]') + column.endDate.format('[ ]MMM D');
           },
           day: 'ddd', 
           hour: 'H', 
