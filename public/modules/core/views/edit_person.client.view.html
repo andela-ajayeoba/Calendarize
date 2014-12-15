@@ -1,4 +1,5 @@
 <ul class="popoverBox" data-ng-controller="PersonsController">
+<<<<<<< HEAD
   <div class="modal-header">
     <span class="glyphicon glyphicon-remove pull-right" data-ng-click="close()" style="margin:10px"></span>
     <h3 class="modal-title">Edit Person</h3>
@@ -29,4 +30,26 @@
     <button class="btn btn-primary pull-right flatbtn" ng-click="updateLabel()">Save</button>
     <button class="btn btn-danger pull-left flatbtn" ng-click="deactivate()">Inactivate this Person</button>
   </div>    
+=======
+    <div class="modal-header">
+        <span class="glyphicon glyphicon-remove pull-right" data-ng-click="close()" style="margin:10px"></span>
+        <h3 class="modal-title">Edit Person</h3>
+    </div>    
+    <li>
+        <label for="name">Name<span class="req">*</span></label>
+        <input type="text" id="name" name="name" class="form-control" ng-model="updateData.name" required novalidate/>
+    </li>
+    <li>
+        <label for="email">Email<span class="req">*</span></label>
+        <input type="text" id="email" name="email" class="form-control" ng-model="updateData.email" required novalidate/>
+    </li>
+    <li>
+        <label for="group">Group</label>
+        <input type="text" id="group" name="group" class="form-control" ng-model="updataData.group" required novalidate/>
+    </li>
+    <div class="modal-footer">
+      <button class="btn btn-primary pull-right flatbtn" ng-click="updateLabel()">Save</button>
+      <button class="btn btn-danger pull-left flatbtn" ng-click="">Inactivate this Person</button>
+    </div>    
+>>>>>>> oversight
 </ul>
