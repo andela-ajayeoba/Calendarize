@@ -129,43 +129,81 @@
     </div>
 </section>
 <section ng-controller="TasksController" ng-show="authentication.user">
-  <div class="container-content" ng-cloak="true">
-    <!-- setting Tabs-->
-    <tabset>
-      <tab class="tabs" heading="Person" data-ng-click='loadTabData("Person")'>
-      </tab>
-      <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")'>
-      </tab>
-      <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
-          <span class="glyphicon glyphicon-folder-close"></span>
-          <span class="glyphicon glyphicon-plus"></span>Add People
-      </button>
-      <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
-          <span class="glyphicon glyphicon-user"></span>
-          <span class="glyphicon glyphicon-plus"></span>Add Project
-      </button>
-    </tabset>
-      <!-- Tabs end-->
-    <span class="response" ng-hide="notify" ng-bind="msg"><i class="glyphicon glyphicon-remove"></i></span>
-      <div class="row top-buffer">
-        <div class="col-md-12">
+    <div class="container-content" ng-cloak="true">
+        <!-- setting Tabs-->
+        <tabset>
+            <tab class="tabs" heading="Person" data-ng-click='loadTabData("Person")'>
+            </tab>
+            <tab class="tabs" heading="Project" data-ng-click='loadTabData("Project")'>
+            </tab>
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_person_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+                <span class="glyphicon glyphicon-folder-close"></span>
+                <span class="glyphicon glyphicon-plus"></span>Add People
+            </button>
+            <button class="person-project-btn" ns-popover ns-popover-template="/modules/core/views/add_project_popover.client.view.html" ns-popover-trigger="click" ns-popover-timeout="0.2" ns-popover-placement="bottom|left" ns-popover-hide-on-click="false">
+                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-plus"></span>Add Project
+            </button>
+        </tabset>
+        <!-- Tabs end-->
+        <!-- <span class="response" ng-hide="notify" ng-bind="msg"></span> -->
+
+        <div class="row top-buffer">
+          <div class="col-md-12">
             <div class="panel-group" bs-collapse>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="" bs-collapse-toggle>Calendarize</a>
-                        </h4>
-                    </div>
-                    <div class="panel-collapse" bs-collapse-target>
-                        <div class="panel-body">
-                            <gantt first-day-of-week="1" filter-task="{'name': options.filterTask}" filter-row="{'name': options.filterRow}" load-data="loadData = fn" load-timespans="loadTimespans = fn" center-date="scrollToDate = fn" remove-data="removeData = fn" clear-data="clearData = fn" allow-task-moving="!options.readOnly" allow-task-resizing="!options.readOnly" allow-task-row-switching="false" allow-labels-resizing="option.allowLabelsResizing" sort-mode="options.mode" view-scale="options.scale" column-width="options.width && {minute: 40, hour: 40, day: 40, week: 150, month: 300, quarter: 500, year: 800}[options.scale] || undefined" auto-expand="options.autoExpand" task-out-of-range="options.taskOutOfRange" from-date="options.fromDate" to-date="options.toDate" show-labels-column="options.showLabelsColumn" current-date="options.currentDate" current-date-value="options.currentDateValue" max-height="options.maxHeight && 300 || 0" on-scroll="scrollEvent(event)" headers-formats="options.headersFormats" headers="options.headers" time-frames="options.timeFrames" date-frames="options.dateFrames" time-frames-non-working-mode="options.timeFramesNonWorkingMode" column-magnet="options.columnMagnet">
-                            </gantt>
-                        </div>
-                    </div>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a href="" bs-collapse-toggle>Calendarize</a>
+                  </h4>
                 </div>
+                <div class="panel-collapse" bs-collapse-target>
+                  <div class="panel-body">
+                    <div gantt
+                           data="data"
+                           timespans="timespans"
+                           show-side="options.labelsEnabled"
+                           filter-task="{'name': options.filterTask}"
+                           filter-row="{'name': options.filterRow}"
+                           sort-mode="options.sortMode"
+                           view-scale="options.scale"
+                           column-width="(options.width || options.scale === 'hour' || options.scale === 'minute') && {minute: 40, hour: 40, day: 40, week: 150, month: 300, quarter: 500, year: 800}[options.scale] || undefined"
+                           auto-expand="options.autoExpand"
+                           task-out-of-range="options.taskOutOfRange"
+                           from-date = "options.fromDate"
+                           to-date = "options.toDate"
+                           allow-side-resizing = "options.allowSideResizing"
+                           current-date="options.currentDate"
+                           current-date-value="options.currentDateValue"
+                           headers="options.width && options.shortHeaders || options.longHeaders"
+                           max-height="options.maxHeight && 300 || 0"
+                           time-frames="options.timeFrames"
+                           date-frames="options.dateFrames"
+                           time-frames-non-working-mode="options.timeFramesNonWorkingMode"
+                           api="options.api"
+                           column-magnet="options.columnMagnet"
+                           headers-formats="options.headersFormats">
+                        <gantt-labels></gantt-labels>
+                        <gantt-tooltips></gantt-tooltips>
+                        <gantt-bounds></gantt-bounds>
+                        <gantt-progress></gantt-progress>
+                        <gantt-sortable></gantt-sortable>
+                        <gantt-movable enabled="!options.readOnly"></gantt-movable>
+                        <gantt-draw-task
+                            enabled="options.draw && !options.readOnly"
+                            task-factory="options.drawTaskFactory">
+                        </gantt-draw-task>
+                      </div>   
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+        <br>
+        <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
     </div>
+<<<<<<< HEAD
     <br>
 <<<<<<< HEAD
     <button class="btn btn-danger pull-left flatbtn" ng-click="viewInactive()" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
@@ -173,4 +211,6 @@
     <button class="btn btn-danger pull-left flatbtn" ng-click="" data-ng-model='dataView'>Show inactivated {{dataView}}s</button>
 >>>>>>> oversight
   </div>
+=======
+>>>>>>> 01ce3fe2f01db71f33917384a858b850f7853761
 </section>

@@ -5,7 +5,7 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/angular-gantt/assets/gantt.css',
+				'public/lib/angular-gantt/assets/angular-gantt.css',
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
 			],

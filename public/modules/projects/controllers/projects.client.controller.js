@@ -1,6 +1,6 @@
 'use strict';
-angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', 'GANTT_EVENTS', '$modal', 'Projects', 'Tasks', 'SwitchViews',
-  function($http, $scope, $stateParams, $location, $timeout, Authentication, GANTT_EVENTS, $modal, Projects, Tasks, SwitchViews) {
+angular.module('projects').controller('ProjectsController', ['$http', '$scope', '$stateParams', '$location', '$timeout', 'Authentication', '$modal', 'Projects', 'Tasks', 'SwitchViews',
+  function($http, $scope, $stateParams, $location, $timeout, Authentication, $modal, Projects, Tasks, SwitchViews) {
     $scope.authentication = Authentication;
     
     // Create new Project
@@ -22,6 +22,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
+
     };
     // Remove existing Project
     $scope.removeProject = function(project) {
@@ -36,12 +37,5 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
         $scope.project.$remove(function() {});
       }
     };
-    // Update existing Project
-    // $scope.updateProject = function() {
-    //   var project = $scope.project;
-    //   project.$update(function() {}, function(errorResponse) {
-    //     $scope.error = errorResponse.data.message;
-    //   });
-    // };
   }
 ]);

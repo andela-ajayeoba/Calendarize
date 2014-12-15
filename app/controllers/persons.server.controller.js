@@ -49,6 +49,7 @@ exports.read = function(req, res) {
 /**
  * Update a Person
  */
+
 exports.updatePerson = function(req, res) {
 
   var person = req.person;
