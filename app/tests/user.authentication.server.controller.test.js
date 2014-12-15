@@ -18,7 +18,7 @@ var user1, user2, verificationtoken1, verificationtoken2;
 var agent = request.agent('http://localhost:3001');
 
 describe('User authentication server controller unit test', function() {
-	it('Create Users', function(done) {
+	before(function(done) {
     user1 = new User({
 			name: 'Fullest',
 			displayName: 'Fuller Name',
@@ -43,9 +43,9 @@ describe('User authentication server controller unit test', function() {
 				token: 'bjws8923b982b923jb020932bbe',
 				createdAt: Date.now
 			});
-		});
-		user2.save(function() {
-			done();
+			user2.save(function() {
+				done();
+			})
 		});
 	});
 
@@ -54,27 +54,26 @@ describe('User authentication server controller unit test', function() {
 		.send({email: 'tester@tester.com', password: 'password'})
 		.expect(200)
 		.end(function(err, res) {
-          	if (err) {
-            	throw err;
-          	}
-          	return done();
-        });
+    	if (err) {
+      	throw err;
+    	}
+    	return done();
+    });
 	});
 	it ('should not Signin unverified users', function(done) {
 		agent.post('/auth/signin')
 		.send({email: 'joe@another.com', password: 'password'})
 		.expect(401)
 		.end(function(err, res) {
-          	if (err) {
-            	throw err;
-          	}
-          	return done();
-        });
+    	if (err) {
+      	throw err;
+    	}
+    	return done();
+    });
 	});
 
 	after(function(done) { 
 		User.remove().exec();
-
 		done();
 	});
 });

@@ -2,7 +2,7 @@
 
 // Tasks controller
 angular.module('tasks')
-  .controller('ModalInstanceCtrl', function($rootScope, $scope, $modalInstance, Projects, Persons, SwitchViews) {
+  .controller('AssignTaskController', function($rootScope, $scope, $modalInstance, Projects, Persons, SwitchViews) {
 
     $scope.findData = function() {
       switch (SwitchViews.state) {

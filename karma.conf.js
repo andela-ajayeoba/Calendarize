@@ -16,7 +16,7 @@ if (process.argv.some(isDebug)) {
 module.exports = function(config) {
 	config.set({
 		preprocessors : {
-		  'public/modules/*/*[!tests]*/*.js': sourcePreprocessors
+		  'public/modules/*/*[!tests]*/*.js': 'coverage'
 		},
 
 		// Frameworks to use
@@ -28,7 +28,7 @@ module.exports = function(config) {
 		// Test results reporter to use
 		// Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
 		//reporters: ['progress'],
-		reporters: ['progress', sourcePreprocessors],
+		reporters: ['progress', 'coverage'],
 
 		// Web server port
 		port: 9876,
@@ -52,7 +52,7 @@ module.exports = function(config) {
 		// - Safari (only Mac)
 		// - PhantomJS
 		// - IE (only Windows)
-		browsers: ['Chrome'], //["Phantom Js"],
+		browsers: ['PhantomJS'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
@@ -69,7 +69,7 @@ module.exports = function(config) {
 			'karma-jasmine',
 			'karma-phantomjs-launcher',
 			'karma-coverage',
-			'karma-chrome-launcher',
-	  ],
+			'karma-chrome-launcher'
+	    ],
 	});
 };

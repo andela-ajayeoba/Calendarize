@@ -39,34 +39,34 @@ describe('Verificationtoken Model Unit Tests:', function() {
 
 	describe('Verification token server model unit test', function() {
 		it('Create token', function(done) {
-	    	return verificationtoken.createVerificationToken(function(err) {
-	    		should.not.exist(err);
-	    		done();
-	    	});
-			});
+    	verificationtoken.createVerificationToken(function(err) {
+    		should.not.exist(err);
+    		done();
+    	});
+		});
 	});
 
 	describe('Method Save', function() {
 		it('should be able to save without problems', function(done) {
-			return verificationtoken.save(function(err) {
+			verificationtoken.save(function(err) {
 				should.not.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without token', function(done) { 
+		it('should show an error when try to save without token', function(done) { 
 			verificationtoken.token = '';
 
-			return verificationtoken.save(function(err) {
+			verificationtoken.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to show an error when try to save without a user', function(done) { 
+		it('should show an error when try to save without a user', function(done) { 
 			verificationtoken._userId = '';
 
-			return verificationtoken.save(function(err) {
+			verificationtoken.save(function(err) {
 				should.exist(err);
 				done();
 			});
@@ -74,10 +74,9 @@ describe('Verificationtoken Model Unit Tests:', function() {
 	});
 
 
-	afterEach(function(done) { 
+	after(function(done) { 
 		Verificationtoken.remove().exec();
 		User.remove().exec();
-
 		done();
 	});
 });
