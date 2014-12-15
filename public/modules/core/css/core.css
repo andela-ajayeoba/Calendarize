@@ -169,8 +169,7 @@ TABS
     margin-right: 5px;
 }
 
-.tabs
-{
+.tabs {
     margin-right:20px; 
     color:black;
     font-size: 1em;
@@ -179,10 +178,11 @@ TABS
     font-weight: bold;
     width:120px;
 }
-a 
-{
+
+a {
     color : #000;
 }
+
 .person-project-btn
 {
     width: 150px;
@@ -199,12 +199,9 @@ a
 }
 .flatbtn {
     border-radius: 0;
-<<<<<<< HEAD
-=======
     outline: none;
->>>>>>> feature/upgrade
 }
-    @-webkit-keyframes responseAlert {
+@-webkit-keyframes responseAlert {
     from {
         opacity: 1;
     }
@@ -212,7 +209,7 @@ a
         opacity: 0;
     }
 }
-.response.ng-hide-add {
+.response{
     font-weight: bold;
     font-size: 14px;
     padding: 10px;
@@ -226,30 +223,20 @@ a
     background: rgba(129, 178, 8, 0.8);
     border: 2px solid #81b208;
     text-shadow:0 1px 0 rgba(0, 0, 0, 0.4);
-    -webkit-animation: responseAlert 3s;
+    -webkit-animation: responseAlert 5s;
     /* Chrome, Safari, Opera */
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/upgrade
-.req{
+.req {
     color: red;
     margin-left: 2px;
 }
-<<<<<<< HEAD
 
 .inactive {
-    padding: 0 20px 0 25px;
-}
-
-=======
-.inactive{
     padding:0 20px 0 25px;
 }
-.icon{
+.icon {
     margin-left:20px;
 }
->>>>>>> feature/upgrade
+
 
 
