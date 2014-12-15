@@ -59,7 +59,19 @@ angular.module('tasks')
       };
 
       // Updating Tasks
-      
+      $scope.updateTask = function(event, data) {
+        var task = Tasks.get({
+          taskId: data.model.id
+        });
+        task._id = data.model.id;
+        task.startDate = moment(data.model.from).format();
+        task.endDate = moment(data.model.to).format();
+        task.$update(function() {}, function(errorResponse) {
+          $scope.error = errorResponse.data.message;
+        });
+      };
+
+
       // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         $scope.data = [];
@@ -380,7 +392,7 @@ angular.module('tasks')
 
               api.tasks.on.resizeBegin($scope, addEventName('tasks.on.resizeBegin', logTaskEvent));
               //api.tasks.on.resize($scope, addEventName('tasks.on.resize', logTaskEvent));
-              api.tasks.on.resizeEnd($scope, addEventName('tasks.on.resizeEnd', logTaskEvent));
+              api.tasks.on.resizeEnd($scope, addEventName('tasks.on.resizeEnd', $scope.updateTask));
             }
 
             api.rows.on.add($scope, addEventName('rows.on.add', logRowEvent));
