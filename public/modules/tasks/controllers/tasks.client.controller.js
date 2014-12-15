@@ -22,6 +22,7 @@ angular.module('tasks')
       SwitchViews.state = 'Person';
       $scope.dataView = SwitchViews.state;
       $scope.msg = '';
+      $scope.notify = true;
 
 
       /**
@@ -174,9 +175,10 @@ angular.module('tasks')
         $timeout(function() {
           $scope.notify = false;
           $scope.msg = notification;
+          // $('.response').css('display', 'none');
         }, 200);
         $scope.msg = '';
-        $scope.notify = true;
+
       });
 
       /**
@@ -356,8 +358,11 @@ angular.module('tasks')
 
             // When gantt is ready, load data.
             // `data` attribute could have been used too.
-            $scope.load();
+            if($scope.authentication.user !== ''){
 
+              $scope.load();
+
+            };
             // Log various events to console
             api.scroll.on.scroll($scope, logScrollEvent);
             api.core.on.ready($scope, logReadyEvent);

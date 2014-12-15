@@ -6,7 +6,7 @@ var ApplicationConfiguration = (function() {
 	var applicationModuleName = 'task';
 
 
-	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngTouch',  'ngSanitize',  'ui.router', 'mgcrea.ngStrap','ui.bootstrap', 'ui.utils', 'gantt', 'gantt.labels','gantt.movable','gantt.drawtask','gantt.tooltips','gantt.bounds', 'gantt.progress', 'nsPopover'];
+	var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngTouch',  'ngSanitize', 'ui.router', 'mgcrea.ngStrap','ui.bootstrap', 'ui.utils', 'gantt', 'gantt.labels','gantt.movable','gantt.drawtask','gantt.tooltips','gantt.bounds', 'gantt.progress', 'nsPopover'];
 
 
 	// Add a new vertical module
