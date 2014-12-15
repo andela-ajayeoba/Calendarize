@@ -42,7 +42,7 @@ angular.module('tasks')
             id: response._id,
             from: new Date(response.startDate),
             to: new Date(response.endDate),
-            color: '#F1C232'
+            color: '#81b208'
           };
 
           if (SwitchViews.state === 'Person') {
@@ -58,6 +58,8 @@ angular.module('tasks')
         });
       };
 
+      // Updating Tasks
+      
       // Function to Populate Calender with Data
       $scope.getTaskData = function() {
         $scope.data = [];
@@ -95,7 +97,6 @@ angular.module('tasks')
           size: 'sm',
           resolve: {}
         });
-
         modalInstance.result.then(function(data) {
           if (SwitchViews.state === 'Person') {
             assignment.projectId = data._id;
@@ -172,14 +173,20 @@ angular.module('tasks')
        * Flash Notification
        */
       $scope.$on('response', function(event, notification) {
-        $scope.notify = true;
+        $scope.notify = true;       
         $timeout(function() {
           $scope.notify = false;
           $scope.msg = notification;
+<<<<<<< HEAD
           // $('.response').css('display', 'none');
         }, 200);
         $scope.msg = '';
 
+=======
+          $('.response').css('opacity', 0);
+        },200);
+        $scope.msg = '';
+>>>>>>> master
       });
 
       /**
@@ -298,13 +305,18 @@ angular.module('tasks')
         readOnly: false,
         filterTask: '',
         filterRow: '',
-        headersFormats: { 
+        headersFormats: {
           'year': 'YYYY', 
           'quarter': '[Q]Q YYYY', 
           month: 'MMMM YYYY', 
           week: function(column) {
+<<<<<<< HEAD
             return column.date.format('MMM Do [-]') + column.endDate.format('[ ]MMM Do');
             }, 
+=======
+            return column.date.format('MMM D [-]') + column.endDate.format('[ ]MMM D');
+          },
+>>>>>>> master
           day: 'ddd', 
           hour: 'H', 
           minute:'HH:mm'
@@ -441,7 +453,7 @@ angular.module('tasks')
                       name: task.name,
                       from:assignment.startDate,
                       to: assignment.endDate,
-                      color:'#F1C232'
+                      color:'#81b208'
                     };
 
                     var uiItem = directiveScope.row.addTask(taskParam);

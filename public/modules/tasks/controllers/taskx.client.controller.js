@@ -121,7 +121,7 @@
 //               });
 //             };
 //             $scope.updateRowLabel = updateRowLabel;
-          
+            
 //             var deactivateRow = function(data) {
 //               $scope.removeData([{
 //                 'id': data._id

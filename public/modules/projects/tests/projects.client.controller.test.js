@@ -48,7 +48,7 @@
 			$httpBackend.flush();
 			expect(scope.projects.length).toBe(0);
 		}));
-
+		
 		it('$scope.addProject() should be able to save a project object without errors' ,inject (function(Projects){
       var closeProjectPopoverMock = function(){};
 			scope.project  =  {

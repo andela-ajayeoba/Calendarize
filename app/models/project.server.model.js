@@ -12,7 +12,9 @@ var mongoose = require('mongoose'),
 var ProjectSchema = new Schema({
   name: {
     type: String,
+    index: {unique: true, dropDups: true },
     required: 'Please fill in a Project Name',
+    unique: true,
     trim: true
   },
   isActive: {

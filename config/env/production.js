@@ -6,8 +6,9 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/angular-gantt/assets/angular-gantt.css',
+				'public/lib/angular-gantt/assets/angular-gantt-plugins.css',
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -25,6 +26,7 @@ module.exports = {
 				'public/lib/moment/min/moment.min.js',
 				'public/lib/angular-moment/angular-moment.min.js',
 				'public/lib/angular-gantt/assets/angular-gantt.js',
+				'public/lib/angular-gantt/assets/angular-gantt-plugins.js',
 				'public/lib/angular-modal-service/dst/angular-modal-service.js',
 				'public/lib/nsPopover/example/nsPopover.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'

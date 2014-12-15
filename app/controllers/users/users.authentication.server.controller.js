@@ -95,6 +95,8 @@ exports.signin = function(req, res, next) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+
+			if(user.verified === true) {
 				req.login(user, function(err) {
 					if (err) {
 						res.status(400).send(err);
@@ -102,19 +104,10 @@ exports.signin = function(req, res, next) {
 						res.jsonp(user);
 					}
 				});
-
-			// if(user.verified === true) {
-			// 	req.login(user, function(err) {
-			// 		if (err) {
-			// 			res.status(400).send(err);
-			// 		} else {
-			// 			res.jsonp(user);
-			// 		}
-			// 	});
-			// }
-			// else {
-			// 	return res.status(401).send('User not yet verified');
-			// }
+			}
+			else {
+				return res.status(401).send('User not yet verified');
+			}
 		}
 	})(req, res, next);
 };
