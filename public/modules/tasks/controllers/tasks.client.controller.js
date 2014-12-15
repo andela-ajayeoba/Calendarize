@@ -435,7 +435,7 @@ angular.module('tasks')
                       name: task.name,
                       from:assignment.startDate,
                       to: assignment.endDate,
-                      color:'#F1C232'
+                      color:'#81b208'
                     };
 
                     var uiItem = directiveScope.row.addTask(taskParam);
