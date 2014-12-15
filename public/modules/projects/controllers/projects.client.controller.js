@@ -17,7 +17,7 @@ angular.module('projects').controller('ProjectsController', ['$http', '$scope', 
             'name': response.name,
             'tasks': []
           }];
-          $scope.data(newProject);
+          $scope.load()
         }
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
