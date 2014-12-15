@@ -62,7 +62,7 @@ exports.signup = function(req, res) {
 				//console.log(data);
 				mailgun.messages().send(data, function(err, body) {
 					if (err) {
-						console.log(err);
+						// console.log(err);
 						res.render('error', {error: err});
 						errorHandler.getErrorMessage(err);
 					}
