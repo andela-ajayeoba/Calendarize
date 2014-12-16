@@ -21,7 +21,7 @@
     "nsPopover": "~0.6.3",
     "angular-modal-service": "~0.4.0",
     "angular-motion": "~0.3.4",
-    "angular-input-match":"~1.1.0"
+    "angular-input-match": "~0.0.2"
   },
   "resolutions": {
     "angular": "~1.3",
