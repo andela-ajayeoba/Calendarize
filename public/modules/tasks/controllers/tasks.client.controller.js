@@ -64,8 +64,8 @@ angular.module('tasks')
           taskId: data.model.id
         });
         task._id = data.model.id;
-        task.startDate = moment(data.model.from).format();
-        task.endDate = moment(data.model.to).format();
+        task.startDate = moment(data.model.from).format('YYYY MMMM D');
+        task.endDate = moment(data.model.to).format('YYYY MMMM D');
         task.$update(function() {}, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
@@ -334,15 +334,9 @@ angular.module('tasks')
         },
         timeFrames: {
           'day': {
-            start: moment('8:00', 'HH:mm'),
-            end: moment('20:00', 'HH:mm'),
+            start: moment('0:00', 'HH:mm'),
+            end: moment('24:00', 'HH:mm'),
             working: true,
-            default: true
-          },
-          'noon': {
-            start: moment('12:00', 'HH:mm'),
-            end: moment('13:30', 'HH:mm'),
-            working: false,
             default: true
           },
           'weekend': {
@@ -388,7 +382,7 @@ angular.module('tasks')
 
             };
             // Log various events to console
-            api.scroll.on.scroll($scope, logScrollEvent);
+            api.scroll.on.scroll($scope, function(left, date, direction){});
             api.core.on.ready($scope, logReadyEvent);
 
             api.tasks.on.add($scope, addEventName('tasks.on.add', logTaskEvent));
@@ -456,9 +450,9 @@ angular.module('tasks')
                   }
                   var getDate = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
                   var taskBegin = moment(getDate).format();
-                  assignment.startDate = moment(taskBegin).format();
+                  assignment.startDate = moment(taskBegin).format('YYYY MMMM D');
                   var taskEnd = moment(assignment.startDate).add(7 , 'd');
-                  assignment.endDate = moment(taskEnd).format();
+                  assignment.endDate = moment(taskEnd).format('YYYY MMMM D');
 
                   $scope.triggerAssignModal();
 
