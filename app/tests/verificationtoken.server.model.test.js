@@ -73,7 +73,6 @@ describe('Verificationtoken Model Unit Tests:', function() {
 		});
 	});
 
-
 	after(function(done) { 
 		Verificationtoken.remove().exec();
 		User.remove().exec();
