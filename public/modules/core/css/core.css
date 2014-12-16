@@ -204,11 +204,7 @@ a {
     }
 }
 .response {
-<<<<<<< HEAD
-    display: block;
-=======
 /*    display: block;*/
->>>>>>> master
     font-weight: bold;
     font-size: 14px;
     padding: 10px;
@@ -235,7 +231,3 @@ a {
 .icon {
     margin-left: 20px;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> master

@@ -177,16 +177,9 @@ angular.module('tasks')
         $timeout(function() {
           $scope.notify = false;
           $scope.msg = notification;
-<<<<<<< HEAD
-          // $('.response').css('display', 'none');
-        }, 200);
-        $scope.msg = '';
-
-=======
           $('.response').css('opacity', 0);
         },200);
         $scope.msg = '';
->>>>>>> master
       });
 
       /**
@@ -310,13 +303,8 @@ angular.module('tasks')
           'quarter': '[Q]Q YYYY', 
           month: 'MMMM YYYY', 
           week: function(column) {
-<<<<<<< HEAD
-            return column.date.format('MMM Do [-]') + column.endDate.format('[ ]MMM Do');
-            }, 
-=======
             return column.date.format('MMM D [-]') + column.endDate.format('[ ]MMM D');
           },
->>>>>>> master
           day: 'ddd', 
           hour: 'H', 
           minute:'HH:mm'
