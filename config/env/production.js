@@ -22,6 +22,7 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-strap/dist/angular-strap.js',
 				'public/lib/angular-strap/dist/angular-strap.tpl.js',
+				'public/lib/angular-validation-match/dist/angular-input-match.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/moment/min/moment.min.js',
 				'public/lib/angular-moment/angular-moment.min.js',
