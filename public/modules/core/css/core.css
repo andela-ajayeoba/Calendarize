@@ -203,7 +203,7 @@ a {
         opacity: 0;
     }
 }
-.response {
+.response ,.help-block{
 /*    display: block;*/
     font-weight: bold;
     font-size: 14px;
@@ -220,7 +220,10 @@ a {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4); 
     -webkit-animation: responseAlert 3s;
 }
-
+.help-block{
+    background:#E80000;
+    border: 2px solid #E80000;
+}
 .req {
     color: red;
     margin-left: 2px;
@@ -231,4 +234,3 @@ a {
 .icon {
     margin-left: 20px;
 }
-
