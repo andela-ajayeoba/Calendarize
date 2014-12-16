@@ -231,4 +231,12 @@ a {
 .icon {
     margin-left: 20px;
 }
+a.delTask {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+a.delTask:hover {
+    color: red;
+}
 

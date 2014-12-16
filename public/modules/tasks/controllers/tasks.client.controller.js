@@ -110,14 +110,25 @@ angular.module('tasks')
           resolve: {}
         });
         modalInstance.result.then(function(data) {
-          if (SwitchViews.state === 'Person') {
-            assignment.projectId = data._id;
-            assignment.projectName = data.name;
-          } else {
-            assignment.personId = data._id;
-            assignment.personName = data.name;
+
+          if(SwitchViews.taskClicked.isClicked === false){
+            if (SwitchViews.state === 'Person') {
+              assignment.projectId = data._id;
+              assignment.projectName = data.name;
+            } else {
+              assignment.personId = data._id;
+              assignment.personName = data.name;
+            }
+            $scope.createTask(assignment);
+          } 
+          else {
+            SwitchViews.taskClicked.isClicked = false;
+            $scope.api.data.remove(data);
+            Tasks.delete({
+                taskId: data.tasks[0].id
+              });
           }
-          $scope.createTask(assignment);
+
         }, function() {});
       };
 
@@ -388,7 +399,7 @@ angular.module('tasks')
             if (api.tasks.on.moveBegin) {
               api.tasks.on.moveBegin($scope, addEventName('tasks.on.moveBegin', logTaskEvent));
               //api.tasks.on.move($scope, addEventName('tasks.on.move', logTaskEvent));
-              api.tasks.on.moveEnd($scope, addEventName('tasks.on.moveEnd', logTaskEvent));
+              api.tasks.on.moveEnd($scope, addEventName('tasks.on.moveEnd', $scope.updateTask));
 
               api.tasks.on.resizeBegin($scope, addEventName('tasks.on.resizeBegin', logTaskEvent));
               //api.tasks.on.resize($scope, addEventName('tasks.on.resize', logTaskEvent));
@@ -416,17 +427,23 @@ angular.module('tasks')
 
             // Add some DOM events
             api.directives.on.new($scope, function(directiveName, directiveScope, element) {
-
-              if (directiveName === 'ganttTask') {
+              if (directiveName === 'ganttTask'){
                 element.bind('click', function() {
-                  logTaskEvent('task-clicked', directiveScope.task);
-
+                  // $(document).on('dblclick',element, function() {
+                  var data = directiveScope.task;
+                  SwitchViews.taskClicked.taskObj = {
+                    'id': data.row.model.id,
+                    'tasks':[{
+                      'id': data.model.id,
+                      'name': data.model.name
+                    }]
+                  };
+                  SwitchViews.taskClicked.isClicked = true;
+  
                 });
 
               } else if (directiveName === 'ganttRow') {
                 element.bind('click', function(evt) {
-                  // logRowEvent('row-click', directiveScope.row); 
-                  // $scope.options.draw = false
                   var data = directiveScope.row;
 
                   switch (SwitchViews.state) {
@@ -437,13 +454,13 @@ angular.module('tasks')
                       assignment.projectId = data.model.id;
                       break;
                   }
-
-                  $scope.triggerAssignModal();
                   var getDate = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
                   var taskBegin = moment(getDate).format();
                   assignment.startDate = moment(taskBegin).format();
                   var taskEnd = moment(assignment.startDate).add(7 , 'd');
                   assignment.endDate = moment(taskEnd).format();
+
+                  $scope.triggerAssignModal();
 
                   $scope.drawTaskHandler = function(task){
                   
