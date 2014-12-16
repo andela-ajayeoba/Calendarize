@@ -371,7 +371,7 @@ angular.module('tasks')
 
             };
             // Log various events to console
-            api.scroll.on.scroll($scope, function(left, date, direction){console.log(direction);});
+            api.scroll.on.scroll($scope, function(left, date, direction){});
             api.core.on.ready($scope, logReadyEvent);
 
             api.tasks.on.add($scope, addEventName('tasks.on.add', logTaskEvent));
