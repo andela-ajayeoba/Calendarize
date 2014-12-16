@@ -66,7 +66,6 @@ angular.module('tasks')
         task._id = data.model.id;
         task.startDate = moment(data.model.from).format();
         task.endDate = moment(data.model.to).format();
-        console.log(task);
         task.$update(function() {}, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
