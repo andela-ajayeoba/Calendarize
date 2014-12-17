@@ -58,12 +58,36 @@ angular.module('tasks')
         });
       };
 
+      $scope.delUpTask = function (assignment, data){
+          var tskParam = SwitchViews.taskClicked.taskObj.tasks[0].id;
+          var task = Tasks.get({
+            taskId: tskParam
+          });        
+          switch (SwitchViews.state) {
+            case 'Person':
+              task.projectId = assignment.projectId;
+              task.projectName = assignment.projectName;
+              break;
+            case 'Project':
+              task.personId = assignment.personId;
+              task.personName = assignment.personName;
+              break;
+          }
+          task._id = tskParam;
+          task.$update(function() {
+            SwitchViews.taskClicked.isClicked = false;
+            SwitchViews.taskClicked.taskRowData.model.name = data.name;
+          }, function(errorResponse) {
+            $scope.error = errorResponse.data.message;
+          });
+      };
+
       // Updating Tasks
       $scope.updateTask = function(event, data) {
         var task = Tasks.get({
           taskId: data.model.id
         });
-        task._id = data.model.id;
+        task._id = data.model.id
         task.startDate = moment(data.model.from).format();
         task.endDate = moment(data.model.to).format();
         task.$update(function() {}, function(errorResponse) {
@@ -110,24 +134,32 @@ angular.module('tasks')
           resolve: {}
         });
         modalInstance.result.then(function(data) {
-
-          if (SwitchViews.taskClicked.isClicked === false) {
-            if (SwitchViews.state === 'Person') {
-              assignment.projectId = data._id;
-              assignment.projectName = data.name;
-            } else {
-              assignment.personId = data._id;
-              assignment.personName = data.name;
+        if(data === undefined){
+          SwitchViews.taskClicked.isClicked = false;
+          var delTask = SwitchViews.taskClicked.taskObj;
+          $scope.api.data.remove([delTask]);
+          Tasks.delete({
+            taskId: delTask.tasks[0].id
+          });          
+        } else{
+            switch (SwitchViews.state) {
+              case 'Person':
+                assignment.projectId = data._id;
+                assignment.projectName = data.name;
+                break;
+              case 'Project':
+                assignment.personId = data._id;
+                assignment.personName = data.name;
+                break;
             }
-            $scope.createTask(assignment);
-          } else {
-            SwitchViews.taskClicked.isClicked = false;
-            $scope.api.data.remove(data);
-            Tasks.delete({
-              taskId: data.tasks[0].id
-            });
-          }
 
+            if(!SwitchViews.taskClicked.isClicked){
+              $scope.createTask(assignment);
+            }
+            else {           
+              $scope.delUpTask(assignment, data);
+            }
+          }
         }, function() {});
       };
 
@@ -391,14 +423,15 @@ angular.module('tasks')
                 element.bind('click', function() {
                   // $(document).on('dblclick',element, function() {
                   var data = directiveScope.task;
+                  SwitchViews.taskClicked.isClicked = true;
                   SwitchViews.taskClicked.taskObj = {
-                    'id': data.row.model.id,
-                    'tasks': [{
+                    'id' : data.row.model.id,
+                    'tasks':[{
                       'id': data.model.id,
                       'name': data.model.name
                     }]
                   };
-                  SwitchViews.taskClicked.isClicked = true;
+                  SwitchViews.taskClicked.taskRowData = data;
 
                 });
 
@@ -416,9 +449,9 @@ angular.module('tasks')
                   }
                   var getDate = api.core.getDateByPosition(mouseOffset.getOffset(evt).x);
                   var taskBegin = moment(getDate).format();
-                  assignment.startDate = moment(taskBegin).format('YYYY MMMM D');
+                  assignment.startDate = moment(taskBegin).format('YYYY-MM-DD');
                   var taskEnd = moment(assignment.startDate).add(7, 'd');
-                  assignment.endDate = moment(taskEnd).format('YYYY MMMM D');
+                  assignment.endDate = moment(taskEnd).format('YYYY-MM-DD');
 
                   $scope.triggerAssignModal();
 

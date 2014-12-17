@@ -14,22 +14,15 @@ angular.module('tasks')
           break;
       }
     };
-
     $scope.taskClicked = SwitchViews.taskClicked.isClicked;
-    $scope.task = SwitchViews.taskClicked.taskObj;
 
     $scope.selectedData = function(data) {
       $modalInstance.close(data);
     };
 
-    $scope.deleteSelectedTask  = function(task){
-      $modalInstance.close(task);
-    };
-
     $scope.cancel = function() {
       SwitchViews.taskClicked.isClicked = false;
       $modalInstance.dismiss('cancel');
-
     };
 
   });

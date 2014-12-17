@@ -11,8 +11,8 @@
         <li data-ng-bind="data.name" style="list-style:none ; font-weight : bold ; font-size:1.2em ; border-bottom:2px solid grey"></li>
       </a>
     </ul>
-    <ul ng-if="taskClicked" data-ng-model="task">
-      <a class="delTask" ng-click="deleteSelectedTask(task)">
+    <ul ng-if="taskClicked">
+      <a class="delTask" ng-click="selectedData(data)">
         <h5 style="font-weight:bold; font-size:1.2em;">Delete Task</h5>
       </a>
     </ul>

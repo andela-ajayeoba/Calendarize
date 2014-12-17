@@ -19,7 +19,9 @@ angular.module('tasks').factory('SwitchViews', function($rootScope) {
     state: '',
     taskClicked: {
       isClicked : false,
-      taskObj : {}
+      taskObj: {},
+      taskRowData: {},
+      delState : false
     }
   };
 });
