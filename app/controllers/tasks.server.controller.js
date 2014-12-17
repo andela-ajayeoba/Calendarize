@@ -61,8 +61,56 @@ exports.readTask = function(req, res) {
  */
 exports.updateTask = function(req, res) {
   var task = req.task;
+  var findData = {};
+  var newProjectTask = function(){
+      Project.findById(task.projectId).exec(function(err, newproject){
+      newproject.tasks.push(task);
+      newproject.save();
+    });
+  };
+  task = _.extend(task, req.body);
+  Task.findById(task._id).exec(function(err, dbTask){
+    findData.projectId = dbTask.projectId;
+
+    Project.findById(findData.projectId).exec(function(err, project) {
+      var i = project.tasks.indexOf(task._id);
+      if (project._id !== task.projectId) {
+          project.tasks.splice(i, 1);
+          project.save();
+          newProjectTask();
+      }      
+      else {
+        project.tasks.splice(i, 1, task);
+              project.save();
+      }
+    });
+  });
+
+  var newPersonTask = function(){
+      Person.findById(task.personId).exec(function(err, newPerson){
+      newPerson.tasks.push(task);
+      newPerson.save();
+    });
+  };
 
   task = _.extend(task, req.body);
+
+  Task.findById(task._id).exec(function(err, dbTask){
+    findData.personId = dbTask.personId;
+
+    Person.findById(findData.personId).exec(function(err, person) {
+      var i = person.tasks.indexOf(task._id);
+      if (person._id !== task.personId) {
+          person.tasks.splice(i, 1);
+          person.save();
+          newPersonTask();
+      }      
+      else {
+        person.tasks.splice(i, 1, task);
+              person.save();
+      }
+    });
+  });
 
   task.save(function(err) {
     if (err) {
@@ -85,7 +133,6 @@ exports.deleteTask = function(req, res) {
 
     if (project && project.tasks) {
       var i = project.tasks.indexOf(task._id);
-
       project.tasks.splice(i, 1);
 
       project.save();

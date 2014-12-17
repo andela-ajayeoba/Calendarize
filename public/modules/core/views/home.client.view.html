@@ -162,11 +162,7 @@
                     <div class="panel-body">
                       <div gantt
                              data="data"
-                             timespans="timespans"
                              show-side="options.labelsEnabled"
-                             filter-task="{'name': options.filterTask}"
-                             filter-row="{'name': options.filterRow}"
-                             sort-mode="options.sortMode"
                              view-scale="options.scale"
                              column-width="(options.width || options.scale === 'hour' || options.scale === 'minute') && {minute: 40, hour: 40, day: 40, week: 150, month: 300, quarter: 500, year: 800}[options.scale] || undefined"
                              auto-expand="options.autoExpand"
@@ -177,7 +173,6 @@
                              current-date="options.currentDate"
                              current-date-value="options.currentDateValue"
                              headers="(options.width && options.shortHeaders || options.longHeaders)"
-                             max-height="options.maxHeight && 300 || 0"
                              time-frames="options.timeFrames"
                              date-frames="options.dateFrames"
                              time-frames-non-working-mode="options.timeFramesNonWorkingMode"
@@ -197,7 +192,7 @@
                               enabled="options.draw && !options.readOnly"
                               task-factory="options.drawTaskFactory">
                           </gantt-draw-task>
-                      </div>
+                      </div gantt>
                     </div>
                 </div>
               </div>

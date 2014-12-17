@@ -335,10 +335,7 @@ angular.module('tasks')
        */
 
       $scope.options = {
-        mode: 'custom',
         scale: 'day',
-        sortMode: undefined,
-        maxHeight: false,
         width: true,
         autoExpand: 'both',
         taskOutOfRange: 'expand',
@@ -350,8 +347,6 @@ angular.module('tasks')
         currentDateValue: Date.now(),
         draw: false,
         readOnly: false,
-        filterTask: '',
-        filterRow: '',
         headersFormats: {
           'year': 'YYYY',
           'quarter': '[Q]Q YYYY',
@@ -366,7 +361,7 @@ angular.module('tasks')
         timeFrames: {
           'day': {
             start: moment('0:00', 'HH:mm'),
-            end: moment('24:00', 'HH:mm'),
+            end: moment('23:59', 'HH:mm'),
             working: true,
             default: true
           },

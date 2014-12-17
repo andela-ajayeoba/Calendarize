@@ -51,4 +51,4 @@ var PersonSchema = new Schema({
   }]
 });
 
-mongoose.model('Person', PersonSchema);
+module.exports = mongoose.model('Person', PersonSchema);
