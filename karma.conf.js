@@ -16,7 +16,7 @@ if (process.argv.some(isDebug)) {
 module.exports = function(config) {
 	config.set({
 		preprocessors : {
-		  'public/modules/*/*[!tests]*/*.js': 'coverage'
+		  'public/modules/*/*[!tests]*/*.js': sourcePreprocessors
 		},
 
 		// Frameworks to use
@@ -28,7 +28,7 @@ module.exports = function(config) {
 		// Test results reporter to use
 		// Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
 		//reporters: ['progress'],
-		reporters: ['progress', 'coverage'],
+		reporters: ['progress', sourcePreprocessors],
 
 		// Web server port
 		port: 9876,
@@ -52,14 +52,14 @@ module.exports = function(config) {
 		// - Safari (only Mac)
 		// - PhantomJS
 		// - IE (only Windows)
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
 
 		// Continuous Integration mode
 		// If true, it capture browsers, run tests and exit
-		singleRun: true,
+		singleRun: false,
 
 		coverageReporter: {
 		  type : 'lcov',

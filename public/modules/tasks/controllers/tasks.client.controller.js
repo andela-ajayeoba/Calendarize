@@ -367,11 +367,6 @@ angular.module('tasks')
           },
           'weekend': {
             working: false
-          },
-          'holiday': {
-            working: false,
-            color: 'red',
-            classes: ['gantt-timeframe-holiday']
           }
         },
         dateFrames: {
@@ -380,12 +375,6 @@ angular.module('tasks')
               return date.isoWeekday() === 6 || date.isoWeekday() === 7;
             },
             targets: ['weekend']
-          },
-          '24-December': {
-            evaluator: function(date) {
-              return date.month() === 10 && date.date() === 11;
-            },
-            targets: ['holiday']
           }
         },
         timeFramesNonWorkingMode: 'visible',

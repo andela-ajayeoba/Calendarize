@@ -7,7 +7,6 @@
     var PersonsController,
     scope,
     $httpBackend,
-    ganttController,
     $stateParams,
     $location;
 
@@ -43,7 +42,7 @@
       });
 
     }));
-
+debugger
     it(' should be able to remove a person ', inject(function(Persons){
       var dummyPerson = new Persons({
         _id:'54802195db8b8495c1687ede',
@@ -52,10 +51,11 @@
       });
 
       scope.persons = [dummyPerson];
-
-      $httpBackend.expectDELETE('persons/54802195db8b8495c1687ede').respond(200);
+debugger
+      $httpBackend.expectDELETE('persons/54802195db8b8495c1687ede').respond(204);
 
       scope.removePerson(dummyPerson);
+debugger
       $httpBackend.flush();
       expect(scope.persons.length).toBe(0);
     }));
@@ -83,3 +83,4 @@
     }));
   });
 }());
+

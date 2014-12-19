@@ -62,22 +62,27 @@ exports.readTask = function(req, res) {
 exports.updateTask = function(req, res) {
   var task = req.task;
   var findData = {};
-  var newProjectTask = function(){
-      Project.findById(task.projectId).exec(function(err, newproject){
-      newproject.tasks.push(task);
-      newproject.save();
+
+  var schemaObj = function(schemaName, id){
+    schemaName.findById(id).exec(function(err, schemaAssignment){
+      schemaAssignment.tasks.push(task);
+      schemaAssignment.save();
     });
   };
+
   task = _.extend(task, req.body);
+
+
   Task.findById(task._id).exec(function(err, dbTask){
     findData.projectId = dbTask.projectId;
 
     Project.findById(findData.projectId).exec(function(err, project) {
-      var i = project.tasks.indexOf(task._id);
+        var i = project.tasks.indexOf(task._id);
       if (project._id !== task.projectId) {
           project.tasks.splice(i, 1);
           project.save();
-          newProjectTask();
+          // newProjectTask();
+          schemaObj(Project , task.projectId);
       }      
       else {
         project.tasks.splice(i, 1, task);
@@ -85,15 +90,6 @@ exports.updateTask = function(req, res) {
       }
     });
   });
-
-  var newPersonTask = function(){
-      Person.findById(task.personId).exec(function(err, newPerson){
-      newPerson.tasks.push(task);
-      newPerson.save();
-    });
-  };
-
-  task = _.extend(task, req.body);
 
   Task.findById(task._id).exec(function(err, dbTask){
     findData.personId = dbTask.personId;
@@ -103,7 +99,8 @@ exports.updateTask = function(req, res) {
       if (person._id !== task.personId) {
           person.tasks.splice(i, 1);
           person.save();
-          newPersonTask();
+          // newPersonTask();
+          schemaObj(Person , task.personId);
       }      
       else {
         person.tasks.splice(i, 1, task);
@@ -121,6 +118,7 @@ exports.updateTask = function(req, res) {
       res.jsonp(task);
     }
   });
+
 };
 
 /**
