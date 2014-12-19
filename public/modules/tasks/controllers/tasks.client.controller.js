@@ -389,7 +389,8 @@ angular.module('tasks')
           }
         },
         timeFramesNonWorkingMode: 'visible',
-        columnMagnet: '5 minutes',
+        timeFramesMagnet: true,
+        columnMagnet: '24 hours',
         drawTaskFactory: function(data) {
           var task = {};
           return task;
