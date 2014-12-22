@@ -72,7 +72,6 @@ exports.updateTask = function(req, res) {
 
   task = _.extend(task, req.body);
 
-
   Task.findById(task._id).exec(function(err, dbTask){
     findData.projectId = dbTask.projectId;
 
