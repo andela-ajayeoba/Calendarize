@@ -29,7 +29,7 @@
           </li>
           <ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
 
-            <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user" ng-if="authentication.user.roles[0] ==='user'">
+            <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle mobile-username" data-toggle="dropdown">
                   <i class="glyphicon glyphicon-user"></i>
@@ -42,7 +42,7 @@
                   <li data-ng-show="authentication.user.provider === 'local'">
                     <a href="/#!/settings/password">Change Password</a>
                   </li>
-                  <li data-ng-show="authentication.user.provider === 'local'">
+                  <li ng-if="authentication.user.roles[0] ==='user'" data-ng-show="authentication.user.provider === 'local'">
                     <a href="/#!/owner/users">Users</a>
                   </li>
                   <li class="divider"></li>

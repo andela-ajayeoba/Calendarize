@@ -95,16 +95,20 @@ exports.updateGuest = function(req, res) {
  */
 exports.deleteGuest = function(req, res) {
 	var guest = req.guest ;
-
-	guest.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(guest);
-		}
-	});
+		guest.remove(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				User.findOne({guestId : guest._id}).exec(function(err, guestUser){
+					if(guestUser){
+						guestUser.remove();						
+					}
+				});
+				res.jsonp(guest);
+			}
+		});
 };
 
 /**

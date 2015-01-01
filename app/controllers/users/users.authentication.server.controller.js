@@ -36,6 +36,7 @@ var userTimeline = {
 				Guest.findById(guestId).exec(function(err, guest){
 					guest.timeline = timeline._id;
 					guestUser.timeline = timeline._id;
+					guestUser.guestId = guestId;
 					guestUser.roles = ['guest'];
 					guest.save();
 					guestUser.save();

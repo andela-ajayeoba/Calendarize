@@ -91,6 +91,10 @@ var UserSchema = new Schema({
 	timeline: {
 		type: Schema.ObjectId,
 		ref: 'Timeline'
+	},
+	guestId : {
+		type: Schema.ObjectId,
+		ref: 'Guest'
 	}
 });
 
