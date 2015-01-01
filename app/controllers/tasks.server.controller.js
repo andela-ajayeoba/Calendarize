@@ -8,6 +8,8 @@ var mongoose = require('mongoose'),
   Task = mongoose.model('Task'),
   Project = mongoose.model('Project'),
   Person = mongoose.model('Person'),
+  Timeline = mongoose.model('Timeline'),
+  User = mongoose.model('User'),
   _ = require('lodash');
 
 /**
@@ -15,35 +17,38 @@ var mongoose = require('mongoose'),
  */
 
 var person, project;
+
 exports.createTask = function(req, res) {
-  
   var task = new Task(req.body);
 
   task.user = req.user;
+  User.findOne(req.user._id).exec(function(err, userTimeline){
+   task.timeline = userTimeline.timeline;
 
-  Person.findById(req.body.personId).exec(function(err, person_object) {
+    Person.findById(req.body.personId).exec(function(err, person_object) {
 
-    person = person_object;
+      person = person_object;
 
-    Project.findById(req.body.projectId).exec(function(err, project_object) {
+      Project.findById(req.body.projectId).exec(function(err, project_object) {
 
-      project = project_object;
+        project = project_object;
 
-      task.projectName = project.name;
-      task.personName = person.name;
-
-      task.save(function(err) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          person.tasks.push(task);
-          person.save();
-          project.tasks.push(task);
-          project.save();
-          res.jsonp(task);
-        }
+        task.projectName = project.name;
+        task.personName = person.name;
+        console.log(task);
+        task.save(function(err) {
+          if (err) {
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            person.tasks.push(task);
+            person.save();
+            project.tasks.push(task);
+            project.save();
+            res.jsonp(task);
+          }
+        });
       });
     });
   });
@@ -162,7 +167,7 @@ exports.deleteTask = function(req, res) {
  * List of Tasks
  */
 exports.listTasks = function(req, res) {
-  Task.find({'user':req.user._id}).sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
+  Task.find({'timeline':req.user.timeline}).sort('-created').populate('person', 'name').populate('project', 'name').exec(function(err, tasks) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -189,7 +194,7 @@ exports.taskByID = function(req, res, next, id) {
  * Task authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-    if (req.task.user.id !== req.user.id) {
+    if (req.task.timeline.id !== req.user.timeline.id) {
         return res.status(403).send('User is not authorized');
     }
     next();

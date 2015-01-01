@@ -174,9 +174,11 @@ TABS
     font-weight: bold;
     width: 120px;
 }
-a {
+a, a.home {
     color: #000;
+    text-decoration: none;
 }
+
 .person-project-btn {
     width: 150px;
     height: 35px;

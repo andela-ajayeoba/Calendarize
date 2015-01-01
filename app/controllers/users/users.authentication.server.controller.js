@@ -9,6 +9,8 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	Mailgun = require('mailgun-js'),
 	Verificationtoken = mongoose.model('Verificationtoken'),
+	Timeline = mongoose.model('Timeline'),
+	Guest = mongoose.model('Guest'),
 	User = mongoose.model('User');
 
 var api_key = 'key-3c618b8023b0606df8a322e4986ff398';
@@ -17,71 +19,100 @@ var from_who = 'olusola.adenekan@andela.co';
 
 
 /**
+ * Create a new Timeline for user
+ */
+
+var userTimeline = {
+	createTimeline : function(param) {
+		var timeline = new Timeline();
+		timeline.owner = param._id;
+		timeline.save();
+	},
+	updateGuestTimeline : function(user){
+		var ownerId = user.guestParam.owner._id;
+		var guestId = user.guestParam.id;
+		Timeline.findOne({owner:ownerId}).exec(function(err, timeline){
+			User.findById(user._id).exec(function(err, guestUser){
+				Guest.findById(guestId).exec(function(err, guest){
+					guest.timeline = timeline._id;
+					guestUser.timeline = timeline._id;
+					guestUser.roles = ['guest'];
+					guest.save();
+					guestUser.save();
+				});
+			});
+		});
+	}
+};
+
+/**
  * Signup
  */
 exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
 	// Init Variables
+	if(req.body.guestParam){
+		 var guestParam  = req.body.guestParam;
+	}
 	var user = new User(req.body);
 	var message = null;
 
 	// Add missing user fields
 	user.provider = 'local';
-	user.displayName = user.firstName + ' ' + user.lastName;
-
-	user.encryptPassword();
+	// user.displayName = user.firstName + ' ' + user.lastName;
 
 	//Then save the user 
-	user.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			// Remove sensitive data before login
-			user.password = undefined;
-			user.salt = undefined;
-			var verificationToken = new Verificationtoken({
-				_userId: user
-			});
-			verificationToken.createVerificationToken(function (err, token) {
-			    if (err) {
-			    	return res.status(400).send({
-			    		message: errorHandler.getErrorMessage(err)
-			    	});
-			    }
-    			var mailgun = new Mailgun({apiKey: api_key, domain: domain});
-
-				var data = {
-					from: from_who,
-					to: req.body.email,
-					subject: 'Email Verification',
-					html: req.protocol + '://' + req.get('host') + '/verify/' + verificationToken.token
-				};
-				//console.log(data);
-				mailgun.messages().send(data, function(err, body) {
-					if (err) {
-						// console.log(err);
-						res.render('error', {error: err});
-						errorHandler.getErrorMessage(err);
-					}
-					else {
-						res.render('email-confirmation', {email: req.body.email});
-						//console.log('submitted', body);
-					}
+		user.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
 				});
-			});
-			verificationToken.save(function(err) {
-				if (err) {
+			} else {
+				// Remove sensitive data before login
+					user.password = undefined;
+					user.salt = undefined;
 
+					if(user.verified){
+						user.guestParam = guestParam;
+						userTimeline.updateGuestTimeline(user);
+						res.jsonp(user);
+					} 
+					else {
+						var verificationToken = new Verificationtoken({
+							_userId: user
+						});
+						verificationToken.createVerificationToken(function (err, token) {
+						    if (err) {
+						    	return res.status(400).send({
+						    		message: errorHandler.getErrorMessage(err)
+						    	});
+						    }
+			    		var mailgun = new Mailgun({apiKey: api_key, domain: domain});
+
+							var data = {
+								from: from_who,
+								to: req.body.email,
+								subject: 'Email Verification',
+								html: req.protocol + '://' + req.get('host') + '/verify/' + verificationToken.token
+							};
+							mailgun.messages().send(data, function(err, body) {
+								if (err) {
+									res.render('error', {error: err});
+									errorHandler.getErrorMessage(err);
+								}
+								else {
+									res.render('email-confirmation', {email: req.body.email});
+								}
+							});
+						});
+
+						userTimeline.createTimeline(user);
+						verificationToken.save();
+						res.jsonp(user);
+					}
 				}
-				else{
-					console.log(verificationToken);
-				}
-			});
-		}
-	});
+		});
 };
 
 /**

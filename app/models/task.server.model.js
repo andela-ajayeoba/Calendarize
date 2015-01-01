@@ -5,8 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
-var	Project  = require('mongoose').model('Project');
-var Person = require('mongoose').model('Person');
+	
 /**
  * Task Schema
  */
@@ -37,6 +36,10 @@ var TaskSchema = new Schema ({
 	},
 	created: {
 		type: Date
+	},
+	timeline: {
+		type: Schema.ObjectId,
+		ref: 'Timeline'
 	}
  });
 

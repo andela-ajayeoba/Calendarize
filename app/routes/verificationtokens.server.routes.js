@@ -8,6 +8,9 @@ module.exports = function(app) {
 	app.route('/verificationtokens')
 		.get(verificationtokens.list);
 
-	app.route('/verify/:token')
-		.get(verificationtokens.verifyToken);
+	app.route('/verify/:tokenId')
+		.get(verificationtokens.verifyUser);
+
+  // Finish by binding the token middleware
+  app.param('tokenId', verificationtokens.tokenById);
 };

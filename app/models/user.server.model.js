@@ -66,7 +66,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user', 'admin', 'guest']
 		}],
 		default: ['user']
 	},
@@ -81,13 +81,17 @@ var UserSchema = new Schema({
 	resetPasswordToken: {
 		type: String
 	},
-  	resetPasswordExpires: {
-  		type: Date
-  	},
-  	verified: {
-  		type: Boolean,
-  		default: false
-  	}
+	resetPasswordExpires: {
+		type: Date
+	},
+	verified: {
+		type: Boolean,
+		default: false
+	},
+	timeline: {
+		type: Schema.ObjectId,
+		ref: 'Timeline'
+	}
 });
 
 /**
@@ -141,4 +145,6 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	});
 };
 
-mongoose.model('User', UserSchema);
+// module.exports = mongoose.model('User', UserSchema);
+
+module.exports = mongoose.model('User', UserSchema);

@@ -48,6 +48,10 @@ angular.module('users').config(['$stateProvider',
 		.state('error', {
 			url: '/error',
 			templateUrl: 'modules/users/views/authentication/error-message.client.view.html'
+		})
+		.state('owner-account', {
+			url: '/owner/users',
+			templateUrl: 'modules/users/views/owner/owner-account.client.view.html'
 		});
 	}
 ]);

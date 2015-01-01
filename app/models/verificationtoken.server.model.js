@@ -9,8 +9,6 @@ var mongoose = require('mongoose'),
 
 
 
-
-
 /**
  * Verificationtoken Schema
  */

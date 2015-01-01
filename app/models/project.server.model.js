@@ -28,7 +28,11 @@ var ProjectSchema = new Schema({
   tasks: [{
     type: Schema.ObjectId,
     ref: 'Task'
-  }]
+  }],
+  timeline: {
+    type: Schema.ObjectId,
+    ref: 'Timeline'
+  }
 });
 
 module.exports = mongoose.model('Project', ProjectSchema);

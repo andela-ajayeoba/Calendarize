@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	user = require('../../app/controllers/users'),
 	Verificationtoken = mongoose.model('Verificationtoken'),
+  Timeline = mongoose.model('Timeline'),
 	User = mongoose.model('User'),
 	_ = require('lodash');
 
@@ -34,34 +35,31 @@ exports.list = function(req, res) {
 	});
 };
 
-
-
-var verifyUser = function(token, done) {
-    Verificationtoken.findOne({token: token}, function (err, doc){
-        if (err) {
-        	return done(err);
-        }
-        if (doc) {
-	        User.findOne({_id: doc._userId}, function (err, user) {
-	            if (err) return done(err);
-	            user['verified'] = true;
-	            user.save(function(err) {
-	              return done(err);
-	            });
-	        });
-    	}
-    	else{
-    		return done(new Error('Token not found'));
-    	}
-    });
+exports.verifyUser = function(req, res) {
+  Verificationtoken.findOne({token : req.userToken.token}).exec(function (err, doc){
+    if (err) {
+      return res.status(400).send('Token not valid');
+    }
+    else {
+      User.findOne({_id: doc._userId}, function (err, user) {
+        Timeline.findOne({owner : user._id}).exec(function(err, timeline){
+          user.verified = true;
+          user.timeline = timeline._id;
+          user.save();
+          res.redirect('/#!/signin');
+        });
+      });
+	  }
+  });
 };
 
-exports.verifyToken = function(req, res, next) {
-	var token = req.params.token;
-    verifyUser(token, function(err) {
-        if (err) return res.status(400).send('Token not valid');
-        res.status(200).send('User is verified');
-    });
+exports.tokenById = function(req, res, next, id) { 
+  Verificationtoken.findOne({token : id}).exec(function(err, userToken) {
+    if (err) return next(err);
+    if (! userToken) return next(new Error('Failed to load Token ' + id));
+    req.userToken = userToken ;
+    next();
+  });
 };
 
 

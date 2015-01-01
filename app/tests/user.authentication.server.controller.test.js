@@ -45,7 +45,7 @@ describe('User authentication server controller unit test', function() {
 			});
 			user2.save(function() {
 				done();
-			})
+			});
 		});
 	});
 

@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   errorHandler = require('./errors.server.controller'),
   Project = mongoose.model('Project'),
   Task = mongoose.model('Task'),
+  User = mongoose.model('User'),
   _ = require('lodash');
 
 /**
@@ -16,14 +17,17 @@ exports.createProject = function(req, res) {
 
   var project = new Project(req.body);
   project.user = req.user;
-  project.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(project);
-    }
+  User.findById(req.user._id).exec(function(err, userTimeline){
+    project.timeline = userTimeline.timeline;
+    project.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(project);
+      }
+    });
   });
 };
 
@@ -49,6 +53,12 @@ exports.updateProject = function(req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      Task.findOne({projectId: project._id}).exec(function(err, task){
+        if(task){
+          task.projectName = project.name;
+          task.save();
+        }
+      });
       res.jsonp(project);
     }
   });
@@ -76,7 +86,7 @@ exports.deleteProject = function(req, res) {
  * List of Projects
  */
 exports.listProjects = function(req, res) {
-  Project.find({'user':req.user._id}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
+  Project.find({'timeline':req.user.timeline}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, projects) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +113,7 @@ exports.projectByID = function(req, res, next, id) {
  * Project authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  if (req.project.user.id !== req.user.id) {
+  if (req.project.timeline.id !== req.user.timeline.id) {
     return res.status(403).send('User is not authorized');
   }
   next();

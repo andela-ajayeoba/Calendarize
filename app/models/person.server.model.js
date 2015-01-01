@@ -48,7 +48,11 @@ var PersonSchema = new Schema({
   tasks: [{
     type: Schema.ObjectId,
     ref: 'Task'
-  }]
+  }],
+  timeline: {
+    type: Schema.ObjectId,
+    ref: 'Timeline'
+  }
 });
 
 module.exports = mongoose.model('Person', PersonSchema);

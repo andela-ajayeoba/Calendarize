@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   errorHandler = require('./errors.server.controller'),
   Person = mongoose.model('Person'),
   Task = mongoose.model('Task'),
+  User = mongoose.model('User'),
   _ = require('lodash');
 
 /**
@@ -15,15 +16,17 @@ var mongoose = require('mongoose'),
 exports.createPerson = function(req, res) {
   var person = new Person(req.body);
   person.user = req.user;
-
-  person.save(function(err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(person);
-    }
+  User.findById(req.user._id).exec(function(err, userTimeline){
+    person.timeline = userTimeline.timeline;
+    person.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(person);
+      }
+    });
   });
 };
 
@@ -53,15 +56,19 @@ exports.read = function(req, res) {
 exports.updatePerson = function(req, res) {
 
   var person = req.person;
-
   person = _.extend(person, req.body);
-
   person.save(function(err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      Task.findOne({personId: person._id}).exec(function(err, task){
+        if(task){
+          task.personName = person.name;
+          task.save();
+        }
+      });
       res.jsonp(person);
     }
   });
@@ -90,7 +97,7 @@ exports.deletePerson = function(req, res) {
  * List of Persons
  */
 exports.listPersons = function(req, res) {
-  Person.find({'user': req.user._id}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, persons) {
+  Person.find({'timeline':req.user.timeline}).where(req.query).sort('-created').populate('user', 'username').populate('tasks', 'projectName personName startDate endDate').exec(function(err, persons) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -117,7 +124,7 @@ exports.personByID = function(req, res, next, id) {
  * Person authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-  if (req.person.user.id !== req.user.id) {
+  if (req.person.timeline.id !== req.user.timeline.id) {
     return res.status(403).send('User is not authorized');
   }
   next();
