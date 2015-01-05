@@ -62,6 +62,7 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	// user.displayName = user.firstName + ' ' + user.lastName;
+	user.encryptPassword();
 
 	//Then save the user 
 		user.save(function(err) {
